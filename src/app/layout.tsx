@@ -4,7 +4,7 @@ import { inter, notoSansMono } from "@/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MH:Wilds Damage Calculator",
+  title: "MH: Wilds Damage Calculator",
   description: "A damage calculator for Monster Hunter: Wilds.",
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({
         className={`bg-background text-white ${inter.variable} ${notoSansMono.variable} antialiased`}
       >
         <Header />
-        <main className="max-w-9xl mx-auto p-2">{children}</main>
+        <main className="max-w-9xl mx-auto px-1 py-2 sm:px-2">{children}</main>
       </body>
     </html>
   );

@@ -9,3 +9,4 @@ export * from "./NumberDisplay";
 export * from "./NumberInput";
 export * from "./Select";
 export * from "./SkillSelect";
+export * from "./StatsDialog";

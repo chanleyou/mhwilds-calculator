@@ -99,10 +99,6 @@ export const Buffs: Record<string, BuffGroup> = {
     name: "Powercharm",
     levels: [{ name: "Powercharm", attack: 6 }],
   },
-  MightSeed: {
-    name: "Might Seed",
-    levels: [{ name: "Might Seed", attack: 10 }],
-  },
   DemonPowder: {
     name: "Demon Powder",
     levels: [{ name: "Demon Powder", attack: 10 }],
@@ -122,6 +118,13 @@ export const FieldBuffs: Record<string, BuffGroup> = {
     levels: [
       { name: "Demondrug", attack: 5 },
       { name: "Mega Demondrug", attack: 7 },
+    ],
+  },
+  MightSeedPill: {
+    name: "Might Seed / Pill",
+    levels: [
+      { name: "Might Seed", attack: 10 },
+      { name: "Might Pill", attack: 25 },
     ],
   },
   CorruptedMantle: {

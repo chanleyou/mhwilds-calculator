@@ -3,7 +3,7 @@ import { type VariantProps, cva } from "cva";
 import { cn } from "@/utils";
 
 const button = cva({
-  base: "disabled:pointer-events inline-flex cursor-pointer items-center justify-center gap-1 rounded-md text-sm hover:opacity-75",
+  base: "disabled:pointer-events inline-flex cursor-pointer items-center justify-center gap-1 rounded-sm text-sm hover:opacity-75",
   variants: {
     variant: {
       primary: "bg-accent text-background",
@@ -13,7 +13,7 @@ const button = cva({
     size: {
       md: "px-4 py-2",
       sm: "px-3 py-1.5",
-      icon: "p-0.5",
+      icon: "p-1",
     },
   },
   defaultVariants: {

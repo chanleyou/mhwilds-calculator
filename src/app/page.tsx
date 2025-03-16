@@ -11,6 +11,7 @@ import {
   NumberInput,
   Select,
   SkillSelect,
+  StatsDialog,
 } from "@/components";
 import { MovesTable } from "@/components/MovesTable";
 import {
@@ -188,7 +189,7 @@ export default function Home() {
             {!hideSkills && (
               <h3>
                 {
-                  "Tick 'Overcame Frenzy' to enable related skills. Weakness Exploit activates on HZV ≥ 45 and Wound. Convert Element only buffs Dragon."
+                  "Weakness Exploit activates on HZV ≥ 45 and Wounds. Convert Element only buffs Dragon."
                 }
               </h3>
             )}
@@ -242,16 +243,17 @@ export default function Home() {
         <Card>
           <div>
             <div className="flex justify-between">
-              <h1>Buffs</h1>
+              <div>
+                <h1>Buffs</h1>
+                <h3>{`Tick 'Overcame Frenzy' to enable related skills.`}</h3>
+              </div>
+
               <Button
                 variant="text"
                 size="icon"
                 onClick={() => setHideBuffs((c) => !c)}
-              >
-                {hideBuffs ? <ChevronUp /> : <ChevronDown />}
-              </Button>
+              ></Button>
             </div>
-            {!hideBuffs && <h3>{"Add other unsupported buffs here."}</h3>}
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-0">
             {(!hideBuffs || frenzy) && (
@@ -289,6 +291,31 @@ export default function Home() {
                 />
               );
             })}
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-xs">Hunting Horn</h2>
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+              {Object.entries(HuntingHornBuffs).map(([k, b]) => {
+                if (hideBuffs && !buffs[k]) return undefined;
+                return (
+                  <SkillSelect
+                    key={k}
+                    value={buffs[k]}
+                    skill={b}
+                    placeholder={b.name}
+                    onChangeValue={(buff) => setBuff(k, buff)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </Card>
+        <Card>
+          <div>
+            <h1>Others</h1>
+            <h3>Add other unsupported buffs here.</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
             {(!hideBuffs || miscAttack !== 0) && (
               <NumberInput
                 label="Attack (Flat)"
@@ -325,29 +352,13 @@ export default function Home() {
               />
             )}
           </div>
-          <div className="flex flex-col gap-2">
-            <h2 className="text-xs">Hunting Horn</h2>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-              {Object.entries(HuntingHornBuffs).map(([k, b]) => {
-                if (hideBuffs && !buffs[k]) return undefined;
-                return (
-                  <SkillSelect
-                    key={k}
-                    value={buffs[k]}
-                    skill={b}
-                    placeholder={b.name}
-                    onChangeValue={(buff) => setBuff(k, buff)}
-                  />
-                );
-              })}
-            </div>
-          </div>
         </Card>
       </div>
       <div className="flex flex-1 flex-col gap-2">
         <Card>
-          <div>
+          <div className="flex items-center justify-between gap-2">
             <h1>Stats</h1>
+            <StatsDialog />
           </div>
           <div>
             <NumberDisplay label="Attack" value={uiAttack} />
