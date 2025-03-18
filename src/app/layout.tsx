@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { inter, notoSansMono } from "@/fonts";
@@ -20,6 +21,7 @@ export default function RootLayout({
       >
         <Header />
         <main className="max-w-9xl mx-auto p-2">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
