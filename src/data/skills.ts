@@ -149,7 +149,7 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Opening Shot 1",
         attack: 5,
         offsetAttack: 5,
-        elementMul: 1.0,
+        elementMul: 1.1,
       },
       {
         name: "Opening Shot 2",
