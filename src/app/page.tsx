@@ -198,6 +198,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {Object.entries(WeaponSkills).map(([k, s]) => {
                 if (hideSkills && !buffs[k]) return undefined;
+                if (s.weapons && !s.weapons.includes(weapon)) return undefined;
                 return (
                   <SkillSelect
                     key={k}
@@ -347,7 +348,10 @@ export default function Home() {
             <NumberDisplay label="Element" value={uiElement} />
             <NumberDisplay label="Affinity" value={uiAffinity} suffix="%" />
             <NumberDisplay label="Effective Attack" value={efr} />
-            <NumberDisplay label="Effective Element" value={efe} />
+            <NumberDisplay
+              label={isBowgun(weapon) ? "Element Ammo" : "Effective Element"}
+              value={efe}
+            />
           </div>
         </Card>
         <div className="flex justify-end gap-2">

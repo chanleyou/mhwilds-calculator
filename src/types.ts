@@ -33,9 +33,6 @@ export type Buff = BuffValues & {
   specialAmmoBoostRawMul?: number;
   stickyBaseMul?: number;
   demonBoost?: boolean;
-  coalEleMul?: number;
-  tetradEleMul?: number;
-  openingShotEleMul?: number;
   offsetAttack?: number;
 };
 

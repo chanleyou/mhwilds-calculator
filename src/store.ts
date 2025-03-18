@@ -99,8 +99,20 @@ export const useGetters = () => {
   const buffs = Object.values(s.buffs);
   const saPhial = buffs.find((b) => b?.saPhial)?.saPhial;
 
+  // skills that both add attack and element multipliers don't double-dip for bowguns
+  const uiAttack = calculateAttack({ ...s, frenzy });
+  const offsetAttack = Object.values(s.buffs).reduce((acc, buff) => {
+    if (buff.offsetAttack) return acc + buff.offsetAttack;
+    return acc;
+  }, 0);
+  const bowgunElement = calculateElement({
+    ...s,
+    frenzy,
+    element: uiAttack - offsetAttack,
+  });
+
   return {
-    uiAttack: calculateAttack({ ...s, frenzy }),
+    uiAttack,
     uiElement: calculateElement({ ...s, frenzy }),
     swordAttack: calculateAttack(
       produce(s, (d) => {
@@ -116,10 +128,7 @@ export const useGetters = () => {
         }
       }),
     ),
-    offsetAttack: Object.values(s.buffs).reduce((acc, buff) => {
-      if (buff.offsetAttack) return acc + buff.offsetAttack;
-      return acc;
-    }, 0),
+    bowgunElement,
     uiAffinity,
     frenzy: s.buffs.Frenzy?.name === "Overcame Frenzy",
     critMulti:
@@ -142,10 +151,7 @@ export const useGetters = () => {
     piercingShotsRawMul: s.buffs.PiercingShots?.piercingShotsRawMul ?? 1,
     cbShieldElement: s.buffs.ChargeBladeShieldElement?.cbShieldElement,
     demonBoost: s.buffs.DualBladesDemonBoost?.demonBoost,
-    coalEleMul: s.buffs.Coalescence?.coalEleMul ?? 1,
     stickyBaseMul: s.buffs.Artillery?.stickyBaseMul ?? 1,
-    tetradEleMul: s.buffs.TetradShot?.tetradEleMul ?? 1,
-    openingShotEleMul: s.buffs.OpeningShot?.openingShotEleMul ?? 1,
   };
 };
 
@@ -170,7 +176,7 @@ export const useCalcs = () => {
       return avg;
     },
     calcEffectiveEle: () => {
-      const params = { ...s, ...g, mv: 0, rawHzv: 0, eleHzv: 100 };
+      const params = { ...s, ...g, mv: 0, rawHzv: 0, eleHzv: 100, rawEle: 100 };
       const hit = calculateHit(params);
       const crit = calculateCrit(params);
       const avg = calculateAverage(hit, crit, g.uiAffinity);

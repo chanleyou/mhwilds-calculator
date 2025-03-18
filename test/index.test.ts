@@ -7,6 +7,7 @@ import {
   calculateEleHit,
   calculateElement,
   calculateHit,
+  calculateRawHit,
   dmg,
   round,
 } from "@/model";
@@ -37,11 +38,6 @@ const base = {
   eleCritMulti: 1,
 };
 
-const hard = {
-  rawHzv: 40,
-  eleHzv: 15,
-};
-
 // 230 Attack, Attack Boost 4, Offensive Guard 3, Powercharm
 const a = calculateAttack({
   attack: 230,
@@ -69,7 +65,7 @@ const d = calculateElement({
   element: 180,
   buffs: {
     ElementAttack: buff("ElementAttack", 3),
-    Coalescence: buff("Coalescence", 2),
+    Coalescence: buff("Coalescence", 1),
   },
   frenzy: true,
 });
@@ -209,13 +205,17 @@ test("Light Bowgun", () => {
     ...base,
     uiAttack: 131,
     sharpness: "Ranged" as Sharpness,
+    weapon: "Light Bowgun" as Weapon,
   };
 
   const sp1 = atk("Light Bowgun", "Spread Lv1");
   const e2 = atk("Light Bowgun", "Element Lv2");
 
   expect(calculateHit({ ...a1, ...sp1 })).toBe(8.1);
-  expect(calculateHit({ ...a1, ...e2 })).toBe(13.2);
+
+  const a2 = { ...a1, uiAttack: 180, bowgunElement: 180 };
+  expect(round(calculateRawHit({ ...a2, ...e2 }))).toBe(9.4);
+  expect(round(calculateEleHit({ ...a2, ...e2 }))).toBe(8.8);
 });
 
 test("Heavy Bowgun", () => {
@@ -223,6 +223,7 @@ test("Heavy Bowgun", () => {
     ...base,
     attack: 180,
     uiAttack: 191,
+    bowgunElement: 191,
     sharpness: "Ranged" as Sharpness,
     weapon: "Heavy Bowgun" as Weapon,
   };
@@ -239,42 +240,21 @@ test("Heavy Bowgun", () => {
   expect(calculateHit({ ...a1, ...e2 })).toBe(29.6);
   expect(calculateHit({ ...a1, ...p1 })).toBe(16.8);
   expect(calculateHit({ ...a1, ...sp2 })).toBe(19.3);
-  // expect(calculateHit({ ...a1, ...st2 })).toBe(62.6);
-  // expect(calculateHit({ ...a1, ...c2 })).toBe(54.2);
 
-  // const a2 = { ...a1, uiAttack: 101 };
-  // expect(calculateHit({ ...a2, ...st1 })).toBe(26.8);
-
-  // const a3 = { ...a1, uiAttack: 186 };
-  // expect(calculateHit({ ...a3, ...st2, eleHzv: 0 })).toBe(59.5);
-
-  // // expect(calculateHit({ ...a3, ...buff("Artillery", 3), ...st2 })).toBe(77.8);
-  // // expect(
-  // //   calculateHit({ ...a3, ...buff("Artillery", 3), ...st2, eleHzv: 0.075 }),
-  // // ).toBe(77.3); // off by 1.3
-
-  // // expect(
-  // //   calculateHit({ ...a4, ...buff("Artillery", 3), ...st2, eleHzv: 0.05 }),
-  // // ).toBe(82.6);
-
-  // const a5 = { ...a1, uiAttack: 208 };
-  // expect(calculateHit({ ...a5, ...st2 })).toBe(68.1);
-  // expect(calculateHit({ ...a5, ...st2, eleHzv: 0.05 })).toBe(67.6);
-
-  const a2 = { ...a1, uiAttack: 221 };
+  const a2 = { ...a1, uiAttack: 221, bowgunElement: 221 };
   expect(calculateHit({ ...a2, ...e2 })).toBe(34.3);
 
-  const a3 = { ...a1, uiAttack: 258 };
+  const a3 = { ...a1, uiAttack: 258, bowgunElement: 258 };
   expect(calculateHit({ ...a3, ...e2 })).toBe(40);
 
-  const a4 = { ...a1, uiAttack: 278 };
+  const a4 = { ...a1, uiAttack: 278, bowgunElement: 278 };
   expect(calculateHit({ ...a4, ...e1 })).toBe(34.5);
   expect(calculateHit({ ...a4, ...e2 })).toBe(43.1);
-  expect(calculateHit({ ...a4, ...e2, ...buff("Coalescence", 3) })).toBe(49.3);
-  expect(round(calculateEleHit({ ...a4, ...e1 }))).toBe(16.7);
+  expect(calculateHit({ ...a4, ...e2, eleMul: 1.3 })).toBe(49.3);
+  expect(dmg(calculateEleHit({ ...a4, ...e1 }))).toBe(16.7);
 
   // Tetrad Shot 3
-  expect(round(calculateEleHit({ ...a4, eleMul: 1.05, ...e2 }))).toBe(21.9);
+  expect(dmg(calculateEleHit({ ...a4, eleMul: 1.05, ...e2 }))).toBe(21.9);
 });
 
 test("Heavy Bowgun Sticky Ammo", () => {
@@ -500,13 +480,13 @@ test("Critical Element", () => {
   };
 
   const os = atk("Great Sword", "Overhead Slash");
-  expect(round(calculateEleHit({ ...a1, ...os }))).toBe(16.6);
-  expect(round(calculateEleHit({ ...a1, ...os, eleMul: 1.07 }))).toBe(17.7);
-  expect(round(calculateEleHit({ ...a1, ...os, eleMul: 1.14 }))).toBe(18.9);
-  expect(round(calculateEleHit({ ...a1, ...os, eleMul: 1.21 }))).toBe(20);
+  expect(dmg(calculateEleHit({ ...a1, ...os }))).toBe(16.6);
+  expect(dmg(calculateEleHit({ ...a1, ...os, eleMul: 1.07 }))).toBe(17.7);
+  expect(dmg(calculateEleHit({ ...a1, ...os, eleMul: 1.14 }))).toBe(18.9);
+  expect(dmg(calculateEleHit({ ...a1, ...os, eleMul: 1.21 }))).toBe(20);
 
   const a2 = { ...a1, uiElement: 636 };
-  expect(round(calculateEleHit({ ...a2, ...os, eleMul: 1.07 }))).toBe(23.5);
-  expect(round(calculateEleHit({ ...a2, ...os, eleMul: 1.14 }))).toBe(25);
-  expect(round(calculateEleHit({ ...a2, ...os, eleMul: 1.21 }))).toBe(26.5);
+  expect(dmg(calculateEleHit({ ...a2, ...os, eleMul: 1.07 }))).toBe(23.5);
+  expect(dmg(calculateEleHit({ ...a2, ...os, eleMul: 1.14 }))).toBe(25);
+  expect(dmg(calculateEleHit({ ...a2, ...os, eleMul: 1.21 }))).toBe(26.5);
 });

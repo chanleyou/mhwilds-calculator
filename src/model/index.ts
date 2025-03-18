@@ -18,7 +18,7 @@ export const round = (value: number, places = 1) => {
   return _round(_round(value, places + 3), places); // hacky way to fix javascript rounding errors
 };
 
-const dmg = (n: number) => {
+export const dmg = (n: number) => {
   if (n > 0 && n < 1) return 1;
   return round(n);
 };
@@ -168,7 +168,6 @@ type EleHitParams = Attack &
   };
 export const calculateEleHit = ({
   weapon,
-  uiAttack = 0,
   uiElement,
   swordElement = uiElement,
   sharpness = "Ranged",
@@ -186,9 +185,7 @@ export const calculateEleHit = ({
   cbShieldElement,
   cbPhial,
   demonBoost,
-  coalEleMul,
-  tetradEleMul,
-  offsetAttack = 0,
+  bowgunElement = 0,
 }: EleHitParams) => {
   eleHzv = (eleHzvCap ? Math.min(eleHzv, eleHzvCap) : eleHzv) / 100;
 
@@ -198,10 +195,11 @@ export const calculateEleHit = ({
     return mul(e, eleHzv);
   }
 
-  const rawEleAttack = mul(uiAttack - offsetAttack, rawEle / 10);
+  if (isBowgun(weapon) && rawEle) uiElement = bowgunElement;
 
   return mul(
-    saType === "Sword" ? swordElement : rawEle ? rawEleAttack : uiElement,
+    saType === "Sword" ? swordElement : uiElement,
+    rawEle ? rawEle / 10 : 1,
     0.1,
     eleHzv,
     ignoreSharpness ? 1 : sharpnessEle[sharpness],
@@ -209,8 +207,6 @@ export const calculateEleHit = ({
     charge ? chargeEleMul : 1,
     cbShieldElement && cbPhial ? 1.3 : 1,
     demonBoost ? 1.2 : 1,
-    isBowgun(weapon) ? coalEleMul : 1,
-    isBowgun(weapon) ? tetradEleMul : 1,
   );
 };
 

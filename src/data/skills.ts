@@ -15,6 +15,20 @@ const OthersGroup: Weapon[] = [
   "Lance",
   "Gunlance",
 ];
+const NonBowgunGroup: Weapon[] = [
+  "Bow",
+  "Charge Blade",
+  "Dual Blades",
+  "Great Sword",
+  "Gunlance",
+  "Hammer",
+  "Hunting Horn",
+  "Insect Glaive",
+  "Lance",
+  "Long Sword",
+  "Switch Axe",
+  "Sword and Shield",
+];
 
 export const WeaponSkills: Record<string, BuffGroup> = {
   AttackBoost: {
@@ -100,10 +114,20 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   },
   ElementAttack: {
     name: "Element Attack",
+    weapons: NonBowgunGroup,
     levels: [
       { name: "Element Attack 1", element: 40 },
       { name: "Element Attack 2", element: 50, elementMul: 1.1 },
       { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    ],
+  },
+  ElementAttackBowgun: {
+    name: "Element Attack",
+    weapons: BowgunGroup,
+    levels: [
+      { name: "Element Attack 1", element: 16 },
+      { name: "Element Attack 2", element: 20, elementMul: 1.1 },
+      { name: "Element Attack 3", element: 24, elementMul: 1.2 },
     ],
   },
   NormalShots: {
@@ -125,19 +149,19 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Opening Shot 1",
         attack: 5,
         offsetAttack: 5,
-        openingShotEleMul: 1.1,
+        elementMul: 1.0,
       },
       {
         name: "Opening Shot 2",
         attack: 10,
         offsetAttack: 10,
-        openingShotEleMul: 1.1,
+        elementMul: 1.1,
       },
       {
         name: "Opening Shot 3",
         attack: 15,
         offsetAttack: 15,
-        openingShotEleMul: 1.1,
+        elementMul: 1.1,
       },
     ],
   },
@@ -166,7 +190,6 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         attack: 3,
         offsetAttack: 3,
         elementMul: 1.05,
-        tetradEleMul: 1.05,
       },
       { name: "Tetrad Shot 2", affinity: 10 },
       {
@@ -175,7 +198,6 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         attack: 6,
         offsetAttack: 6,
         elementMul: 1.05,
-        tetradEleMul: 1.05,
       },
       { name: "Tetrad Shot 3", affinity: 12 },
       {
@@ -184,7 +206,6 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         attack: 10,
         offsetAttack: 10,
         elementMul: 1.05,
-        tetradEleMul: 1.05,
       },
     ],
   },
@@ -285,9 +306,9 @@ export const ArmorSkills: Record<string, BuffGroup> = {
   Coalescence: {
     name: "Coalescence",
     levels: [
-      { name: "Coalescence 1", elementMul: 1.05, coalEleMul: 1.1 },
-      { name: "Coalescence 2", elementMul: 1.1, coalEleMul: 1.2 },
-      { name: "Coalescence 3", elementMul: 1.15, coalEleMul: 1.3 },
+      { name: "Coalescence 1", elementMul: 1.1 },
+      { name: "Coalescence 2", elementMul: 1.2 },
+      { name: "Coalescence 3", elementMul: 1.3 },
     ],
   },
   ConvertElement: {
