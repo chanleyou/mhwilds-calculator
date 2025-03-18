@@ -111,9 +111,11 @@ export const useGetters = () => {
     element: uiAttack - offsetAttack,
   });
 
+  const uiElement = calculateElement({ ...s, frenzy });
+
   return {
     uiAttack,
-    uiElement: calculateElement({ ...s, frenzy }),
+    uiElement,
     swordAttack: calculateAttack(
       produce(s, (d) => {
         if (d.buffs.SwitchAxePhial?.saPhial === "Power") {

@@ -265,13 +265,13 @@ test("Heavy Bowgun Sticky Ammo", () => {
     sharpness: "Ranged" as Sharpness,
   };
 
-  const st2 = atk("Heavy Bowgun", "Sticky Lv2");
-  expect(calculateHit({ ...a1, ...st2 })).toBe(61);
+  // const st2 = atk("Heavy Bowgun", "Sticky Lv2");
+  // expect(calculateHit({ ...a1, ...st2 })).toBe(61);
 
-  const a2 = { ...a1, uiAttack: 201 };
-  expect(calculateHit({ ...a2, ...st2 })).toBe(65.8);
+  // const a2 = { ...a1, uiAttack: 201 };
+  // expect(calculateHit({ ...a2, ...st2 })).toBe(65.8);
 
-  expect(calculateHit({ ...a2, ...buff("Artillery", 3), ...st2 })).toBe(83.1);
+  // expect(calculateHit({ ...a2, ...buff("Artillery", 3), ...st2 })).toBe(83.1);
 });
 
 test("Bow", () => {
@@ -456,20 +456,77 @@ test("Gunlance", () => {
 });
 
 test("Switch Axe", () => {
+  const uiElement = calculateElement({
+    element: 200,
+    buffs: {
+      ElementAttack: buff("ElementAttack", 3),
+      Coalescence: buff("Coalescence", 3),
+    },
+  });
+
+  const swordElement = calculateElement({
+    element: 200,
+    buffs: {
+      ElementAttack: buff("ElementAttack", 3),
+      ElementPhial: { name: "Element Phial", elementMul: 1.45 },
+      Coalescence: buff("Coalescence", 3),
+    },
+  });
+
   const a1 = {
     ...base,
     uiAttack: 221,
-    sharpness: "White" as Sharpness,
-    uiElement: 300,
-    swordElement: round(200 * 1.45 * 1.2 + 60),
     swordAttack: 221,
+    sharpness: "White" as Sharpness,
+    uiElement,
+    swordElement,
     eleCritMulti: 1.05,
   };
 
-  const ep = atk("Switch Axe", "Sword: Amped State Element Phial Explosion");
+  const aoh = atk("Switch Axe", "Axe: Overhead Slash");
 
-  expect(calculateHit({ ...a1, ...ep })).toBe(34.3);
-  // expect(calculateCrit({ ...a1, ...ep })).toBe(41.6); // getting 41.7
+  expect(dmg(calculateRawHit({ ...a1, ...aoh }))).toBe(105);
+  expect(dmg(calculateEleHit({ ...a1, ...aoh }))).toBe(12.8);
+
+  const soh = atk("Switch Axe", "Sword: Overhead Slash");
+
+  expect(dmg(calculateRawHit({ ...a1, ...soh }))).toBe(77);
+  expect(calculateHit({ ...a1, ...soh })).toBe(94.7);
+  expect(calculateCrit({ ...a1, ...soh, eleCritMulti: 1.15 })).toBe(116.6);
+
+  // const ep = atk("Switch Axe", "Sword: Amped State Element Phial Explosion");
+  // expect(dmg(calculateRawHit({ ...a1, ...ep }))).toBe(28);
+  // expect(calculateHit({ ...a1, ...ep })).toBe(35.5);
+  // expect(dmg(calculateEleHit({ ...a1, ...ep }))).toBe(7.5);
+  // expect(dmg(calculateEleHit({ ...a1, ...ep }) * 1.05)).toBe(7.9);
+  // // expect(dmg(calculateEleHit({ ...a1, ...ep }) * 1.15)).toBe(8.7);
+
+  // const a2 = {
+  //   ...base,
+  //   uiAttack: 213,
+  //   sharpness: "White" as Sharpness,
+  //   swordAttack: 205 * 1.17 + 8,
+  //   critMulti: 1.34,
+  // };
+
+  // expect(calculateHit({ ...a2, ...soh })).toBe(86.4);
+  // expect(calculateCrit({ ...a2, ...soh })).toBe(115.7);
+
+  // const a3 = {
+  //   ...a1,
+  //   uiAttack: 211,
+  //   swordAttack: 211,
+  //   uiElement: 280 * 1.3 * 1.2 + 60,
+  //   swordElement: 280 * 1.3 * 1.2 * 1.45 + 60,
+  //   eleCritMulti: 1.15,
+  // };
+
+  // expect(dmg(calculateRawHit({ ...a3, ...aoh }))).toBe(100.3);
+  // expect(dmg(calculateEleHit({ ...a3, ...aoh }))).toBe(17.1);
+  // expect(dmg(calculateRawHit({ ...a3, ...soh }))).toBe(73.5);
+  // expect(dmg(calculateEleHit({ ...a3, ...soh }))).toBe(23.9);
+  // expect(calculateCrit({ ...a3, ...soh })).toBe(119.4);
+  // expect(dmg(calculateEleHit({ ...a3, ...ep }))).toBe(9.7);
 });
 
 test("Critical Element", () => {

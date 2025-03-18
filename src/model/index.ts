@@ -15,7 +15,7 @@ export const _round = (value: number, places = 1) => {
 };
 
 export const round = (value: number, places = 1) => {
-  return _round(_round(value, places + 3), places); // hacky way to fix javascript rounding errors
+  return _round(_round(value, places + 5), places); // hacky way to fix javascript rounding errors
 };
 
 export const dmg = (n: number) => {
@@ -169,14 +169,12 @@ type EleHitParams = Attack &
 export const calculateEleHit = ({
   weapon,
   uiElement,
-  swordElement = uiElement,
   sharpness = "Ranged",
   eleHzv,
   ignoreSharpness,
   fixedEle,
   rawEle = 0,
   eleMul,
-  saType,
   charge,
   chargeEleMul = 1,
   shelling,
@@ -186,6 +184,8 @@ export const calculateEleHit = ({
   cbPhial,
   demonBoost,
   bowgunElement = 0,
+  saType,
+  swordElement,
 }: EleHitParams) => {
   eleHzv = (eleHzvCap ? Math.min(eleHzv, eleHzvCap) : eleHzv) / 100;
 
@@ -196,9 +196,10 @@ export const calculateEleHit = ({
   }
 
   if (isBowgun(weapon) && rawEle) uiElement = bowgunElement;
+  if (saType === "Sword" && swordElement) uiElement = swordElement;
 
   return mul(
-    saType === "Sword" ? swordElement : uiElement,
+    uiElement,
     rawEle ? rawEle / 10 : 1,
     0.1,
     eleHzv,
@@ -214,7 +215,6 @@ type HitParams = RawHitParams & EleHitParams;
 export const calculateHit = (params: HitParams) => {
   const r = calculateRawHit(params);
   const e = calculateEleHit(params);
-
   return round(dmg(r) + dmg(e));
 };
 

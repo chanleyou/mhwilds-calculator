@@ -84,6 +84,8 @@ export default function Home() {
 
   const notice = useMemo(() => {
     if (isBowgun(weapon)) return "Bowgun is still a work in progress.";
+    if (weapon === "Switch Axe")
+      return "Phial Explosion element damage is weird in-game right now.";
   }, [weapon]);
 
   const customAttack: Attack = useMemo(
@@ -252,7 +254,7 @@ export default function Home() {
                 {hideBuffs ? <ChevronUp /> : <ChevronDown />}
               </Button>
             </div>
-            {!hideBuffs && <h3>{"Add other unsupported buffs here."}</h3>}
+            {!hideBuffs && <h3>{"Calculate other unsupported buffs here."}</h3>}
           </div>
           <div className="flex flex-wrap gap-x-4 gap-y-0">
             {Object.entries(Buffs).map(([k, b]) => {

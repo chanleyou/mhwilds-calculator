@@ -105,13 +105,13 @@ export const WeaponBuffs: Record<string, BuffGroup> = {
 };
 
 export const Buffs: Record<string, BuffGroup> = {
-  Frenzy: {
-    name: "Overcame Frenzy",
-    levels: [{ name: "Overcame Frenzy", affinity: 15 }],
-  },
   Powercharm: {
     name: "Powercharm",
     levels: [{ name: "Powercharm", attack: 6 }],
+  },
+  Frenzy: {
+    name: "Overcame Frenzy",
+    levels: [{ name: "Overcame Frenzy", affinity: 15 }],
   },
   DemonPowder: {
     name: "Demon Powder",

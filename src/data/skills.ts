@@ -94,8 +94,29 @@ export const WeaponSkills: Record<string, BuffGroup> = {
       { name: "Critical Boost 5", criticalBoost: 1.4 },
     ],
   },
-  CriticalElement: {
+  CriticalElementLight: {
     name: "Critical Element",
+    weapons: [
+      "Long Sword",
+      "Switch Axe",
+      "Sword and Shield",
+      "Dual Blades",
+      "Lance",
+      "Gunlance",
+      "Charge Blade",
+      "Insect Glaive",
+      "Light Bowgun",
+      "Bow",
+    ],
+    levels: [
+      { name: "Critical Element 1", criticalElement: 1.05 },
+      { name: "Critical Element 2", criticalElement: 1.1 },
+      { name: "Critical Element 3", criticalElement: 1.15 },
+    ],
+  },
+  CriticalElementHeavy: {
+    name: "Critical Element",
+    weapons: ["Great Sword", "Hunting Horn", "Hammer", "Heavy Bowgun"],
     levels: [
       { name: "Critical Element 1", criticalElement: 1.07 },
       { name: "Critical Element 2", criticalElement: 1.14 },
