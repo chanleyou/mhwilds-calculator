@@ -42,14 +42,14 @@ export const HeavyBowgunAttacks = [
   { name: "Element Lv2", mv: 10, rawEle: 25 },
   { name: "Wyvernheart Lv1", mv: 9.9, specialAmmo: true },
   {
-    name: "Wyvernheart Lv1 (Stage 5)",
+    name: "Wyvernheart Lv1 Max",
     mv: 9.9,
     rawMul: Math.pow(1.2, 4),
     specialAmmo: true,
   },
   { name: "Wyvernheart Lv2", mv: 10.8, specialAmmo: true },
   {
-    name: "Wyvernheart Lv2 (Stage 5)",
+    name: "Wyvernheart Lv2 Max",
     mv: 10.8,
     rawMul: Math.pow(1.2, 4),
     specialAmmo: true,
