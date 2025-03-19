@@ -113,6 +113,11 @@ export const useGetters = () => {
 
   const uiElement = calculateElement({ ...s, frenzy });
 
+  const eleCritMulti =
+    s.buffs.CriticalElementLight?.criticalElement ??
+    s.buffs.CriticalElementHeavy?.criticalElement ??
+    1;
+
   return {
     uiAttack,
     uiElement,
@@ -135,8 +140,7 @@ export const useGetters = () => {
     frenzy: s.buffs.Frenzy?.name === "Overcame Frenzy",
     critMulti:
       uiAffinity >= 0 ? (s.buffs.CriticalBoost?.criticalBoost ?? 1.25) : 0.75,
-    eleCritMulti:
-      uiAffinity >= 0 ? (s.buffs.CriticalElement?.criticalElement ?? 1) : 1,
+    eleCritMulti,
     powerAxe: s.buffs.SwitchAxePowerAxe?.powerAxe,
     saPhial,
     chargeEleMul: isRanged(s.weapon)
@@ -153,7 +157,7 @@ export const useGetters = () => {
     piercingShotsRawMul: s.buffs.PiercingShots?.piercingShotsRawMul ?? 1,
     cbShieldElement: s.buffs.ChargeBladeShieldElement?.cbShieldElement,
     demonBoost: s.buffs.DualBladesDemonBoost?.demonBoost,
-    stickyBaseMul: s.buffs.Artillery?.stickyBaseMul ?? 1,
+    stickyBaseMul: s.buffs.Artillery?.stickyBaseMul ?? 0,
   };
 };
 

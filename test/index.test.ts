@@ -65,7 +65,7 @@ const d = calculateElement({
   element: 180,
   buffs: {
     ElementAttack: buff("ElementAttack", 3),
-    Coalescence: buff("Coalescence", 1),
+    Coalescence: buff("CoalescenceHeavy", 1),
   },
   frenzy: true,
 });
@@ -460,7 +460,7 @@ test("Switch Axe", () => {
     element: 200,
     buffs: {
       ElementAttack: buff("ElementAttack", 3),
-      Coalescence: buff("Coalescence", 3),
+      Coalescence: buff("CoalescenceHeavy", 3),
     },
   });
 
@@ -469,7 +469,7 @@ test("Switch Axe", () => {
     buffs: {
       ElementAttack: buff("ElementAttack", 3),
       ElementPhial: { name: "Element Phial", elementMul: 1.45 },
-      Coalescence: buff("Coalescence", 3),
+      Coalescence: buff("CoalescenceHeavy", 3),
     },
   });
 

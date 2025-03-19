@@ -324,8 +324,34 @@ export const ArmorSkills: Record<string, BuffGroup> = {
       { name: "Burst 5", attack: 18, element: 140 },
     ],
   },
-  Coalescence: {
+  CoalescenceLight: {
     name: "Coalescence",
+    weapons: [
+      "Long Sword",
+      "Dual Blades",
+      "Sword and Shield",
+      "Lance",
+      "Insect Glaive",
+      "Bow",
+    ],
+    levels: [
+      { name: "Coalescence 1", elementMul: 1.05 },
+      { name: "Coalescence 2", elementMul: 1.1 },
+      { name: "Coalescence 3", elementMul: 1.15 },
+    ],
+  },
+  CoalescenceHeavy: {
+    name: "Coalescence",
+    weapons: [
+      "Great Sword",
+      "Hammer",
+      "Hunting Horn",
+      "Gunlance",
+      "Switch Axe",
+      "Charge Blade",
+      "Light Bowgun",
+      "Heavy Bowgun",
+    ],
     levels: [
       { name: "Coalescence 1", elementMul: 1.1 },
       { name: "Coalescence 2", elementMul: 1.2 },
