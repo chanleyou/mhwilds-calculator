@@ -140,7 +140,7 @@ export const useGetters = () => {
     frenzy: s.buffs.Frenzy?.name === "Overcame Frenzy",
     critMulti:
       uiAffinity >= 0 ? (s.buffs.CriticalBoost?.criticalBoost ?? 1.25) : 0.75,
-    eleCritMulti,
+    eleCritMulti: uiAffinity >= 0 ? eleCritMulti : 1,
     powerAxe: s.buffs.SwitchAxePowerAxe?.powerAxe,
     saPhial,
     chargeEleMul: isRanged(s.weapon)
