@@ -50,7 +50,7 @@ export type WeaponFlags = {
 };
 
 export type Attack = {
-  name?: string;
+  name: string;
   mv: number;
   rawMul?: number;
   eleMul?: number;
@@ -78,6 +78,14 @@ export type Attack = {
 };
 
 export type ComputedStore = InitialStore & ReturnType<typeof useGetters>;
+
+export type SnapshotAttack = {
+  name: string;
+  hit: number;
+  crit: number;
+  avg: number;
+  cantCrit?: boolean;
+};
 
 export const isRanged = (weapon?: Weapon) => {
   return (

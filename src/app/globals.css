@@ -22,6 +22,7 @@
   --spacing-8xl: 88rem;
   --spacing-9xl: 96rem;
   --spacing-10xl: 104rem;
+  --spacing-11xl: 112rem;
 }
 
 h1 {
@@ -53,4 +54,8 @@ select {
 
 select::-ms-expand {
   display: none;
+}
+
+textarea {
+  @apply focus:outline-none border border-divider focus:border-accent;
 }

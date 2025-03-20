@@ -94,6 +94,14 @@ export const WeaponSkills: Record<string, BuffGroup> = {
       { name: "Critical Boost 5", criticalBoost: 1.4 },
     ],
   },
+  CriticalDraw: {
+    name: "Critical Draw",
+    levels: [
+      { name: "Critical Draw 1", affinity: 50 },
+      { name: "Critical Draw 2", affinity: 75 },
+      { name: "Critical Draw 3", affinity: 100 },
+    ],
+  },
   CriticalElementLight: {
     name: "Critical Element",
     weapons: [
@@ -518,6 +526,13 @@ export const SetSkills: Record<string, BuffGroup> = {
       { name: "Burst Boost II", attack: 10 },
     ],
   },
+  GoreMagalasTyranny: {
+    name: "Gore Magala's Tyranny",
+    levels: [
+      { name: "Black Eclipse I" },
+      { name: "Black Eclipse II", attack: 10, frenzy: { attack: 5 } },
+    ],
+  },
   JinDahaadsRevolt: {
     name: "Jin Dahaad's Revolt",
     levels: [
@@ -525,12 +540,9 @@ export const SetSkills: Record<string, BuffGroup> = {
       { name: "Binding Counter II", attack: 50 },
     ],
   },
-  GoreMagalasTyranny: {
-    name: "Gore Magala's Tyranny",
-    levels: [
-      { name: "Black Eclipse I" },
-      { name: "Black Eclipse II", attack: 10, frenzy: { attack: 5 } },
-    ],
+  LordsFury: {
+    name: "Lord's Fury",
+    levels: [{ name: "Lords Fury I", attack: 10 }],
   },
   XuWusVigor: {
     name: "Xu Wu's Vigor",

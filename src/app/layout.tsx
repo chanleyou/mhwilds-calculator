@@ -19,7 +19,7 @@ export default function RootLayout({
         className={`bg-background text-white ${inter.variable} ${notoSansMono.variable} antialiased`}
       >
         <Header />
-        <main className="max-w-9xl mx-auto p-2">{children}</main>
+        <main className="max-w-11xl mx-auto p-2">{children}</main>
       </body>
     </html>
   );

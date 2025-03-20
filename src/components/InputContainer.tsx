@@ -8,7 +8,7 @@ export type InputContainerProps = Pick<Props, "label" | "description">;
 
 export function InputContainer({ label, description, children }: Props) {
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-1">
       {label && (
         <label htmlFor={label} className="text-primary pl-0.5 text-xs">
           {label}

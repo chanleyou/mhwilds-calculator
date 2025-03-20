@@ -219,8 +219,8 @@ test("Light Bowgun", () => {
   const ce2 = atk("Light Bowgun", "Chaser Element Lv2");
   const rfp2 = atk("Light Bowgun", "Rapid Fire Pierce Lv2");
   const rfe2 = atk("Light Bowgun", "Rapid Fire Element Lv2");
-  const rfcp2 = atk("Light Bowgun", "Rapid Fire Pierce Lv2 Chaser Finisher");
-  const rfce2 = atk("Light Bowgun", "Rapid Fire Element Lv2 Chaser Finisher");
+  const rfcp2 = atk("Light Bowgun", "Rapid Fire Pierce Lv2 Chaser");
+  const rfce2 = atk("Light Bowgun", "Rapid Fire Element Lv2 Chaser");
 
   expect(calculateHit({ ...a1, ...sp1 })).toBe(8.1);
 
@@ -328,7 +328,7 @@ test("Light Bowgun", () => {
   expect(dmg(calculateEleHit({ ...a9, ...e1 }))).toBe(9.6);
 
   const rfsp2 = atk("Light Bowgun", "Rapid Fire Spread Lv2");
-  const rfcsp2 = atk("Light Bowgun", "Rapid Fire Spread Lv2 Chaser Finisher");
+  const rfcsp2 = atk("Light Bowgun", "Rapid Fire Spread Lv2 Chaser");
   const a10 = { ...a1, uiAttack: 206 };
 
   expect(calculateHit({ ...a10, ...sp2 })).toBe(14.6);
@@ -356,7 +356,7 @@ test("Light Bowgun Sticky Ammo", () => {
   const st1 = atk("Light Bowgun", "Sticky Lv1");
   const cst1 = atk("Light Bowgun", "Chaser Sticky Lv1");
   const rfst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1");
-  const rfcst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1 Chaser Finisher");
+  const rfcst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1 Chaser");
   expect(calculateHit({ ...a1, ...st1 })).toBe(31.5);
   expect(calculateHit({ ...a1, ...cst1 })).toBe(61.5);
   expect(calculateHit({ ...a1, ...rfst1 })).toBe(22.5);

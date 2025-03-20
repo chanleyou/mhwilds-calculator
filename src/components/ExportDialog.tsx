@@ -76,7 +76,7 @@ export const ExportDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button size="sm">
           <CopyIcon className="h-4 w-4" />
           Export
         </Button>

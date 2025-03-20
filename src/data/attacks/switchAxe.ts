@@ -31,7 +31,7 @@ export const SwitchAxeAttacks = [
   { name: "Axe: Morph Sweep 1", mv: 20, saType: "Axe" },
   { name: "Axe: Morph Sweep 2", mv: 70, saType: "Axe" },
   { name: "Axe: Morph Sweep 3", mv: 35, saType: "Axe" },
-  { name: "Axe: Morph Slash", mv: 34, saType: "Axe" },
+  { name: "Axe: Morph Slash", mv: 34, saType: "Sword" },
   { name: "Axe: Morph Rising Double Slash 1", mv: 24, saType: "Sword" },
   { name: "Axe: Morph Rising Double Slash 2", mv: 20, saType: "Sword" },
   { name: "Sword: Overhead Slash", mv: 33, saType: "Sword" },
@@ -40,6 +40,9 @@ export const SwitchAxeAttacks = [
   { name: "Sword: Triple Slash 1", mv: 15, saType: "Sword" },
   { name: "Sword: Double Slash 1 / Triple Slash 2", mv: 22, saType: "Sword" },
   { name: "Sword: Double Slash 2 / Triple Slash 3", mv: 26, saType: "Sword" },
+  { name: "Sword: Morph Slash", mv: 23, saType: "Axe" },
+  { name: "Sword: Morph Double Slash 1", mv: 30, saType: "Axe" },
+  { name: "Sword: Morph Double Slash 2", mv: 50, saType: "Axe" },
   {
     name: "Sword: Amped State Phial Explosion",
     mv: 12,

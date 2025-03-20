@@ -105,7 +105,7 @@ export const ImportDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary">
+        <Button variant="secondary" size="sm">
           <DownloadIcon className="h-4 w-4" />
           Import
         </Button>
