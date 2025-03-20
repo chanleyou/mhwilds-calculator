@@ -337,44 +337,68 @@ test("Light Bowgun", () => {
   expect(calculateHit({ ...a10, ...rfcsp2 })).toBe(19.5);
 });
 
-// test("Light Bowgun Sticky Ammo", () => {
-//   const a1 = {
-//     ...base,
-//     attack: 180,
-//     uiAttack: 186,
-//     sharpness: "Ranged" as Sharpness,
-//     weapon: "Light Bowgun" as Weapon,
-//     ...buff("Artillery", 3),
-//   };
+test("Light Bowgun Sticky Ammo", () => {
+  const a1 = {
+    ...base,
+    attack: 180,
+    uiAttack: 186,
+    sharpness: "Ranged" as Sharpness,
+    weapon: "Light Bowgun" as Weapon,
+    artilleryAmmoAttack: calculateAttack({
+      attack: 180,
+      buffs: {
+        Artillery: { attackMul: 1.3 },
+        Powercharm: buff("Powercharm"),
+      },
+    }),
+  };
 
-//   const st1 = atk("Light Bowgun", "Sticky Lv1");
-//   const cst1 = atk("Light Bowgun", "Chaser Sticky Lv1");
-//   const rfst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1");
-//   const rfcst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1 Chaser Finisher");
-//   expect(calculateHit({ ...a1, ...st1 })).toBe(31.5);
-//   expect(calculateHit({ ...a1, ...cst1 })).toBe(61.5);
-//   expect(calculateHit({ ...a1, ...rfst1 })).toBe(22.5);
-//   expect(calculateHit({ ...a1, ...rfcst1 })).toBe(54);
+  const st1 = atk("Light Bowgun", "Sticky Lv1");
+  const cst1 = atk("Light Bowgun", "Chaser Sticky Lv1");
+  const rfst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1");
+  const rfcst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1 Chaser Finisher");
+  expect(calculateHit({ ...a1, ...st1 })).toBe(31.5);
+  expect(calculateHit({ ...a1, ...cst1 })).toBe(61.5);
+  expect(calculateHit({ ...a1, ...rfst1 })).toBe(22.5);
+  expect(calculateHit({ ...a1, ...rfcst1 })).toBe(54);
 
-//   const a2 = {
-//     ...a1,
-//     uiAttack: calculateAttack({
-//       attack: 180,
-//       buffs: {
-//         AttackBoost: buff("AttackBoost", 3),
-//         Heroics: buff("Heroics", 5),
-//         Agitator: buff("Agitator", 5),
-//         Powercharm: buff("Powercharm"),
-//       },
-//     }),
-//     // ...buff("Artillery", 3),
-//   };
-//   expect(dmg(calculateRawHit({ ...a2, ...st1 }))).toBe(42.1);
-//   expect(calculateHit({ ...a2, ...st1 })).toBe(43.6);
-//   expect(calculateHit({ ...a2, ...cst1 })).toBe(85.8);
-//   expect(calculateHit({ ...a2, ...rfst1 })).toBe(31);
-//   expect(calculateHit({ ...a2, ...rfcst1 })).toBe(79);
-// });
+  const a2 = {
+    ...a1,
+    artilleryAmmoAttack: calculateAttack({
+      attack: 180,
+      buffs: {
+        AttackBoost: buff("AttackBoost", 3),
+        Agitator: buff("Agitator", 5),
+        Powercharm: buff("Powercharm"),
+        Artillery: { attackMul: 1.3 },
+      },
+    }),
+  };
+
+  expect(dmg(calculateRawHit({ ...a2, ...st1 }))).toBe(33.4);
+  expect(dmg(calculateRawHit({ ...a2, ...cst1 }))).toBe(66.8);
+  expect(dmg(calculateRawHit({ ...a2, ...rfst1 }))).toBe(23.4);
+  expect(dmg(calculateRawHit({ ...a2, ...rfcst1 }))).toBe(58.4);
+
+  const a3 = {
+    ...a1,
+    artilleryAmmoAttack: calculateAttack({
+      attack: 180,
+      buffs: {
+        AttackBoost: buff("AttackBoost", 3),
+        Heroics: buff("Heroics", 5),
+        Agitator: buff("Agitator", 5),
+        Powercharm: buff("Powercharm"),
+        Artillery: { attackMul: 1.3 },
+      },
+    }),
+  };
+  expect(calculateRawHit({ ...a3, ...st1 })).toBeCloseTo(42.1, 0.05);
+  expect(calculateHit({ ...a3, ...st1 })).toBeCloseTo(43.6, 0.05);
+  expect(calculateHit({ ...a3, ...cst1 })).toBe(85.8);
+  expect(calculateHit({ ...a3, ...rfst1 })).toBe(31);
+  expect(dmg(calculateRawHit({ ...a3, ...rfcst1 }))).toBe(73.8);
+});
 
 test("Heavy Bowgun", () => {
   const a1 = {
@@ -450,7 +474,14 @@ test("Heavy Bowgun Sticky Ammo", () => {
   const a2 = { ...a1, uiAttack: 201 };
   expect(calculateHit({ ...a2, ...st2 })).toBe(65.8);
 
-  expect(calculateHit({ ...a2, ...st2, ...buff("Artillery", 3) })).toBe(83.1);
+  expect(
+    calculateHit({
+      ...a2,
+      ...st2,
+      artilleryAmmoAttack: 180 * 1.3 + 21,
+      ...buff("Artillery", 3),
+    }),
+  ).toBe(83.1);
 });
 
 test("Heavy Bowgun Cluster Ammo", () => {
@@ -647,7 +678,11 @@ test("Gunlance", () => {
   expect(calculateHit({ ...a2, ...ws })).toBe(16.8);
   expect(calculateHit({ ...a2, ...wse })).toBe(91.4);
 
-  const a3 = { ...a1, ...buff("Artillery", 3) };
+  const a3 = {
+    ...a1,
+    artilleryShellAttack: 240 * 1.15,
+    ...buff("Artillery", 3),
+  };
 
   expect(calculateHit({ ...a3, ...s })).toBe(72.5);
   expect(calculateHit({ ...a3, ...cs })).toBe(125.5);
@@ -656,17 +691,48 @@ test("Gunlance", () => {
   expect(calculateHit({ ...a3, ...ws })).toBe(15.5);
   expect(calculateHit({ ...a3, ...wse })).toBe(87.5);
 
-  const a4 = { ...a1, uiAttack: 262, ...buff("Artillery", 3) };
+  const a4 = {
+    ...a1,
+    artilleryShellAttack: 240 * 1.15 + 22,
+    uiAttack: 262,
+    ...buff("Artillery", 3),
+  };
   expect(calculateHit({ ...a4, ...s })).toBe(77.8);
   expect(calculateHit({ ...a4, ...cs })).toBe(135.0);
   expect(calculateHit({ ...a4, ...wf })).toBe(172.6);
   expect(calculateHit({ ...a4, ...wfh })).toBe(162.9);
 
-  const a5 = { ...a1, uiAttack: 262, ...buff("Artillery", 3), eleHzv: 5 };
+  const a5 = {
+    ...a1,
+    artilleryShellAttack: 240 * 1.15 + 22,
+    uiAttack: 262,
+    ...buff("Artillery", 3),
+    eleHzv: 5,
+  };
   expect(calculateHit({ ...a5, ...s })).toBe(72.6);
   expect(calculateHit({ ...a5, ...cs })).toBe(129.8);
   expect(calculateHit({ ...a5, ...wf })).toBe(162.9);
   expect(calculateHit({ ...a5, ...wfh })).toBe(162.9);
+
+  const a6 = {
+    ...a1,
+    artilleryShellAttack: calculateAttack({
+      attack: 240,
+      buffs: {
+        Heroics: buff("Heroics", 5),
+        AttackBoost: buff("AttackBoost", 1),
+        Agitator: buff("Agitator", 5),
+        Powercharm: buff("Powercharm"),
+        Artillery: { attackMul: 1.15 },
+      },
+    }),
+    ...buff("Artillery", 3),
+  };
+
+  expect(dmg(calculateRawHit({ ...a6, ...s }))).toBe(93.1);
+  expect(dmg(calculateRawHit({ ...a6, ...cs }))).toBe(167.5);
+  expect(dmg(calculateRawHit({ ...a6, ...wf }))).toBe(209.4);
+  expect(dmg(calculateRawHit({ ...a6, ...wfh }))).toBe(209.4);
 });
 
 test("Switch Axe", () => {

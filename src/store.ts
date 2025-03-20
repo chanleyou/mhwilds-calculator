@@ -149,7 +149,24 @@ export const useGetters = () => {
       ? (s.buffs.ChargeMaster?.rangedChargeEleMul ?? 1)
       : (s.buffs.ChargeMaster?.meleeChargeEleMul ?? 1),
     coatingRawMul: s.buffs.BowCoating?.coatingRawMul ?? 1,
-    artilleryBaseMul: s.buffs.Artillery?.artilleryBaseMul ?? 0,
+    artilleryShellAttack: calculateAttack(
+      produce(s, (d) => {
+        if (d.buffs.Artillery?.artilleryShellAttackMul) {
+          d.buffs.ArtilleryBuff = {
+            attackMul: d.buffs.Artillery.artilleryShellAttackMul,
+          };
+        }
+      }),
+    ),
+    artilleryAmmoAttack: calculateAttack(
+      produce(s, (d) => {
+        if (d.buffs.Artillery?.artilleryAmmoAttackMul) {
+          d.buffs.ArtilleryBuff = {
+            attackMul: d.buffs.Artillery.artilleryAmmoAttackMul,
+          };
+        }
+      }),
+    ),
     artilleryEle: s.buffs.Artillery?.artilleryEle ?? 0,
     normalShotsRawMul: s.buffs.NormalShots?.normalShotsRawMul ?? 1,
     spreadPowerShotsRawMul:
@@ -160,7 +177,7 @@ export const useGetters = () => {
     rapidFireMul: s.buffs.RapidFireUp?.rapidFireMul ?? 1,
     cbShieldElement: s.buffs.ChargeBladeShieldElement?.cbShieldElement,
     demonBoost: s.buffs.DualBladesDemonBoost?.demonBoost,
-    artilleryAmmoBaseMul: s.buffs.Artillery?.artilleryAmmoBaseMul ?? 0,
+    artilleryAmmoAttackMul: s.buffs.Artillery?.artilleryAmmoAttackMul ?? 0,
   };
 };
 

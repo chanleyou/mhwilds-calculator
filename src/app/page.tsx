@@ -83,9 +83,9 @@ export default function Home() {
   const efe = useMemo(() => calcEffectiveEle(), [calcEffectiveEle]);
 
   const notice = useMemo(() => {
-    if (isBowgun(weapon)) return "Bowgun is still a work in progress.";
-    if (weapon === "Switch Axe")
+    if (weapon === "Switch Axe") {
       return "Phial Explosion element damage is weird in-game right now.";
+    }
   }, [weapon]);
 
   const customAttack: Attack = useMemo(

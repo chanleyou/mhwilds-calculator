@@ -6,17 +6,20 @@ import { Attack } from "@/types";
 // const SPREAD_MUL = 0.7;
 // const STICKY_MUL = 0.5;
 // const ELEMENT_MUL = 0.65;
-// const CHASER_NORMAL_MUL = 1.4;
+// const CHASER_NORMAL_MUL = 1.3;
 // const CHASER_PIERCE_MUL = 1.2;
 // const CHASER_SPREAD_MUL = 0.85;
+// const CHASER_STICKY_MUL = 1;
 // const CHASER_ELEMENT_MUL = 0.75;
 // const RF_NORMAL_MUL = 0.5;
-// const RF_PIERCING_MUL = 0.65;
+// const RF_PIERCE_MUL = 0.65;
 // const RF_SPREAD_MUL = 0.55;
+// const RF_STICKY_MUL = 0.35;
 // const RF_ELEMENT_MUL = 0.55;
 // const RFC_NORMAL_MUL = 1.5;
+// const RFC_PIERCE_MUL = 1.95;
 // const RFC_SPREAD_MUL = 0.935;
-// const RFC_PIERCING_MUL = 1.95;
+// const RFC_STICKY_MUL = 0.87;
 // const RFC_ELEMENT_MUL = 0.935;
 
 export const LightBowgunAttacks = [
@@ -53,30 +56,38 @@ export const LightBowgunAttacks = [
   { name: "Chaser Spread Lv1", mv: 9.35, spreadPowerShot: true, hits: 2 },
   { name: "Chaser Spread Lv2", mv: 10.7525, spreadPowerShot: true, hits: 2 },
   { name: "Chaser Spread Lv3", mv: 12.155, spreadPowerShot: true, hits: 2 },
-  // {
-  //   name: "Sticky Lv1",
-  //   mv: 12.5,
-  //   fixedEle: 5,
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
-  // {
-  //   name: "Sticky Lv2",
-  //   mv: 16,
-  //   fixedEle: 5,
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
-  // {
-  //   name: "Chaser Sticky Lv1",
-  //   mv: 25,
-  //   fixedEle: 5,
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
+  {
+    name: "Sticky Lv1",
+    mv: 12.5,
+    fixedEle: 5,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
+  },
+  {
+    name: "Sticky Lv2",
+    mv: 16,
+    fixedEle: 5,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
+  },
+  {
+    name: "Chaser Sticky Lv1",
+    mv: 25,
+    fixedEle: 5,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
+  },
+  {
+    name: "Chaser Sticky Lv2",
+    mv: 32,
+    fixedEle: 5,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
+  },
   // {
   //   name: "Sticky Lv3",
   //   mv: 20,
@@ -85,9 +96,6 @@ export const LightBowgunAttacks = [
   //   cantCrit: true,
   //   artilleryAmmo: true,
   // },
-  // { name: "Cluster Lv1", mv: 10, rawEle: 5, ignoreHzv: true },
-  // { name: "Cluster Lv2", mv: 12, rawEle: 8, ignoreHzv: true },
-  // { name: "Cluster Lv3", mv: 14, rawEle: 1, ignoreHzv: true },
   { name: "Element Lv1", mv: 5.2, rawEle: 13 },
   { name: "Element Lv2", mv: 6.5, rawEle: 16.25 },
   { name: "Chaser Element Lv1", mv: 6, rawEle: 15, hits: 2 },
@@ -178,22 +186,6 @@ export const LightBowgunAttacks = [
     rapidFire: true,
   },
   // {
-  //   name: "Rapid Fire Sticky Lv1",
-  //   mv: 8.75,
-  //   fixedEle: 5,
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
-  // {
-  //   name: "Rapid Fire Sticky Lv1 Chaser Finisher",
-  //   mv: 21.875,
-  //   fixedEle: 5,
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
-  // {
   //   name: "Rapid Fire Sticky Lv2",
   //   mv: 7.8,
   //   fixedEle: 5,
@@ -218,6 +210,24 @@ export const LightBowgunAttacks = [
     mv: 13.3705,
     rapidFire: true,
     spreadPowerShot: true,
+  },
+  {
+    name: "Rapid Fire Sticky Lv1",
+    mv: 8.75,
+    fixedEle: 5,
+    rapidFire: true,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
+  },
+  {
+    name: "Rapid Fire Sticky Lv1 Chaser Finisher",
+    mv: 21.875,
+    fixedEle: 5,
+    rapidFire: true,
+    ignoreHzv: true,
+    cantCrit: true,
+    artilleryAmmo: true,
   },
   { name: "Rapid Fire Element Lv1", mv: 4.4, rawEle: 11, rapidFire: true },
   { name: "Rapid Fire Element Lv2", mv: 5.5, rawEle: 13.75, rapidFire: true },

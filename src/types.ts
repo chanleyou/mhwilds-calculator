@@ -25,13 +25,13 @@ export type Buff = BuffValues & {
   meleeChargeEleMul?: number;
   rangedChargeEleMul?: number;
   coatingRawMul?: number;
-  artilleryBaseMul?: number; // base attack multiplier
+  artilleryShellAttackMul?: number; // base attack multiplier
   artilleryEle?: number; // bonus fixed fire damage
   normalShotsRawMul?: number;
   piercingShotsRawMul?: number;
   spreadPowerShotsRawMul?: number;
   specialAmmoBoostRawMul?: number;
-  artilleryAmmoBaseMul?: number;
+  artilleryAmmoAttackMul?: number;
   rapidFireMul?: number;
   demonBoost?: boolean;
   bowgunOffset?: boolean;

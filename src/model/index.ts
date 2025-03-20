@@ -134,7 +134,6 @@ type RawHitParams = Attack &
   };
 export const calculateRawHit = ({
   weapon,
-  uiAttack,
   mv,
   ignoreHzv,
   rawHzv,
@@ -146,8 +145,10 @@ export const calculateRawHit = ({
   cbPhial,
   cbShieldElement,
   coatingRawMul,
-  artilleryBaseMul,
   attack = 0, // TODO: refactor to remove ambiguity with uiAttack?
+  uiAttack = attack,
+  artilleryShellAttack = uiAttack,
+  artilleryAmmoAttack = uiAttack,
   shelling,
   swordAttack = uiAttack,
   powerAxe,
@@ -161,17 +162,16 @@ export const calculateRawHit = ({
   specialAmmo,
   artilleryAmmo,
   specialAmmoBoostRawMul,
-  artilleryAmmoBaseMul,
   rapidFire,
   rapidFireMul,
 }: RawHitParams) => {
+  if (saType === "Sword") uiAttack = swordAttack;
+  else if (saType === "Axe" && powerAxe) uiAttack += 10;
+  else if (shelling) uiAttack = artilleryShellAttack;
+  else if (artilleryAmmo) uiAttack = artilleryAmmoAttack;
+
   return mul(
-    sum(
-      saType === "Sword" ? swordAttack : uiAttack,
-      shelling ? (artilleryBaseMul ?? 0) * attack : 0,
-      artilleryAmmo ? (artilleryAmmoBaseMul ?? 0) * attack : 0,
-      powerAxe && saType === "Axe" ? 10 : 0,
-    ),
+    uiAttack,
     mv / 100,
     ignoreHzv ? 1 : rawHzv / 100,
     ignoreSharpness ? 1 : sharpnessRaw[sharpness],
