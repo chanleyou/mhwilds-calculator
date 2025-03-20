@@ -13,4 +13,3 @@ export * from "./NumberInput";
 export * from "./Select";
 export * from "./SkillSelect";
 export * from "./SnapshotMovesTable";
-export * from "./Toggle";

@@ -103,12 +103,6 @@ export default function Home() {
     return dynamicCombo.length;
   }, [comboMode, dynamicCombo, snapshotCombo]);
 
-  const notice = useMemo(() => {
-    if (weapon === "Switch Axe") {
-      return "Phial Explosion element damage is weird in-game right now.";
-    }
-  }, [weapon]);
-
   useEffect(() => {
     setBuff("Miscellaneous", miscBuff);
   }, [miscBuff, setBuff]);
@@ -421,7 +415,6 @@ export default function Home() {
               />
             </div>
             <MovesTable onClick={addAttack} />
-            {notice && <Notice>{notice}</Notice>}
           </Card>
         </div>
         <div className="flex flex-1 flex-col gap-2">

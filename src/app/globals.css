@@ -57,5 +57,5 @@ select::-ms-expand {
 }
 
 textarea {
-  @apply focus:outline-none border border-divider focus:border-accent;
+  @apply focus:outline-none border border-divider focus:border-secondary;
 }
