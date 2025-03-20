@@ -9,7 +9,6 @@ import {
   Checkbox,
   ExportDialog,
   ImportDialog,
-  Notice,
   NumberDisplay,
   NumberInput,
   Select,
@@ -113,7 +112,7 @@ export default function Home() {
         produce(
           (d) =>
             void d.push({
-              name: a.name,
+              name: a.name ?? "",
               hit: calcHit(a),
               crit: calcCrit(a),
               avg: calcAverage(a),

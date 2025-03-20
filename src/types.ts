@@ -50,7 +50,7 @@ export type WeaponFlags = {
 };
 
 export type Attack = {
-  name: string;
+  name?: string;
   mv: number;
   rawMul?: number;
   eleMul?: number;
