@@ -31,9 +31,10 @@ export type Buff = BuffValues & {
   piercingShotsRawMul?: number;
   spreadPowerShotsRawMul?: number;
   specialAmmoBoostRawMul?: number;
-  stickyBaseMul?: number;
+  artilleryAmmoBaseMul?: number;
+  rapidFireMul?: number;
   demonBoost?: boolean;
-  offsetAttack?: number;
+  bowgunOffset?: boolean;
 };
 
 export type BuffGroup = {
@@ -71,7 +72,8 @@ export type Attack = {
   piercingShot?: boolean;
   spreadPowerShot?: boolean;
   specialAmmo?: boolean;
-  stickyAmmo?: boolean;
+  artilleryAmmo?: boolean;
+  rapidFire?: boolean;
   airborne?: boolean; // TODO
 };
 

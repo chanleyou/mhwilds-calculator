@@ -78,6 +78,28 @@ export const calculateElement = ({
   );
 };
 
+export const calculateBowgunElement = ({
+  element,
+  buffs = {},
+  frenzy,
+}: {
+  element: number;
+  buffs?: Record<string, Buff>;
+  frenzy?: boolean;
+}): { base: number; bonus: number } => {
+  const base = calculate(
+    element,
+    Object.values(buffs).map((b) => {
+      return mul(getElementMul(b), frenzy ? getElementMul(b.frenzy) : 1);
+    }),
+    [],
+  );
+
+  const bonus = calculate(0, [], Object.values(buffs).map(getElement));
+
+  return { base, bonus };
+};
+
 export const calculateAffinity = ({
   affinity,
   buffs = {},
@@ -137,15 +159,17 @@ export const calculateRawHit = ({
   spreadPowerShot,
   spreadPowerShotsRawMul,
   specialAmmo,
-  stickyAmmo,
+  artilleryAmmo,
   specialAmmoBoostRawMul,
-  stickyBaseMul,
+  artilleryAmmoBaseMul,
+  rapidFire,
+  rapidFireMul,
 }: RawHitParams) => {
   return mul(
     sum(
       saType === "Sword" ? swordAttack : uiAttack,
       shelling ? (artilleryBaseMul ?? 0) * attack : 0,
-      stickyAmmo ? (stickyBaseMul ?? 0) * attack : 0,
+      artilleryAmmo ? (artilleryAmmoBaseMul ?? 0) * attack : 0,
       powerAxe && saType === "Axe" ? 10 : 0,
     ),
     mv / 100,
@@ -159,6 +183,7 @@ export const calculateRawHit = ({
     piercingShot ? piercingShotsRawMul : 1,
     cbShieldElement && cbPhial ? 1.2 : 1,
     cbShieldElement && cbAxe ? 1.1 : 1,
+    rapidFire ? rapidFireMul : 1,
   );
 };
 
@@ -183,9 +208,11 @@ export const calculateEleHit = ({
   cbShieldElement,
   cbPhial,
   demonBoost,
-  bowgunElement = 0,
+  bowgunElement = { base: 0, bonus: 0 },
   saType,
   swordElement,
+  rapidFire,
+  rapidFireMul = 1,
 }: EleHitParams) => {
   eleHzv = (eleHzvCap ? Math.min(eleHzv, eleHzvCap) : eleHzv) / 100;
 
@@ -195,12 +222,18 @@ export const calculateEleHit = ({
     return mul(e, eleHzv);
   }
 
-  if (isBowgun(weapon) && rawEle) uiElement = bowgunElement;
+  if (isBowgun(weapon) && rawEle) {
+    const { base, bonus } = bowgunElement;
+    uiElement = calculate(
+      base,
+      [rawEle / 10, rapidFire ? rapidFireMul : 1],
+      [bonus],
+    );
+  }
   if (saType === "Sword" && swordElement) uiElement = swordElement;
 
   return mul(
     uiElement,
-    rawEle ? rawEle / 10 : 1,
     0.1,
     eleHzv,
     ignoreSharpness ? 1 : sharpnessEle[sharpness],

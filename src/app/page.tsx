@@ -350,10 +350,7 @@ export default function Home() {
             <NumberDisplay label="Element" value={uiElement} />
             <NumberDisplay label="Affinity" value={uiAffinity} suffix="%" />
             <NumberDisplay label="Effective Attack" value={efr} />
-            <NumberDisplay
-              label={isBowgun(weapon) ? "Element Ammo" : "Effective Element"}
-              value={efe}
-            />
+            <NumberDisplay label={"Effective Element"} value={efe} />
           </div>
         </Card>
         <div className="flex justify-end gap-2">

@@ -5,6 +5,7 @@ import {
   calculateAffinity,
   calculateAttack,
   calculateAverage,
+  calculateBowgunElement,
   calculateCrit,
   calculateElement,
   calculateHit,
@@ -101,14 +102,15 @@ export const useGetters = () => {
 
   // skills that both add attack and element multipliers don't double-dip for bowguns
   const uiAttack = calculateAttack({ ...s, frenzy });
-  const offsetAttack = Object.values(s.buffs).reduce((acc, buff) => {
-    if (buff.offsetAttack) return acc + buff.offsetAttack;
+  const bowgunOffset = Object.values(s.buffs).reduce((acc, buff) => {
+    if (buff.bowgunOffset && buff.attack) return acc + buff.attack;
     return acc;
   }, 0);
-  const bowgunElement = calculateElement({
+
+  const bowgunElement = calculateBowgunElement({
     ...s,
     frenzy,
-    element: uiAttack - offsetAttack,
+    element: uiAttack - bowgunOffset,
   });
 
   const uiElement = calculateElement({ ...s, frenzy });
@@ -155,9 +157,10 @@ export const useGetters = () => {
     specialAmmoBoostRawMul:
       s.buffs.SpecialAmmoBoost?.specialAmmoBoostRawMul ?? 1,
     piercingShotsRawMul: s.buffs.PiercingShots?.piercingShotsRawMul ?? 1,
+    rapidFireMul: s.buffs.RapidFireUp?.rapidFireMul ?? 1,
     cbShieldElement: s.buffs.ChargeBladeShieldElement?.cbShieldElement,
     demonBoost: s.buffs.DualBladesDemonBoost?.demonBoost,
-    stickyBaseMul: s.buffs.Artillery?.stickyBaseMul ?? 0,
+    artilleryAmmoBaseMul: s.buffs.Artillery?.artilleryAmmoBaseMul ?? 0,
   };
 };
 
@@ -182,7 +185,7 @@ export const useCalcs = () => {
       return avg;
     },
     calcEffectiveEle: () => {
-      const params = { ...s, ...g, mv: 0, rawHzv: 0, eleHzv: 100, rawEle: 100 };
+      const params = { ...s, ...g, mv: 0, rawHzv: 0, eleHzv: 100 };
       const hit = calculateHit(params);
       const crit = calculateCrit(params);
       const avg = calculateAverage(hit, crit, g.uiAffinity);

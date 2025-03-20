@@ -3,13 +3,13 @@ import { CombinedBuffs } from "@/data";
 import Attacks from "@/data/attacks";
 import {
   calculateAttack,
+  calculateBowgunElement,
   calculateCrit,
   calculateEleHit,
   calculateElement,
   calculateHit,
   calculateRawHit,
   dmg,
-  round,
 } from "@/model";
 import { Sharpness, Weapon } from "@/types";
 
@@ -209,21 +209,179 @@ test("Light Bowgun", () => {
   };
 
   const sp1 = atk("Light Bowgun", "Spread Lv1");
+  const sp2 = atk("Light Bowgun", "Spread Lv2");
+  const csp1 = atk("Light Bowgun", "Chaser Spread Lv1");
+  const csp2 = atk("Light Bowgun", "Chaser Spread Lv2");
+  const p2 = atk("Light Bowgun", "Pierce Lv2");
+  const e1 = atk("Light Bowgun", "Element Lv1");
   const e2 = atk("Light Bowgun", "Element Lv2");
+  const cp2 = atk("Light Bowgun", "Chaser Pierce Lv2");
+  const ce2 = atk("Light Bowgun", "Chaser Element Lv2");
+  const rfp2 = atk("Light Bowgun", "Rapid Fire Pierce Lv2");
+  const rfe2 = atk("Light Bowgun", "Rapid Fire Element Lv2");
+  const rfcp2 = atk("Light Bowgun", "Rapid Fire Pierce Lv2 Chaser Finisher");
+  const rfce2 = atk("Light Bowgun", "Rapid Fire Element Lv2 Chaser Finisher");
 
   expect(calculateHit({ ...a1, ...sp1 })).toBe(8.1);
 
-  const a2 = { ...a1, uiAttack: 180, bowgunElement: 180 };
-  expect(round(calculateRawHit({ ...a2, ...e2 }))).toBe(9.4);
-  expect(round(calculateEleHit({ ...a2, ...e2 }))).toBe(8.8);
+  const a2 = { ...a1, uiAttack: 180, bowgunElement: { base: 180, bonus: 0 } };
+  expect(dmg(calculateRawHit({ ...a2, ...e2 }))).toBe(9.4);
+  expect(dmg(calculateEleHit({ ...a2, ...e2 }))).toBe(8.8);
+
+  const a3 = {
+    ...a1,
+    uiAttack: 226,
+    bowgunElement: calculateBowgunElement({ element: 226 }),
+  };
+
+  expect(calculateHit({ ...a3, ...p2 })).toBe(17.4);
+  expect(calculateHit({ ...a3, ...sp1 })).toBe(13.9);
+  expect(calculateHit({ ...a3, ...csp1 })).toBe(16.9);
+  expect(calculateHit({ ...a3, ...cp2 })).toBe(26);
+  expect(calculateHit({ ...a3, ...rfp2 })).toBe(14.1);
+  expect(calculateHit({ ...a3, ...rfp2, rapidFireMul: 1.05 })).toBe(14.8);
+  expect(calculateHit({ ...a3, ...rfcp2 })).toBe(42.3);
+  expect(calculateHit({ ...a3, ...rfcp2, rapidFireMul: 1.05 })).toBe(44.4);
+
+  expect(dmg(calculateRawHit({ ...a3, ...e2 }))).toBe(11.8);
+  expect(dmg(calculateEleHit({ ...a3, ...e2 }))).toBe(11);
+  expect(dmg(calculateRawHit({ ...a3, ...ce2 }))).toBe(13.6);
+  expect(dmg(calculateEleHit({ ...a3, ...ce2 }))).toBe(12.7);
+  expect(dmg(calculateRawHit({ ...a3, ...rfe2 }))).toBe(9.9);
+  expect(dmg(calculateEleHit({ ...a3, ...rfe2 }))).toBe(9.3);
+  expect(dmg(calculateEleHit({ ...a3, ...rfe2, rapidFireMul: 1.05 }))).toBe(
+    9.8,
+  );
+  expect(dmg(calculateRawHit({ ...a3, ...rfce2 }))).toBe(16.9);
+  expect(dmg(calculateEleHit({ ...a3, ...rfce2 }))).toBe(15.8);
+  expect(dmg(calculateEleHit({ ...a3, ...rfce2, rapidFireMul: 1.05 }))).toBe(
+    16.6,
+  );
+
+  const a4 = {
+    ...a3,
+    bowgunElement: calculateBowgunElement({
+      element: 226,
+      buffs: { ElementAttack: buff("ElementAttack", 1) },
+    }),
+  };
+  // expect(round(calculateRawHit({ ...a4, ...e2 }))).toBe(12.4);
+  expect(dmg(calculateEleHit({ ...a4, ...e2 }))).toBe(12.2);
+
+  const a5 = {
+    ...a4,
+    uiAttack: 226,
+    bowgunElement: calculateBowgunElement({
+      element: 226,
+      buffs: { ElementAttack: buff("ElementAttack", 2) },
+    }),
+  };
+  expect(dmg(calculateEleHit({ ...a5, ...e2 }))).toBe(13.6);
+
+  const a6 = {
+    ...a4,
+    uiAttack: 226,
+    bowgunElement: calculateBowgunElement({
+      element: 226,
+      buffs: { ElementAttack: buff("ElementAttack", 3) },
+    }),
+  };
+  expect(dmg(calculateEleHit({ ...a6, ...e2 }))).toBe(15);
+  expect(dmg(calculateEleHit({ ...a6, ...rfe2 }))).toBe(13);
+  expect(dmg(calculateEleHit({ ...a6, ...rfe2, rapidFireMul: 1.05 }))).toBe(
+    13.5,
+  );
+  expect(dmg(calculateEleHit({ ...a6, ...rfce2 }))).toBe(20.8);
+  expect(dmg(calculateEleHit({ ...a6, ...rfce2, rapidFireMul: 1.05 }))).toBe(
+    21.8,
+  );
+
+  const a7 = {
+    ...a1,
+    uiAttack: 166,
+    bowgunElement: calculateBowgunElement({ element: 166 }),
+  };
+  expect(dmg(calculateEleHit({ ...a7, ...e1 }))).toBe(6.5);
+
+  const a8 = {
+    ...a1,
+    uiAttack: 166,
+    bowgunElement: calculateBowgunElement({
+      element: 166,
+      buffs: {
+        ElementAttack: buff("ElementAttack", 1),
+      },
+    }),
+  };
+  expect(dmg(calculateEleHit({ ...a8, ...e1 }))).toBe(7.7);
+
+  const a9 = {
+    ...a1,
+    uiAttack: 166,
+    bowgunElement: calculateBowgunElement({
+      element: 166,
+      buffs: {
+        ElementAttack: buff("ElementAttack", 3),
+      },
+    }),
+  };
+  expect(dmg(calculateEleHit({ ...a9, ...e1 }))).toBe(9.6);
+
+  const rfsp2 = atk("Light Bowgun", "Rapid Fire Spread Lv2");
+  const rfcsp2 = atk("Light Bowgun", "Rapid Fire Spread Lv2 Chaser Finisher");
+  const a10 = { ...a1, uiAttack: 206 };
+
+  expect(calculateHit({ ...a10, ...sp2 })).toBe(14.6);
+  expect(calculateHit({ ...a10, ...csp2 })).toBe(17.7);
+  expect(calculateHit({ ...a10, ...rfsp2 })).toBe(11.5);
+  expect(calculateHit({ ...a10, ...rfcsp2 })).toBe(19.5);
 });
+
+// test("Light Bowgun Sticky Ammo", () => {
+//   const a1 = {
+//     ...base,
+//     attack: 180,
+//     uiAttack: 186,
+//     sharpness: "Ranged" as Sharpness,
+//     weapon: "Light Bowgun" as Weapon,
+//     ...buff("Artillery", 3),
+//   };
+
+//   const st1 = atk("Light Bowgun", "Sticky Lv1");
+//   const cst1 = atk("Light Bowgun", "Chaser Sticky Lv1");
+//   const rfst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1");
+//   const rfcst1 = atk("Light Bowgun", "Rapid Fire Sticky Lv1 Chaser Finisher");
+//   expect(calculateHit({ ...a1, ...st1 })).toBe(31.5);
+//   expect(calculateHit({ ...a1, ...cst1 })).toBe(61.5);
+//   expect(calculateHit({ ...a1, ...rfst1 })).toBe(22.5);
+//   expect(calculateHit({ ...a1, ...rfcst1 })).toBe(54);
+
+//   const a2 = {
+//     ...a1,
+//     uiAttack: calculateAttack({
+//       attack: 180,
+//       buffs: {
+//         AttackBoost: buff("AttackBoost", 3),
+//         Heroics: buff("Heroics", 5),
+//         Agitator: buff("Agitator", 5),
+//         Powercharm: buff("Powercharm"),
+//       },
+//     }),
+//     // ...buff("Artillery", 3),
+//   };
+//   expect(dmg(calculateRawHit({ ...a2, ...st1 }))).toBe(42.1);
+//   expect(calculateHit({ ...a2, ...st1 })).toBe(43.6);
+//   expect(calculateHit({ ...a2, ...cst1 })).toBe(85.8);
+//   expect(calculateHit({ ...a2, ...rfst1 })).toBe(31);
+//   expect(calculateHit({ ...a2, ...rfcst1 })).toBe(79);
+// });
 
 test("Heavy Bowgun", () => {
   const a1 = {
     ...base,
     attack: 180,
     uiAttack: 191,
-    bowgunElement: 191,
+    bowgunElement: { base: 191, bonus: 0 },
     sharpness: "Ranged" as Sharpness,
     weapon: "Heavy Bowgun" as Weapon,
   };
@@ -241,13 +399,13 @@ test("Heavy Bowgun", () => {
   expect(calculateHit({ ...a1, ...p1 })).toBe(16.8);
   expect(calculateHit({ ...a1, ...sp2 })).toBe(19.3);
 
-  const a2 = { ...a1, uiAttack: 221, bowgunElement: 221 };
+  const a2 = { ...a1, uiAttack: 221, bowgunElement: { base: 221, bonus: 0 } };
   expect(calculateHit({ ...a2, ...e2 })).toBe(34.3);
 
-  const a3 = { ...a1, uiAttack: 258, bowgunElement: 258 };
+  const a3 = { ...a1, uiAttack: 258, bowgunElement: { base: 258, bonus: 0 } };
   expect(calculateHit({ ...a3, ...e2 })).toBe(40);
 
-  const a4 = { ...a1, uiAttack: 278, bowgunElement: 278 };
+  const a4 = { ...a1, uiAttack: 278, bowgunElement: { base: 278, bonus: 0 } };
   expect(calculateHit({ ...a4, ...e1 })).toBe(34.5);
   expect(calculateHit({ ...a4, ...e2 })).toBe(43.1);
   expect(calculateHit({ ...a4, ...e2, eleMul: 1.3 })).toBe(49.3);
@@ -255,6 +413,27 @@ test("Heavy Bowgun", () => {
 
   // Tetrad Shot 3
   expect(dmg(calculateEleHit({ ...a4, eleMul: 1.05, ...e2 }))).toBe(21.9);
+
+  const a5 = {
+    ...a1,
+    uiAttack: 236,
+    bowgunElement: calculateBowgunElement({
+      element: 236,
+      buffs: { ElementAttack: buff("ElementAttack", 3) },
+    }),
+  };
+  expect(dmg(calculateRawHit({ ...a5, ...e2 }))).toBe(18.9);
+  expect(dmg(calculateEleHit({ ...a5, ...e2 }))).toBe(23);
+
+  const a6 = {
+    ...a1,
+    uiAttack: 186,
+    bowgunElement: calculateBowgunElement({
+      element: 186,
+      buffs: { ElementAttack: buff("ElementAttack", 3) },
+    }),
+  };
+  expect(dmg(calculateEleHit({ ...a6, ...e1 }))).toBe(15.2);
 });
 
 test("Heavy Bowgun Sticky Ammo", () => {
@@ -265,13 +444,48 @@ test("Heavy Bowgun Sticky Ammo", () => {
     sharpness: "Ranged" as Sharpness,
   };
 
-  // const st2 = atk("Heavy Bowgun", "Sticky Lv2");
-  // expect(calculateHit({ ...a1, ...st2 })).toBe(61);
+  const st2 = atk("Heavy Bowgun", "Sticky Lv2");
+  expect(calculateHit({ ...a1, ...st2 })).toBe(61);
 
-  // const a2 = { ...a1, uiAttack: 201 };
-  // expect(calculateHit({ ...a2, ...st2 })).toBe(65.8);
+  const a2 = { ...a1, uiAttack: 201 };
+  expect(calculateHit({ ...a2, ...st2 })).toBe(65.8);
 
-  // expect(calculateHit({ ...a2, ...buff("Artillery", 3), ...st2 })).toBe(83.1);
+  expect(calculateHit({ ...a2, ...st2, ...buff("Artillery", 3) })).toBe(83.1);
+});
+
+test("Heavy Bowgun Cluster Ammo", () => {
+  const a1 = {
+    ...base,
+    attack: 240,
+    uiAttack: calculateAttack({
+      attack: 240,
+      buffs: {
+        // Heroics: buff("Heroics", 5),
+        // AttackBoost: buff("AttackBoost", 5),
+        Powercharm: buff("Powercharm"),
+        // Agitator: buff("Agitator", 5),
+      },
+    }),
+    sharpness: "Ranged" as Sharpness,
+  };
+
+  const c3 = atk("Heavy Bowgun", "Cluster Lv3");
+  expect(dmg(calculateRawHit({ ...a1, ...c3 }))).toBe(79.2);
+
+  const a2 = {
+    ...a1,
+    uiAttack: calculateAttack({
+      attack: 240,
+      buffs: {
+        Heroics: buff("Heroics", 5),
+        AttackBoost: buff("AttackBoost", 5),
+        Powercharm: buff("Powercharm"),
+        Agitator: buff("Agitator", 5),
+      },
+    }),
+  };
+
+  expect(dmg(calculateRawHit({ ...a2, ...c3 }))).toBe(115.8);
 });
 
 test("Bow", () => {

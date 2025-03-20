@@ -15,20 +15,20 @@ const OthersGroup: Weapon[] = [
   "Lance",
   "Gunlance",
 ];
-const NonBowgunGroup: Weapon[] = [
-  "Bow",
-  "Charge Blade",
-  "Dual Blades",
-  "Great Sword",
-  "Gunlance",
-  "Hammer",
-  "Hunting Horn",
-  "Insect Glaive",
-  "Lance",
-  "Long Sword",
-  "Switch Axe",
-  "Sword and Shield",
-];
+// const NonBowgunGroup: Weapon[] = [
+//   "Bow",
+//   "Charge Blade",
+//   "Dual Blades",
+//   "Great Sword",
+//   "Gunlance",
+//   "Hammer",
+//   "Hunting Horn",
+//   "Insect Glaive",
+//   "Lance",
+//   "Long Sword",
+//   "Switch Axe",
+//   "Sword and Shield",
+// ];
 
 export const WeaponSkills: Record<string, BuffGroup> = {
   AttackBoost: {
@@ -68,19 +68,19 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Artillery 1",
         artilleryEle: 3,
         artilleryBaseMul: 0.05,
-        stickyBaseMul: 0.1,
+        artilleryAmmoBaseMul: 0.1,
       },
       {
         name: "Artillery 2",
         artilleryEle: 6,
         artilleryBaseMul: 0.1,
-        stickyBaseMul: 0.2,
+        artilleryAmmoBaseMul: 0.2,
       },
       {
         name: "Artillery 3",
         artilleryEle: 9,
         artilleryBaseMul: 0.15,
-        stickyBaseMul: 0.3,
+        artilleryAmmoBaseMul: 0.3,
       },
     ],
   },
@@ -135,20 +135,10 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   },
   ElementAttack: {
     name: "Element Attack",
-    weapons: NonBowgunGroup,
     levels: [
       { name: "Element Attack 1", element: 40 },
       { name: "Element Attack 2", element: 50, elementMul: 1.1 },
       { name: "Element Attack 3", element: 60, elementMul: 1.2 },
-    ],
-  },
-  ElementAttackBowgun: {
-    name: "Element Attack",
-    weapons: BowgunGroup,
-    levels: [
-      { name: "Element Attack 1", element: 16 },
-      { name: "Element Attack 2", element: 20, elementMul: 1.1 },
-      { name: "Element Attack 3", element: 24, elementMul: 1.2 },
     ],
   },
   NormalShots: {
@@ -169,19 +159,19 @@ export const WeaponSkills: Record<string, BuffGroup> = {
       {
         name: "Opening Shot 1",
         attack: 5,
-        offsetAttack: 5,
+        bowgunOffset: true,
         elementMul: 1.1,
       },
       {
         name: "Opening Shot 2",
         attack: 10,
-        offsetAttack: 10,
+        bowgunOffset: true,
         elementMul: 1.1,
       },
       {
         name: "Opening Shot 3",
         attack: 15,
-        offsetAttack: 15,
+        bowgunOffset: true,
         elementMul: 1.1,
       },
     ],
@@ -189,6 +179,10 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   PiercingShots: {
     name: "Piercing Shots",
     levels: [{ name: "Piercing Shots 1", piercingShotsRawMul: 1.05 }],
+  },
+  RapidFireUp: {
+    name: "Rapid Fire Up",
+    levels: [{ name: "Rapid Fire Up 1", rapidFireMul: 1.05 }],
   },
   SpecialAmmoBoost: {
     name: "Special Ammo Boost",
@@ -209,7 +203,7 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Tetrad Shot 1 Attack",
         affinity: 8,
         attack: 3,
-        offsetAttack: 3,
+        bowgunOffset: true,
         elementMul: 1.05,
       },
       { name: "Tetrad Shot 2", affinity: 10 },
@@ -217,7 +211,7 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Tetrad Shot 2 Attack",
         affinity: 10,
         attack: 6,
-        offsetAttack: 6,
+        bowgunOffset: true,
         elementMul: 1.05,
       },
       { name: "Tetrad Shot 3", affinity: 12 },
@@ -225,7 +219,7 @@ export const WeaponSkills: Record<string, BuffGroup> = {
         name: "Tetrad Shot 3 Attack",
         affinity: 12,
         attack: 10,
-        offsetAttack: 10,
+        bowgunOffset: true,
         elementMul: 1.05,
       },
     ],
@@ -404,24 +398,9 @@ export const ArmorSkills: Record<string, BuffGroup> = {
       { name: "Elemental Absorption 3++", element: 120 },
     ],
   },
-  ElementalAbsorptionBowgun: {
-    name: "Elemental Absorption",
-    weapons: BowgunGroup,
-    levels: [
-      { name: "Elemental Absorption 1", element: 12 },
-      { name: "Elemental Absorption 1+", element: 16 },
-      { name: "Elemental Absorption 1++", element: 20 },
-      { name: "Elemental Absorption 2", element: 16 },
-      { name: "Elemental Absorption 2+", element: 20 },
-      { name: "Elemental Absorption 2++", element: 24 },
-      { name: "Elemental Absorption 3", element: 20 },
-      { name: "Elemental Absorption 3+", element: 24 },
-      { name: "Elemental Absorption 3++", element: 28 },
-    ],
-  },
   ElementalAbsorptionOthers: {
     name: "Elemental Absorption",
-    weapons: OthersGroup,
+    weapons: [...OthersGroup, ...BowgunGroup],
     levels: [
       { name: "Elemental Absorption 1", element: 40 },
       { name: "Elemental Absorption 1+", element: 50 },
