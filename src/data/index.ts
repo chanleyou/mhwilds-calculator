@@ -1,5 +1,5 @@
 import { BuffGroup, Sharpness } from "@/types";
-import { ArmorSkills, SetSkills, WeaponSkills } from "./skills";
+import { ArmorSkills, GroupSkills, WeaponSkills } from "./skills";
 
 export const Weapons = [
   "Sword and Shield",
@@ -178,7 +178,7 @@ export const CombinedBuffs: Record<string, BuffGroup> = {
   ...WeaponBuffs,
   ...WeaponSkills,
   ...ArmorSkills,
-  ...SetSkills,
+  ...GroupSkills,
   ...FieldBuffs,
   ...HuntingHornBuffs,
 };

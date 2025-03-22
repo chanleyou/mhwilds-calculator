@@ -1,3 +1,5 @@
+"use client";
+
 import { produce } from "immer";
 import { SwordsIcon, XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";

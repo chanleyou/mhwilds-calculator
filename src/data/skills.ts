@@ -511,7 +511,7 @@ export const ArmorSkills: Record<string, BuffGroup> = {
   },
 };
 
-export const SetSkills: Record<string, BuffGroup> = {
+export const GroupSkills: Record<string, BuffGroup> = {
   DoshagumasMight: {
     name: "Doshaguma's Might",
     levels: [

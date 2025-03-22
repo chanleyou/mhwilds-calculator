@@ -1,3 +1,5 @@
+"use client";
+
 import { DownloadIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ZodError } from "zod";

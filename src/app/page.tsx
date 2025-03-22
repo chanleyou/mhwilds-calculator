@@ -24,7 +24,7 @@ import {
   WeaponBuffs,
   Weapons,
 } from "@/data";
-import { ArmorSkills, SetSkills, WeaponSkills } from "@/data/skills";
+import { ArmorSkills, GroupSkills, WeaponSkills } from "@/data/skills";
 import { round } from "@/model";
 import { useCalcs, useGetters, useModel } from "@/store";
 import { Attack, Buff, SnapshotAttack, isRanged } from "@/types";
@@ -265,7 +265,7 @@ export default function Home() {
               </div>
               <p className="text-xs">Set</p>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {Object.entries(SetSkills).map(([k, s]) => {
+                {Object.entries(GroupSkills).map(([k, s]) => {
                   if (hideSkills && !buffs[k]) return undefined;
                   return (
                     <SkillSelect

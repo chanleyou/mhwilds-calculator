@@ -39,9 +39,26 @@ export type Buff = BuffValues & {
 
 export type BuffGroup = {
   name: string;
+  toggle?: boolean;
   description?: string;
   weapons?: Weapon[];
   levels: Buff[];
+};
+
+export type SkillGroup = {
+  toggle?: boolean;
+  description?: string;
+  levels: Record<number, Buff>;
+  weapons?: Weapon[];
+};
+
+export type WeaponSkillGroup = {
+  toggle?: boolean;
+  description?: string;
+  groups: {
+    weapons: Weapon[];
+    levels: Record<number, Buff>;
+  }[];
 };
 
 export type WeaponFlags = {
@@ -96,3 +113,31 @@ export const isRanged = (weapon?: Weapon) => {
 export const isBowgun = (weapon?: Weapon) => {
   return weapon === "Light Bowgun" || weapon === "Heavy Bowgun";
 };
+
+// TODO
+export type Skill = string;
+export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
+
+export type SlotLevel = 0 | 1 | 2 | 3 | 4;
+
+export type SkillRecord = Record<Skill, 1 | 2 | 3 | 4>;
+
+export type Armor = {
+  id: number;
+  type: ArmorType;
+  name: string;
+  skills: SkillRecord;
+  slots: [SlotLevel, SlotLevel, SlotLevel];
+  groupSkill?: Skill;
+  seriesSkill?: Skill;
+};
+
+export type Decoration = {
+  id: string | number;
+  name: string;
+  level: 1 | 2 | 3 | 4;
+  skills: SkillRecord;
+  type: "Weapon" | "Equipment";
+};
+
+export type Slots = [Decoration?, Decoration?, Decoration?];

@@ -1,3 +1,5 @@
+"use client";
+
 import { CopyIcon, XIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { CombinedBuffs } from "@/data";
