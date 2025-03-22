@@ -3,7 +3,12 @@ import { TimerResetIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useCalculated } from "@/builder";
 import { round } from "@/model";
-import { Attack, SnapshotAttack } from "@/types";
+import {
+  Attack,
+  ComboModeOption,
+  ComboModeOptions,
+  SnapshotAttack,
+} from "@/types";
 import {
   Button,
   Card,
@@ -13,15 +18,22 @@ import {
   SnapshotMovesTable,
 } from ".";
 
-const ComboModeOptions = ["Dynamic", "Snapshot"] as const;
-type ComboModeOption = (typeof ComboModeOptions)[number];
-
-export const ComboCard = () => {
+export const ComboCard = ({
+  comboMode,
+  setComboMode,
+  dynamicCombo,
+  snapshotCombo,
+  resetCombo,
+  removeAttack,
+}: {
+  comboMode: ComboModeOption;
+  setComboMode: (c: ComboModeOption) => void;
+  dynamicCombo: Attack[];
+  snapshotCombo: SnapshotAttack[];
+  resetCombo: () => void;
+  removeAttack: (i: number) => void;
+}) => {
   const { calcAverage } = useCalculated();
-
-  const [dynamicCombo, setDynamicCombo] = useState<Attack[]>([]);
-  const [snapshotCombo, setSnapshotCombo] = useState<SnapshotAttack[]>([]);
-  const [comboMode, setComboMode] = useState<ComboModeOption>("Dynamic");
 
   const totalDamage = useMemo(() => {
     if (comboMode === "Snapshot") {
@@ -41,14 +53,6 @@ export const ComboCard = () => {
     }
     return "Re-calculates damage of all attacks when inputs change.";
   }, [comboMode]);
-
-  const removeAttack = (i: number) => {
-    if (comboMode === "Snapshot") {
-      setSnapshotCombo(produce((d) => void d.splice(i, 1)));
-    } else {
-      setDynamicCombo(produce((d) => void d.splice(i, 1)));
-    }
-  };
 
   return (
     <Card>
@@ -72,10 +76,7 @@ export const ComboCard = () => {
           variant="secondary"
           size="sm"
           className="text-secondary"
-          onClick={() => {
-            if (comboMode === "Snapshot") setSnapshotCombo([]);
-            else setDynamicCombo([]);
-          }}
+          onClick={resetCombo}
         >
           <TimerResetIcon className="h-4 w-4" />
           Reset

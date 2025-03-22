@@ -61,12 +61,15 @@ export const DecorationPickerDialog = ({
           {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
           {value && (
             <Button
+              asChild
               variant="text"
               size="icon"
               onClick={clear}
               className="text-secondary"
             >
-              <XIcon className="h-4 w-4" />
+              <div>
+                <XIcon className="h-4 w-4" />
+              </div>
             </Button>
           )}
         </Picker>

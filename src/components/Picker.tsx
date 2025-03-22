@@ -15,7 +15,7 @@ export const Picker = ({
     <button
       type="button"
       className={cn(
-        "border-divider hover:bg-content-alt disabled:bg-content-alt flex h-7.5 flex-1 cursor-pointer justify-between rounded-sm border p-2 py-1 pr-1 pl-2 text-left text-sm disabled:pointer-events-none disabled:border-none",
+        "border-divider hover:bg-content-alt disabled:bg-content-alt/30 flex h-7.5 flex-1 cursor-pointer justify-between rounded-sm border p-2 py-1 pr-1 pl-2 text-left text-sm disabled:pointer-events-none disabled:border-none",
         className,
       )}
       {...props}

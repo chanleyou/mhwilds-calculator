@@ -59,8 +59,11 @@ export const CharmPickerDialog = ({
               size="icon"
               onClick={clear}
               className="text-secondary"
+              asChild
             >
-              <XIcon className="h-4 w-4" />
+              <div>
+                <XIcon className="h-4 w-4" />
+              </div>
             </Button>
           )}
         </Picker>

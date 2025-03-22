@@ -64,12 +64,15 @@ export const ArmorPickerDialog = ({
           {value ? value.name : type}
           {value && (
             <Button
+              asChild
               variant="text"
               size="icon"
               onClick={clear}
-              className="text-secondary"
+              className="text-secondary font-bold"
             >
-              <XIcon className="h-4 w-4" />
+              <div>
+                <XIcon size={16} />
+              </div>
             </Button>
           )}
           {/* {value?.skills &&

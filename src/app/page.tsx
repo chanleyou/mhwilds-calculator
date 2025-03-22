@@ -428,7 +428,13 @@ export default function Home() {
               />
             </div>
             {notice && <Notice>{notice}</Notice>}
-            <MovesTable onClick={addAttack} />
+            <MovesTable
+              onClick={addAttack}
+              weapon={weapon}
+              calcHit={calcHit}
+              calcCrit={calcCrit}
+              calcAverage={calcAverage}
+            />
           </Card>
         </div>
         <div className="flex flex-1 flex-col gap-2">
@@ -467,6 +473,10 @@ export default function Home() {
             </div>
             {comboMode === "Dynamic" ? (
               <MovesTable
+                weapon={weapon}
+                calcHit={calcHit}
+                calcCrit={calcCrit}
+                calcAverage={calcAverage}
                 custom={dynamicCombo}
                 onClick={(_, i) => removeAttack(i)}
                 hideHits

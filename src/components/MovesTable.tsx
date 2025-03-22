@@ -1,21 +1,25 @@
 import { useMemo } from "react";
 import Attacks from "@/data/attacks";
-import { useCalcs, useModel } from "@/store";
-import { Attack } from "@/types";
+import { Attack, Weapon } from "@/types";
 import { cn } from "@/utils";
 
 export function MovesTable({
+  weapon,
+  calcHit,
+  calcCrit,
+  calcAverage,
   custom,
   onClick,
   hideHits,
 }: {
+  weapon: Weapon;
+  calcHit: (a: Attack) => number;
+  calcCrit: (a: Attack) => number;
+  calcAverage: (a: Attack) => number;
   custom?: Attack[];
   onClick?: (a: Attack, i: number) => void;
   hideHits?: boolean;
 }) {
-  const { weapon } = useModel();
-  const { calcHit, calcCrit, calcAverage } = useCalcs();
-
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
     return Attacks[weapon];

@@ -8,7 +8,7 @@ import {
 import { cn } from "@/utils";
 
 export const SkillPointCard = () => {
-  const { disabled, setDisabled } = useBuild();
+  const { disabled, flags, setDisabled, setFlag } = useBuild();
   const { skillPoints, groupPoints } = useComputed();
 
   return (
@@ -84,6 +84,20 @@ export const SkillPointCard = () => {
                   value={!disabled[k]}
                   onChangeValue={() => setDisabled(k, !disabled[k])}
                 />
+              )}
+              {k === "Tetrad Shot" && (
+                <div className="flex gap-2">
+                  <Checkbox
+                    // label="Affinity"
+                    value={"TetradAffinity" in flags}
+                    onChangeValue={(v) => setFlag("TetradAffinity", v)}
+                  />
+                  <Checkbox
+                    // label="Attack"
+                    value={"TetradAttack" in flags}
+                    onChangeValue={(v) => setFlag("TetradAttack", v)}
+                  />
+                </div>
               )}
             </div>
           ))}

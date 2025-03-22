@@ -692,6 +692,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
     },
   },
   ["Opening Shot"]: {
+    toggle: true,
     levels: {
       1: {
         name: "Opening Shot 1",
@@ -736,9 +737,33 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Tetrad Shot"]: {
     levels: {
-      1: { name: "Tetrad Shot 1" },
-      2: { name: "Tetrad Shot 2" },
-      3: { name: "Tetrad Shot 3" },
+      1: {
+        name: "Tetrad Shot 1",
+        tetrad: {
+          affinity: 8,
+          attack: 3,
+          bowgunOffset: true,
+          elementMul: 1.05,
+        },
+      },
+      2: {
+        name: "Tetrad Shot 2",
+        tetrad: {
+          affinity: 10,
+          attack: 6,
+          bowgunOffset: true,
+          elementMul: 1.05,
+        },
+      },
+      3: {
+        name: "Tetrad Shot 3",
+        tetrad: {
+          affinity: 12,
+          attack: 10,
+          bowgunOffset: true,
+          elementMul: 1.05,
+        },
+      },
     },
   },
 };

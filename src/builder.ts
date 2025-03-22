@@ -53,6 +53,7 @@ export type InitialBuilder = {
   waistSlots: Slots;
   legsSlots: Slots;
   disabled: Record<Skill, boolean>;
+  flags: Record<Skill, boolean>;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -72,6 +73,7 @@ const initialBuilder: InitialBuilder = {
   waistSlots: [],
   legsSlots: [],
   disabled: {},
+  flags: {},
 };
 
 export type Builder = InitialBuilder & {
@@ -98,6 +100,7 @@ export type Builder = InitialBuilder & {
   setWaistDecoration: (i: number, d?: Decoration) => void;
   setLegsDecoration: (i: number, d?: Decoration) => void;
   setDisabled: (s: Skill, a: boolean) => void;
+  setFlag: (s: Skill, a: boolean) => void;
 };
 
 export const useBuild = create<Builder>((set) => ({
@@ -178,6 +181,14 @@ export const useBuild = create<Builder>((set) => ({
       }),
     );
   },
+  setFlag: (s, a) => {
+    set(
+      produce((d) => {
+        if (a) d.flags[s] = a;
+        else delete d.flags[s];
+      }),
+    );
+  },
 }));
 
 export const useComputed = () => {
@@ -202,6 +213,7 @@ export const useComputed = () => {
     waistSlots,
     legsSlots,
     disabled,
+    flags,
   } = useBuild();
 
   const armor = [helm, body, arms, waist, legs].filter((n): n is Armor => !!n);
@@ -276,11 +288,33 @@ export const useComputed = () => {
 
   const frenzy = buffs.Frenzy !== undefined;
 
-  const uiAffinity = calculateAffinity({ affinity, buffs, rawHzv, isWound });
+  // Tetrad Shot
+  const tetradBuff = buffs["Tetrad Shot"]?.tetrad;
+
+  const tetradAffinityBuff = tetradBuff
+    ? { affinity: tetradBuff.affinity }
+    : {};
+  const tetradAttackBuff = tetradBuff ? { ...tetradBuff, affinity: 0 } : {};
+
+  if (tetradBuff) {
+    if (flags.TetradAffinity) buffs["Tetrad Affinity"] = tetradAffinityBuff;
+    if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
+  }
+
+  const uiAffinity = calculateAffinity({
+    affinity,
+    buffs,
+    rawHzv,
+    isWound,
+  });
 
   const saPhial = buffs.saPhial?.saPhial;
 
-  const uiAttack = calculateAttack({ attack, buffs, frenzy });
+  const uiAttack = calculateAttack({
+    attack,
+    buffs,
+    frenzy,
+  });
 
   const uiElement = calculateElement({
     element,
@@ -305,14 +339,32 @@ export const useComputed = () => {
     ? (buffs["Charge Master"]?.rangedChargeEleMul ?? 1)
     : (buffs["Charge Master"]?.meleeChargeEleMul ?? 1);
 
+  const isPowerPhial = buffs.SwitchAxePhial?.saPhial === "Power";
+  const isElementPhial = buffs.SwitchAxePhial?.saPhial === "Element";
+
   return {
     skillPoints,
     groupPoints,
+    otherBuffs,
     buffs,
     uiAttack,
     uiElement,
-    swordAttack: uiAttack, // TODO
-    swordElement: uiElement, // TODO
+    swordAttack: calculateAttack({
+      attack,
+      buffs: {
+        ...buffs,
+        SwitchAxePhialBuff: isPowerPhial ? { attackMul: 1.17 } : {},
+      },
+      frenzy,
+    }),
+    swordElement: calculateElement({
+      element,
+      buffs: {
+        ...buffs,
+        SwitchAxePhialBuff: isElementPhial ? { elementMul: 1.45 } : {},
+      },
+      saElementPhial: isElementPhial,
+    }),
     bowgunElement,
     uiAffinity,
     powerAxe: buffs.SwitchAxePowerAxe?.powerAxe,
@@ -321,8 +373,26 @@ export const useComputed = () => {
     eleCritMulti: uiAffinity >= 0 ? eleCritMulti : 1,
     chargeEleMul,
     coatingRawMul: buffs.BowCoating?.coatingRawMul ?? 1,
-    artilleryShellAttack: uiAttack, // TODO
-    artilleryAmmoAttack: uiAttack, // TODO
+    artilleryShellAttack: calculateAttack({
+      attack,
+      buffs: {
+        ...buffs,
+        ArtilleryBuff: {
+          attackMul: buffs.Artillery?.artilleryShellAttackMul ?? 1,
+        },
+      },
+      frenzy,
+    }),
+    artilleryAmmoAttack: calculateAttack({
+      attack,
+      buffs: {
+        ...buffs,
+        ArtilleryBuff: {
+          attackMul: buffs.Artillery?.artilleryAmmoAttackMul ?? 1,
+        },
+      },
+      frenzy,
+    }),
     artilleryEle: buffs.Artillery?.artilleryEle ?? 0,
     normalShotsRawMul: buffs["Normal Shots"]?.normalShotsRawMul ?? 1,
     spreadPowerShotsRawMul:
@@ -338,36 +408,6 @@ export const useComputed = () => {
 };
 
 export const useCalculated = () => {
-  const b = useBuild();
-  const c = useComputed();
-  const calcHit = (atk: Attack) => calculateHit({ ...b, ...c, ...atk });
-  const calcCrit = (atk: Attack) => calculateCrit({ ...b, ...c, ...atk });
-  return {
-    calcHit,
-    calcCrit,
-    calcAverage: (atk: Attack) => {
-      const hit = calcHit(atk);
-      const crit = calcCrit(atk);
-      return calculateAverage(hit, crit, atk.cantCrit ? 0 : c.uiAffinity);
-    },
-    calcEffectiveRaw: () => {
-      const params = { ...b, ...c, mv: 100, rawHzv: 100, eleHzv: 0 };
-      const hit = calculateHit(params);
-      const crit = calculateCrit(params);
-      const avg = calculateAverage(hit, crit, c.uiAffinity);
-      return avg;
-    },
-    calcEffectiveEle: () => {
-      const params = { ...b, ...c, mv: 0, rawHzv: 0, eleHzv: 100 };
-      const hit = calculateHit(params);
-      const crit = calculateCrit(params);
-      const avg = calculateAverage(hit, crit, c.uiAffinity);
-      return avg;
-    },
-  };
-};
-
-export const useCalcs = () => {
   const b = useBuild();
   const c = useComputed();
   const calcHit = (atk: Attack) => calculateHit({ ...b, ...c, ...atk });

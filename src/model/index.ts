@@ -31,7 +31,11 @@ export const calculate = (
   return round(base * mul(...multipliers) + sum(...bonuses));
 };
 
-const get = (k: keyof BuffValues, n: number, b?: BuffValues) => {
+const get = (
+  k: keyof Omit<BuffValues, "bowgunOffset">,
+  n: number,
+  b?: BuffValues,
+) => {
   return b ? (b[k] ?? n) : n;
 };
 

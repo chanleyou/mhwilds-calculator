@@ -10,6 +10,7 @@ export type BuffValues = {
   affinity?: number;
   element?: number;
   elementMul?: number;
+  bowgunOffset?: boolean;
 };
 
 export type Buff = BuffValues & {
@@ -34,7 +35,7 @@ export type Buff = BuffValues & {
   artilleryAmmoAttackMul?: number;
   rapidFireMul?: number;
   demonBoost?: boolean;
-  bowgunOffset?: boolean;
+  tetrad?: BuffValues;
 };
 
 export type BuffGroup = {
@@ -158,3 +159,6 @@ export type Charm = {
 };
 
 export type Slots = [Decoration?, Decoration?, Decoration?];
+
+export const ComboModeOptions = ["Dynamic", "Snapshot"] as const;
+export type ComboModeOption = (typeof ComboModeOptions)[number];
