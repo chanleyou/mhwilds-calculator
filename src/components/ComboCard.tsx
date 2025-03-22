@@ -1,7 +1,17 @@
+import { produce } from "immer";
+import { TimerResetIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useCalculated } from "@/builder";
+import { round } from "@/model";
 import { Attack, SnapshotAttack } from "@/types";
-import { Card, Select } from ".";
+import {
+  Button,
+  Card,
+  MovesTable,
+  NumberDisplay,
+  Select,
+  SnapshotMovesTable,
+} from ".";
 
 const ComboModeOptions = ["Dynamic", "Snapshot"] as const;
 type ComboModeOption = (typeof ComboModeOptions)[number];
@@ -31,6 +41,15 @@ export const ComboCard = () => {
     }
     return "Re-calculates damage of all attacks when inputs change.";
   }, [comboMode]);
+
+  const removeAttack = (i: number) => {
+    if (comboMode === "Snapshot") {
+      setSnapshotCombo(produce((d) => void d.splice(i, 1)));
+    } else {
+      setDynamicCombo(produce((d) => void d.splice(i, 1)));
+    }
+  };
+
   return (
     <Card>
       <div>

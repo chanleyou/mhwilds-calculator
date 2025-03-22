@@ -6,7 +6,10 @@ import {
   BuffsCard,
   Card,
   CharmPickerDialog,
+  Checkbox,
   DecorationPickerDialog,
+  MovesTable,
+  NumberInput,
   SkillPointCard,
   StatsCard,
   WeaponCard,
@@ -14,6 +17,9 @@ import {
 
 export default function Builder() {
   const {
+    isWound,
+    rawHzv,
+    eleHzv,
     helm,
     body,
     arms,
@@ -25,6 +31,9 @@ export default function Builder() {
     armsSlots,
     waistSlots,
     legsSlots,
+    setRawHzv,
+    setEleHzv,
+    setIsWound,
     setHelm,
     setBody,
     setArms,
@@ -41,7 +50,7 @@ export default function Builder() {
 
   return (
     <div className="flex flex-row gap-2">
-      <div className="flex flex-1 flex-col gap-2">
+      <div className="flex flex-2 flex-col gap-2">
         <WeaponCard />
         <Card>
           <div className="flex flex-col gap-2">
@@ -122,14 +131,39 @@ export default function Builder() {
       </div>
       <div className="flex flex-1 flex-col gap-2">
         <StatsCard />
-        <SkillPointCard />
-        <Card>
+        {/* <Card>
           <textarea
-            className="font-mono text-xs"
-            value={JSON.stringify(build, undefined, 2)}
-            rows={100}
-            readOnly
+          className="font-mono text-xs"
+          value={JSON.stringify(build, undefined, 2)}
+          rows={100}
+          readOnly
           />
+          </Card> */}
+        <SkillPointCard />
+      </div>
+      <div className="flex-1">
+        <Card>
+          <h1>Attacks</h1>
+          <div className="flex place-items-center">
+            <Checkbox
+              label="Wound"
+              value={isWound}
+              onChangeValue={setIsWound}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <NumberInput
+              label="Hitzone (Raw)"
+              value={rawHzv}
+              onChangeValue={setRawHzv}
+            />
+            <NumberInput
+              label="Hitzone (Element)"
+              value={eleHzv}
+              onChangeValue={setEleHzv}
+            />
+          </div>
+          <MovesTable />
         </Card>
       </div>
     </div>

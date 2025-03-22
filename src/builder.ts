@@ -91,7 +91,7 @@ export type Builder = InitialBuilder & {
   setArms: (arms?: Armor) => void;
   setBody: (body?: Armor) => void;
   setLegs: (legs?: Armor) => void;
-  setCharm: (charm: Charm) => void;
+  setCharm: (charm?: Charm) => void;
   setHelmDecoration: (i: number, d?: Decoration) => void;
   setBodyDecoration: (i: number, d?: Decoration) => void;
   setArmsDecoration: (i: number, d?: Decoration) => void;
@@ -338,6 +338,36 @@ export const useComputed = () => {
 };
 
 export const useCalculated = () => {
+  const b = useBuild();
+  const c = useComputed();
+  const calcHit = (atk: Attack) => calculateHit({ ...b, ...c, ...atk });
+  const calcCrit = (atk: Attack) => calculateCrit({ ...b, ...c, ...atk });
+  return {
+    calcHit,
+    calcCrit,
+    calcAverage: (atk: Attack) => {
+      const hit = calcHit(atk);
+      const crit = calcCrit(atk);
+      return calculateAverage(hit, crit, atk.cantCrit ? 0 : c.uiAffinity);
+    },
+    calcEffectiveRaw: () => {
+      const params = { ...b, ...c, mv: 100, rawHzv: 100, eleHzv: 0 };
+      const hit = calculateHit(params);
+      const crit = calculateCrit(params);
+      const avg = calculateAverage(hit, crit, c.uiAffinity);
+      return avg;
+    },
+    calcEffectiveEle: () => {
+      const params = { ...b, ...c, mv: 0, rawHzv: 0, eleHzv: 100 };
+      const hit = calculateHit(params);
+      const crit = calculateCrit(params);
+      const avg = calculateAverage(hit, crit, c.uiAffinity);
+      return avg;
+    },
+  };
+};
+
+export const useCalcs = () => {
   const b = useBuild();
   const c = useComputed();
   const calcHit = (atk: Attack) => calculateHit({ ...b, ...c, ...atk });

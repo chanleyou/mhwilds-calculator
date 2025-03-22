@@ -4,6 +4,7 @@ export * from "./Button";
 export * from "./Card";
 export * from "./CharmPickerDialog";
 export * from "./Checkbox";
+export * from "./ComboCard";
 export * from "./ComboDialog";
 export * from "./DecorationPickerDialog";
 export * from "./Dialog";
