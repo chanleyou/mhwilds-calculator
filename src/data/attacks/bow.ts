@@ -49,6 +49,7 @@ export const BowAttacks = [
     eleMul: 0.6,
     hits: 5,
     rawMul: 1.1,
+    spreadPowerShot: true,
   },
   {
     name: "Flying Swallow Shot Lv1",
