@@ -1,12 +1,12 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { useBuild } from "@/builder";
 import { Buffs, FieldBuffs, HuntingHornBuffs } from "@/data";
-import { useModel } from "@/store";
 import { Buff } from "@/types";
 import { Button, Card, Checkbox, NumberInput, SkillSelect } from ".";
 
 export const BuffsCard = () => {
-  const { buffs, setBuff } = useModel();
+  const { otherBuffs: buffs, setOtherBuff: setOtherBuff } = useBuild();
 
   const [miscAttack, setMiscAttack] = useState(0);
   const [miscAttackMul, setMiscAttackMul] = useState(0);
@@ -27,8 +27,8 @@ export const BuffsCard = () => {
   }, [miscAttack, miscAttackMul, miscAffinity, miscElement, miscElementMul]);
 
   useEffect(() => {
-    setBuff("Miscellaneous", miscBuff);
-  }, [miscBuff, setBuff]);
+    setOtherBuff("Miscellaneous", miscBuff);
+  }, [miscBuff, setOtherBuff]);
 
   const [hideBuffs, setHideBuffs] = useState(false);
   return (
@@ -57,7 +57,7 @@ export const BuffsCard = () => {
               label={b.name}
               value={buffs[k] === b.levels[0]}
               onChangeValue={(checked) =>
-                setBuff(k, checked ? b.levels[0] : undefined)
+                setOtherBuff(k, checked ? b.levels[0] : undefined)
               }
             />
           );
@@ -73,7 +73,7 @@ export const BuffsCard = () => {
               skill={s}
               label={s.name}
               placeholder=""
-              onChangeValue={(buff) => setBuff(k, buff)}
+              onChangeValue={(buff) => setOtherBuff(k, buff)}
             />
           );
         })}
@@ -124,7 +124,7 @@ export const BuffsCard = () => {
                 value={buffs[k]}
                 skill={b}
                 placeholder={b.name}
-                onChangeValue={(buff) => setBuff(k, buff)}
+                onChangeValue={(buff) => setOtherBuff(k, buff)}
               />
             );
           })}

@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import { useCalcs, useGetters } from "@/store";
+import { useCalculated, useComputed } from "@/builder";
+import { cn } from "@/utils";
 import { Card, NumberDisplay } from ".";
 
 export const StatsCard = () => {
-  const { uiAttack, uiElement, uiAffinity } = useGetters();
-  const { calcEffectiveRaw, calcEffectiveEle } = useCalcs();
+  const { uiAttack, uiElement, uiAffinity } = useComputed();
+  const { calcEffectiveRaw, calcEffectiveEle } = useCalculated();
 
   const efr = useMemo(() => calcEffectiveRaw(), [calcEffectiveRaw]);
   const efe = useMemo(() => calcEffectiveEle(), [calcEffectiveEle]);
@@ -17,8 +18,16 @@ export const StatsCard = () => {
         <NumberDisplay label="Attack" value={uiAttack} />
         <NumberDisplay label="Effective Attack" value={efr} />
         <NumberDisplay label="Affinity" value={uiAffinity} suffix="%" />
-        <NumberDisplay label="Element" value={uiElement} />
-        <NumberDisplay label={"Effective Element"} value={efe} />
+        <NumberDisplay
+          className={cn(uiElement === 0 && "text-placeholder")}
+          label="Element"
+          value={uiElement}
+        />
+        <NumberDisplay
+          className={cn(efe === 0 && "text-placeholder")}
+          label={"Effective Element"}
+          value={efe}
+        />
       </div>
     </Card>
   );

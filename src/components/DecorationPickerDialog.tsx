@@ -1,5 +1,5 @@
 import { XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Decorations } from "@/data/decorations";
 import { Decoration, SlotLevel } from "@/types";
 import { cn } from "@/utils";
@@ -15,7 +15,7 @@ export const DecorationPickerDialog = ({
   type?: "Weapon" | "Equipment";
   level: SlotLevel;
   value?: Decoration;
-  setValue: (value: Decoration) => void;
+  setValue: (value?: Decoration) => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -43,6 +43,14 @@ export const DecorationPickerDialog = ({
 
   useEffect(() => void setFilter(""), [open]);
 
+  const clear = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setValue(undefined);
+    },
+    [setValue],
+  );
+
   const cellCn = cn(
     "text-secondary w-1/2 px-2 py-1.5 text-left first:pl-0 last:pr-0",
   );
@@ -51,6 +59,16 @@ export const DecorationPickerDialog = ({
       <DialogTrigger asChild>
         <Picker disabled={!level} className={value ? "" : "text-placeholder"}>
           {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
+          {value && (
+            <Button
+              variant="text"
+              size="icon"
+              onClick={clear}
+              className="text-secondary"
+            >
+              <XIcon className="h-4 w-4" />
+            </Button>
+          )}
         </Picker>
       </DialogTrigger>
       <DialogContent>

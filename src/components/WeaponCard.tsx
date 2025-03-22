@@ -9,24 +9,23 @@ import {
 import { WeaponBuffs } from "@/data";
 import { Sharpnesses, Weapons } from "@/data";
 import { WeaponSkillsTwo } from "@/data/skills";
-import { useModel } from "@/store";
 import { getSkillLevels, isRanged } from "@/types";
 
-export const WeaponCard = ({ showSkills }: { showSkills?: boolean }) => {
+export const WeaponCard = () => {
   const {
     weapon,
     attack,
     element,
     affinity,
     sharpness,
-    buffs,
+    otherBuffs: buffs,
     setWeapon,
     setAttack,
     setElement,
     setAffinity,
     setSharpness,
-    setBuff,
-  } = useModel();
+    setOtherBuff: setBuff,
+  } = useBuild();
   const { weaponSkills, setWeaponSkill } = useBuild();
   return (
     <Card>
@@ -90,26 +89,24 @@ export const WeaponCard = ({ showSkills }: { showSkills?: boolean }) => {
           );
         })}
       </div>
-      {showSkills && (
-        <div className="flex flex-col gap-2">
-          <p className="pl-0.5 text-xs">Skills</p>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {Object.entries(WeaponSkillsTwo).map(([k, s]) => {
-              return (
-                <SkillSelectTwo
-                  key={k}
-                  placeholder={k}
-                  skill={s}
-                  value={Object.entries(getSkillLevels(s))[weaponSkills[k] - 1]}
-                  onChangeValue={(s) => {
-                    setWeaponSkill(k, s ? Number(s[0]) : undefined);
-                  }}
-                />
-              );
-            })}
-          </div>
+      <div className="flex flex-col gap-2">
+        <p className="pl-0.5 text-xs">Skills</p>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {Object.entries(WeaponSkillsTwo).map(([k, s]) => {
+            return (
+              <SkillSelectTwo
+                key={k}
+                placeholder={k}
+                skill={s}
+                value={Object.entries(getSkillLevels(s))[weaponSkills[k] - 1]}
+                onChangeValue={(s) => {
+                  setWeaponSkill(k, s ? Number(s[0]) : undefined);
+                }}
+              />
+            );
+          })}
         </div>
-      )}
+      </div>
     </Card>
   );
 };

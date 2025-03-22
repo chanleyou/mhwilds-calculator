@@ -1,5 +1,5 @@
 import { XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Armors } from "@/data/armor";
 import { Armor, ArmorType } from "@/types";
 import { cn } from "@/utils";
@@ -16,7 +16,7 @@ export const ArmorPickerDialog = ({
 }: {
   type: ArmorType;
   value?: Armor;
-  setValue: (value: Armor) => void;
+  setValue: (value?: Armor) => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -45,6 +45,14 @@ export const ArmorPickerDialog = ({
 
   useEffect(() => void setFilter(""), [open]);
 
+  const clear = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setValue(undefined);
+    },
+    [setValue],
+  );
+
   const cellCn = cn(
     "text-secondary px-2 py-1.5 text-left first:pl-0 last:pr-0",
   );
@@ -54,6 +62,16 @@ export const ArmorPickerDialog = ({
         <Picker className={cn(!value && "text-placeholder")}>
           {/* <p className={cn("text-placeholder", value && "text-xs")}>{type}</p> */}
           {value ? value.name : type}
+          {value && (
+            <Button
+              variant="text"
+              size="icon"
+              onClick={clear}
+              className="text-secondary"
+            >
+              <XIcon className="h-4 w-4" />
+            </Button>
+          )}
           {/* {value?.skills &&
             Object.entries(value.skills).map(([k, v]) => (
               <p className="text-secondary text-xs" key={k}>{`${k} ${v}`}</p>

@@ -1,10 +1,10 @@
 "use client";
 
 import { produce } from "immer";
-import { ChevronDown, ChevronUp, TimerResetIcon } from "lucide-react";
+import { ChevronDown, ChevronUp, LinkIcon, TimerResetIcon } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
-  BuffsCard,
   Button,
   Card,
   Checkbox,
@@ -16,8 +16,6 @@ import {
   Select,
   SkillSelect,
   SnapshotMovesTable,
-  StatsCard,
-  WeaponCard,
 } from "@/components";
 import { MovesTable } from "@/components/MovesTable";
 import { ArmorSkills, GroupSkills, WeaponSkills } from "@/data/skills";
@@ -107,6 +105,12 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-end gap-2">
+        <Button asChild variant="secondary" className="text-info">
+          <Link href="/builder">
+            <LinkIcon className="h-4 w-4" />
+            Set Builder (Beta)
+          </Link>
+        </Button>
         <ImportDialog />
         <ExportDialog />
       </div>

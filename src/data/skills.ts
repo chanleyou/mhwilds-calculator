@@ -994,7 +994,7 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
       5: { name: "Heroics 5", attackMul: 1.3 },
     },
   },
-  LatentPower: {
+  ["Latent Power"]: {
     toggle: true,
     levels: {
       1: { name: "Latent Power 1", affinity: 10 },
@@ -1004,7 +1004,7 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
       5: { name: "Latent Power 5", affinity: 50 },
     },
   },
-  MaximumMight: {
+  ["Maximum Might"]: {
     toggle: true,
     levels: {
       1: { name: "Maximum Might 1", affinity: 10 },
@@ -1083,6 +1083,7 @@ export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
     },
   },
   ["Ebony Odogaron's Power"]: {
+    toggle: true,
     levels: {
       2: { name: "Burst Boost I", attack: 3 },
       4: { name: "Burst Boost II", attack: 10 },

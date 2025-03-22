@@ -1,5 +1,5 @@
 import { XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Charms } from "@/data/charms";
 import { Charm } from "@/types";
 import { cn } from "@/utils";
@@ -11,7 +11,7 @@ export const CharmPickerDialog = ({
   setValue,
 }: {
   value?: Charm;
-  setValue: (value: Charm) => void;
+  setValue: (value?: Charm) => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
@@ -37,6 +37,14 @@ export const CharmPickerDialog = ({
 
   useEffect(() => void setFilter(""), [open]);
 
+  const clear = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setValue(undefined);
+    },
+    [setValue],
+  );
+
   const cellCn = cn(
     "text-secondary w-1/2 px-2 py-1.5 text-left first:pl-0 last:pr-0",
   );
@@ -45,6 +53,16 @@ export const CharmPickerDialog = ({
       <DialogTrigger asChild>
         <Picker className={value ? "" : "text-placeholder"}>
           {value ? value.name : "Charm"}
+          {value && (
+            <Button
+              variant="text"
+              size="icon"
+              onClick={clear}
+              className="text-secondary"
+            >
+              <XIcon className="h-4 w-4" />
+            </Button>
+          )}
         </Picker>
       </DialogTrigger>
       <DialogContent>

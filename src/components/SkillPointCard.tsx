@@ -72,8 +72,8 @@ export const SkillPointCard = () => {
                     <div
                       key={i}
                       className={cn(
-                        "border-placeholder bg-divider h-4 w-4 border",
-                        v > i && "border-accent bg-accent/60",
+                        "border-divider h-4 w-4 border",
+                        v > i && "border-accent bg-accent/75",
                       )}
                     />
                   ))}

@@ -42,7 +42,7 @@ export default function Builder() {
   return (
     <div className="flex flex-row gap-2">
       <div className="flex flex-1 flex-col gap-2">
-        <WeaponCard showSkills />
+        <WeaponCard />
         <Card>
           <div className="flex flex-col gap-2">
             <h1>Equipment</h1>
@@ -57,7 +57,7 @@ export default function Builder() {
                     key={i}
                     value={helmSlots[i]}
                     level={helm?.slots[i] ?? 0}
-                    setValue={(v) => setHelmDecoration(v, i)}
+                    setValue={(v) => setHelmDecoration(i, v)}
                   />
                 );
               })}
@@ -71,7 +71,7 @@ export default function Builder() {
                     key={i}
                     value={bodySlots[i]}
                     level={body?.slots[i] ?? 0}
-                    setValue={(v) => setBodyDecoration(v, i)}
+                    setValue={(v) => setBodyDecoration(i, v)}
                   />
                 );
               })}
@@ -84,7 +84,7 @@ export default function Builder() {
                     key={i}
                     value={armsSlots[i]}
                     level={arms?.slots[i] ?? 0}
-                    setValue={(v) => setArmsDecoration(v, i)}
+                    setValue={(v) => setArmsDecoration(i, v)}
                   />
                 );
               })}
@@ -97,7 +97,7 @@ export default function Builder() {
                     key={i}
                     value={waistSlots[i]}
                     level={waist?.slots[i] ?? 0}
-                    setValue={(v) => setWaistDecoration(v, i)}
+                    setValue={(v) => setWaistDecoration(i, v)}
                   />
                 );
               })}
@@ -110,7 +110,7 @@ export default function Builder() {
                     key={i}
                     value={legsSlots[i]}
                     level={legs?.slots[i] ?? 0}
-                    setValue={(v) => setLegsDecoration(v, i)}
+                    setValue={(v) => setLegsDecoration(i, v)}
                   />
                 );
               })}

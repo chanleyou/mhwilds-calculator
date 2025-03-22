@@ -4,11 +4,20 @@ import { Buffs, CombinedBuffs } from "@/data";
 import {
   CombinedSkillsTwo,
   GroupAndSeriesSkills,
-  SeriesSkillsTwo,
   UnsupportedArmorSkills,
 } from "@/data/skills";
 import {
+  calculateAffinity,
+  calculateAttack,
+  calculateAverage,
+  calculateBowgunElement,
+  calculateCrit,
+  calculateElement,
+  calculateHit,
+} from "@/model";
+import {
   type Armor,
+  Attack,
   type Buff,
   type Charm,
   type Decoration,
@@ -27,7 +36,7 @@ export type InitialBuilder = {
   affinity: number;
   element: number;
   sharpness: Sharpness;
-  buffs: Record<string, Buff>;
+  otherBuffs: Record<string, Buff>;
   rawHzv: number;
   eleHzv: number;
   isWound: boolean;
@@ -52,7 +61,7 @@ const initialBuilder: InitialBuilder = {
   affinity: 0,
   element: 0,
   sharpness: "White",
-  buffs: { Powercharm: Buffs.Powercharm.levels[0] },
+  otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
   rawHzv: 80,
   eleHzv: 30,
   isWound: false,
@@ -72,22 +81,22 @@ export type Builder = InitialBuilder & {
   setAffinity: (affinity: number) => void;
   setElement: (element: number) => void;
   setSharpness: (sharpness: Sharpness) => void;
-  setBuff: (id: string, buff?: Buff) => void;
+  setOtherBuff: (id: string, buff?: Buff) => void;
   setRawHzv: (rawHzv: number) => void;
   setEleHzv: (eleHzv: number) => void;
   setIsWound: (isWound: boolean) => void;
   setWeaponSkill: (s: Skill, n?: number) => void;
-  setHelm: (helm: Armor) => void;
-  setWaist: (waist: Armor) => void;
-  setArms: (arms: Armor) => void;
-  setBody: (body: Armor) => void;
-  setLegs: (legs: Armor) => void;
+  setHelm: (helm?: Armor) => void;
+  setWaist: (waist?: Armor) => void;
+  setArms: (arms?: Armor) => void;
+  setBody: (body?: Armor) => void;
+  setLegs: (legs?: Armor) => void;
   setCharm: (charm: Charm) => void;
-  setHelmDecoration: (d: Decoration, i: number) => void;
-  setBodyDecoration: (d: Decoration, i: number) => void;
-  setArmsDecoration: (d: Decoration, i: number) => void;
-  setWaistDecoration: (d: Decoration, i: number) => void;
-  setLegsDecoration: (d: Decoration, i: number) => void;
+  setHelmDecoration: (i: number, d?: Decoration) => void;
+  setBodyDecoration: (i: number, d?: Decoration) => void;
+  setArmsDecoration: (i: number, d?: Decoration) => void;
+  setWaistDecoration: (i: number, d?: Decoration) => void;
+  setLegsDecoration: (i: number, d?: Decoration) => void;
   setDisabled: (s: Skill, a: boolean) => void;
 };
 
@@ -112,7 +121,7 @@ export const useBuild = create<Builder>((set) => ({
               group.weapons &&
               !group.weapons.includes(weapon)
             ) {
-              delete d.buffs[key];
+              delete d.otherBuffs[key];
             }
           });
         }
@@ -124,11 +133,11 @@ export const useBuild = create<Builder>((set) => ({
   setSharpness: (sharpness: Sharpness) => set({ sharpness }),
   setRawHzv: (rawHzv: number) => set({ rawHzv }),
   setEleHzv: (eleHzv: number) => set({ eleHzv }),
-  setBuff: (id: string, buff?: Buff) => {
+  setOtherBuff: (id: string, buff?: Buff) => {
     set(
       produce((d) => {
-        if (buff) d.buffs[id] = buff;
-        else delete d.buffs[id];
+        if (buff) d.otherBuffs[id] = buff;
+        else delete d.otherBuffs[id];
       }),
     );
   },
@@ -140,25 +149,25 @@ export const useBuild = create<Builder>((set) => ({
         else delete d.weaponSkills[s];
       }),
     ),
-  setHelm: (helm: Armor) => set({ helm }),
-  setWaist: (waist: Armor) => set({ waist }),
-  setArms: (arms: Armor) => set({ arms }),
-  setBody: (body: Armor) => set({ body }),
-  setLegs: (legs: Armor) => set({ legs }),
-  setCharm: (charm: Charm) => set({ charm }),
-  setHelmDecoration: (dc, i) => {
+  setHelm: (helm?: Armor) => set({ helm, helmSlots: [] }),
+  setWaist: (waist?: Armor) => set({ waist, waistSlots: [] }),
+  setArms: (arms?: Armor) => set({ arms, armsSlots: [] }),
+  setBody: (body?: Armor) => set({ body, bodySlots: [] }),
+  setLegs: (legs?: Armor) => set({ legs, legsSlots: [] }),
+  setCharm: (charm?: Charm) => set({ charm }),
+  setHelmDecoration: (i, dc) => {
     set(produce((d) => void (d.helmSlots[i] = dc)));
   },
-  setBodyDecoration: (dc, i) => {
+  setBodyDecoration: (i, dc) => {
     set(produce((d) => void (d.bodySlots[i] = dc)));
   },
-  setArmsDecoration: (dc, i) => {
+  setArmsDecoration: (i, dc) => {
     set(produce((d) => void (d.armsSlots[i] = dc)));
   },
-  setWaistDecoration: (dc, i) => {
+  setWaistDecoration: (i, dc) => {
     set(produce((d) => void (d.waistSlots[i] = dc)));
   },
-  setLegsDecoration: (dc, i) => {
+  setLegsDecoration: (i, dc) => {
     set(produce((d) => void (d.legsSlots[i] = dc)));
   },
   setDisabled: (s, a) => {
@@ -174,7 +183,12 @@ export const useBuild = create<Builder>((set) => ({
 export const useComputed = () => {
   const {
     weapon,
-    buffs,
+    attack,
+    affinity,
+    element,
+    rawHzv,
+    isWound,
+    otherBuffs,
     weaponSkills,
     helm,
     body,
@@ -221,9 +235,7 @@ export const useComputed = () => {
     return acc;
   }, {});
 
-  const effectiveBuffs = Object.entries(skillPoints).reduce<
-    Record<Skill, Buff>
-  >(
+  const buffs = Object.entries(skillPoints).reduce<Record<Skill, Buff>>(
     (acc, [k, v]) => {
       if (disabled[k]) return acc;
       if (UnsupportedArmorSkills[k]) return acc;
@@ -246,7 +258,7 @@ export const useComputed = () => {
 
       return acc;
     },
-    { ...buffs },
+    { ...otherBuffs },
   );
 
   Object.entries(groupPoints).forEach(([k, v]) => {
@@ -262,14 +274,95 @@ export const useComputed = () => {
     }
   });
 
+  const frenzy = buffs.Frenzy !== undefined;
+
+  const uiAffinity = calculateAffinity({ affinity, buffs, rawHzv, isWound });
+
+  const saPhial = buffs.saPhial?.saPhial;
+
+  const uiAttack = calculateAttack({ attack, buffs, frenzy });
+
+  const uiElement = calculateElement({
+    element,
+    buffs,
+    frenzy,
+  });
+
+  const bowgunOffset = Object.values(buffs).reduce((acc, buff) => {
+    if (buff.bowgunOffset && buff.attack) return acc + buff.attack;
+    return acc;
+  }, 0);
+
+  const bowgunElement = calculateBowgunElement({
+    element: uiAttack - bowgunOffset,
+    frenzy,
+  });
+
+  const critMulti = buffs["Critical Boost"]?.criticalBoost ?? 1.25;
+  const eleCritMulti = buffs["Critical Element"]?.criticalElement ?? 1;
+
+  const chargeEleMul = isRanged(weapon)
+    ? (buffs["Charge Master"]?.rangedChargeEleMul ?? 1)
+    : (buffs["Charge Master"]?.meleeChargeEleMul ?? 1);
+
   return {
-    weapon,
-    weaponSkills,
-    armor,
-    decorations,
     skillPoints,
     groupPoints,
-    effectiveBuffs,
-    disabled,
+    buffs,
+    uiAttack,
+    uiElement,
+    swordAttack: uiAttack, // TODO
+    swordElement: uiElement, // TODO
+    bowgunElement,
+    uiAffinity,
+    powerAxe: buffs.SwitchAxePowerAxe?.powerAxe,
+    saPhial,
+    critMulti: uiAffinity >= 0 ? critMulti : 0.75,
+    eleCritMulti: uiAffinity >= 0 ? eleCritMulti : 1,
+    chargeEleMul,
+    coatingRawMul: buffs.BowCoating?.coatingRawMul ?? 1,
+    artilleryShellAttack: uiAttack, // TODO
+    artilleryAmmoAttack: uiAttack, // TODO
+    artilleryEle: buffs.Artillery?.artilleryEle ?? 0,
+    normalShotsRawMul: buffs["Normal Shots"]?.normalShotsRawMul ?? 1,
+    spreadPowerShotsRawMul:
+      buffs["Spread/Power Shots"]?.spreadPowerShotsRawMul ?? 1,
+    specialAmmoBoostRawMul:
+      buffs["Special Ammo Boost"]?.specialAmmoBoostRawMul ?? 1,
+    piercingShotsRawMul: buffs["Piercing Shots"]?.piercingShotsRawMul ?? 1,
+    rapidFireMul: buffs["Rapid Fire Up"]?.rapidFireMul ?? 1,
+    cbShieldElement: buffs.ChargeBladeShieldElement?.cbShieldElement,
+    demonBoost: buffs.DualBladesDemonBoost?.demonBoost,
+    artilleryAmmoAttackMul: buffs.Artillery?.artilleryAmmoAttackMul ?? 0,
+  };
+};
+
+export const useCalculated = () => {
+  const b = useBuild();
+  const c = useComputed();
+  const calcHit = (atk: Attack) => calculateHit({ ...b, ...c, ...atk });
+  const calcCrit = (atk: Attack) => calculateCrit({ ...b, ...c, ...atk });
+  return {
+    calcHit,
+    calcCrit,
+    calcAverage: (atk: Attack) => {
+      const hit = calcHit(atk);
+      const crit = calcCrit(atk);
+      return calculateAverage(hit, crit, atk.cantCrit ? 0 : c.uiAffinity);
+    },
+    calcEffectiveRaw: () => {
+      const params = { ...b, ...c, mv: 100, rawHzv: 100, eleHzv: 0 };
+      const hit = calculateHit(params);
+      const crit = calculateCrit(params);
+      const avg = calculateAverage(hit, crit, c.uiAffinity);
+      return avg;
+    },
+    calcEffectiveEle: () => {
+      const params = { ...b, ...c, mv: 0, rawHzv: 0, eleHzv: 100 };
+      const hit = calculateHit(params);
+      const crit = calculateCrit(params);
+      const avg = calculateAverage(hit, crit, c.uiAffinity);
+      return avg;
+    },
   };
 };
