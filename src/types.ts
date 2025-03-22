@@ -49,16 +49,17 @@ export type SkillGroup = {
   toggle?: boolean;
   description?: string;
   levels: Record<number, Buff>;
-  weapons?: Weapon[];
 };
 
-export type WeaponSkillGroup = {
+export type WeaponGroup = {
+  weapons: Weapon[];
+  levels: Record<number, Buff>;
+};
+
+export type SkillWeaponGroup = {
   toggle?: boolean;
   description?: string;
-  groups: {
-    weapons: Weapon[];
-    levels: Record<number, Buff>;
-  }[];
+  groups: WeaponGroup[];
 };
 
 export type WeaponFlags = {
@@ -114,6 +115,16 @@ export const isBowgun = (weapon?: Weapon) => {
   return weapon === "Light Bowgun" || weapon === "Heavy Bowgun";
 };
 
+export const isSkillGroup = (
+  s: SkillGroup | SkillWeaponGroup,
+): s is SkillGroup => {
+  return "levels" in s;
+};
+
+export const getSkillLevels = (s: SkillGroup | SkillWeaponGroup) => {
+  return "levels" in s ? s.levels : s.groups[0].levels;
+};
+
 // TODO
 export type Skill = string;
 export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
@@ -138,6 +149,12 @@ export type Decoration = {
   level: 1 | 2 | 3 | 4;
   skills: SkillRecord;
   type: "Weapon" | "Equipment";
+};
+
+export type Charm = {
+  id: string | number;
+  name: string;
+  skills: SkillRecord;
 };
 
 export type Slots = [Decoration?, Decoration?, Decoration?];

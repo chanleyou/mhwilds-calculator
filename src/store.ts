@@ -130,14 +130,13 @@ export const useGetters = () => {
         }
       }),
     ),
-    swordElement: calculateElement({
-      ...produce(s, (d) => {
+    swordElement: calculateElement(
+      produce(s, (d) => {
         if (d.buffs.SwitchAxePhial?.saPhial === "Element") {
           d.buffs.SwitchAxePhialBuff = { elementMul: 1.45 };
         }
       }),
-      saElementPhial: s.buffs.SwitchAxePhial?.saPhial === "Element",
-    }),
+    ),
     bowgunElement,
     uiAffinity,
     frenzy: s.buffs.Frenzy?.name === "Overcame Frenzy",

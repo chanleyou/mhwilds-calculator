@@ -16,9 +16,9 @@ type DialogProps = DialogPrimitive.DialogContentProps & {
 
 export const DialogContent = ({ className, ...props }: DialogProps) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black/75">
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 flex items-center justify-center bg-black/75">
       <DialogPrimitive.Content
-        className={cn("max-h-[95%] w-3xl max-w-[95%] overflow-auto", className)}
+        className={cn("max-h-[90%] w-3xl max-w-[90%]", className)}
         {...props}
       />
     </DialogPrimitive.Overlay>

@@ -41,6 +41,7 @@ const getAffinity = (b?: BuffValues) => get("affinity", 0, b);
 const getElement = (b?: BuffValues) => get("element", 0, b);
 const getElementMul = (b?: BuffValues) => get("elementMul", 1, b);
 
+// TODO: refactor to insert buffs based on attack
 export const calculateAttack = ({
   attack,
   buffs = {},

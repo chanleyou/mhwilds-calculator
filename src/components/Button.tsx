@@ -3,7 +3,7 @@ import { type VariantProps, cva } from "cva";
 import { cn } from "@/utils";
 
 const button = cva({
-  base: "disabled:pointer-events inline-flex cursor-pointer items-center justify-center gap-1 rounded-sm border text-sm hover:opacity-75 active:opacity-50",
+  base: "inline-flex cursor-pointer items-center justify-center gap-1 rounded-sm border text-sm hover:opacity-75 active:opacity-50 disabled:pointer-events-none",
   variants: {
     variant: {
       primary: "bg-accent text-background",

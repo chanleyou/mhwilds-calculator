@@ -1,29 +1,23 @@
 import { XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Decorations } from "@/data/decorations";
-import { Decoration, SlotLevel } from "@/types";
+import { Charms } from "@/data/charms";
+import { Charm } from "@/types";
 import { cn } from "@/utils";
 import { Button, Card, Picker, TextInput } from ".";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 
-export const DecorationPickerDialog = ({
-  level,
+export const CharmPickerDialog = ({
   value,
-  type = "Equipment",
   setValue,
 }: {
-  type?: "Weapon" | "Equipment";
-  level: SlotLevel;
-  value?: Decoration;
-  setValue: (value: Decoration) => void;
+  value?: Charm;
+  setValue: (value: Charm) => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
 
   const filteredOptions = useMemo(() => {
-    return Decorations.filter((a) => {
-      if (a.type !== type) return false;
-      if (a.level > level) return false;
+    return Charms.filter((a) => {
       if (filter) {
         const { name, skills } = a;
         const search = [
@@ -39,7 +33,7 @@ export const DecorationPickerDialog = ({
 
       return true;
     });
-  }, [filter, level, type]);
+  }, [filter]);
 
   useEffect(() => void setFilter(""), [open]);
 
@@ -49,15 +43,15 @@ export const DecorationPickerDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Picker disabled={!level} className={value ? "" : "text-placeholder"}>
-          {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
+        <Picker className={value ? "" : "text-placeholder"}>
+          {value ? value.name : "Charm"}
         </Picker>
       </DialogTrigger>
       <DialogContent>
         <Card className="h-[80vh]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
-              <h1>Select Decoration {level}</h1>
+              <h1>Select Charm</h1>
             </DialogTitle>
             <Button variant="text" size="icon" onClick={() => setOpen(false)}>
               <XIcon className="h-4 w-4" />
