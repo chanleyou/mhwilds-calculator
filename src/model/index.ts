@@ -63,18 +63,26 @@ export const calculateElement = ({
   element,
   buffs = {},
   frenzy,
+  saElementPhial,
 }: {
   element: number;
   buffs?: Record<string, Buff>;
   frenzy?: boolean;
+  saElementPhial?: boolean;
 }) => {
   if (element === 0) return 0;
-  return calculate(
-    element,
-    Object.values(buffs).map((b) => {
-      return mul(getElementMul(b), frenzy ? getElementMul(b.frenzy) : 1);
-    }),
-    Object.values(buffs).map(getElement),
+  let cap = Math.max(element + 350, element * 1.9);
+  if (saElementPhial) cap += element * 0.45;
+
+  return Math.min(
+    calculate(
+      element,
+      Object.values(buffs).map((b) => {
+        return mul(getElementMul(b), frenzy ? getElementMul(b.frenzy) : 1);
+      }),
+      Object.values(buffs).map(getElement),
+    ),
+    cap,
   );
 };
 

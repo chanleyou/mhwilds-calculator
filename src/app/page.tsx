@@ -9,6 +9,7 @@ import {
   Checkbox,
   ExportDialog,
   ImportDialog,
+  Notice,
   NumberDisplay,
   NumberInput,
   Select,
@@ -67,6 +68,12 @@ export default function Home() {
   const [dynamicCombo, setDynamicCombo] = useState<Attack[]>([]);
   const [snapshotCombo, setSnapshotCombo] = useState<SnapshotAttack[]>([]);
   const [comboMode, setComboMode] = useState<ComboModeOption>("Dynamic");
+
+  const notice = useMemo(() => {
+    if (weapon === "Switch Axe") {
+      return "Element Phial damage is scuffed right now. Still figuring things out.";
+    }
+  }, [weapon]);
 
   // TODO: refactor
   const miscBuff: Buff = useMemo(() => {
@@ -413,6 +420,7 @@ export default function Home() {
                 onChangeValue={setEleHzv}
               />
             </div>
+            {notice && <Notice>{notice}</Notice>}
             <MovesTable onClick={addAttack} />
           </Card>
         </div>
