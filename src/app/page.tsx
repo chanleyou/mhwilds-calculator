@@ -152,7 +152,7 @@ export default function Home() {
         <Button asChild variant="secondary" className="text-info">
           <Link href="/builder">
             <LinkIcon className="h-4 w-4" />
-            Set Builder (Beta)
+            Set Builder
           </Link>
         </Button>
         <ImportDialog />

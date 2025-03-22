@@ -1,4 +1,4 @@
-import { SquareCodeIcon } from "lucide-react";
+import Image from "next/image";
 import { Button } from "./Button";
 
 export function Header() {
@@ -11,7 +11,13 @@ export function Header() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <SquareCodeIcon className="h-6 w-6" />
+          <Image
+            src="/github.svg"
+            alt="GitHub"
+            height={24}
+            width={24}
+            className="invert"
+          />
         </a>
       </Button>
     </header>

@@ -44,7 +44,7 @@ export const SkillPointCard = () => {
                   })}
                 </div>
               </div>
-              {SeriesSkillsTwo[k]?.toggle && (
+              {CombinedSkillsTwo[k]?.toggle && (
                 <Checkbox
                   value={!disabled[k]}
                   onChangeValue={() => setDisabled(k, !disabled[k])}
