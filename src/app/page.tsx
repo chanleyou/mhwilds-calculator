@@ -71,7 +71,7 @@ export default function Home() {
 
   const notice = useMemo(() => {
     if (weapon === "Switch Axe") {
-      return "Element Phial damage is scuffed right now. Still figuring things out.";
+      return "Element Phial Explosion damage is scuffed right now. Still figuring things out.";
     }
   }, [weapon]);
 
