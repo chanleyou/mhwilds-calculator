@@ -1,6 +1,5 @@
-import { produce } from "immer";
 import { TimerResetIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useCalculated } from "@/builder";
 import { round } from "@/model";
 import {
@@ -12,7 +11,7 @@ import {
 import {
   Button,
   Card,
-  MovesTable,
+  MovesTableTwo,
   NumberDisplay,
   Select,
   SnapshotMovesTable,
@@ -83,7 +82,7 @@ export const ComboCard = ({
         </Button>
       </div>
       {comboMode === "Dynamic" ? (
-        <MovesTable
+        <MovesTableTwo
           custom={dynamicCombo}
           onClick={(_, i) => removeAttack(i)}
           hideHits

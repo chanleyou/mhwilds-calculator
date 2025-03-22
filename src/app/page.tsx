@@ -17,7 +17,7 @@ import {
   SkillSelect,
   SnapshotMovesTable,
 } from "@/components";
-import { MovesTable } from "@/components/MovesTable";
+import { MovesTable } from "@/components";
 import {
   Buffs,
   FieldBuffs,
