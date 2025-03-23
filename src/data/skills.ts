@@ -731,23 +731,36 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Dragon Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
-    },
-  },
-  ["Element Attack"]: {
-    levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Element Attack 1", elementType: "Dragon", element: 40 },
+      2: {
+        name: "Element Attack 2",
+        elementType: "Dragon",
+        element: 50,
+        elementMul: 1.1,
+      },
+      3: {
+        name: "Element Attack 3",
+        elementType: "Dragon",
+        element: 60,
+        elementMul: 1.2,
+      },
     },
   },
   ["Fire Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Element Attack 1", elementType: "Fire", element: 40 },
+      2: {
+        name: "Element Attack 2",
+        elementType: "Fire",
+        element: 50,
+        elementMul: 1.1,
+      },
+      3: {
+        name: "Element Attack 3",
+        elementType: "Fire",
+        element: 60,
+        elementMul: 1.2,
+      },
     },
   },
   ["Handicraft"]: {
@@ -761,9 +774,19 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Ice Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Element Attack 1", elementType: "Ice", element: 40 },
+      2: {
+        name: "Element Attack 2",
+        elementType: "Ice",
+        element: 50,
+        elementMul: 1.1,
+      },
+      3: {
+        name: "Element Attack 3",
+        elementType: "Ice",
+        element: 60,
+        elementMul: 1.2,
+      },
     },
   },
   ["Normal Shots"]: {
@@ -885,16 +908,36 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Thunder Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Element Attack 1", elementType: "Thunder", element: 40 },
+      2: {
+        name: "Element Attack 2",
+        elementType: "Thunder",
+        element: 50,
+        elementMul: 1.1,
+      },
+      3: {
+        name: "Element Attack 3",
+        elementType: "Thunder",
+        element: 60,
+        elementMul: 1.2,
+      },
     },
   },
   ["Water Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Element Attack 1", elementType: "Water", element: 40 },
+      2: {
+        name: "Element Attack 2",
+        elementType: "Water",
+        element: 50,
+        elementMul: 1.1,
+      },
+      3: {
+        name: "Element Attack 3",
+        elementType: "Water",
+        element: 60,
+        elementMul: 1.2,
+      },
     },
   },
 };
@@ -1088,9 +1131,9 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   ["Convert Element"]: {
     toggle: true,
     levels: {
-      1: { name: "Convert Element 1", element: 80 },
-      2: { name: "Convert Element 2", element: 120 },
-      3: { name: "Convert Element 3", element: 180 },
+      1: { name: "Convert Element 1", elementType: "Dragon", element: 80 },
+      2: { name: "Convert Element 2", elementType: "Dragon", element: 120 },
+      3: { name: "Convert Element 3", elementType: "Dragon", element: 180 },
     },
   },
   Counterstrike: {
@@ -1210,26 +1253,43 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
 };
 
 export const GroupSkillsTwo: Record<Skill, SkillGroup> = {
-  ["Alluring Pelt"]: { levels: { 3: {} } },
-  ["Buttery Leathercraft"]: { toggle: true, levels: { 3: { affinity: 30 } } },
-  ["Flexible Leathercraft"]: { levels: { 3: {} } },
-  ["Fortifying Pelt"]: { levels: { 3: {} } },
-  ["Guardian's Protection"]: { levels: { 3: {} } },
-  ["Guardian's Pulse"]: { levels: { 3: {} } },
-  ["Imparted Wisdom"]: { levels: { 3: {} } },
-  ["Lord's Favor"]: { toggle: true, levels: { 3: { attack: 10 } } },
-  ["Lord's Fury"]: { toggle: true, levels: { 3: { attack: 10 } } },
-  ["Neopteron Alert"]: { levels: { 3: {} } },
-  ["Neopteron Camouflage"]: { levels: { 3: {} } },
-  ["Scale Layering"]: { levels: { 3: {} } },
-  ["Scaling Prowess"]: { levels: { 3: {} } },
+  ["Alluring Pelt"]: { levels: { 3: { name: "Diversion" } } },
+  ["Buttery Leathercraft"]: {
+    toggle: true,
+    levels: { 3: { name: "Affinity Sliding", affinity: 30 } },
+  },
+  ["Flexible Leathercraft"]: { levels: { 3: { name: "Hunter Gatherer" } } },
+  ["Fortifying Pelt"]: { levels: { 3: { name: "Fortify" } } },
+  ["Guardian's Protection"]: { levels: { 3: { name: "Ward of Wyveria" } } },
+  ["Guardian's Pulse"]: { levels: { 3: { name: "Wylk Burst" } } },
+  ["Imparted Wisdom"]: { levels: { 3: { name: "Forager's Luck" } } },
+  ["Lord's Favor"]: {
+    toggle: true,
+    levels: { 3: { name: "Inspiration", attack: 10 } },
+  },
+  ["Lord's Fury"]: {
+    toggle: true,
+    levels: { 3: { name: "Resuscitate ", attack: 10 } },
+  },
+  ["Neopteron Alert"]: { levels: { 3: { name: "Honey Hunter" } } },
+  ["Neopteron Camouflage"]: { levels: { 3: { name: "Fleetfoot" } } },
+  ["Scale Layering"]: { levels: { 3: { name: "Adrenaline" } } },
+  ["Scaling Prowess"]: { levels: { 3: { name: "Master Mounter" } } },
 };
 
 export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
-  ["Arkveld's Hunger"]: { levels: { 2: {}, 4: {} } },
+  ["Arkveld's Hunger"]: {
+    levels: {
+      2: { name: "Hasten Recovery I" },
+      4: { name: "Hasten Recovery II" },
+    },
+  },
   ["Blangonga's Spirit"]: {
     toggle: true,
-    levels: { 2: { attack: 10 }, 4: { attack: 20 } },
+    levels: {
+      2: { name: "War Cry I", attack: 10 },
+      4: { name: "War Cry II", attack: 20 },
+    },
   },
   ["Doshaguma's Might"]: {
     toggle: true,
@@ -1245,15 +1305,24 @@ export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
       4: { name: "Burst Boost II", attack: 10 },
     },
   },
-  ["Fulgur Anjanath's Will"]: { levels: { 2: {}, 4: {} } },
+  ["Fulgur Anjanath's Will"]: {
+    levels: { 2: { name: "Second Wind I" }, 4: { name: "Second Wind II" } },
+  },
   ["Gore Magala's Tyranny"]: {
     levels: {
       2: { name: "Black Eclipse I" },
       4: { name: "Black Eclipse II", attack: 10, frenzy: { attack: 5 } },
     },
   },
-  ["Gravios's Protection"]: { levels: { 2: {}, 4: {} } },
-  ["Guardian Arkveld's Protection"]: { levels: { 2: {}, 4: {} } },
+  ["Gravios's Protection"]: {
+    levels: {
+      2: { name: "Flawless Armor I" },
+      4: { name: "Flawless Armor II" },
+    },
+  },
+  ["Guardian Arkveld's Vitality"]: {
+    levels: { 2: { name: "Decimator I" }, 4: { name: "Decimator II" } },
+  },
   ["Jin Dahaad's Revolt"]: {
     toggle: true,
     levels: {
@@ -1262,8 +1331,21 @@ export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
     },
   },
   ["Nu Udra's Mutiny"]: { levels: { 2: {}, 4: {} } },
-  ["Rathalos's Flare"]: { levels: { 2: {}, 4: {} } },
-  ["Uth Duna's Cover"]: { levels: { 2: {}, 4: {} } },
+  ["Rathalos's Flare"]: {
+    levels: { 2: { name: "Scorcher I" }, 4: { name: "Scorcher II" } },
+  },
+  ["Rey Dau's Voltage"]: {
+    levels: {
+      2: { name: "Thunderous Roar I" },
+      4: { name: "Thunderous Roar II" },
+    },
+  },
+  ["Uth Duna's Cover"]: {
+    levels: {
+      2: { name: "Protective Veil I" },
+      4: { name: "Protective Veil II" },
+    },
+  },
   ["Xu Wu's Vigor"]: {
     toggle: true,
     levels: {

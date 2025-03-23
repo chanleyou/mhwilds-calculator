@@ -7,18 +7,18 @@ import {
 } from "@/data/skills";
 import { cn } from "@/utils";
 
-export const SkillPointCard = () => {
+export const SkillPointCard = ({ className }: { className?: string }) => {
   const { disabled, flags, setDisabled, setFlag } = useBuild();
-  const { skillPoints, groupPoints } = useComputed();
+  const { skillPoints, groupPoints, buffs } = useComputed();
 
   return (
-    <Card>
+    <Card className={className}>
       <h1>Skills</h1>
       <div className="flex flex-col gap-2">
         {Object.entries(groupPoints)
           .filter(([k, v]) => {
-            if (k in GroupSkillsTwo && v < 3) return false;
-            if (k in SeriesSkillsTwo && v < 2) return false;
+            if (!(k in SeriesSkillsTwo)) return false;
+            if (v < 2) return false;
             return true;
           })
           .sort(([, v1], [, v2]) => {
@@ -27,9 +27,14 @@ export const SkillPointCard = () => {
           .map(([k, v]) => (
             <div key={k} className="flex justify-between">
               <div className="flex flex-col gap-1">
-                <p className={cn("text-sm", disabled[k] && "line-through")}>
-                  {k}
-                </p>
+                <div>
+                  <p className="text-secondary text-xs">{k}</p>
+                  {buffs[k] && (
+                    <p className={cn("text-sm", disabled[k] && "line-through")}>
+                      {buffs[k].name}
+                    </p>
+                  )}
+                </div>
                 <div className="flex gap-1">
                   {(k in SeriesSkillsTwo ? [2, 4] : [3]).map((i) => {
                     return (
@@ -98,6 +103,48 @@ export const SkillPointCard = () => {
                     onChangeValue={(v) => setFlag("TetradAttack", v)}
                   />
                 </div>
+              )}
+            </div>
+          ))}
+        {Object.entries(groupPoints)
+          .filter(([k, v]) => {
+            if (!(k in GroupSkillsTwo)) return false;
+            if (v < 3) return false;
+            return true;
+          })
+          .sort(([, v1], [, v2]) => {
+            return v2 - v1;
+          })
+          .map(([k, v]) => (
+            <div key={k} className="flex justify-between">
+              <div className="flex flex-col gap-1">
+                <div>
+                  <p className="text-secondary text-xs">{k}</p>
+                  {buffs[k] && (
+                    <p className={cn("text-sm", disabled[k] && "line-through")}>
+                      {buffs[k].name}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-1">
+                  {(k in SeriesSkillsTwo ? [2, 4] : [3]).map((i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={cn(
+                          "border-divider bg-background h-4 w-4 border",
+                          v >= i && "border-indigo-400 bg-indigo-400/75",
+                        )}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+              {CombinedSkillsTwo[k]?.toggle && (
+                <Checkbox
+                  value={!disabled[k]}
+                  onChangeValue={() => setDisabled(k, !disabled[k])}
+                />
               )}
             </div>
           ))}

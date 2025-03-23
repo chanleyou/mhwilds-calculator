@@ -2,17 +2,9 @@ import { cn } from "@/utils";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
-  value: string | number;
-  suffix?: string;
 }
 
-export function NumberDisplay({
-  label,
-  value,
-  suffix,
-  className,
-  ...props
-}: Props) {
+export function NumberDisplay({ label, className, children, ...props }: Props) {
   return (
     <div
       className={cn(
@@ -22,10 +14,7 @@ export function NumberDisplay({
       {...props}
     >
       <p>{label}</p>
-      <p>
-        {value}
-        {suffix}
-      </p>
+      <div>{children}</div>
     </div>
   );
 }

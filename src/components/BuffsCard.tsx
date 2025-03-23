@@ -1,12 +1,12 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useBuild } from "@/builder";
-import { Buffs, FieldBuffs, HuntingHornBuffs } from "@/data";
+import { Buffs, FieldBuffs, HuntingHornBuffs, WeaponBuffs } from "@/data";
 import { Buff } from "@/types";
 import { Button, Card, Checkbox, NumberInput, SkillSelect } from ".";
 
 export const BuffsCard = () => {
-  const { otherBuffs: buffs, setOtherBuff: setOtherBuff } = useBuild();
+  const { weapon: w, otherBuffs, setOtherBuff } = useBuild();
 
   const [miscAttack, setMiscAttack] = useState(0);
   const [miscAttackMul, setMiscAttackMul] = useState(0);
@@ -50,12 +50,12 @@ export const BuffsCard = () => {
       </div>
       <div className="flex flex-wrap gap-x-4 gap-y-0">
         {Object.entries(Buffs).map(([k, b]) => {
-          if (hideBuffs && !buffs[k]) return undefined;
+          if (hideBuffs && !otherBuffs[k]) return undefined;
           return (
             <Checkbox
               key={k}
               label={b.name}
-              value={buffs[k] === b.levels[0]}
+              value={otherBuffs[k] === b.levels[0]}
               onChangeValue={(checked) =>
                 setOtherBuff(k, checked ? b.levels[0] : undefined)
               }
@@ -64,12 +64,29 @@ export const BuffsCard = () => {
         })}
       </div>
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+        {Object.entries(WeaponBuffs)
+          .filter(([k]) => {
+            return k !== "SwitchAxePhial"; // TODO: remove all this
+          })
+          .map(([k, s]) => {
+            if (!s.weapons?.includes(w.type)) return undefined;
+            return (
+              <SkillSelect
+                key={k}
+                skill={s}
+                value={otherBuffs[k]}
+                label={s.name}
+                placeholder=""
+                onChangeValue={(buff) => setOtherBuff(k, buff)}
+              />
+            );
+          })}
         {Object.entries(FieldBuffs).map(([k, s]) => {
-          if (hideBuffs && !buffs[k]) return undefined;
+          if (hideBuffs && !otherBuffs[k]) return undefined;
           return (
             <SkillSelect
               key={k}
-              value={buffs[k]}
+              value={otherBuffs[k]}
               skill={s}
               label={s.name}
               placeholder=""
@@ -96,6 +113,7 @@ export const BuffsCard = () => {
             label="Element (Flat)"
             value={miscElement}
             onChangeValue={setMiscElement}
+            step={10}
           />
         )}
         {(!hideBuffs || miscElementMul !== 0) && (
@@ -115,16 +133,16 @@ export const BuffsCard = () => {
       </div>
       <div className="flex flex-col gap-2">
         {(!hideBuffs ||
-          Object.keys(buffs).some((b) => {
+          Object.keys(otherBuffs).some((b) => {
             return Object.keys(HuntingHornBuffs).includes(b);
           })) && <h2 className="text-xs">Hunting Horn</h2>}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {Object.entries(HuntingHornBuffs).map(([k, b]) => {
-            if (hideBuffs && !buffs[k]) return undefined;
+            if (hideBuffs && !otherBuffs[k]) return undefined;
             return (
               <SkillSelect
                 key={k}
-                value={buffs[k]}
+                value={otherBuffs[k]}
                 skill={b}
                 placeholder={b.name}
                 onChangeValue={(buff) => setOtherBuff(k, buff)}

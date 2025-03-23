@@ -1,10 +1,20 @@
+import { produce } from "immer";
 import {
   SharpnessEle,
   SharpnessRaw,
   getSharpnessEle,
   getSharpnessRaw,
 } from "@/data";
-import { Attack, Buff, BuffValues, ComputedStore, Weapon } from "@/types";
+import {
+  Attack,
+  Buff,
+  BuffValues,
+  ComputedStore,
+  ElementType,
+  Weapon,
+  isBowgunElementAmmo,
+  isMeleeWeapon,
+} from "@/types";
 
 export const sum = (...args: (number | undefined)[]) => {
   return args.reduce<number>((sum, a) => (a ? sum + a : sum), 0);
@@ -293,7 +303,7 @@ export const calculateAverage = (
 
 export const calculateAttackTwo = (
   base: number,
-  buffs: Record<string, Buff>,
+  buffs: Record<string, Buff | undefined>,
   multipliers: (number | undefined | false)[] = [],
   bonuses: number[] = [],
 ) => {
@@ -305,21 +315,40 @@ export const calculateAttackTwo = (
 };
 
 export const calculateElementTwo = (
-  base: number,
-  buffs: Record<string, Buff>,
+  base: number | undefined,
+  type: ElementType,
+  buffs: Record<string, Buff | undefined>,
   multipliers: (number | undefined | false)[] = [],
   bonuses: number[] = [],
+  saElementPhial?: boolean,
 ) => {
-  return calculate(
-    base,
-    [...Object.values(buffs).map(getElementMul), ...multipliers],
-    [...Object.values(buffs).map(getElement), ...bonuses],
+  if (!base) return 0;
+  let cap = Math.max(base + 350, base * 1.9);
+  if (saElementPhial) cap += base * 0.45;
+
+  return Math.min(
+    cap,
+    calculate(
+      base,
+      [
+        ...Object.values(buffs)
+          .filter((o) => !o?.elementType || o?.elementType === type)
+          .map(getElementMul),
+        ...multipliers,
+      ],
+      [
+        ...Object.values(buffs)
+          .filter((o) => !o?.elementType || o?.elementType === type)
+          .map(getElement),
+        ...bonuses,
+      ],
+    ),
   );
 };
 
 export const calculateRawHitTwo = (
   weapon: Weapon,
-  buffs: Record<string, Buff>,
+  buffs: Record<string, Buff | undefined>,
   atk: Attack,
   rawHzv: number,
 ) => {
@@ -359,7 +388,7 @@ export const calculateRawHitTwo = (
 
 export const calculateEleHitTwo = (
   weapon: Weapon,
-  buffs: Record<string, Buff>,
+  buffs: Record<string, Buff | undefined>,
   atk: Attack,
   eleHzv: number,
 ) => {
@@ -367,7 +396,7 @@ export const calculateEleHitTwo = (
   eleHzv = eleHzv / 100;
 
   if (atk.fixedEle) {
-    const bonusEle = atk.shelling ? (buffs.Artillery.artilleryEle ?? 0) : 0;
+    const bonusEle = atk.shelling ? (buffs.Artillery?.artilleryEle ?? 0) : 0;
     return mul(sum(atk.fixedEle, bonusEle), eleHzv);
   }
 
@@ -376,9 +405,14 @@ export const calculateEleHitTwo = (
   if (atk.saType === "Sword" && weapon.phial === "Element") {
     multipliers.push(1.45);
   }
-  if (atk.rawEle) {
+
+  if (atk.saType === "Axe" && weapon.phial === "Dragon") {
+    return 0;
+  }
+
+  if (isBowgunElementAmmo(atk)) {
     const bowgunOffset = Object.values(buffs).reduce((acc, b) => {
-      if (b.bowgunOffset) return acc + (b.attack ?? 0);
+      if (b?.bowgunOffset) return acc + (b.attack ?? 0);
       return acc;
     }, 0);
 
@@ -389,10 +423,20 @@ export const calculateEleHitTwo = (
       [-bowgunOffset],
     );
 
-    weapon.element = bowgunAttack;
+    weapon = {
+      ...weapon,
+      element: { value: bowgunAttack, type: atk.elementType },
+    };
   }
 
-  const uiElement = calculateElementTwo(weapon.element, buffs, multipliers);
+  if (!weapon.element) return 0;
+
+  const uiElement = calculateElementTwo(
+    weapon.element.value,
+    weapon.element.type,
+    buffs,
+    multipliers,
+  );
 
   return mul(
     uiElement,
@@ -428,4 +472,32 @@ export const calculateCritTwo = (
   const r = calculateRawHitTwo(weapon, buffs, atk, rawHzv);
   const e = calculateEleHitTwo(weapon, buffs, atk, eleHzv);
   return round(dmg(r * critMulti) + dmg(e * eleCritMulti));
+};
+
+export const calculateHandicraft = (weapon: Weapon, level: number) => {
+  let points = level * 10;
+
+  if (!isMeleeWeapon(weapon)) return weapon;
+  return produce(weapon, (d) => {
+    let baseIndex = d.sharpness.reduce<number>(
+      (acc, n, i) => (n > 0 ? i : acc),
+      0,
+    );
+    let bonusIndex = 0;
+
+    while (points > 0) {
+      if (bonusIndex > 3) break;
+      const limit = d.handicraft[bonusIndex];
+
+      const bonus = points > limit ? limit : points;
+
+      d.sharpness[baseIndex] += bonus;
+      points -= bonus;
+
+      if (bonus == limit) {
+        baseIndex += 1;
+        bonusIndex += 1;
+      }
+    }
+  });
 };

@@ -19,7 +19,6 @@ export const WeaponTypes = [
 ] as const;
 
 export const Sharpnesses = [
-  "Ranged",
   "Red",
   "Orange",
   "Yellow",
@@ -27,10 +26,10 @@ export const Sharpnesses = [
   "Blue",
   "White",
   "Purple",
+  "Ranged",
 ] as const;
 
 export const SharpnessRaw: { [K in Sharpness]: number } = {
-  Ranged: 1,
   Red: 0.5,
   Orange: 0.75,
   Yellow: 1,
@@ -38,10 +37,10 @@ export const SharpnessRaw: { [K in Sharpness]: number } = {
   Blue: 1.2,
   White: 1.32,
   Purple: 1.39,
+  Ranged: 1,
 } as const;
 
 export const SharpnessEle: { [K in Sharpness]: number } = {
-  Ranged: 1,
   Red: 0.25,
   Orange: 0.5,
   Yellow: 0.75,
@@ -49,6 +48,7 @@ export const SharpnessEle: { [K in Sharpness]: number } = {
   Blue: 1.0625,
   White: 1.15,
   Purple: 1.25,
+  Ranged: 1,
 } as const;
 
 export const getSharpness = (n?: number[]): Sharpness => {
@@ -59,7 +59,8 @@ export const getSharpness = (n?: number[]): Sharpness => {
     else break;
   }
 
-  return Sharpnesses[index];
+  const s = Sharpnesses[index];
+  return s;
 };
 export const getSharpnessRaw = (n?: number[]) => SharpnessRaw[getSharpness(n)];
 export const getSharpnessEle = (n?: number[]) => SharpnessEle[getSharpness(n)];

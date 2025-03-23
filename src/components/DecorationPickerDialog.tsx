@@ -3,7 +3,16 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Decorations } from "@/data/decorations";
 import { Decoration, SlotLevel } from "@/types";
 import { cn } from "@/utils";
-import { Button, Card, Picker, TextInput } from ".";
+import {
+  Button,
+  Card,
+  Picker,
+  Table,
+  TableCell,
+  TableHeadRow,
+  TableRow,
+  TextInput,
+} from ".";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 
 export const DecorationPickerDialog = ({
@@ -38,7 +47,7 @@ export const DecorationPickerDialog = ({
       }
 
       return true;
-    });
+    }).sort((a, b) => b.level - a.level);
   }, [filter, level, type]);
 
   useEffect(() => void setFilter(""), [open]);
@@ -51,14 +60,13 @@ export const DecorationPickerDialog = ({
     [setValue],
   );
 
-  const cellCn = cn(
-    "text-secondary w-1/2 px-2 py-1.5 text-left first:pl-0 last:pr-0",
-  );
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Picker disabled={!level} className={value ? "" : "text-placeholder"}>
-          {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
+          <span className="truncate">
+            {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
+          </span>
           {value && (
             <Button
               asChild
@@ -75,7 +83,7 @@ export const DecorationPickerDialog = ({
         </Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-[80vh]">
+        <Card className="max-w-90vw h-[90vh] w-[90vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Decoration {level}</h1>
@@ -91,35 +99,35 @@ export const DecorationPickerDialog = ({
             autoFocus
           />
           <div className="overflow-auto">
-            <table className="w-full table-auto border-collapse text-xs">
+            <Table>
               <thead>
-                <tr className="border-primary border-b">
-                  <th className={cellCn}>Name</th>
-                  <th className={cellCn}>Skills</th>
-                </tr>
+                <TableHeadRow>
+                  <TableCell className="w-1/2">Name</TableCell>
+                  <TableCell className="w-1/2">Skills</TableCell>
+                </TableHeadRow>
               </thead>
               <tbody>
                 {filteredOptions.map((a) => (
-                  <tr
+                  <TableRow
                     key={a.id}
-                    className="hover:bg-content-alt cursor-pointer border-b border-zinc-800 p-1.5 last:border-0"
+                    className={cn(a.name === value?.name && "bg-content-alt")}
                     onClick={() => {
                       setValue(a);
                       setOpen(false);
                     }}
                   >
-                    <td className={cellCn}>{a.name}</td>
-                    <td className={cellCn}>
+                    <TableCell>{a.name}</TableCell>
+                    <TableCell>
                       {Object.entries(a.skills).map(([k, v]) => (
                         <div key={k}>
                           {k} {v}
                         </div>
                       ))}
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
               </tbody>
-            </table>
+            </Table>
           </div>
         </Card>
       </DialogContent>

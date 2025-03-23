@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { inter, notoSansMono } from "@/fonts";
@@ -15,12 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`bg-background text-white ${inter.variable} ${notoSansMono.variable} antialiased`}
-      >
-        <Header />
-        <main className="max-w-11xl mx-auto p-2">{children}</main>
-      </body>
+      <TooltipProvider delayDuration={100}>
+        <body
+          className={`bg-background text-white ${inter.variable} ${notoSansMono.variable} antialiased`}
+        >
+          <Header />
+          <main className="max-w-11xl mx-auto p-2">{children}</main>
+        </body>
+      </TooltipProvider>
     </html>
   );
 }

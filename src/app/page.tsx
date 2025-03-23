@@ -399,11 +399,11 @@ export default function Home() {
               <h1>Stats</h1>
             </div>
             <div>
-              <NumberDisplay label="Attack" value={uiAttack} />
-              <NumberDisplay label="Element" value={uiElement} />
-              <NumberDisplay label="Affinity" value={uiAffinity} suffix="%" />
-              <NumberDisplay label="Effective Attack" value={efr} />
-              <NumberDisplay label={"Effective Element"} value={efe} />
+              <NumberDisplay label="Attack">{uiAttack}</NumberDisplay>
+              <NumberDisplay label="Element">{uiElement}</NumberDisplay>
+              <NumberDisplay label="Affinity">{uiAffinity}%</NumberDisplay>
+              <NumberDisplay label="Effective Attack">{efr}</NumberDisplay>
+              <NumberDisplay label={"Effective Element"}>{efe}</NumberDisplay>
             </div>
           </Card>
           <Card>
@@ -451,11 +451,10 @@ export default function Home() {
               description={comboModeDescription}
             />
             <div>
-              <NumberDisplay
-                label="Total Average"
-                value={round(totalDamage, 2)}
-              />
-              <NumberDisplay label="Total Hits" value={totalHits} />
+              <NumberDisplay label="Total Average">
+                {round(totalDamage, 2)}
+              </NumberDisplay>
+              <NumberDisplay label="Total Hits">{totalHits}</NumberDisplay>
             </div>
             <div className="flex justify-end">
               <Button

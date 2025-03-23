@@ -1,5 +1,5 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
-import { InitialStore, useGetters } from "./store";
+import { InitialStore, useGetters } from "@/store";
 
 export type ElementType = "Dragon" | "Fire" | "Ice" | "Thunder" | "Water";
 export type StatusType = "Blast" | "Paralysis" | "Poison" | "Sleep";
@@ -14,39 +14,50 @@ export type SwitchAxePhialType =
 
 export type ChargeBladePhialType = "Impact" | "Element";
 
+export type WeaponSharpness = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+];
+
+export type Handicraft = [number, number, number, number];
+
+export type Shelling = {
+  type: "Normal" | "Wide" | "Long";
+  level: number;
+};
+
 export interface IWeapon extends Equip {
   type: WeaponType;
-  name: string;
   rarity?: number;
   attack: number;
   affinity: number;
-  element: number;
-  elementType?: ElementType;
-  status?: number;
+  element?: { type: ElementType; value: number };
+  status?: { type: StatusType; value: number };
   statusType?: StatusType;
-  sharpness?: number[];
-  handicraft?: number[];
+  sharpness?: WeaponSharpness;
+  handicraft?: Handicraft;
   slots: [SlotLevel, SlotLevel, SlotLevel];
   artian?: boolean;
   phial?: SwitchAxePhialType | ChargeBladePhialType;
+  shelling?: Shelling;
 }
 
 export interface MeleeWeapon extends IWeapon {
-  sharpness: number[];
-  handicraft: number[];
+  sharpness: WeaponSharpness;
+  handicraft: Handicraft;
 }
 
 export type Bow = IWeapon & { type: "Bow" };
 export type Bowgun = IWeapon & { type: "Light Bowgun" | "Heavy Bowgun" };
 
 export type ChargeBlade = MeleeWeapon & { phial: ChargeBladePhialType };
-export type Gunlance = MeleeWeapon & {
-  shellType: "Normal" | "Wide" | "Long";
-  shellLevel: number;
-};
-export type SwitchAxe = MeleeWeapon & {
-  phial: SwitchAxePhialType;
-};
+export type Gunlance = MeleeWeapon & { shelling: Shelling };
+export type SwitchAxe = MeleeWeapon & { phial: SwitchAxePhialType };
 
 export type Weapon =
   | Bow
@@ -98,6 +109,7 @@ export type Buff = BuffValues & {
   impactPhialMul?: number;
   elePhialMul?: number;
   chargeEleMul?: number;
+  elementType?: ElementType;
 };
 
 export type BuffGroup = {
@@ -130,7 +142,7 @@ export type WeaponFlags = {
   saElementPhial?: boolean;
 };
 
-export type Attack = {
+export interface IAttack {
   name?: string;
   mv: number;
   rawMul?: number;
@@ -138,6 +150,7 @@ export type Attack = {
   fixedEle?: number;
   eleHzvCap?: number;
   rawEle?: number;
+  elementType?: ElementType;
   ignoreHzv?: boolean; // only applies to raw hitzone
   cantCrit?: boolean;
   ignoreSharpness?: boolean;
@@ -156,6 +169,19 @@ export type Attack = {
   artilleryAmmo?: boolean;
   rapidFire?: boolean;
   airborne?: boolean; // TODO
+}
+
+export type BowgunElementAmmo = IAttack & {
+  rawEle: number;
+  elementType: ElementType;
+};
+
+export type Attack = BowgunElementAmmo | IAttack;
+
+export const isBowgunElementAmmo = (
+  attack: Attack,
+): attack is BowgunElementAmmo => {
+  return "rawEle" in attack && "elementType" in attack;
 };
 
 export type ComputedStore = InitialStore & ReturnType<typeof useGetters>;
@@ -195,13 +221,13 @@ export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
 export type SlotLevel = 0 | 1 | 2 | 3 | 4;
 
 export interface Equip {
+  name: string;
   skills: Record<Skill, number>;
 }
 
 export type Armor = Equip & {
   id: number;
   type: ArmorType;
-  name: string;
   slots: [SlotLevel, SlotLevel, SlotLevel];
   groupSkill?: Skill;
   seriesSkill?: Skill;
@@ -209,14 +235,12 @@ export type Armor = Equip & {
 
 export type Decoration = Equip & {
   id: string | number;
-  name: string;
   level: 1 | 2 | 3 | 4;
   type: "Weapon" | "Equipment";
 };
 
 export type Charm = Equip & {
   id: string | number;
-  name: string;
 };
 
 export type Slots = [Decoration?, Decoration?, Decoration?];
@@ -232,3 +256,7 @@ export type Target = {
 
 export type BuffName = string;
 export type Flag = "TetradAttack" | "TetradAffinity";
+
+export const isMeleeWeapon = (weapon: Weapon): weapon is MeleeWeapon => {
+  return "sharpness" in weapon && "handicraft" in weapon;
+};

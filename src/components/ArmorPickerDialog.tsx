@@ -7,6 +7,7 @@ import { Button } from "./Button";
 import { Card } from "./Card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Picker } from "./Picker";
+import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
 import { TextInput } from "./TextInput";
 
 export const ArmorPickerDialog = ({
@@ -53,9 +54,6 @@ export const ArmorPickerDialog = ({
     [setValue],
   );
 
-  const cellCn = cn(
-    "text-secondary px-2 py-1.5 text-left first:pl-0 last:pr-0",
-  );
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -98,26 +96,26 @@ export const ArmorPickerDialog = ({
             autoFocus
           />
           <div className="overflow-auto">
-            <table className="w-full table-auto border-collapse text-xs">
+            <Table>
               <thead>
-                <tr className="border-primary border-b">
-                  <th className={cn(cellCn, "w-5/12")}>Name</th>
-                  <th className={cn(cellCn, "w-5/12")}>Skills</th>
-                  <th className={cn(cellCn, "w-1/6")}>Slots</th>
-                </tr>
+                <TableHeadRow>
+                  <TableCell className={"w-2/5"}>Name</TableCell>
+                  <TableCell className={"w-2/5"}>Skills</TableCell>
+                  <TableCell className={"w-1/5"}>Slots</TableCell>
+                </TableHeadRow>
               </thead>
               <tbody>
                 {filteredOptions.map((a) => (
-                  <tr
+                  <TableRow
                     key={a.id}
-                    className="hover:bg-content-alt cursor-pointer border-b border-zinc-800 p-1.5 last:border-0"
+                    className={cn(a.name === value?.name && "bg-content-alt")}
                     onClick={() => {
                       setValue(a);
                       setOpen(false);
                     }}
                   >
-                    <td className={cellCn}>{a.name}</td>
-                    <td className={cellCn}>
+                    <TableCell>{a.name}</TableCell>
+                    <TableCell>
                       {Object.entries(a.skills).map(([k, v]) => (
                         <p key={k}>
                           {k} {v}
@@ -125,14 +123,14 @@ export const ArmorPickerDialog = ({
                       ))}
                       {a.groupSkill && <p>{a.groupSkill} 1</p>}
                       {a.seriesSkill && <p>{a.seriesSkill} 1</p>}
-                    </td>
-                    <td className={cn(cellCn, "font-mono")}>
-                      {a.slots.filter((s) => s > 0).join(",")}
-                    </td>
-                  </tr>
+                    </TableCell>
+                    <TableCell>
+                      {a.slots.filter((s) => s > 0).join(", ")}
+                    </TableCell>
+                  </TableRow>
                 ))}
               </tbody>
-            </table>
+            </Table>
           </div>
         </Card>
       </DialogContent>

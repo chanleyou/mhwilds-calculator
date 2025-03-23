@@ -65,3 +65,7 @@ select::-ms-expand {
 textarea {
   @apply focus:outline-none border border-divider focus:border-secondary;
 }
+
+th {
+  @apply font-medium;
+}

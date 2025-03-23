@@ -12,6 +12,7 @@ import {
   calculateAverage,
   calculateCritTwo,
   calculateElementTwo,
+  calculateHandicraft,
   calculateHitTwo,
 } from "@/model";
 import {
@@ -158,7 +159,7 @@ export const useBuild = create<Builder>((set) => ({
 
 export const useComputed = () => {
   const {
-    weapon,
+    weapon: w,
     rawHzv,
     eleHzv,
     isWound,
@@ -194,7 +195,7 @@ export const useComputed = () => {
     .flat()
     .filter((n): n is Decoration => !!n);
 
-  const skillPoints = [weapon, ...equipment, ...decorations, charm].reduce<
+  const skillPoints = [w, ...equipment, ...decorations, charm].reduce<
     Record<Skill, number>
   >((acc, i) => {
     if (!i) return acc;
@@ -211,7 +212,6 @@ export const useComputed = () => {
       acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
     }
     if (seriesSkill) {
-      console.log(seriesSkill, acc[seriesSkill]);
       acc[seriesSkill] = acc[seriesSkill] ? acc[seriesSkill] + 1 : 1;
     }
     return acc;
@@ -231,7 +231,7 @@ export const useComputed = () => {
         acc[k] = skill.levels[v];
       } else {
         const group = skill.groups.find((g) => {
-          return g.weapons.includes(weapon.type);
+          return g.weapons.includes(w.type);
         });
         if (group) {
           const maxLevel = Object.values(group.levels).length;
@@ -252,9 +252,8 @@ export const useComputed = () => {
     const { levels } = GroupAndSeriesSkills[k];
 
     for (let i = v; i > 0; i--) {
-      if (!levels[v]) continue;
-      console.log(k, v, levels);
-      buffs[k] = levels[v];
+      if (!levels[i]) continue;
+      buffs[k] = levels[i];
       break;
     }
   });
@@ -267,6 +266,12 @@ export const useComputed = () => {
       buffs["Frenzy" + k] = v.frenzy;
     });
   }
+
+  // Handicraft
+  const weapon = calculateHandicraft(
+    w,
+    Math.min(skillPoints["Handicraft"] ?? 0, 5),
+  );
 
   // Tetrad Shot
   const tetradBuff = buffs["Tetrad Shot"]?.tetrad;
@@ -282,44 +287,53 @@ export const useComputed = () => {
   }
 
   const uiAffinity = calculateAffinity({
-    affinity: weapon.affinity ?? 0,
+    affinity: w.affinity ?? 0,
     buffs,
     rawHzv,
     isWound,
   });
 
-  const uiAttack = calculateAttackTwo(weapon.attack, buffs);
-  const uiElement = calculateElementTwo(weapon.element, buffs);
+  const uiAttack = calculateAttackTwo(w.attack, buffs);
+  const uiElement = w.element
+    ? calculateElementTwo(w.element.value, w.element.type, buffs)
+    : 0;
 
   const critMulti = buffs["Critical Boost"]?.criticalBoost ?? 1.25;
   const eleCritMulti = buffs["Critical Element"]?.criticalElement ?? 1;
 
-  const calcHit = (atk: Attack) => {
-    return calculateHitTwo(weapon, buffs, atk, rawHzv, eleHzv);
+  const calcHit = (atk: Attack, eleHzvOverride?: number) => {
+    return calculateHitTwo(
+      weapon,
+      buffs,
+      atk,
+      rawHzv,
+      eleHzvOverride ?? eleHzv,
+    );
   };
 
-  const calcCrit = (atk: Attack) => {
+  const calcCrit = (atk: Attack, eleHzvOverride?: number) => {
     return calculateCritTwo(
       weapon,
       buffs,
       atk,
       rawHzv,
-      eleHzv,
+      eleHzvOverride ?? eleHzv,
       critMulti,
       eleCritMulti,
     );
   };
 
-  const calcAverage = (atk: Attack) => {
-    const hit = calcHit(atk);
-    const crit = calcCrit(atk);
+  const calcAverage = (atk: Attack, eleHzvOverride?: number) => {
+    const hit = calcHit(atk, eleHzvOverride);
+    const crit = calcCrit(atk, eleHzvOverride);
     return calculateAverage(hit, crit, atk.cantCrit ? 0 : uiAffinity);
   };
 
-  const effectiveRaw = calcAverage({ mv: 100, eleMul: 0 });
-  const effectiveEle = calcAverage({ mv: 0, eleMul: 100 });
+  const effectiveRaw = calcAverage({ mv: 100, eleMul: 0, ignoreHzv: true });
+  const effectiveEle = calcAverage({ mv: 0 }, 100);
 
   return {
+    weapon,
     skillPoints,
     groupPoints,
     buffs,
