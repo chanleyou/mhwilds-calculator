@@ -24,7 +24,7 @@ import {
   HuntingHornBuffs,
   Sharpnesses,
   WeaponBuffs,
-  Weapons,
+  WeaponTypes,
 } from "@/data";
 import { ArmorSkills, GroupSkills, WeaponSkills } from "@/data/skills";
 import { round } from "@/model";
@@ -172,7 +172,7 @@ export default function Home() {
                 <Select
                   label="Weapon"
                   value={weapon}
-                  options={[...Weapons]}
+                  options={[...WeaponTypes]}
                   onChangeValue={setWeapon}
                 />
               </div>

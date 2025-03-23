@@ -1,17 +1,18 @@
 import type {
+  Buff,
   BuffGroup,
   Skill,
   SkillGroup,
   SkillWeaponGroup,
-  Weapon,
+  WeaponType,
 } from "@/types";
 
-const DBGroup: Weapon[] = ["Dual Blades"];
-const BowGroup: Weapon[] = ["Bow"];
-const LightGroup: Weapon[] = ["Dual Blades", "Bow"];
-const HeavyGroup: Weapon[] = ["Great Sword", "Hunting Horn"];
-const BowgunGroup: Weapon[] = ["Light Bowgun", "Heavy Bowgun"];
-const OthersGroup: Weapon[] = [
+const DBGroup: WeaponType[] = ["Dual Blades"];
+const BowGroup: WeaponType[] = ["Bow"];
+const LightGroup: WeaponType[] = ["Dual Blades", "Bow"];
+const HeavyGroup: WeaponType[] = ["Great Sword", "Hunting Horn"];
+const BowgunGroup: WeaponType[] = ["Light Bowgun", "Heavy Bowgun"];
+const OthersGroup: WeaponType[] = [
   "Sword and Shield",
   "Long Sword",
   "Hammer",
@@ -37,7 +38,13 @@ const OthersGroup: Weapon[] = [
 // ];
 
 const skill = (n: number) => ({
-  levels: Array.from(Array(n).keys()).map(() => ({})),
+  levels: Array.from(Array(n).keys()).reduce(
+    (acc, i) => {
+      acc[i + 1] = {};
+      return acc;
+    },
+    {} as Record<number, Buff>,
+  ),
 });
 
 export const WeaponSkills: Record<string, BuffGroup> = {
@@ -196,22 +203,22 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   },
   PiercingShots: {
     name: "Piercing Shots",
-    levels: [{ name: "Piercing Shots 1", piercingShotsRawMul: 1.05 }],
+    levels: [{ name: "Piercing Shots 1", rawMul: 1.05 }],
   },
   RapidFireUp: {
     name: "Rapid Fire Up",
-    levels: [{ name: "Rapid Fire Up 1", rapidFireMul: 1.05 }],
+    levels: [{ name: "Rapid Fire Up 1", rawMul: 1.05 }],
   },
   SpecialAmmoBoost: {
     name: "Special Ammo Boost",
     levels: [
-      { name: "Special Ammo Boost 1", specialAmmoBoostRawMul: 1.1 },
-      { name: "Special Ammo Boost 2", specialAmmoBoostRawMul: 1.2 },
+      { name: "Special Ammo Boost 1", rawMul: 1.1 },
+      { name: "Special Ammo Boost 2", rawMul: 1.2 },
     ],
   },
   SpreadPowerShots: {
     name: "Spread/Power Shots",
-    levels: [{ name: "Spread/Power Shots 1", spreadPowerShotsRawMul: 1.05 }],
+    levels: [{ name: "Spread/Power Shots 1", rawMul: 1.05 }],
   },
   TetradShot: {
     name: "Tetrad Shot",
@@ -563,36 +570,37 @@ export const GroupSkills: Record<string, BuffGroup> = {
   },
 };
 
+export const UnsupportedWeaponSkills: Record<Skill, SkillGroup> = {
+  ["Airborne"]: skill(1),
+  ["Ballistics"]: skill(3),
+  ["Blast Functionality"]: skill(1),
+  ["Bludgeoner"]: skill(3),
+  ["Charge Up"]: skill(1),
+  ["Critical Status"]: skill(3),
+  ["Exhaust Functionality"]: skill(1),
+  ["Focus"]: skill(3),
+  ["Guard"]: skill(3),
+  ["Guard Up"]: skill(3),
+  ["Horn Maestro"]: skill(2),
+  ["Load Shells"]: skill(2),
+  ["Master's Touch"]: skill(1),
+  ["Mind's Eye"]: skill(3),
+  ["Para Functionality"]: skill(1),
+  ["Poison Duration Up"]: skill(1),
+  ["Poison Functionality"]: skill(1),
+  ["Power Prolonger"]: skill(3),
+  ["Protective Polish"]: skill(3),
+  ["Rapid Morph"]: skill(3),
+  ["Razor Sharp"]: skill(3),
+  ["Sleep Functionality"]: skill(1),
+  ["Slugger"]: skill(3),
+  ["Speed Sharpening"]: skill(2),
+  ["Stamina Thief"]: skill(3),
+};
+
 export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
-  ["Attack Boost"]: {
-    levels: {
-      1: { name: "Attack Boost 1", attack: 3 },
-      2: { name: "Attack Boost 2", attack: 5 },
-      3: { name: "Attack Boost 3", attack: 7 },
-      4: { name: "Attack Boost 4", attack: 8, attackMul: 1.02 },
-      5: { name: "Attack Boost 5", attack: 9, attackMul: 1.04 },
-    },
-  },
-  ["Charge Master"]: {
-    levels: {
-      1: {
-        name: "Charge Master 1",
-        meleeChargeEleMul: 1.15,
-        rangedChargeEleMul: 1.05,
-      },
-      2: {
-        name: "Charge Master 2",
-        meleeChargeEleMul: 1.2,
-        rangedChargeEleMul: 1.1,
-      },
-      3: {
-        name: "Charge Master 3",
-        meleeChargeEleMul: 1.25,
-        rangedChargeEleMul: 1.15,
-      },
-    },
-  },
-  Artillery: {
+  ...UnsupportedWeaponSkills,
+  ["Artillery"]: {
     levels: {
       1: {
         name: "Artillery 1",
@@ -613,6 +621,56 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
         artilleryAmmoAttackMul: 1.3,
       },
     },
+  },
+  ["Attack Boost"]: {
+    levels: {
+      1: { name: "Attack Boost 1", attack: 3 },
+      2: { name: "Attack Boost 2", attack: 5 },
+      3: { name: "Attack Boost 3", attack: 7 },
+      4: { name: "Attack Boost 4", attack: 8, attackMul: 1.02 },
+      5: { name: "Attack Boost 5", attack: 9, attackMul: 1.04 },
+    },
+  },
+  ["Blast Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
+  ["Charge Master"]: {
+    groups: [
+      {
+        weapons: ["Bow"],
+        levels: {
+          1: { chargeEleMul: 1.05 },
+          2: { chargeEleMul: 1.1 },
+          3: { chargeEleMul: 1.05 },
+        },
+      },
+      {
+        weapons: [
+          "Charge Blade",
+          "Dual Blades",
+          "Great Sword",
+          "Gunlance",
+          "Hammer",
+          "Heavy Bowgun",
+          "Hunting Horn",
+          "Insect Glaive",
+          "Lance",
+          "Light Bowgun",
+          "Long Sword",
+          "Switch Axe",
+          "Sword and Shield",
+        ],
+        levels: {
+          1: { chargeEleMul: 1.15 },
+          2: { chargeEleMul: 1.2 },
+          3: { chargeEleMul: 1.25 },
+        },
+      },
+    ],
   },
   ["Critical Boost"]: {
     levels: {
@@ -671,7 +729,37 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
       5: { name: "Critical Eye 5", affinity: 20 },
     },
   },
+  ["Dragon Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
   ["Element Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
+  ["Fire Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
+  ["Handicraft"]: {
+    levels: {
+      1: { name: "Handicraft 1", handicraft: 10 },
+      2: { name: "Handicraft 2", handicraft: 20 },
+      3: { name: "Handicraft 3", handicraft: 30 },
+      4: { name: "Handicraft 4", handicraft: 40 },
+      5: { name: "Handicraft 5", handicraft: 50 },
+    },
+  },
+  ["Ice Attack"]: {
     levels: {
       1: { name: "Element Attack 1", element: 40 },
       2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
@@ -714,14 +802,43 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
       },
     },
   },
+  ["Paralysis Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
   ["Piercing Shots"]: {
     levels: {
       1: { name: "Piercing Shots 1", piercingShotsRawMul: 1.05 },
     },
   },
+  ["Poison Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
+  ["Punishing Draw"]: {
+    toggle: true,
+    levels: {
+      1: { attack: 3 },
+      2: { attack: 5 },
+      3: { attack: 7 },
+    },
+  },
   ["Rapid Fire Up"]: {
     levels: {
       1: { name: "Rapid Fire Up 1", rapidFireMul: 1.05 },
+    },
+  },
+  ["Sleep Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
     },
   },
   ["Special Ammo Boost"]: {
@@ -764,6 +881,20 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
           elementMul: 1.05,
         },
       },
+    },
+  },
+  ["Thunder Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+    },
+  },
+  ["Water Attack"]: {
+    levels: {
+      1: { name: "Element Attack 1", element: 40 },
+      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
+      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
     },
   },
 };
@@ -816,7 +947,7 @@ export const UnsupportedArmorSkills: Record<Skill, SkillGroup> = {
   ["Stamina Surge"]: skill(3),
   ["Stench Resistance"]: skill(2),
   ["Stun Resistance"]: skill(3),
-  ["Survival Resistance"]: skill(3),
+  ["Survival Expert"]: skill(3),
   ["Thunder Resistance"]: skill(3),
   ["Tool Specialist"]: skill(5),
   ["Tremor Resistance"]: skill(3),

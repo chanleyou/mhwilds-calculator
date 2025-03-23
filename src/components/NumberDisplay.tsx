@@ -2,7 +2,7 @@ import { cn } from "@/utils";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
-  value: number;
+  value: string | number;
   suffix?: string;
 }
 

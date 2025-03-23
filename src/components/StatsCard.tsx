@@ -1,14 +1,12 @@
-import { useMemo } from "react";
-import { useCalculated, useComputed } from "@/builder";
+import { useBuild, useComputed } from "@/builder";
 import { cn } from "@/utils";
 import { Card, NumberDisplay } from ".";
 
 export const StatsCard = () => {
-  const { uiAttack, uiElement, uiAffinity } = useComputed();
-  const { calcEffectiveRaw, calcEffectiveEle } = useCalculated();
+  const { weapon: w } = useBuild();
+  const { uiAttack, uiElement, uiAffinity, effectiveRaw, effectiveEle } =
+    useComputed();
 
-  const efr = useMemo(() => calcEffectiveRaw(), [calcEffectiveRaw]);
-  const efe = useMemo(() => calcEffectiveEle(), [calcEffectiveEle]);
   return (
     <Card>
       <div>
@@ -16,18 +14,19 @@ export const StatsCard = () => {
       </div>
       <div>
         <NumberDisplay label="Attack" value={uiAttack} />
-        <NumberDisplay label="Effective Attack" value={efr} />
+        <NumberDisplay label="Effective Attack" value={effectiveRaw} />
         <NumberDisplay label="Affinity" value={uiAffinity} suffix="%" />
         <NumberDisplay
           className={cn(uiElement === 0 && "text-placeholder")}
           label="Element"
-          value={uiElement}
+          value={w.element ? `${uiElement} ${w.elementType}` : 0}
         />
         <NumberDisplay
-          className={cn(efe === 0 && "text-placeholder")}
+          className={cn(effectiveEle === 0 && "text-placeholder")}
           label={"Effective Element"}
-          value={efe}
+          value={effectiveEle}
         />
+        {w.phial && <NumberDisplay label="Phial" value={w.phial} />}
       </div>
     </Card>
   );

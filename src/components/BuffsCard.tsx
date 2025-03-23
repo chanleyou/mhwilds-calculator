@@ -114,7 +114,10 @@ export const BuffsCard = () => {
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <h2 className="text-xs">Hunting Horn</h2>
+        {(!hideBuffs ||
+          Object.keys(buffs).some((b) => {
+            return Object.keys(HuntingHornBuffs).includes(b);
+          })) && <h2 className="text-xs">Hunting Horn</h2>}
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
           {Object.entries(HuntingHornBuffs).map(([k, b]) => {
             if (hideBuffs && !buffs[k]) return undefined;

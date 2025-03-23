@@ -1,12 +1,20 @@
-import { sharpnessEle, sharpnessRaw } from "@/data";
-import { Attack, Buff, BuffValues, ComputedStore, isBowgun } from "@/types";
+import {
+  SharpnessEle,
+  SharpnessRaw,
+  getSharpnessEle,
+  getSharpnessRaw,
+} from "@/data";
+import { Attack, Buff, BuffValues, ComputedStore, Weapon } from "@/types";
 
 export const sum = (...args: (number | undefined)[]) => {
   return args.reduce<number>((sum, a) => (a ? sum + a : sum), 0);
 };
 
-export const mul = (...args: (number | undefined)[]) => {
-  return args.reduce<number>((sum, a) => (a !== undefined ? sum * a : sum), 1);
+export const mul = (...args: (number | undefined | false)[]) => {
+  return args.reduce<number>(
+    (sum, a) => (a !== undefined && a !== false ? sum * a : sum),
+    1,
+  );
 };
 
 export const _round = (value: number, places = 1) => {
@@ -25,7 +33,7 @@ export const dmg = (n: number) => {
 
 export const calculate = (
   base: number,
-  multipliers: number[] = [],
+  multipliers: (number | undefined | false)[] = [],
   bonuses: number[] = [],
 ): number => {
   return round(base * mul(...multipliers) + sum(...bonuses));
@@ -146,7 +154,11 @@ type RawHitParams = Attack &
     rawHzv: number;
   };
 export const calculateRawHit = ({
-  weapon,
+  attack = 0,
+  uiAttack = attack,
+  swordAttack = uiAttack,
+  artilleryShellAttack = uiAttack,
+  artilleryAmmoAttack = uiAttack,
   mv,
   ignoreHzv,
   rawHzv,
@@ -158,12 +170,7 @@ export const calculateRawHit = ({
   cbPhial,
   cbShieldElement,
   coatingRawMul,
-  attack = 0, // TODO: refactor to remove ambiguity with uiAttack?
-  uiAttack = attack,
-  artilleryShellAttack = uiAttack,
-  artilleryAmmoAttack = uiAttack,
   shelling,
-  swordAttack = uiAttack,
   powerAxe,
   ignoreCoating,
   normalShot,
@@ -187,9 +194,9 @@ export const calculateRawHit = ({
     uiAttack,
     mv / 100,
     ignoreHzv ? 1 : rawHzv / 100,
-    ignoreSharpness ? 1 : sharpnessRaw[sharpness],
+    ignoreSharpness ? 1 : SharpnessRaw[sharpness],
     rawMul,
-    weapon === "Bow" && !ignoreCoating && coatingRawMul ? coatingRawMul : 1,
+    !ignoreCoating && coatingRawMul ? coatingRawMul : 1,
     spreadPowerShot ? spreadPowerShotsRawMul : 1,
     specialAmmo ? specialAmmoBoostRawMul : 1,
     normalShot ? normalShotsRawMul : 1,
@@ -205,14 +212,13 @@ type EleHitParams = Attack &
     eleHzv: number;
   };
 export const calculateEleHit = ({
-  weapon,
   uiElement,
   sharpness = "Ranged",
   eleHzv,
   ignoreSharpness,
   fixedEle,
   rawEle = 0,
-  eleMul,
+  eleMul = 1,
   charge,
   chargeEleMul = 1,
   shelling,
@@ -235,7 +241,7 @@ export const calculateEleHit = ({
     return mul(e, eleHzv);
   }
 
-  if (isBowgun(weapon) && rawEle) {
+  if (rawEle) {
     const { base, bonus } = bowgunElement;
     uiElement = calculate(
       base,
@@ -249,7 +255,7 @@ export const calculateEleHit = ({
     uiElement,
     0.1,
     eleHzv,
-    ignoreSharpness ? 1 : sharpnessEle[sharpness],
+    ignoreSharpness ? 1 : SharpnessEle[sharpness],
     eleMul,
     charge ? chargeEleMul : 1,
     cbShieldElement && cbPhial ? 1.3 : 1,
@@ -283,4 +289,143 @@ export const calculateAverage = (
   const a = Math.abs(affinity) / 100;
   const avg = crit * a + (1 - a) * hit;
   return round(avg, 2);
+};
+
+export const calculateAttackTwo = (
+  base: number,
+  buffs: Record<string, Buff>,
+  multipliers: (number | undefined | false)[] = [],
+  bonuses: number[] = [],
+) => {
+  return calculate(
+    base,
+    [...Object.values(buffs).map(getAttackMul), ...multipliers],
+    [...Object.values(buffs).map(getAttack), ...bonuses],
+  );
+};
+
+export const calculateElementTwo = (
+  base: number,
+  buffs: Record<string, Buff>,
+  multipliers: (number | undefined | false)[] = [],
+  bonuses: number[] = [],
+) => {
+  return calculate(
+    base,
+    [...Object.values(buffs).map(getElementMul), ...multipliers],
+    [...Object.values(buffs).map(getElement), ...bonuses],
+  );
+};
+
+export const calculateRawHitTwo = (
+  weapon: Weapon,
+  buffs: Record<string, Buff>,
+  atk: Attack,
+  rawHzv: number,
+) => {
+  const multipliers = [];
+  const bonuses = [];
+  if (atk.saType === "Axe" && buffs.SwitchAxePowerAxe?.powerAxe) {
+    bonuses.push(10);
+  }
+  if (atk.saType === "Sword" && weapon.phial === "Power") {
+    multipliers.push(1.17);
+  }
+  if (atk.shelling) {
+    multipliers.push(buffs.Artillery?.artilleryShellAttackMul);
+  }
+  if (atk.artilleryAmmo) {
+    multipliers.push(buffs.Artillery?.artilleryAmmoAttackMul);
+  }
+
+  const attack = calculateAttackTwo(weapon.attack, buffs, multipliers, bonuses);
+
+  return mul(
+    attack,
+    atk.mv / 100,
+    atk.ignoreHzv ? 1 : rawHzv / 100,
+    atk.rawMul ?? 1,
+    atk.ignoreSharpness ? 1 : getSharpnessRaw(weapon.sharpness),
+    !atk.ignoreCoating && buffs.coatingRawMul?.rawMul,
+    atk.spreadPowerShot && buffs.spreadPowerShot?.rawMul,
+    atk.specialAmmo && buffs.specialAmmo?.rawMul,
+    atk.normalShot && buffs.normalShot?.rawMul,
+    atk.rapidFire && buffs.rapidFire?.rawMul,
+    atk.piercingShot && buffs.PiercingShots?.rawMul,
+    atk.cbAxe && buffs.ChargeBladeShieldElement?.axeRawMul,
+    atk.cbPhial && buffs.ChargeBladeShieldElement?.impactPhialMul,
+  );
+};
+
+export const calculateEleHitTwo = (
+  weapon: Weapon,
+  buffs: Record<string, Buff>,
+  atk: Attack,
+  eleHzv: number,
+) => {
+  eleHzv = atk.eleHzvCap ? Math.min(eleHzv, atk.eleHzvCap) : eleHzv;
+  eleHzv = eleHzv / 100;
+
+  if (atk.fixedEle) {
+    const bonusEle = atk.shelling ? (buffs.Artillery.artilleryEle ?? 0) : 0;
+    return mul(sum(atk.fixedEle, bonusEle), eleHzv);
+  }
+
+  const multipliers = [];
+
+  if (atk.saType === "Sword" && weapon.phial === "Element") {
+    multipliers.push(1.45);
+  }
+  if (atk.rawEle) {
+    const bowgunOffset = Object.values(buffs).reduce((acc, b) => {
+      if (b.bowgunOffset) return acc + (b.attack ?? 0);
+      return acc;
+    }, 0);
+
+    const bowgunAttack = calculateAttackTwo(
+      weapon.attack,
+      buffs,
+      [atk.rawEle / 10],
+      [-bowgunOffset],
+    );
+
+    weapon.element = bowgunAttack;
+  }
+
+  const uiElement = calculateElementTwo(weapon.element, buffs, multipliers);
+
+  return mul(
+    uiElement,
+    0.1,
+    eleHzv,
+    atk.ignoreSharpness ? 1 : getSharpnessEle(weapon.sharpness),
+    atk.charge && buffs.ChargeMaster?.chargeEleMul,
+    buffs.DualBladesDemonBoost?.eleMul,
+  );
+};
+
+export const calculateHitTwo = (
+  weapon: Weapon,
+  buffs: Record<string, Buff>,
+  atk: Attack,
+  rawHzv: number,
+  eleHzv: number,
+) => {
+  const r = calculateRawHitTwo(weapon, buffs, atk, rawHzv);
+  const e = calculateEleHitTwo(weapon, buffs, atk, eleHzv);
+  return round(dmg(r) + dmg(e));
+};
+
+export const calculateCritTwo = (
+  weapon: Weapon,
+  buffs: Record<string, Buff>,
+  atk: Attack,
+  rawHzv: number,
+  eleHzv: number,
+  critMulti: number,
+  eleCritMulti: number,
+) => {
+  const r = calculateRawHitTwo(weapon, buffs, atk, rawHzv);
+  const e = calculateEleHitTwo(weapon, buffs, atk, eleHzv);
+  return round(dmg(r * critMulti) + dmg(e * eleCritMulti));
 };

@@ -25,3 +25,4 @@ export * from "./SnapshotMovesTable";
 export * from "./TextInput";
 export * from "./Tooltip";
 export * from "./WeaponCard";
+export * from "./WeaponPickerDialog";

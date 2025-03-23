@@ -10,10 +10,17 @@ import {
   calculateElement,
   calculateHit,
 } from "@/model";
-import { Attack, Buff, Sharpness, Weapon, isBowgun, isRanged } from "@/types";
+import {
+  Attack,
+  Buff,
+  Sharpness,
+  WeaponType,
+  isBowgun,
+  isRanged,
+} from "@/types";
 
 export type InitialStore = {
-  weapon: Weapon;
+  weapon: WeaponType;
   attack: number;
   affinity: number;
   element: number;
@@ -26,7 +33,7 @@ export type InitialStore = {
 
 export type Store = InitialStore & {
   emptyBuffs: () => void;
-  setWeapon: (weaponType: Weapon) => void;
+  setWeapon: (weaponType: WeaponType) => void;
   setAttack: (attack: number) => void;
   setAffinity: (affinity: number) => void;
   setElement: (element: number) => void;
@@ -52,7 +59,7 @@ const initialStore: InitialStore = {
 export const useModel = create<Store>((set) => ({
   ...initialStore,
   emptyBuffs: () => set({ buffs: {} }),
-  setWeapon: (weapon: Weapon) =>
+  setWeapon: (weapon: WeaponType) =>
     set(
       produce<Store>((d) => {
         {

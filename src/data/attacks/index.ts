@@ -1,4 +1,4 @@
-import { Attack, Weapon } from "@/types";
+import { Attack, WeaponType } from "@/types";
 import { BowAttacks } from "./bow";
 import { ChargeBladeAttacks } from "./chargeBlade";
 import { DualBladesAttacks } from "./dualBlades";
@@ -14,7 +14,7 @@ import { LongSwordAttacks } from "./longSword";
 import { SwitchAxeAttacks } from "./switchAxe";
 import { SwordAndShieldAttacks } from "./swordAndShield";
 
-const Attacks: Record<Weapon, Attack[]> = {
+const Attacks: Record<WeaponType, Attack[]> = {
   Bow: BowAttacks,
   ["Charge Blade"]: ChargeBladeAttacks,
   ["Dual Blades"]: DualBladesAttacks,

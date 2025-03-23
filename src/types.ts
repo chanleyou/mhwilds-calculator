@@ -1,7 +1,62 @@
-import { Sharpnesses, Weapons } from "@/data";
+import { Sharpnesses, WeaponTypes } from "@/data";
 import { InitialStore, useGetters } from "./store";
 
-export type Weapon = (typeof Weapons)[number];
+export type ElementType = "Dragon" | "Fire" | "Ice" | "Thunder" | "Water";
+export type StatusType = "Blast" | "Paralysis" | "Poison" | "Sleep";
+
+export type SwitchAxePhialType =
+  | "Dragon"
+  | "Element"
+  | "Exhaust"
+  | "Paralysis"
+  | "Poison"
+  | "Power";
+
+export type ChargeBladePhialType = "Impact" | "Element";
+
+export interface IWeapon extends Equip {
+  type: WeaponType;
+  name: string;
+  rarity?: number;
+  attack: number;
+  affinity: number;
+  element: number;
+  elementType?: ElementType;
+  status?: number;
+  statusType?: StatusType;
+  sharpness?: number[];
+  handicraft?: number[];
+  slots: [SlotLevel, SlotLevel, SlotLevel];
+  artian?: boolean;
+  phial?: SwitchAxePhialType | ChargeBladePhialType;
+}
+
+export interface MeleeWeapon extends IWeapon {
+  sharpness: number[];
+  handicraft: number[];
+}
+
+export type Bow = IWeapon & { type: "Bow" };
+export type Bowgun = IWeapon & { type: "Light Bowgun" | "Heavy Bowgun" };
+
+export type ChargeBlade = MeleeWeapon & { phial: ChargeBladePhialType };
+export type Gunlance = MeleeWeapon & {
+  shellType: "Normal" | "Wide" | "Long";
+  shellLevel: number;
+};
+export type SwitchAxe = MeleeWeapon & {
+  phial: SwitchAxePhialType;
+};
+
+export type Weapon =
+  | Bow
+  | Bowgun
+  | ChargeBlade
+  | Gunlance
+  | SwitchAxe
+  | MeleeWeapon;
+
+export type WeaponType = (typeof WeaponTypes)[number];
 export type Sharpness = (typeof Sharpnesses)[number];
 
 export type BuffValues = {
@@ -28,7 +83,7 @@ export type Buff = BuffValues & {
   coatingRawMul?: number;
   artilleryShellAttackMul?: number; // base attack multiplier
   artilleryEle?: number; // bonus fixed fire damage
-  normalShotsRawMul?: number;
+  normalShotsRawMul?: number; // TODO: deprecate these
   piercingShotsRawMul?: number;
   spreadPowerShotsRawMul?: number;
   specialAmmoBoostRawMul?: number;
@@ -36,13 +91,20 @@ export type Buff = BuffValues & {
   rapidFireMul?: number;
   demonBoost?: boolean;
   tetrad?: BuffValues;
+  handicraft?: number;
+  rawMul?: number;
+  eleMul?: number;
+  axeRawMul?: number;
+  impactPhialMul?: number;
+  elePhialMul?: number;
+  chargeEleMul?: number;
 };
 
 export type BuffGroup = {
   name: string;
   toggle?: boolean;
   description?: string;
-  weapons?: Weapon[];
+  weapons?: WeaponType[];
   levels: Buff[];
 };
 
@@ -53,7 +115,7 @@ export type SkillGroup = {
 };
 
 export type WeaponGroup = {
-  weapons: Weapon[];
+  weapons: WeaponType[];
   levels: Record<number, Buff>;
 };
 
@@ -106,13 +168,13 @@ export type SnapshotAttack = {
   cantCrit?: boolean;
 };
 
-export const isRanged = (weapon?: Weapon) => {
+export const isRanged = (weapon?: WeaponType) => {
   return (
     weapon === "Light Bowgun" || weapon === "Heavy Bowgun" || weapon === "Bow"
   );
 };
 
-export const isBowgun = (weapon?: Weapon) => {
+export const isBowgun = (weapon?: WeaponType) => {
   return weapon === "Light Bowgun" || weapon === "Heavy Bowgun";
 };
 
@@ -132,33 +194,41 @@ export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
 
 export type SlotLevel = 0 | 1 | 2 | 3 | 4;
 
-export type SkillRecord = Record<Skill, 1 | 2 | 3 | 4>;
+export interface Equip {
+  skills: Record<Skill, number>;
+}
 
-export type Armor = {
+export type Armor = Equip & {
   id: number;
   type: ArmorType;
   name: string;
-  skills: SkillRecord;
   slots: [SlotLevel, SlotLevel, SlotLevel];
   groupSkill?: Skill;
   seriesSkill?: Skill;
 };
 
-export type Decoration = {
+export type Decoration = Equip & {
   id: string | number;
   name: string;
   level: 1 | 2 | 3 | 4;
-  skills: SkillRecord;
   type: "Weapon" | "Equipment";
 };
 
-export type Charm = {
+export type Charm = Equip & {
   id: string | number;
   name: string;
-  skills: SkillRecord;
 };
 
 export type Slots = [Decoration?, Decoration?, Decoration?];
 
 export const ComboModeOptions = ["Dynamic", "Snapshot"] as const;
 export type ComboModeOption = (typeof ComboModeOptions)[number];
+
+export type Target = {
+  rawHzv: number;
+  eleHzv: number;
+  wound: boolean;
+};
+
+export type BuffName = string;
+export type Flag = "TetradAttack" | "TetradAffinity";

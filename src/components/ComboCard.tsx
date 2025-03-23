@@ -1,6 +1,6 @@
 import { TimerResetIcon } from "lucide-react";
 import { useMemo } from "react";
-import { useCalculated } from "@/builder";
+import { useComputed } from "@/builder";
 import { round } from "@/model";
 import {
   Attack,
@@ -32,7 +32,7 @@ export const ComboCard = ({
   resetCombo: () => void;
   removeAttack: (i: number) => void;
 }) => {
-  const { calcAverage } = useCalculated();
+  const { calcAverage } = useComputed();
 
   const totalDamage = useMemo(() => {
     if (comboMode === "Snapshot") {

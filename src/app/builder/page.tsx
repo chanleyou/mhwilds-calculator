@@ -2,7 +2,7 @@
 
 import { produce } from "immer";
 import { useState } from "react";
-import { useBuild, useCalculated } from "@/builder";
+import { useBuild, useComputed } from "@/builder";
 import {
   ArmorPickerDialog,
   BuffsCard,
@@ -11,7 +11,7 @@ import {
   Checkbox,
   ComboCard,
   DecorationPickerDialog,
-  MovesTable,
+  MovesTableTwo,
   NumberInput,
   SkillPointCard,
   StatsCard,
@@ -21,7 +21,6 @@ import { Attack, ComboModeOption, SnapshotAttack } from "@/types";
 
 export default function Builder() {
   const {
-    weapon,
     isWound,
     rawHzv,
     eleHzv,
@@ -51,8 +50,8 @@ export default function Builder() {
     setWaistDecoration,
     setLegsDecoration,
   } = useBuild();
-  // const build = useComputed();
-  const { calcHit, calcCrit, calcAverage } = useCalculated();
+  const build = useComputed();
+  const { calcHit, calcCrit, calcAverage } = build;
 
   const [comboMode, setComboMode] = useState<ComboModeOption>("Dynamic");
 
@@ -97,9 +96,6 @@ export default function Builder() {
         <div className="flex flex-2 flex-col gap-2">
           <WeaponCard />
           <Card>
-            <div className="flex flex-col gap-2">
-              <h1>Equipment</h1>
-            </div>
             <div className="flex flex-col gap-2">
               <ArmorPickerDialog type="Helm" value={helm} setValue={setHelm} />
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -180,14 +176,14 @@ export default function Builder() {
         <div className="flex flex-1 flex-col gap-2">
           <StatsCard />
           <SkillPointCard />
-          {/* <Card>
-          <textarea
-            className="font-mono text-xs"
-            value={JSON.stringify(build, undefined, 2)}
-            rows={100}
-            readOnly
-          />
-        </Card> */}
+          <Card>
+            <textarea
+              className="font-mono text-xs"
+              value={JSON.stringify(build, undefined, 2)}
+              rows={100}
+              readOnly
+            />
+          </Card>
           <ComboCard
             comboMode={comboMode}
             setComboMode={setComboMode}
@@ -219,13 +215,7 @@ export default function Builder() {
                 onChangeValue={setEleHzv}
               />
             </div>
-            <MovesTable
-              onClick={addAttack}
-              weapon={weapon}
-              calcHit={calcHit}
-              calcCrit={calcCrit}
-              calcAverage={calcAverage}
-            />
+            <MovesTableTwo onClick={addAttack} />
           </Card>
         </div>
       </div>

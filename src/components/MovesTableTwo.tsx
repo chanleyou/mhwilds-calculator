@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useBuild, useCalculated } from "@/builder";
+import { useBuild, useComputed } from "@/builder";
 import Attacks from "@/data/attacks";
 import { Attack } from "@/types";
 import { cn } from "@/utils";
@@ -13,13 +13,13 @@ export function MovesTableTwo({
   onClick?: (a: Attack, i: number) => void;
   hideHits?: boolean;
 }) {
-  const { weapon } = useBuild();
-  const { calcHit, calcCrit, calcAverage } = useCalculated();
+  const { weapon: w } = useBuild();
+  const { calcHit, calcCrit, calcAverage } = useComputed();
 
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
-    return Attacks[weapon];
-  }, [custom, weapon]);
+    return Attacks[w.type];
+  }, [custom, w]);
 
   const cellCn = cn(
     "text-secondary px-2 py-1.5 text-right first:w-full first:pl-0 first:text-left last:pr-0",

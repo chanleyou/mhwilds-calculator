@@ -36,7 +36,7 @@ export const SkillPointCard = () => {
                       <div
                         key={i}
                         className={cn(
-                          "border-divider h-4 w-4 border",
+                          "border-divider bg-background h-4 w-4 border",
                           v >= i && "border-accent-alt bg-accent-alt/75",
                         )}
                       />
@@ -72,7 +72,7 @@ export const SkillPointCard = () => {
                     <div
                       key={i}
                       className={cn(
-                        "border-divider h-4 w-4 border",
+                        "border-divider bg-background h-4 w-4 border",
                         v > i && "border-accent bg-accent/75",
                       )}
                     />

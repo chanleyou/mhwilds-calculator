@@ -11,7 +11,7 @@ import {
   calculateRawHit,
   dmg,
 } from "@/model";
-import { Sharpness, Weapon } from "@/types";
+import { Sharpness, WeaponType } from "@/types";
 
 // TODO: refactor tests to use store instead of manually setting parameters
 
@@ -24,7 +24,7 @@ const buff = (key: string, level: number = 1) => {
   return values;
 };
 
-const atk = (weapon: Weapon, name: string) => {
+const atk = (weapon: WeaponType, name: string) => {
   const attack = Attacks[weapon].find((a) => a.name === name)!;
   if (!attack) throw new Error(`Attack not found: ${name}`);
   return attack;
@@ -205,7 +205,7 @@ test("Light Bowgun", () => {
     ...base,
     uiAttack: 131,
     sharpness: "Ranged" as Sharpness,
-    weapon: "Light Bowgun" as Weapon,
+    weapon: "Light Bowgun" as WeaponType,
   };
 
   const sp1 = atk("Light Bowgun", "Spread Lv1");
@@ -343,7 +343,7 @@ test("Light Bowgun Sticky Ammo", () => {
     attack: 180,
     uiAttack: 186,
     sharpness: "Ranged" as Sharpness,
-    weapon: "Light Bowgun" as Weapon,
+    weapon: "Light Bowgun" as WeaponType,
     artilleryAmmoAttack: calculateAttack({
       attack: 180,
       buffs: {
@@ -407,7 +407,7 @@ test("Heavy Bowgun", () => {
     uiAttack: 191,
     bowgunElement: { base: 191, bonus: 0 },
     sharpness: "Ranged" as Sharpness,
-    weapon: "Heavy Bowgun" as Weapon,
+    weapon: "Heavy Bowgun" as WeaponType,
   };
 
   const e1 = atk("Heavy Bowgun", "Element Lv1");

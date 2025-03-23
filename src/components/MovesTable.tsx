@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import Attacks from "@/data/attacks";
-import { Attack, Weapon } from "@/types";
+import { Attack, WeaponType } from "@/types";
 import { cn } from "@/utils";
 
 export function MovesTable({
@@ -12,7 +12,7 @@ export function MovesTable({
   onClick,
   hideHits,
 }: {
-  weapon: Weapon;
+  weapon: WeaponType;
   calcHit: (a: Attack) => number;
   calcCrit: (a: Attack) => number;
   calcAverage: (a: Attack) => number;

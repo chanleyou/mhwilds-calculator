@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Sharpnesses, Weapons } from "@/data";
+import { Sharpnesses, WeaponTypes } from "@/data";
 
 export const importSchema = z.object({
-  weapon: z.enum(Weapons),
+  weapon: z.enum(WeaponTypes),
   attack: z.number().int(),
   affinity: z.number().int().optional(),
   element: z.number().int().optional(),
