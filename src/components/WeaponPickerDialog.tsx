@@ -91,13 +91,13 @@ export const WeaponPickerDialog = () => {
         <Picker>{a.name}</Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-[75vh] w-7xl max-w-[95vw]">
+        <Card className="h-dvh w-[100vw] sm:h-[85vh] sm:w-7xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Weapon</h1>
             </DialogTitle>
             <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-              <XIcon className="h-4 w-4" />
+              <XIcon className="h-5 w-5" />
             </Button>
           </div>
           <Select
@@ -109,9 +109,90 @@ export const WeaponPickerDialog = () => {
             value={filter}
             onChangeValue={setFilter}
             placeholder={"Search..."}
-            autoFocus
           />
-          <div className="overflow-auto">
+          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
+            {filteredOptions.map((o) => (
+              <div
+                className="border-divider grid grid-cols-4 gap-1 rounded border py-4"
+                key={o.name}
+                onClick={() => {
+                  setW(o);
+                  setOpen(false);
+                }}
+              >
+                <div className="text-tertiary pr-4 text-right">Name</div>
+                <div className="col-span-3">{o.name}</div>
+                <div className="text-tertiary pr-4 text-right">Attack</div>
+                <div className="col-span-3">{o.attack}</div>
+                {o.affinity !== 0 && (
+                  <>
+                    <div className="text-tertiary pr-4 text-right">
+                      Affinity
+                    </div>
+                    <div className="col-span-3">
+                      {o.affinity !== 0 && o.affinity}
+                    </div>
+                  </>
+                )}
+                {o.phial !== "Dragon" && o.element && (
+                  <>
+                    <div className="text-tertiary pr-4 text-right">Element</div>
+                    <div className="col-span-3">
+                      {o.element.value} {o.element.type}
+                    </div>
+                  </>
+                )}
+                {o.phial !== "Paralysis" &&
+                  o.phial !== "Poison" &&
+                  o.status && (
+                    <>
+                      <div className="text-tertiary pr-4 text-right">
+                        Status
+                      </div>
+                      <div className="col-span-3">
+                        {o.status.type} {o.status.value}
+                      </div>
+                    </>
+                  )}
+                {o.phial && (
+                  <>
+                    <div className="text-tertiary pr-4 text-right">Phial</div>
+                    <div className="col-span-3">
+                      {o.phial}{" "}
+                      {(o.phial === "Dragon" ||
+                        o.phial === "Paralysis" ||
+                        o.phial === "Poison") &&
+                        (o.element?.value ?? o.status?.value)}
+                    </div>
+                  </>
+                )}
+                <div className="text-tertiary pr-4 text-right">Skills</div>
+                <div className="col-span-3">
+                  {Object.entries(o.skills).map(([k, v]) => (
+                    <p className="text-sm" key={k + v}>
+                      {k} {v}
+                    </p>
+                  ))}
+                </div>
+                <div className="text-tertiary pr-4 text-right">Slots</div>
+                <div className="col-span-3">
+                  {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                </div>
+                {isMeleeWeapon(o) && (
+                  <>
+                    <div className="text-tertiary pr-4 text-right">
+                      Sharpness
+                    </div>
+                    <div className="col-span-3 flex flex-col pt-1">
+                      <SharpnessBar sharpness={o.sharpness} />
+                      <SharpnessBar sharpness={calculateHandicraft(o, 5)} />
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="hidden overflow-auto sm:block">
             <Table>
               <thead>
                 <TableHeadRow>
@@ -143,7 +224,7 @@ export const WeaponPickerDialog = () => {
                     {!isBowgun(type) && (
                       <TableCell>
                         {o.element && `${o.element.value} ${o.element.type}`}
-                        {o.status && `${o.status.type} ${o.status.value}`}
+                        {o.status && `${o.status.value} ${o.status.type}`}
                       </TableCell>
                     )}
                     {isMeleeWeapon(o) && (
@@ -151,7 +232,7 @@ export const WeaponPickerDialog = () => {
                         <SharpnessBar sharpness={o.sharpness} small />
                         <div className="h-[1px]" />
                         <SharpnessBar
-                          sharpness={calculateHandicraft(o, 5).sharpness!}
+                          sharpness={calculateHandicraft(o, 5)}
                           small
                         />
                       </TableCell>
@@ -174,7 +255,7 @@ export const WeaponPickerDialog = () => {
                       ))}
                     </TableCell>
                     <TableCell>
-                      {o.slots.filter((s) => s > 0).join(",")}
+                      {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
                     </TableCell>
                   </TableRow>
                 ))}

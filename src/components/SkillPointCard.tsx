@@ -42,7 +42,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                         key={i}
                         className={cn(
                           "border-divider bg-background h-4 w-4 border",
-                          v >= i && "border-accent-alt bg-accent-alt/75",
+                          v >= i && "border-accent-alt/50 bg-accent-alt",
                         )}
                       />
                     );
@@ -66,7 +66,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
             <div key={k} className="flex justify-between">
               <div className="flex flex-col gap-1">
                 <p className={cn("text-sm", disabled[k] && "line-through")}>
-                  {k}
+                  {k} {v}
                 </p>
                 <div className="flex gap-1">
                   {Object.entries(
@@ -78,7 +78,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                       key={i}
                       className={cn(
                         "border-divider bg-background h-4 w-4 border",
-                        v > i && "border-accent bg-accent/75",
+                        v > i && "border-accent/50 bg-accent",
                       )}
                     />
                   ))}
@@ -133,7 +133,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                         key={i}
                         className={cn(
                           "border-divider bg-background h-4 w-4 border",
-                          v >= i && "border-indigo-400 bg-indigo-400/75",
+                          v >= i && "border-indigo-400/50 bg-indigo-400",
                         )}
                       />
                     );

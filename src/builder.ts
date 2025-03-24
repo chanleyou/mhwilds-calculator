@@ -1,6 +1,6 @@
 import { produce } from "immer";
 import { create } from "zustand";
-import { Buffs } from "@/data";
+import { ArtianTypeToGunlanceShellType, Buffs, Sharpnesses } from "@/data";
 import {
   CombinedSkillsTwo,
   GroupAndSeriesSkills,
@@ -17,6 +17,10 @@ import {
 } from "@/model";
 import {
   type Armor,
+  Artian,
+  ArtianInfusion,
+  ArtianType,
+  ArtianUpgrade,
   Attack,
   type Buff,
   type Charm,
@@ -25,17 +29,21 @@ import {
   type Skill,
   type Slots,
   Weapon,
+  isElementType,
+  isGunlance,
+  isMeleeWeapon,
   isSkillGroup,
+  isStatusType,
 } from "@/types";
 import { SwordAndShields } from "./data/weapons/SwordAndShields";
 
 export type InitialBuilder = {
   weapon: Weapon;
+  artian: Artian;
   otherBuffs: Record<string, Buff>;
   rawHzv: number;
   eleHzv: number;
   isWound: boolean;
-  weaponSkills: Record<Skill, number>;
   helm?: Armor;
   body?: Armor;
   arms?: Armor;
@@ -54,11 +62,11 @@ export type InitialBuilder = {
 
 const initialBuilder: InitialBuilder = {
   weapon: SwordAndShields[0],
+  artian: { type: undefined, infusions: [], upgrades: [] },
   otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
   rawHzv: 80,
   eleHzv: 30,
   isWound: false,
-  weaponSkills: {},
   weaponSlots: [],
   helmSlots: [],
   bodySlots: [],
@@ -72,11 +80,13 @@ const initialBuilder: InitialBuilder = {
 export type Builder = InitialBuilder & {
   reset: () => void;
   setW: (w: Weapon) => void;
+  setArtianType: (type?: ArtianType) => void;
+  setArtianInfusion: (i: number, v?: ArtianInfusion) => void;
+  setArtianUpgrade: (i: number, v?: ArtianUpgrade) => void;
   setOtherBuff: (id: string, buff?: Buff) => void;
   setRawHzv: (rawHzv: number) => void;
   setEleHzv: (eleHzv: number) => void;
   setIsWound: (isWound: boolean) => void;
-  setWeaponSkill: (s: Skill, n?: number) => void;
   setHelm: (helm?: Armor) => void;
   setWaist: (waist?: Armor) => void;
   setArms: (arms?: Armor) => void;
@@ -96,7 +106,27 @@ export type Builder = InitialBuilder & {
 export const useBuild = create<Builder>((set) => ({
   ...initialBuilder,
   reset: () => set(initialBuilder),
-  setW: (w: Weapon) => set({ weapon: w }),
+  setW: (w: Weapon) =>
+    set({ weapon: w, weaponSlots: [], artian: initialBuilder.artian }),
+  setArtianType: (type?: ArtianType) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        d.artian.type = type;
+        if (type !== "Non-Element" && type !== undefined) return;
+        d.artian.upgrades.forEach((u, i) => {
+          if (u === "Element") {
+            d.artian.upgrades[i] = undefined;
+          }
+        });
+      }),
+    );
+  },
+  setArtianInfusion: (i: number, v?: ArtianInfusion) => {
+    set(produce((d) => void (d.artian.infusions[i] = v)));
+  },
+  setArtianUpgrade: (i: number, v?: ArtianUpgrade) => {
+    set(produce((d) => void (d.artian.upgrades[i] = v)));
+  },
   setRawHzv: (rawHzv) => set({ rawHzv }),
   setEleHzv: (eleHzv) => set({ eleHzv }),
   setOtherBuff: (id, buff?) => {
@@ -108,36 +138,64 @@ export const useBuild = create<Builder>((set) => ({
     );
   },
   setIsWound: (isWound) => set({ isWound }),
-  setWeaponSkill: (s, n) =>
-    set(
-      produce((d) => {
-        if (n) d.weaponSkills[s] = n;
-        else delete d.weaponSkills[s];
-      }),
-    ),
   setHelm: (helm?) => set({ helm, helmSlots: [] }),
   setWaist: (waist?) => set({ waist, waistSlots: [] }),
   setArms: (arms?) => set({ arms, armsSlots: [] }),
   setBody: (body?) => set({ body, bodySlots: [] }),
   setLegs: (legs?) => set({ legs, legsSlots: [] }),
   setCharm: (charm?: Charm) => set({ charm }),
-  setWeaponDecoration: (i, dc) => {
-    set(produce((d) => void (d.weaponSlots[i] = dc)));
+  setWeaponDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (dc && d.weapon.slots[i] < dc.level) return;
+        d.weaponSlots[i] = dc;
+      }),
+    );
   },
-  setHelmDecoration: (i, dc) => {
-    set(produce((d) => void (d.helmSlots[i] = dc)));
+  setHelmDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (!d.helm) return;
+        if (dc && d.helm.slots[i] < dc.level) return;
+        d.helmSlots[i] = dc;
+      }),
+    );
   },
-  setBodyDecoration: (i, dc) => {
-    set(produce((d) => void (d.bodySlots[i] = dc)));
+  setBodyDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (!d.body) return;
+        if (dc && d.body.slots[i] < dc.level) return;
+        d.bodySlots[i] = dc;
+      }),
+    );
   },
-  setArmsDecoration: (i, dc) => {
-    set(produce((d) => void (d.armsSlots[i] = dc)));
+  setArmsDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (!d.arms) return;
+        if (dc && d.arms.slots[i] < dc.level) return;
+        d.armsSlots[i] = dc;
+      }),
+    );
   },
-  setWaistDecoration: (i, dc) => {
-    set(produce((d) => void (d.waistSlots[i] = dc)));
+  setWaistDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (!d.waist) return;
+        if (dc && d.waist.slots[i] < dc.level) return;
+        d.waistSlots[i] = dc;
+      }),
+    );
   },
-  setLegsDecoration: (i, dc) => {
-    set(produce((d) => void (d.legsSlots[i] = dc)));
+  setLegsDecoration: (i: number, dc?: Decoration) => {
+    set(
+      produce<InitialBuilder>((d) => {
+        if (!d.legs) return;
+        if (dc && d.legs.slots[i] < dc.level) return;
+        d.legsSlots[i] = dc;
+      }),
+    );
   },
   setDisabled: (s, a) => {
     set(
@@ -160,6 +218,7 @@ export const useBuild = create<Builder>((set) => ({
 export const useComputed = () => {
   const {
     weapon: w,
+    artian,
     rawHzv,
     eleHzv,
     isWound,
@@ -267,11 +326,67 @@ export const useComputed = () => {
     });
   }
 
-  // Handicraft
-  const weapon = calculateHandicraft(
-    w,
-    Math.min(skillPoints["Handicraft"] ?? 0, 5),
-  );
+  const weapon = produce(w, (d) => {
+    // Handicraft
+    if (isMeleeWeapon(d)) {
+      d.sharpness = calculateHandicraft(
+        d,
+        Math.min(skillPoints["Handicraft"] ?? 0, 5),
+      );
+    }
+
+    // Artian
+    if (!d.artian) return;
+    if (isGunlance(d) && artian.type) {
+      d.shelling.type = ArtianTypeToGunlanceShellType[artian.type];
+    }
+
+    if (isElementType(artian.type)) {
+      if (d.type === "Switch Axe" || d.type === "Charge Blade") {
+        d.phial = "Element";
+      }
+      d.element = { type: artian.type, value: d.artian.element };
+    } else if (isStatusType(artian.type)) {
+      if (d.type === "Switch Axe") d.phial = "Power";
+      d.status = { type: artian.type, value: d.artian.status };
+    }
+
+    [...artian.infusions, ...artian.upgrades].forEach((i) => {
+      if (i === "Attack") d.attack += 5;
+      if (i === "Affinity") d.affinity += 5;
+      if (i === "Element" && d.element) {
+        if (d.type === "Great Sword") d.element.value += 80;
+        if (d.type === "Lance") d.element.value += 50;
+        if (d.type === "Charge Blade") d.element.value += 50;
+        if (d.type === "Long Sword") d.element.value += 50;
+        if (d.type === "Hammer") d.element.value += 50;
+        if (d.type === "Gunlance") d.element.value += 50;
+        if (d.type === "Hunting Horn") d.element.value += 50;
+        if (d.type === "Sword and Shield") d.element.value += 30;
+        if (d.type === "Switch Axe") d.element.value += 30;
+        if (d.type === "Insect Glaive") d.element.value += 30;
+        if (d.type === "Bow") d.element.value += 30;
+        if (d.type === "Dual Blades") d.element.value += 20;
+      }
+      if (i === "Element" && d.status) {
+        if (d.type === "Great Sword") d.status.value += 80;
+        if (d.type === "Lance") d.status.value += 50;
+        if (d.type === "Charge Blade") d.status.value += 50;
+        if (d.type === "Long Sword") d.status.value += 50;
+        if (d.type === "Hammer") d.status.value += 50;
+        if (d.type === "Gunlance") d.status.value += 50;
+        if (d.type === "Hunting Horn") d.status.value += 50;
+        if (d.type === "Sword and Shield") d.status.value += 30;
+        if (d.type === "Switch Axe") d.status.value += 30;
+        if (d.type === "Insect Glaive") d.status.value += 30;
+        if (d.type === "Bow") d.status.value += 30;
+        if (d.type === "Dual Blades") d.status.value += 20;
+      }
+      if (i === "Sharpness" && d.sharpness) {
+        d.sharpness[Sharpnesses.indexOf("White")] += 30;
+      }
+    });
+  });
 
   // Tetrad Shot
   const tetradBuff = buffs["Tetrad Shot"]?.tetrad;
@@ -287,15 +402,15 @@ export const useComputed = () => {
   }
 
   const uiAffinity = calculateAffinity({
-    affinity: w.affinity ?? 0,
+    affinity: weapon.affinity ?? 0,
     buffs,
     rawHzv,
     isWound,
   });
 
-  const uiAttack = calculateAttackTwo(w.attack, buffs);
-  const uiElement = w.element
-    ? calculateElementTwo(w.element.value, w.element.type, buffs)
+  const uiAttack = calculateAttackTwo(weapon.attack, buffs);
+  const uiElement = weapon.element
+    ? calculateElementTwo(weapon.element.value, weapon.element.type, buffs)
     : 0;
 
   const critMulti = buffs["Critical Boost"]?.criticalBoost ?? 1.25;

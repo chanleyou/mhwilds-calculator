@@ -297,9 +297,8 @@ export const HeavyBowguns: Bowgun[] = [
     rarity: 8,
     attack: 190,
     affinity: 5,
-
     slots: [3, 3, 3],
-    artian: true,
+    artian: { element: 0, status: 0 },
     skills: {},
   },
 ];

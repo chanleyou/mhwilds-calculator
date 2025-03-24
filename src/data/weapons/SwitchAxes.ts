@@ -353,7 +353,7 @@ export const SwitchAxes: SwitchAxe[] = [
     affinity: 5,
     element: { type: "Dragon", value: 260 },
     slots: [3, 3, 3],
-    artian: true,
+    artian: { element: 280, status: 80 },
     phial: "Dragon",
     sharpness: [80, 40, 60, 80, 70, 20, 0],
     handicraft: [50, 0, 0, 0],

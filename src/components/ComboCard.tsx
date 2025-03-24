@@ -67,8 +67,10 @@ export const ComboCard = ({
         description={description}
       />
       <div>
-        <NumberDisplay label="Total Average" value={round(totalDamage, 2)} />
-        <NumberDisplay label="Total Hits" value={totalHits} />
+        <NumberDisplay label="Total Average">
+          {round(totalDamage, 2)}
+        </NumberDisplay>
+        <NumberDisplay label="Total Hits">{totalHits}</NumberDisplay>
       </div>
       <div className="flex justify-end">
         <Button

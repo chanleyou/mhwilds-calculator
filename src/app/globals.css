@@ -2,11 +2,12 @@
 
 @theme {
   --font-inter: "Inter", "Inter Fallback";
+  --font-funnel: "Funnel Sans", "Inter", "Funnel Sans Fallback";
   --font-noto-sans-mono: "Noto Sans Mono", "Noto Sans Mono Fallback";
-  --font-sans: var(--font-inter), sans-serif;
+  --font-sans: var(--font-funnel), sans-serif;
   --font-mono: var(--font-noto-sans-mono), monospace;
 
-  --color-background: var(--color-zinc-950);
+  --color-background: var(--color-black);
   --color-content: var(--color-zinc-900);
   --color-content-alt: var(--color-zinc-800);
   --color-divider: var(--color-zinc-700);
@@ -32,11 +33,15 @@
 }
 
 h1 {
-  @apply text-xl;
+  @apply text-base;
+}
+
+h2 {
+  @apply text-sm;
 }
 
 h3 {
-  @apply text-xs text-secondary;
+  @apply text-xs;
 }
 
 

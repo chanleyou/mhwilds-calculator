@@ -1,4 +1,4 @@
-import { BuffGroup, Sharpness } from "@/types";
+import { ArtianType, BuffGroup, Sharpness, Shelling } from "@/types";
 import { ArmorSkills, GroupSkills, WeaponSkills } from "./skills";
 
 export const WeaponTypes = [
@@ -150,8 +150,8 @@ export const FieldBuffs: Record<string, BuffGroup> = {
   Food: {
     name: "Food",
     levels: [
-      { name: "Attack +2", attack: 2 },
-      { name: "Attack +5", attack: 5 },
+      { name: "Food Attack +2", attack: 2 },
+      { name: "Food Attack +5", attack: 5 },
     ],
   },
   Demondrug: {
@@ -170,10 +170,7 @@ export const FieldBuffs: Record<string, BuffGroup> = {
   },
   CorruptedMantle: {
     name: "Corrupted Mantle",
-    levels: [
-      { name: "Stage 1", affinity: 10 },
-      { name: "Stage 2", attackMul: 1.1, affinity: 30 },
-    ],
+    levels: [{ name: "Corrupted Mantle", attackMul: 1.1, affinity: 30 }],
   },
 };
 
@@ -209,3 +206,18 @@ export const CombinedBuffs: Record<string, BuffGroup> = {
   ...FieldBuffs,
   ...HuntingHornBuffs,
 };
+
+export const ArtianTypeToGunlanceShellType: {
+  [K in ArtianType]: Shelling["type"];
+} = {
+  ["Non-Element"]: "Normal",
+  Fire: "Normal",
+  Water: "Long",
+  Thunder: "Long",
+  Dragon: "Long",
+  Ice: "Normal",
+  Poison: "Wide",
+  Paralysis: "Wide",
+  Sleep: "Normal",
+  Blast: "Wide",
+} as const;

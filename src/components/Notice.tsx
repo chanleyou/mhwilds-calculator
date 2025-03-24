@@ -19,11 +19,12 @@ const notice = cva({
 
 type NoticeVariants = VariantProps<typeof notice>;
 
-export function Notice({
-  children,
-  variant = "info",
-  className,
-}: NoticeVariants & { children: React.ReactNode; className?: string }) {
+export type NoticeProps = NoticeVariants & {
+  children: React.ReactNode;
+  className?: string;
+};
+
+export function Notice({ children, variant = "info", className }: NoticeProps) {
   return (
     <div className={cn(notice({ variant }), className)}>
       {variant === "info" && <InfoIcon className="h-5 w-5" />}

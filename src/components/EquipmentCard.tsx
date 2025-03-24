@@ -1,6 +1,7 @@
 import { useBuild } from "@/builder";
 import {
   ArmorPickerDialog,
+  ArtianDialog,
   Card,
   CharmPickerDialog,
   DecorationPickerDialog,
@@ -41,8 +42,11 @@ export const EquipmentCard = () => {
         <h1>Equipment</h1>
       </div>
       <div className="flex flex-col gap-2">
-        <h3>Weapon</h3>
-        <WeaponPickerDialog />
+        <p className="text-sm">Weapon</p>
+        <div className="flex gap-2">
+          <WeaponPickerDialog />
+          {w.artian && <ArtianDialog />}
+        </div>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
           {[0, 1, 2].map((i) => {
             // if (!helm?.slots[i]) return;
@@ -72,7 +76,8 @@ export const EquipmentCard = () => {
             );
           })}
         </div> */}
-        <h3>Armor</h3>
+        <div></div>
+        <p className="text-sm">Armor</p>
         <ArmorPickerDialog type="Helm" value={helm} setValue={setHelm} />
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
           {[0, 1, 2].map((i) => {
@@ -140,7 +145,8 @@ export const EquipmentCard = () => {
             );
           })}
         </div>
-        <h3>Charm</h3>
+        <div></div>
+        <p className="text-sm">Charm</p>
         <CharmPickerDialog value={charm} setValue={setCharm} />
       </div>
     </Card>

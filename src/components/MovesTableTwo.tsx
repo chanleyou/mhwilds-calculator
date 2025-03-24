@@ -26,8 +26,8 @@ export function MovesTableTwo({
     <Table>
       <thead>
         <TableHeadRow>
-          <TableCell small></TableCell>
-          <TableCell small></TableCell>
+          <TableCell small className="w-full"></TableCell>
+          <TableCell small className="text-right"></TableCell>
           <TableCell small className="text-right">
             Hit
           </TableCell>
@@ -50,20 +50,19 @@ export function MovesTableTwo({
               key={`${a.name}-${i}`}
               onClick={() => onClick?.(a, i)}
             >
-              <TableCell small>{a.name}</TableCell>
-              <TableCell small className="text-right font-mono">
+              <TableCell small className="w-full text-left">
+                {a.name}
+              </TableCell>
+              <TableCell small className="text-right">
                 {a.hits && !hideHits && `${a.hits}x`}
               </TableCell>
-              <TableCell small className="text-right font-mono">
+              <TableCell small className="text-right">
                 {hit}
               </TableCell>
-              <TableCell small className="text-right font-mono">
+              <TableCell small className="text-right">
                 {!a.cantCrit && crit}
               </TableCell>
-              <TableCell
-                small
-                className="text-primary text-right font-mono font-medium"
-              >
+              <TableCell small className="text-primary text-right font-medium">
                 {avg}
               </TableCell>
             </TableRow>

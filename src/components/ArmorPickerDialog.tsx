@@ -80,22 +80,51 @@ export const ArmorPickerDialog = ({
         </Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-[80vh]">
+        <Card className="h-dvh w-[100vw] sm:h-[85vh] sm:w-4xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select {type}</h1>
             </DialogTitle>
             <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-              <XIcon className="h-4 w-4" />
+              <XIcon className="h-5 w-5" />
             </Button>
           </div>
           <TextInput
             value={filter}
             onChangeValue={setFilter}
             placeholder={"Search..."}
-            autoFocus
           />
-          <div className="overflow-auto">
+          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 md:grid-cols-2">
+            {filteredOptions.map((a) => (
+              <div
+                className="border-divider bg-content hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
+                key={a.id}
+                onClick={() => {
+                  setValue(a);
+                  setOpen(false);
+                }}
+              >
+                <div>
+                  <p className="">{a.name}</p>
+                  {Object.entries(a.skills).map(([k, v]) => (
+                    <p className="text-tertiary text-sm" key={k + v}>
+                      {k} {v}
+                    </p>
+                  ))}
+                  {a.seriesSkill && (
+                    <p className="text-tertiary text-sm">{a.seriesSkill} 1</p>
+                  )}
+                  {a.groupSkill && (
+                    <p className="text-tertiary text-sm">{a.groupSkill} 1</p>
+                  )}
+                  <p className="text-tertiary text-sm">
+                    {a.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="md:show hidden overflow-auto">
             <Table>
               <thead>
                 <TableHeadRow>

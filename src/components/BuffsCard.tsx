@@ -41,7 +41,7 @@ export const BuffsCard = () => {
             size="icon"
             onClick={() => setHideBuffs((c) => !c)}
           >
-            {hideBuffs ? <ChevronUp /> : <ChevronDown />}
+            {hideBuffs ? <ChevronDown /> : <ChevronUp />}
           </Button>
         </div>
         {!hideBuffs && (
@@ -63,93 +63,123 @@ export const BuffsCard = () => {
           );
         })}
       </div>
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-        {Object.entries(WeaponBuffs)
-          .filter(([k]) => {
-            return k !== "SwitchAxePhial"; // TODO: remove all this
-          })
-          .map(([k, s]) => {
-            if (!s.weapons?.includes(w.type)) return undefined;
-            return (
-              <SkillSelect
-                key={k}
-                skill={s}
-                value={otherBuffs[k]}
-                label={s.name}
-                placeholder=""
-                onChangeValue={(buff) => setOtherBuff(k, buff)}
-              />
-            );
-          })}
-        {Object.entries(FieldBuffs).map(([k, s]) => {
-          if (hideBuffs && !otherBuffs[k]) return undefined;
-          return (
-            <SkillSelect
-              key={k}
-              value={otherBuffs[k]}
-              skill={s}
-              label={s.name}
-              placeholder=""
-              onChangeValue={(buff) => setOtherBuff(k, buff)}
-            />
-          );
-        })}
-        {(!hideBuffs || miscAttack !== 0) && (
-          <NumberInput
-            label="Attack (Flat)"
-            value={miscAttack}
-            onChangeValue={setMiscAttack}
-          />
-        )}
-        {(!hideBuffs || miscAttackMul !== 0) && (
-          <NumberInput
-            label="Attack (%)"
-            value={miscAttackMul}
-            onChangeValue={setMiscAttackMul}
-          />
-        )}
-        {(!hideBuffs || miscElement !== 0) && (
-          <NumberInput
-            label="Element (Flat)"
-            value={miscElement}
-            onChangeValue={setMiscElement}
-            step={10}
-          />
-        )}
-        {(!hideBuffs || miscElementMul !== 0) && (
-          <NumberInput
-            label="Element (%)"
-            value={miscElementMul}
-            onChangeValue={setMiscElementMul}
-          />
-        )}
-        {(!hideBuffs || miscAffinity !== 0) && (
-          <NumberInput
-            label="Affinity (%)"
-            value={miscAffinity}
-            onChangeValue={setMiscAffinity}
-          />
-        )}
-      </div>
+      {Object.values(WeaponBuffs).some((b) => b.weapons?.includes(w.type)) && (
+        <div className="flex flex-col gap-2">
+          <p className="text-xs">{w.type}</p>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            {Object.entries(WeaponBuffs)
+              .filter(([k]) => {
+                return k !== "SwitchAxePhial"; // TODO: remove all this
+              })
+              .map(([k, s]) => {
+                if (!s.weapons?.includes(w.type)) return undefined;
+                return (
+                  <SkillSelect
+                    key={k}
+                    skill={s}
+                    value={otherBuffs[k]}
+                    placeholder={s.name}
+                    onChangeValue={(buff) => setOtherBuff(k, buff)}
+                  />
+                );
+              })}
+            {w.type === "Hunting Horn" &&
+              Object.entries(HuntingHornBuffs).map(([k, b]) => {
+                if (hideBuffs && !otherBuffs[k]) return undefined;
+                return (
+                  <SkillSelect
+                    key={k}
+                    value={otherBuffs[k]}
+                    skill={b}
+                    placeholder={b.name}
+                    onChangeValue={(buff) => setOtherBuff(k, buff)}
+                  />
+                );
+              })}
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-2">
-        {(!hideBuffs ||
-          Object.keys(otherBuffs).some((b) => {
-            return Object.keys(HuntingHornBuffs).includes(b);
-          })) && <h2 className="text-xs">Hunting Horn</h2>}
+        <h2>Items</h2>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-          {Object.entries(HuntingHornBuffs).map(([k, b]) => {
+          {Object.entries(FieldBuffs).map(([k, s]) => {
             if (hideBuffs && !otherBuffs[k]) return undefined;
             return (
               <SkillSelect
                 key={k}
                 value={otherBuffs[k]}
-                skill={b}
-                placeholder={b.name}
+                skill={s}
+                placeholder={s.name}
                 onChangeValue={(buff) => setOtherBuff(k, buff)}
               />
             );
           })}
         </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        {w.type !== "Hunting Horn" && (
+          <div className="flex flex-col gap-2">
+            {(!hideBuffs ||
+              Object.keys(otherBuffs).some((b) => {
+                return Object.keys(HuntingHornBuffs).includes(b);
+              })) && <h2>Hunting Horn</h2>}
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+              {Object.entries(HuntingHornBuffs).map(([k, b]) => {
+                if (hideBuffs && !otherBuffs[k]) return undefined;
+                return (
+                  <SkillSelect
+                    key={k}
+                    value={otherBuffs[k]}
+                    skill={b}
+                    placeholder={b.name}
+                    onChangeValue={(buff) => setOtherBuff(k, buff)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {/* <div className="flex flex-col gap-2">
+          <h2>Miscellaneous</h2>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            {(!hideBuffs || miscAttack !== 0) && (
+              <NumberInput
+                label="Attack (Flat)"
+                value={miscAttack}
+                onChangeValue={setMiscAttack}
+              />
+            )}
+            {(!hideBuffs || miscAttackMul !== 0) && (
+              <NumberInput
+                label="Attack (%)"
+                value={miscAttackMul}
+                onChangeValue={setMiscAttackMul}
+              />
+            )}
+            {(!hideBuffs || miscElement !== 0) && (
+              <NumberInput
+                label="Element (Flat)"
+                value={miscElement}
+                onChangeValue={setMiscElement}
+                step={10}
+              />
+            )}
+            {(!hideBuffs || miscElementMul !== 0) && (
+              <NumberInput
+                label="Element (%)"
+                value={miscElementMul}
+                onChangeValue={setMiscElementMul}
+              />
+            )}
+            {(!hideBuffs || miscAffinity !== 0) && (
+              <NumberInput
+                label="Affinity (%)"
+                value={miscAffinity}
+                onChangeValue={setMiscAffinity}
+              />
+            )}
+          </div>
+        </div> */}
       </div>
     </Card>
   );

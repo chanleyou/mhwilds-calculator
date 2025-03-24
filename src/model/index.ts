@@ -11,9 +11,9 @@ import {
   BuffValues,
   ComputedStore,
   ElementType,
+  MeleeWeapon,
   Weapon,
   isBowgunElementAmmo,
-  isMeleeWeapon,
 } from "@/types";
 
 export const sum = (...args: (number | undefined)[]) => {
@@ -474,11 +474,10 @@ export const calculateCritTwo = (
   return round(dmg(r * critMulti) + dmg(e * eleCritMulti));
 };
 
-export const calculateHandicraft = (weapon: Weapon, level: number) => {
+export const calculateHandicraft = (weapon: MeleeWeapon, level: number) => {
   let points = level * 10;
 
-  if (!isMeleeWeapon(weapon)) return weapon;
-  return produce(weapon, (d) => {
+  const w = produce(weapon, (d) => {
     let baseIndex = d.sharpness.reduce<number>(
       (acc, n, i) => (n > 0 ? i : acc),
       0,
@@ -500,4 +499,6 @@ export const calculateHandicraft = (weapon: Weapon, level: number) => {
       }
     }
   });
+
+  return w.sharpness;
 };

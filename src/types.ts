@@ -1,8 +1,25 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
 import { InitialStore, useGetters } from "@/store";
 
-export type ElementType = "Dragon" | "Fire" | "Ice" | "Thunder" | "Water";
-export type StatusType = "Blast" | "Paralysis" | "Poison" | "Sleep";
+export const ElementTypes = [
+  "Dragon",
+  "Fire",
+  "Ice",
+  "Thunder",
+  "Water",
+] as const;
+export type ElementType = (typeof ElementTypes)[number];
+
+export const StatusTypes = ["Blast", "Paralysis", "Poison", "Sleep"] as const;
+export type StatusType = (typeof StatusTypes)[number];
+
+export const isElementType = (t?: string): t is ElementType => {
+  return ElementTypes.includes(t as ElementType);
+};
+
+export const isStatusType = (t?: string): t is StatusType => {
+  return StatusTypes.includes(t as StatusType);
+};
 
 export type SwitchAxePhialType =
   | "Dragon"
@@ -42,7 +59,7 @@ export interface IWeapon extends Equip {
   sharpness?: WeaponSharpness;
   handicraft?: Handicraft;
   slots: [SlotLevel, SlotLevel, SlotLevel];
-  artian?: boolean;
+  artian?: { element: number; status: number }; // if 3 matching
   phial?: SwitchAxePhialType | ChargeBladePhialType;
   shelling?: Shelling;
 }
@@ -259,4 +276,39 @@ export type Flag = "TetradAttack" | "TetradAffinity";
 
 export const isMeleeWeapon = (weapon: Weapon): weapon is MeleeWeapon => {
   return "sharpness" in weapon && "handicraft" in weapon;
+};
+
+export const isGunlance = (weapon: Weapon): weapon is Gunlance => {
+  return "shelling" in weapon;
+};
+
+export const ArtianTypeOptions = [
+  "Non-Element",
+  ...ElementTypes,
+  ...StatusTypes,
+] as const;
+export type ArtianType = (typeof ArtianTypeOptions)[number];
+
+export const ArtianInfusionOptions = ["Attack", "Affinity"] as const;
+export type ArtianInfusion = (typeof ArtianInfusionOptions)[number];
+
+export const ArtianUpgradeOptions = [
+  "Attack",
+  "Affinity",
+  "Element",
+  "Sharpness",
+  "Ammo",
+] as const;
+export type ArtianUpgrade = (typeof ArtianUpgradeOptions)[number];
+
+export type Artian = {
+  type?: ArtianType;
+  infusions: [ArtianInfusion?, ArtianInfusion?, ArtianInfusion?];
+  upgrades: [
+    ArtianUpgrade?,
+    ArtianUpgrade?,
+    ArtianUpgrade?,
+    ArtianUpgrade?,
+    ArtianUpgrade?,
+  ];
 };

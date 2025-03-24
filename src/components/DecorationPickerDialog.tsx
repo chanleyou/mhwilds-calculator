@@ -2,17 +2,7 @@ import { XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Decorations } from "@/data/decorations";
 import { Decoration, SlotLevel } from "@/types";
-import { cn } from "@/utils";
-import {
-  Button,
-  Card,
-  Picker,
-  Table,
-  TableCell,
-  TableHeadRow,
-  TableRow,
-  TextInput,
-} from ".";
+import { Button, Card, Picker, TextInput } from ".";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 
 export const DecorationPickerDialog = ({
@@ -65,7 +55,7 @@ export const DecorationPickerDialog = ({
       <DialogTrigger asChild>
         <Picker disabled={!level} className={value ? "" : "text-placeholder"}>
           <span className="truncate">
-            {value ? value.name : level > 0 ? `Slot [${level}]` : undefined}
+            {value ? value.name : level > 0 ? `Slot [${level}]` : "\u00a0"}
           </span>
           {value && (
             <Button
@@ -83,22 +73,42 @@ export const DecorationPickerDialog = ({
         </Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="max-w-90vw h-[90vh] w-[90vw]">
+        <Card className="h-dvh w-[100vw] sm:h-[85vh] sm:w-4xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Decoration {level}</h1>
             </DialogTitle>
             <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-              <XIcon className="h-4 w-4" />
+              <XIcon className="h-5 w-5" />
             </Button>
           </div>
           <TextInput
             value={filter}
             onChangeValue={setFilter}
             placeholder={"Search..."}
-            autoFocus
           />
-          <div className="overflow-auto">
+          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
+            {filteredOptions.map((c) => (
+              <div
+                className="border-divider hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
+                key={c.id}
+                onClick={() => {
+                  setValue(c);
+                  setOpen(false);
+                }}
+              >
+                <div>
+                  <p className="text-sm">{c.name}</p>
+                  {Object.entries(c.skills).map(([k, v]) => (
+                    <p className="text-tertiary text-sm" key={k + v}>
+                      {k} {v}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* <div className="overflow-auto">
             <Table>
               <thead>
                 <TableHeadRow>
@@ -128,7 +138,7 @@ export const DecorationPickerDialog = ({
                 ))}
               </tbody>
             </Table>
-          </div>
+          </div> */}
         </Card>
       </DialogContent>
     </Dialog>

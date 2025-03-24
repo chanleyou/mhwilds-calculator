@@ -219,9 +219,8 @@ export const Bows: Bow[] = [
     rarity: 8,
     attack: 190,
     affinity: 5,
-    // value: 210 },
     slots: [3, 3, 3],
     skills: {},
-    artian: true,
+    artian: { element: 230, status: 0 },
   },
 ];

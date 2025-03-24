@@ -2,26 +2,30 @@
 
 import { CopyIcon, XIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import { CombinedBuffs } from "@/data";
-import { useModel } from "@/store";
+import { useBuild } from "@/builder";
 import text from "@/text";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Notice } from "./Notice";
 
-export const ExportDialog = () => {
+export const ExportDialogTwo = () => {
   const {
     weapon,
-    attack,
-    affinity,
-    element,
-    sharpness,
-    buffs,
-    rawHzv,
-    eleHzv,
-    isWound,
-  } = useModel();
+    artian,
+    helm,
+    body,
+    arms,
+    waist,
+    legs,
+    charm,
+    weaponSlots,
+    helmSlots,
+    bodySlots,
+    armsSlots,
+    waistSlots,
+    legsSlots,
+  } = useBuild();
 
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -30,38 +34,50 @@ export const ExportDialog = () => {
     () =>
       JSON.stringify(
         {
-          weapon,
-          attack,
-          affinity,
-          element,
-          sharpness,
-          rawHzv,
-          eleHzv,
-          isWound,
-          buffs: Object.entries(buffs).reduce(
-            (a, [k, v]) => {
-              const buff = CombinedBuffs[k];
-              if (!buff) return a;
-              const i = buff.levels.findIndex((l) => l.name === v.name);
-              if (i === -1) return a;
-              return { ...a, [k]: i + 1 };
-            },
-            {} as Record<string, number>,
-          ),
+          weapon: {
+            type: weapon.type,
+            name: weapon.name,
+          },
+          artian: weapon.artian ? artian : undefined,
+          helm: helm?.name,
+          body: body?.name,
+          arms: arms?.name,
+          waist: waist?.name,
+          legs: legs?.name,
+          charm: charm?.name,
+          weaponSlots:
+            weaponSlots.length > 0
+              ? weaponSlots.map((s) => s?.name)
+              : undefined,
+          helmSlots:
+            helmSlots.length > 0 ? helmSlots.map((s) => s?.name) : undefined,
+          bodySlots:
+            bodySlots.length > 0 ? bodySlots.map((s) => s?.name) : undefined,
+          armsSlots:
+            armsSlots.length > 0 ? armsSlots.map((s) => s?.name) : undefined,
+          waistSlots:
+            waistSlots.length > 0 ? waistSlots.map((s) => s?.name) : undefined,
+          legsSlots:
+            legsSlots.length > 0 ? legsSlots.map((s) => s?.name) : undefined,
         },
         null,
         2,
       ),
     [
       weapon,
-      attack,
-      affinity,
-      element,
-      sharpness,
-      rawHzv,
-      eleHzv,
-      isWound,
-      buffs,
+      artian,
+      helm,
+      body,
+      arms,
+      waist,
+      legs,
+      charm,
+      weaponSlots,
+      helmSlots,
+      bodySlots,
+      armsSlots,
+      waistSlots,
+      legsSlots,
     ],
   );
 
@@ -84,7 +100,7 @@ export const ExportDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <Card>
+        <Card className="max-h-dvh w-[100vw] sm:w-4xl sm:max-w-[95vw]">
           <DialogTitle asChild>
             <div className="flex items-start justify-between gap-2">
               <h1>Export</h1>
