@@ -268,7 +268,7 @@ export const LightBowguns: Bowgun[] = [
     rarity: 8,
     attack: 190,
     affinity: 5,
-    artian: { element: 0 },
+    artian: { element: 0, status: 0 },
     slots: [3, 3, 3],
     skills: {},
   },
