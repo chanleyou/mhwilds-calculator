@@ -20,7 +20,7 @@ test("Gunlance", () => {
   const wf = atk("Gunlance", "Wide Lv3 Wyvern Fire 1");
   const wfh = atk("Gunlance", "Wide Lv3 Wyvern Fire 2");
   const ws = atk("Gunlance", "Wyrmstake Lv3 Ticks");
-  const wse = atk("Gunlance", "Normal / Wide Lv3 Wyrmstake Explosion");
+  const wse = atk("Gunlance", "Wide Lv3 Wyrmstake Explosion");
 
   expect(calcHit(s)).toBe(61.2);
   expect(calcHit(cs)).toBe(107.3);

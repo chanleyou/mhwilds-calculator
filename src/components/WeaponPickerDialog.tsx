@@ -4,8 +4,15 @@ import { useBuild } from "@/builder";
 import { WeaponTypes } from "@/data";
 import { Weapons } from "@/data/weapons";
 import { calculateHandicraft } from "@/model";
-import { WeaponType, isBowgun, isMeleeWeapon, isRanged } from "@/types";
 import {
+  WeaponType,
+  isBowgun,
+  isMeleeWeapon,
+  isRanged,
+  isWeaponBowgun,
+} from "@/types";
+import {
+  BowgunAmmoDisplay,
   Button,
   Card,
   Picker,
@@ -34,7 +41,7 @@ export const WeaponPickerDialog = () => {
     return weapons.filter((a) => {
       if (a.type !== type) return false;
       if (filter) {
-        const { name, attack, element, skills } = a;
+        const { name, attack, element, skills, artian, ammo } = a;
 
         const elementString = element ? `${element.value} ${element.type}` : "";
 
@@ -43,6 +50,12 @@ export const WeaponPickerDialog = () => {
           attack,
           elementString,
           ...Object.entries(skills).map(([k, v]) => `${k} ${v}`),
+          ammo
+            ? Object.entries(ammo).map(([k, v]) =>
+                v.levels.map((l) => `${k} ${l}`).join(" "),
+              )
+            : "",
+          artian ? "artian" : "",
         ]
           .filter((k) => !!k)
           .join(" ")
@@ -83,84 +96,120 @@ export const WeaponPickerDialog = () => {
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
+          <div className="flex flex-col gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
             {filteredOptions.map((o) => (
               <div
-                className="border-divider grid grid-cols-4 gap-1 rounded border py-4"
+                className="border-divider gap-1 rounded border p-3"
                 key={o.name}
                 onClick={() => {
                   setW(o);
                   setOpen(false);
                 }}
               >
-                <div className="text-tertiary pr-4 text-right">Name</div>
-                <div className="col-span-3">{o.name}</div>
-                <div className="text-tertiary pr-4 text-right">Attack</div>
-                <div className="col-span-3">{o.attack}</div>
+                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                  <div className="text-tertiary flex-1 text-right">Name</div>
+                  <div className="flex-3">{o.name}</div>
+                </div>
+                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                  <div className="text-tertiary flex-1 text-right">Attack</div>
+                  <div className="flex-3">{o.attack}</div>
+                </div>
                 {o.affinity !== 0 && (
-                  <>
-                    <div className="text-tertiary pr-4 text-right">
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">
                       Affinity
                     </div>
-                    <div className="col-span-3">
-                      {o.affinity !== 0 && o.affinity}
+                    <div className="flex-3">{o.affinity}</div>
+                  </div>
+                )}
+                {o.ammo && (
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">Ammo</div>
+                    <div className="flex-3">
+                      <BowgunAmmoDisplay ammo={o.ammo} />
                     </div>
-                  </>
+                  </div>
+                )}
+                {o.coatings && (
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">
+                      Coatings
+                    </div>
+                    <div className="flex-3">
+                      {o.coatings.map((c) => (
+                        <p key={c}>{c}</p>
+                      ))}
+                    </div>
+                  </div>
                 )}
                 {o.phial !== "Dragon" && o.element && (
-                  <>
-                    <div className="text-tertiary pr-4 text-right">Element</div>
-                    <div className="col-span-3">
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">
+                      Element
+                    </div>
+                    <div className="flex-3">
                       {o.element.value} {o.element.type}
                     </div>
-                  </>
+                  </div>
                 )}
-                {o.phial !== "Paralysis" &&
-                  o.phial !== "Poison" &&
-                  o.status && (
-                    <>
-                      <div className="text-tertiary pr-4 text-right">
-                        Status
-                      </div>
-                      <div className="col-span-3">
-                        {o.status.type} {o.status.value}
-                      </div>
-                    </>
-                  )}
+                {o.status && (
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">
+                      Status
+                    </div>
+                    <div className="flex-3">
+                      {o.status.type} {o.status.value}
+                    </div>
+                  </div>
+                )}
+                {o.shelling && (
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">
+                      Shelling
+                    </div>
+                    <div className="flex-3">
+                      {o.shelling.type} {o.shelling.level}
+                    </div>
+                  </div>
+                )}
                 {o.phial && (
-                  <>
-                    <div className="text-tertiary pr-4 text-right">Phial</div>
-                    <div className="col-span-3">
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                    <div className="text-tertiary flex-1 text-right">Phial</div>
+                    <div className="flex-3">
                       {o.phial}{" "}
                       {(o.phial === "Dragon" ||
                         o.phial === "Paralysis" ||
                         o.phial === "Poison") &&
                         (o.element?.value ?? o.status?.value)}
                     </div>
-                  </>
+                  </div>
                 )}
-                <div className="text-tertiary pr-4 text-right">Skills</div>
-                <div className="col-span-3">
-                  {Object.entries(o.skills).map(([k, v]) => (
-                    <p className="text-sm" key={k + v}>
-                      {k} {v}
-                    </p>
-                  ))}
+                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
+                  <div className="text-tertiary flex-1 text-right">Skills</div>
+                  <div className="flex-3">
+                    {Object.entries(o.skills).map(([k, v]) => (
+                      <p className="text-sm" key={k + v}>
+                        {k} {v}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-tertiary pr-4 text-right">Slots</div>
-                <div className="col-span-3">
-                  {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                <div className="border-content-alt flex flex-row justify-center gap-4 border-b p-2 last:border-0">
+                  <div className="text-tertiary flex-1 text-right">Slots</div>
+                  <div className="flex-3">
+                    {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                  </div>
                 </div>
                 {isMeleeWeapon(o) && (
-                  <>
-                    <div className="text-tertiary pr-4 text-right">
+                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2 last:border-0">
+                    <div className="text-tertiary flex-1 text-right">
                       Sharpness
                     </div>
-                    <div className="col-span-3 flex flex-col pt-1">
+                    <div className="flex flex-3 flex-col pt-1">
                       <SharpnessBar sharpness={o.sharpness} />
                       <SharpnessBar sharpness={calculateHandicraft(o, 5)} />
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))}
@@ -172,7 +221,12 @@ export const WeaponPickerDialog = () => {
                   <TableCell>Name</TableCell>
                   <TableCell>Attack</TableCell>
                   <TableCell>Affinity</TableCell>
-                  {!isBowgun(type) && <TableCell>Element</TableCell>}
+                  {isBowgun(type) ? (
+                    <TableCell>Ammo</TableCell>
+                  ) : (
+                    <TableCell>Element</TableCell>
+                  )}
+                  {type === "Bow" && <TableCell>Coatings</TableCell>}
                   {!isRanged(type) && <TableCell>Sharpness</TableCell>}
                   {(type === "Switch Axe" || type === "Charge Blade") && (
                     <TableCell>Phial</TableCell>
@@ -194,10 +248,21 @@ export const WeaponPickerDialog = () => {
                     <TableCell>{o.name}</TableCell>
                     <TableCell>{o.attack}</TableCell>
                     <TableCell>{o.affinity !== 0 && o.affinity}</TableCell>
-                    {!isBowgun(type) && (
+                    {isWeaponBowgun(o) ? (
+                      <TableCell>
+                        <BowgunAmmoDisplay ammo={o.ammo} />
+                      </TableCell>
+                    ) : (
                       <TableCell>
                         {o.element && `${o.element.value} ${o.element.type}`}
                         {o.status && `${o.status.value} ${o.status.type}`}
+                      </TableCell>
+                    )}
+                    {o.coatings && (
+                      <TableCell>
+                        {o.coatings.map((c) => (
+                          <p key={c}>{c}</p>
+                        ))}
                       </TableCell>
                     )}
                     {isMeleeWeapon(o) && (

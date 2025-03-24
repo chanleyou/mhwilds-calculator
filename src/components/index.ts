@@ -31,3 +31,4 @@ export * from "./Tooltip";
 export * from "./EquipmentCard";
 export * from "./WeaponPickerDialog";
 export * from "./Artian";
+export * from "./BowgunAmmoDisplay";

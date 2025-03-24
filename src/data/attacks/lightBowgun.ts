@@ -1,68 +1,161 @@
 import { Attack } from "@/types";
 
 // vs HBG Ammo
-// const NORMAL_MUL = 0.65;
-// const PIERCE_MUL = 0.8;
-// const SPREAD_MUL = 0.7;
-// const STICKY_MUL = 0.5;
-// const ELEMENT_MUL = 0.65;
-// const CHASER_NORMAL_MUL = 1.3;
-// const CHASER_PIERCE_MUL = 1.2;
-// const CHASER_SPREAD_MUL = 0.85;
-// const CHASER_STICKY_MUL = 1;
-// const CHASER_ELEMENT_MUL = 0.75;
-// const RF_NORMAL_MUL = 0.5;
-// const RF_PIERCE_MUL = 0.65;
-// const RF_SPREAD_MUL = 0.55;
-// const RF_STICKY_MUL = 0.35;
-// const RF_ELEMENT_MUL = 0.55;
-// const RFC_NORMAL_MUL = 1.5;
-// const RFC_PIERCE_MUL = 1.95;
-// const RFC_SPREAD_MUL = 0.935;
-// const RFC_STICKY_MUL = 0.87;
-// const RFC_ELEMENT_MUL = 0.935;
+// NORMAL_MUL = 0.65
+// PIERCE_MUL = 0.8
+// SPREAD_MUL = 0.7
+// STICKY_MUL = 0.5
+// ELEMENT_MUL = 0.65
+// DRAGON_MUL = 0.7
+// SLICE_MUL = 0.8
+// CHASER_NORMAL_MUL = 1.3
+// CHASER_PIERCE_MUL = 1.2
+// CHASER_SPREAD_MUL = 0.85
+// CHASER_STICKY_MUL = 1
+// CHASER_ELEMENT_MUL = 0.75
+// CHASER_DRAGON_MUL = 1.1
+// CHASER_SLICE_MUL = 1
+// RF_NORMAL_MUL = 0.5
+// RF_PIERCE_MUL = 0.65
+// RF_SPREAD_MUL = 0.55
+// RF_STICKY_MUL = 0.35
+// RF_ELEMENT_MUL = 0.55
+// RF_DRAGON_MUL = 0.65
+// RF_SLICE_MUL = 0.55
+// RFC_NORMAL_MUL = 1.5
+// RFC_PIERCE_MUL = 1.95
+// RFC_SPREAD_MUL = 0.935
+// RFC_STICKY_MUL = 0.87
+// RFC_ELEMENT_MUL = 0.935
 
 export const LightBowgunAttacks = [
-  { name: "Normal Lv1", mv: 9.75, hits: 3, normalShot: true },
-  { name: "Normal Lv2", mv: 13.65, hits: 3, normalShot: true },
-  { name: "Normal Lv3", mv: 18.525, hits: 3, normalShot: true },
-  { name: "Chaser Normal Lv1", mv: 19.5, normalShot: true, hits: 2 },
-  { name: "Chaser Normal Lv2", mv: 27.3, normalShot: true, hits: 2 },
-  { name: "Chaser Normal Lv3", mv: 37.05, normalShot: true, hits: 2 },
-  { name: "Pierce Lv1", mv: 8.8, piercingShot: true },
-  { name: "Pierce Lv2", mv: 9.6, piercingShot: true },
-  { name: "Pierce Lv3", mv: 9.6, piercingShot: true },
+  {
+    name: "Normal Lv1",
+    mv: 9.75,
+    hits: 3,
+    normalShot: true,
+    ammo: { type: "Normal", level: 1 },
+  },
+  {
+    name: "Normal Lv2",
+    mv: 13.65,
+    hits: 3,
+    normalShot: true,
+    ammo: { type: "Normal", level: 2 },
+  },
+  {
+    name: "Normal Lv3",
+    mv: 18.525,
+    hits: 3,
+    normalShot: true,
+    ammo: { type: "Normal", level: 3 },
+  },
+  {
+    name: "Chaser Normal Lv1",
+    mv: 19.5,
+    normalShot: true,
+    hits: 2,
+    ammo: { type: "Normal", level: 1 },
+  },
+  {
+    name: "Chaser Normal Lv2",
+    mv: 27.3,
+    normalShot: true,
+    hits: 2,
+    ammo: { type: "Normal", level: 2 },
+  },
+  {
+    name: "Chaser Normal Lv3",
+    mv: 37.05,
+    normalShot: true,
+    hits: 2,
+    ammo: { type: "Normal", level: 3 },
+  },
+  {
+    name: "Pierce Lv1",
+    mv: 8.8,
+    piercingShot: true,
+    ammo: { type: "Pierce", level: 1 },
+  },
+  {
+    name: "Pierce Lv2",
+    mv: 9.6,
+    piercingShot: true,
+    ammo: { type: "Pierce", level: 2 },
+  },
+  {
+    name: "Pierce Lv3",
+    mv: 9.6,
+    piercingShot: true,
+    ammo: { type: "Pierce", level: 3 },
+  },
   {
     name: "Chaser Pierce Lv1",
     mv: 13.2,
     piercingShot: true,
     hits: 2,
+    ammo: { type: "Pierce", level: 1 },
   },
   {
     name: "Chaser Pierce Lv2",
     mv: 14.4,
     piercingShot: true,
     hits: 2,
+    ammo: { type: "Pierce", level: 2 },
   },
   {
     name: "Chaser Pierce Lv3",
     mv: 14.4,
     piercingShot: true,
     hits: 2,
+    ammo: { type: "Pierce", level: 3 },
   },
-  { name: "Spread Lv1", mv: 7.7, spreadPowerShot: true },
-  { name: "Spread Lv2", mv: 8.855, spreadPowerShot: true },
-  { name: "Spread Lv3", mv: 10.01, spreadPowerShot: true },
-  { name: "Chaser Spread Lv1", mv: 9.35, spreadPowerShot: true, hits: 2 },
-  { name: "Chaser Spread Lv2", mv: 10.7525, spreadPowerShot: true, hits: 2 },
-  { name: "Chaser Spread Lv3", mv: 12.155, spreadPowerShot: true, hits: 2 },
+  {
+    name: "Spread Lv1",
+    mv: 7.7,
+    spreadPowerShot: true,
+    ammo: { type: "Spread", level: 1 },
+  },
+  {
+    name: "Spread Lv2",
+    mv: 8.855,
+    spreadPowerShot: true,
+    ammo: { type: "Spread", level: 2 },
+  },
+  {
+    name: "Spread Lv3",
+    mv: 10.01,
+    spreadPowerShot: true,
+    ammo: { type: "Spread", level: 3 },
+  },
+  {
+    name: "Chaser Spread Lv1",
+    mv: 9.35,
+    spreadPowerShot: true,
+    hits: 2,
+    ammo: { type: "Spread", level: 1 },
+  },
+  {
+    name: "Chaser Spread Lv2",
+    mv: 10.7525,
+    spreadPowerShot: true,
+    hits: 2,
+    ammo: { type: "Spread", level: 2 },
+  },
+  {
+    name: "Chaser Spread Lv3",
+    mv: 12.155,
+    spreadPowerShot: true,
+    hits: 2,
+    ammo: { type: "Spread", level: 3 },
+  },
   {
     name: "Sticky Lv1",
     mv: 12.5,
     fixedEle: 5,
     ignoreHzv: true,
     cantCrit: true,
-    artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 1 },
   },
   {
     name: "Sticky Lv2",
@@ -71,6 +164,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 2 },
   },
   {
     name: "Chaser Sticky Lv1",
@@ -79,6 +173,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 1 },
   },
   {
     name: "Chaser Sticky Lv2",
@@ -87,6 +182,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 2 },
   },
   // {
   //   name: "Sticky Lv3",
@@ -98,6 +194,69 @@ export const LightBowgunAttacks = [
   // },
   { name: "Element Lv1", mv: 5.2, rawEle: 13 },
   { name: "Element Lv2", mv: 6.5, rawEle: 16.25 },
+  {
+    name: "Flaming Lv1",
+    mv: 5.2,
+    rawEle: 13,
+    elementType: "Fire",
+    ammo: { type: "Flaming", level: 1 },
+  },
+  {
+    name: "Flaming Lv2",
+    mv: 6.5,
+    rawEle: 16.25,
+    elementType: "Fire",
+    ammo: { type: "Flaming", level: 2 },
+  },
+  {
+    name: "Thunder Lv1",
+    mv: 5.2,
+    rawEle: 13,
+    elementType: "Thunder",
+    ammo: { type: "Thunder", level: 1 },
+  },
+  {
+    name: "Thunder Lv2",
+    mv: 6.5,
+    rawEle: 16.25,
+    elementType: "Thunder",
+    ammo: { type: "Thunder", level: 2 },
+  },
+  {
+    name: "Water Lv1",
+    mv: 5.2,
+    rawEle: 13,
+    elementType: "Water",
+    ammo: { type: "Water", level: 1 },
+  },
+  {
+    name: "Water Lv2",
+    mv: 6.5,
+    rawEle: 16.25,
+    elementType: "Water",
+    ammo: { type: "Water", level: 2 },
+  },
+  {
+    name: "Freeze Lv1",
+    mv: 5.2,
+    rawEle: 13,
+    elementType: "Ice",
+    ammo: { type: "Freeze", level: 1 },
+  },
+  {
+    name: "Freeze Lv2",
+    mv: 6.5,
+    rawEle: 16.25,
+    elementType: "Ice",
+    ammo: { type: "Freeze", level: 2 },
+  },
+  {
+    name: "Dragon Lv1",
+    mv: 14,
+    rawEle: 30.8,
+    elementType: "Dragon",
+    ammo: { type: "Dragon", level: 1 },
+  },
   { name: "Chaser Element Lv1", mv: 6, rawEle: 15, hits: 2 },
   { name: "Chaser Element Lv2", mv: 7.5, rawEle: 18.75, hits: 2 },
   { name: "Rapid Fire Normal Lv1", mv: 7.5, normalShot: true, rapidFire: true },
@@ -106,102 +265,119 @@ export const LightBowgunAttacks = [
     mv: 10.5,
     normalShot: true,
     rapidFire: true,
+    ammo: { type: "Normal", level: 2 },
   },
   {
     name: "Rapid Fire Normal Lv3",
     mv: 14.25,
     normalShot: true,
     rapidFire: true,
+    ammo: { type: "Normal", level: 3 },
   },
   {
     name: "Rapid Fire Normal Lv1 Chaser",
     mv: 22.5,
     rapidFire: true,
     normalShot: true,
+    ammo: { type: "Normal", level: 1 },
   },
   {
     name: "Rapid Fire Normal Lv2 Chaser",
     mv: 31.5,
     rapidFire: true,
     normalShot: true,
+    ammo: { type: "Normal", level: 2 },
   },
   {
     name: "Rapid Fire Normal Lv3 Chaser",
     mv: 42.75,
     rapidFire: true,
     normalShot: true,
+    ammo: { type: "Normal", level: 3 },
   },
   {
     name: "Rapid Fire Pierce Lv1",
     mv: 7.15,
     piercingShot: true,
     rapidFire: true,
+    ammo: { type: "Pierce", level: 1 },
   },
   {
     name: "Rapid Fire Pierce Lv2",
     mv: 7.8,
     piercingShot: true,
     rapidFire: true,
+    ammo: { type: "Pierce", level: 2 },
   },
   {
     name: "Rapid Fire Pierce Lv3",
     mv: 7.8,
     piercingShot: true,
     rapidFire: true,
+    ammo: { type: "Pierce", level: 3 },
   },
   {
     name: "Rapid Fire Pierce Lv1 Chaser",
     mv: 21.45,
     rapidFire: true,
     piercingShot: true,
+    ammo: { type: "Pierce", level: 1 },
   },
   {
     name: "Rapid Fire Pierce Lv2 Chaser",
     mv: 23.4,
     rapidFire: true,
     piercingShot: true,
+    ammo: { type: "Pierce", level: 2 },
   },
   {
     name: "Rapid Fire Pierce Lv3 Chaser",
     mv: 23.4,
     rapidFire: true,
     piercingShot: true,
+    ammo: { type: "Pierce", level: 3 },
   },
   {
     name: "Rapid Fire Spread Lv1",
     mv: 6.05,
     spreadPowerShot: true,
     rapidFire: true,
+    ammo: { type: "Spread", level: 1 },
   },
   {
     name: "Rapid Fire Spread Lv2",
     mv: 6.9575,
     spreadPowerShot: true,
     rapidFire: true,
+    ammo: { type: "Spread", level: 2 },
   },
   {
     name: "Rapid Fire Spread Lv3",
     mv: 7.865,
     spreadPowerShot: true,
     rapidFire: true,
+    ammo: { type: "Spread", level: 3 },
   },
   {
     name: "Rapid Fire Spread Lv1 Chaser",
     mv: 10.285,
     rapidFire: true,
     spreadPowerShot: true,
+    ammo: { type: "Spread", level: 1 },
   },
   {
     name: "Rapid Fire Spread Lv2 Chaser",
     mv: 11.82775,
     rapidFire: true,
     spreadPowerShot: true,
+    ammo: { type: "Spread", level: 2 },
   },
   {
     name: "Rapid Fire Spread Lv3 Chaser",
     mv: 13.3705,
     rapidFire: true,
     spreadPowerShot: true,
+    ammo: { type: "Spread", level: 3 },
   },
   {
     name: "Rapid Fire Sticky Lv1",
@@ -211,6 +387,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 1 },
   },
   {
     name: "Rapid Fire Sticky Lv2",
@@ -220,6 +397,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 2 },
   },
   {
     name: "Rapid Fire Sticky Lv1 Chaser",
@@ -229,6 +407,7 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 1 },
   },
   {
     name: "Rapid Fire Sticky Lv2 Chaser",
@@ -238,9 +417,138 @@ export const LightBowgunAttacks = [
     ignoreHzv: true,
     cantCrit: true,
     artilleryAmmo: true,
+    ammo: { type: "Sticky", level: 2 },
   },
   { name: "Rapid Fire Element Lv1", mv: 4.4, rawEle: 11, rapidFire: true },
   { name: "Rapid Fire Element Lv2", mv: 5.5, rawEle: 13.75, rapidFire: true },
+  {
+    name: "Rapid Fire Flaming Lv1",
+    mv: 4.4,
+    rawEle: 11,
+    elementType: "Fire",
+    rapidFire: true,
+    ammo: { type: "Flaming", level: 1 },
+  },
+  {
+    name: "Rapid Fire Flaming Lv2",
+    mv: 5.5,
+    rawEle: 13.75,
+    elementType: "Fire",
+    rapidFire: true,
+    ammo: { type: "Flaming", level: 2 },
+  },
+  {
+    name: "Rapid Fire Flaming Lv1 Chaser",
+    mv: 7.48,
+    rawEle: 18.7,
+    elementType: "Fire",
+    rapidFire: true,
+    ammo: { type: "Flaming", level: 1 },
+  },
+  {
+    name: "Rapid Fire Flaming Lv2 Chaser",
+    mv: 9.35,
+    rawEle: 23.375,
+    elementType: "Fire",
+    rapidFire: true,
+    ammo: { type: "Flaming", level: 2 },
+  },
+  {
+    name: "Rapid Fire Thunder Lv1",
+    mv: 4.4,
+    rawEle: 11,
+    elementType: "Thunder",
+    rapidFire: true,
+    ammo: { type: "Thunder", level: 1 },
+  },
+  {
+    name: "Rapid Fire Thunder Lv2",
+    mv: 5.5,
+    rawEle: 13.75,
+    elementType: "Thunder",
+    rapidFire: true,
+    ammo: { type: "Thunder", level: 2 },
+  },
+  {
+    name: "Rapid Fire Thunder Lv1 Chaser",
+    mv: 7.48,
+    rawEle: 18.7,
+    elementType: "Thunder",
+    rapidFire: true,
+    ammo: { type: "Thunder", level: 1 },
+  },
+  {
+    name: "Rapid Fire Thunder Lv2 Chaser",
+    mv: 9.35,
+    rawEle: 23.375,
+    elementType: "Thunder",
+    rapidFire: true,
+    ammo: { type: "Thunder", level: 2 },
+  },
+  {
+    name: "Rapid Fire Water Lv1",
+    mv: 4.4,
+    rawEle: 11,
+    elementType: "Water",
+    rapidFire: true,
+    ammo: { type: "Water", level: 1 },
+  },
+  {
+    name: "Rapid Fire Water Lv2",
+    mv: 5.5,
+    rawEle: 13.75,
+    elementType: "Water",
+    rapidFire: true,
+    ammo: { type: "Water", level: 2 },
+  },
+  {
+    name: "Rapid Fire Water Lv1 Chaser",
+    mv: 7.48,
+    rawEle: 18.7,
+    elementType: "Water",
+    rapidFire: true,
+    ammo: { type: "Water", level: 1 },
+  },
+  {
+    name: "Rapid Fire Water Lv2 Chaser",
+    mv: 9.35,
+    rawEle: 23.375,
+    elementType: "Water",
+    rapidFire: true,
+    ammo: { type: "Water", level: 2 },
+  },
+  {
+    name: "Rapid Fire Freeze Lv1",
+    mv: 4.4,
+    rawEle: 11,
+    elementType: "Ice",
+    rapidFire: true,
+    ammo: { type: "Freeze", level: 1 },
+  },
+  {
+    name: "Rapid Fire Freeze Lv2",
+    mv: 5.5,
+    rawEle: 13.75,
+    elementType: "Ice",
+    rapidFire: true,
+    ammo: { type: "Freeze", level: 2 },
+  },
+  {
+    name: "Rapid Fire Freeze Lv1 Chaser",
+    mv: 7.48,
+    rawEle: 18.7,
+    elementType: "Ice",
+    rapidFire: true,
+    ammo: { type: "Freeze", level: 1 },
+  },
+  {
+    name: "Rapid Fire Freeze Lv2 Chaser",
+    mv: 9.35,
+    rawEle: 23.375,
+    elementType: "Ice",
+    rapidFire: true,
+    ammo: { type: "Freeze", level: 2 },
+  },
   {
     name: "Rapid Fire Element Lv1 Chaser",
     mv: 7.48,
@@ -253,4 +561,20 @@ export const LightBowgunAttacks = [
     rawEle: 23.375,
     rapidFire: true,
   },
+  {
+    name: "Rapid Fire Dragon Lv1",
+    mv: 13,
+    rawEle: 28.6,
+    elementType: "Dragon",
+    rapidFire: true,
+    ammo: { type: "Dragon", level: 1 },
+  },
+  // {
+  //   name: "Rapid Fire Dragon Lv1 Chaser",
+  //   mv: 16.25,
+  //   rawEle: 36.5,
+  //   elementType: "Dragon",
+  //   rapidFire: true,
+  //   ammo: { type: "Dragon", level: 1 },
+  // },
 ] satisfies Attack[];

@@ -70,8 +70,8 @@ export const WeaponBuffs: Record<string, BuffGroup> = {
     name: "Coating",
     weapons: ["Bow"],
     levels: [
-      { name: "Power Coating", coatingRawMul: 1.3, rawMul: 1.3 },
-      { name: "Close Range Coating", coatingRawMul: 1.4, rawMul: 1.3 },
+      { name: "Power", coatingRawMul: 1.3, rawMul: 1.3 },
+      { name: "Close-range", coatingRawMul: 1.4, rawMul: 1.4 },
     ],
   },
   ChargeBladeShieldElement: {
@@ -210,7 +210,7 @@ export const CombinedBuffs: Record<string, BuffGroup> = {
 export const ArtianTypeToGunlanceShellType: {
   [K in ArtianType]: Shelling["type"];
 } = {
-  ["Non-Element"]: "Normal",
+  ["No Element"]: "Normal",
   Fire: "Normal",
   Water: "Long",
   Thunder: "Long",

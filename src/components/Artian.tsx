@@ -1,4 +1,4 @@
-import { CheckCircleIcon, WrenchIcon, XIcon } from "lucide-react";
+import { CheckCircleIcon, SettingsIcon, XIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useBuild } from "@/builder";
 import {
@@ -46,12 +46,19 @@ export const ArtianDialog = () => {
   }, [combined]);
 
   const noElement = useMemo(() => {
+    if (isBowgun(weapon.type)) return true;
+    if (
+      weapon.type === "Bow" &&
+      ["Sleep", "Poison", "Paralysis"].some((t) => t === artian.type)
+    )
+      return true;
+
     if (![...ElementTypes, ...StatusTypes].some((t) => t === artian.type)) {
       return true;
     }
     if (combined.filter((o) => o === "Element").length >= 4) return true;
     return false;
-  }, [artian.type, combined]);
+  }, [weapon.type, artian.type, combined]);
 
   const disabledArtianInfusionOptions = useMemo(() => {
     const disabled: ArtianInfusion[] = [];
@@ -71,8 +78,8 @@ export const ArtianDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="secondary" className="text-teal-500">
-          <WrenchIcon className="h-4 w-4" />
+        <Button size="sm" variant="primary" className="bg-teal-500">
+          <SettingsIcon className="h-4 w-4" />
           Artian
         </Button>
       </DialogTrigger>
@@ -92,7 +99,7 @@ export const ArtianDialog = () => {
               value={artian.type}
               placeholder="Type"
               labelFn={(v) => v ?? ""}
-              options={[undefined, ...ArtianTypeOptions]}
+              options={[...ArtianTypeOptions]}
               onChangeValue={(v) => setArtianType(v)}
             />
             <label className="text-xs">Infusion</label>

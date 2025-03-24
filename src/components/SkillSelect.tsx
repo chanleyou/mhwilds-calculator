@@ -10,6 +10,7 @@ export function SkillSelect({
   onChangeValue,
   label,
   placeholder,
+  disabledOptions,
   value,
 }: Props) {
   const { name, levels } = skill;
@@ -20,6 +21,7 @@ export function SkillSelect({
       options={options}
       label={label}
       value={value}
+      disabledOptions={disabledOptions}
       labelFn={(opt) => opt?.name ?? ""}
       onChangeValue={onChangeValue}
       placeholder={placeholder ?? name}

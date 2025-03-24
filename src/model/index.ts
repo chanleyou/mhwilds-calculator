@@ -12,6 +12,7 @@ import {
   ComputedStore,
   ElementType,
   MeleeWeapon,
+  StatusType,
   Weapon,
   isBowgunElementAmmo,
 } from "@/types";
@@ -62,6 +63,8 @@ const getAttackMul = (b?: BuffValues) => get("attackMul", 1, b);
 const getAffinity = (b?: BuffValues) => get("affinity", 0, b);
 const getElement = (b?: BuffValues) => get("element", 0, b);
 const getElementMul = (b?: BuffValues) => get("elementMul", 1, b);
+const getStatus = (b?: BuffValues) => get("status", 0, b);
+const getStatusMul = (b?: BuffValues) => get("statusMul", 1, b);
 
 // TODO: refactor to insert buffs based on attack
 export const calculateAttack = ({
@@ -326,23 +329,41 @@ export const calculateElementTwo = (
   let cap = Math.max(base + 350, base * 1.9);
   if (saElementPhial) cap += base * 0.45;
 
+  buffs = produce(buffs, (d) => {
+    Object.entries(d).forEach(([k, v]) => {
+      if (!v || v.elementType !== type) delete d[k];
+    });
+  });
+
   return Math.min(
     cap,
     calculate(
       base,
-      [
-        ...Object.values(buffs)
-          .filter((o) => !o?.elementType || o?.elementType === type)
-          .map(getElementMul),
-        ...multipliers,
-      ],
-      [
-        ...Object.values(buffs)
-          .filter((o) => !o?.elementType || o?.elementType === type)
-          .map(getElement),
-        ...bonuses,
-      ],
+      [...Object.values(buffs).map(getElementMul), ...multipliers],
+      [...Object.values(buffs).map(getElement), ...bonuses],
     ),
+  );
+};
+
+export const calculateStatus = (
+  base: number | undefined,
+  type: StatusType,
+  buffs: Record<string, Buff | undefined>,
+  multipliers: (number | undefined | false)[] = [],
+  bonuses: number[] = [],
+) => {
+  if (!base) return 0;
+
+  buffs = produce(buffs, (d) => {
+    Object.entries(d).forEach(([k, v]) => {
+      if (!v || v.statusType !== type) delete d[k];
+    });
+  });
+
+  return calculate(
+    base,
+    [...Object.values(buffs).map(getStatusMul), ...multipliers],
+    [...Object.values(buffs).map(getStatus), ...bonuses],
   );
 };
 
@@ -375,7 +396,7 @@ export const calculateRawHitTwo = (
     atk.ignoreHzv ? 1 : rawHzv / 100,
     atk.rawMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessRaw(weapon.sharpness),
-    !atk.ignoreCoating && buffs.coatingRawMul?.rawMul,
+    !atk.ignoreCoating && buffs.BowCoating?.rawMul,
     atk.spreadPowerShot && buffs["Spread/Power Shots"]?.rawMul,
     atk.specialAmmo && buffs["Special Ammo Boost"]?.rawMul,
     atk.normalShot && buffs["Normal Shot"]?.rawMul,

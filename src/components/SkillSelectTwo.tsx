@@ -1,8 +1,8 @@
-import type { Buff, SkillGroup, SkillWeaponGroup } from "@/types";
+import type { Buff, SkillTwo, SkillWeaponGroup } from "@/types";
 import { Select, type SelectProps } from ".";
 
 type Props = Omit<SelectProps<[string, Buff] | undefined>, "options"> & {
-  skill: SkillGroup | SkillWeaponGroup;
+  skill: SkillTwo | SkillWeaponGroup;
 };
 
 export function SkillSelectTwo({

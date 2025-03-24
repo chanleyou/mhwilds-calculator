@@ -1,7 +1,7 @@
 import { useComputed } from "@/builder";
 import { getSharpnessEle } from "@/data";
 import { getSharpnessRaw } from "@/data";
-import { Card, NumberDisplay, SharpnessBar } from ".";
+import { BowgunAmmoDisplay, Card, NumberDisplay, SharpnessBar } from ".";
 
 export const StatsCard = ({ className }: { className?: string }) => {
   const {
@@ -9,6 +9,7 @@ export const StatsCard = ({ className }: { className?: string }) => {
     uiAttack,
     uiElement,
     uiAffinity,
+    uiStatus,
     effectiveRaw,
     effectiveEle,
     critMulti,
@@ -24,7 +25,7 @@ export const StatsCard = ({ className }: { className?: string }) => {
         <NumberDisplay label="Attack">{uiAttack}</NumberDisplay>
         <NumberDisplay label="Effective Attack">{effectiveRaw}</NumberDisplay>
         <NumberDisplay label="Affinity">{`${uiAffinity}%`}</NumberDisplay>
-        {w.element && w.element.value > 0 && (
+        {w.element && uiElement > 0 && (
           <>
             <NumberDisplay label="Element">
               {`${uiElement} ${w.element.type}`}
@@ -34,10 +35,10 @@ export const StatsCard = ({ className }: { className?: string }) => {
             </NumberDisplay>
           </>
         )}
-        {w.status && w.status.value > 0 && (
+        {w.status && uiStatus > 0 && (
           <>
             <NumberDisplay label="Status">
-              {`${w.status.type} ${w.status.value}`}
+              {`${uiStatus} ${w.status.type}`}
             </NumberDisplay>
             {/* <NumberDisplay label={"Effective Element"}>
               {effectiveEle}
@@ -62,6 +63,20 @@ export const StatsCard = ({ className }: { className?: string }) => {
               {`${getSharpnessRaw(w.sharpness)}x / ${getSharpnessEle(w.sharpness)}x`}
             </NumberDisplay>
           </>
+        )}
+        {w.ammo && (
+          <NumberDisplay label="Ammo">
+            <BowgunAmmoDisplay ammo={w.ammo} className="text-right" />
+          </NumberDisplay>
+        )}
+        {w.coatings && (
+          <NumberDisplay label="Coatings">
+            {w.coatings.map((c) => (
+              <p className="text-right" key={c}>
+                {c}
+              </p>
+            ))}
+          </NumberDisplay>
         )}
       </div>
     </Card>
