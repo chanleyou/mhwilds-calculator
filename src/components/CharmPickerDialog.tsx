@@ -48,7 +48,7 @@ export const CharmPickerDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Picker className={value ? "" : "text-placeholder"}>
-          {value ? value.name : "\u00A0"}
+          {value ? value.name : "Charm"}
           {value && (
             <Button
               variant="text"

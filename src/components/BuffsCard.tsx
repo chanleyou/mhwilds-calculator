@@ -41,7 +41,7 @@ export const BuffsCard = () => {
             size="icon"
             onClick={() => setHideBuffs((c) => !c)}
           >
-            {hideBuffs ? <ChevronDown /> : <ChevronUp />}
+            {hideBuffs ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
         {!hideBuffs && (
@@ -67,9 +67,20 @@ export const BuffsCard = () => {
         <div className="flex flex-col gap-2">
           <p className="text-xs">{w.type}</p>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            {w.coatings && (
+              <SkillSelect
+                skill={WeaponBuffs.BowCoating}
+                value={otherBuffs["BowCoating"]}
+                placeholder={"Coating"}
+                disabledOptions={WeaponBuffs.BowCoating.levels.filter((l) => {
+                  return !w.coatings!.some((c) => c === l.name);
+                })}
+                onChangeValue={(buff) => setOtherBuff("BowCoating", buff)}
+              />
+            )}
             {Object.entries(WeaponBuffs)
               .filter(([k]) => {
-                return k !== "SwitchAxePhial"; // TODO: remove all this
+                return k !== "SwitchAxePhial" && k !== "BowCoating"; // TODO: remove all this
               })
               .map(([k, s]) => {
                 if (!s.weapons?.includes(w.type)) return undefined;

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import Attacks from "@/data/attacks";
-import { Attack, WeaponType } from "@/types";
+import { Attack, WeaponType, isBowgun } from "@/types";
 import { cn } from "@/utils";
 
 export function MovesTable({
@@ -22,6 +22,12 @@ export function MovesTable({
 }) {
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
+    if (isBowgun(weapon)) {
+      return Attacks[weapon].filter((a) => {
+        if (a.elementType && a.elementType !== "Dragon") return false;
+        return true;
+      });
+    }
     return Attacks[weapon];
   }, [custom, weapon]);
 

@@ -76,7 +76,7 @@ export const ImportDialogTwo = () => {
       const { data: d } = result;
 
       const setDecoration = (
-        name: string | undefined,
+        name: string | null | undefined,
         i: number,
         eq: Weapon | Armor,
         setFn: (i: number, dc?: Decoration) => void,
@@ -93,7 +93,7 @@ export const ImportDialogTwo = () => {
       };
 
       const setDecorations = (
-        names: (string | undefined)[],
+        names: (string | null | undefined)[],
         eq: Weapon | Armor,
         setFn: (i: number, dc?: Decoration) => void,
         type: "Weapon" | "Equipment" = "Equipment",

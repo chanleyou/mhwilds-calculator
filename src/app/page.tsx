@@ -1,7 +1,7 @@
 "use client";
 
 import { produce } from "immer";
-import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useBuild, useComputed } from "@/builder";
@@ -30,6 +30,7 @@ export default function Builder() {
   const build = useComputed();
   const { calcHit, calcCrit, calcAverage } = build;
 
+  const [showCombo, setShowCombo] = useState(true);
   const [showAttacks, setShowAttacks] = useState(true);
   const [showNotice, setShowNotice] = useState(true);
 
@@ -82,7 +83,7 @@ export default function Builder() {
           <div className="flex justify-between gap-2">
             <p>
               {
-                "Set builder is new and might have bugs. Status calculations are not implemented yet. The old manual damage calculator can be found "
+                "Set builder is new and might have bugs. The old manual damage calculator can be found "
               }
               <Link className="font-bold underline" href="/calc">
                 here
@@ -112,21 +113,35 @@ export default function Builder() {
           <StatsCard />
           <SkillPointCard />
           <ArtianCard />
-          <div className="flex justify-end">
+          <div className="hidden justify-end gap-2 lg:flex">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="text-tertiary"
+              onClick={() => setShowCombo(!showCombo)}
+            >
+              {showCombo ? (
+                <EyeIcon className="h-4 w-4" />
+              ) : (
+                <EyeOffIcon className="h-4 w-4" />
+              )}
+              Combo
+            </Button>
             <Button
               variant="primary"
               size="sm"
+              className="bg-tertiary"
               onClick={() => setShowAttacks(!showAttacks)}
             >
-              Attacks
               {showAttacks ? (
-                <ChevronLeftIcon className="h-4 w-4" />
+                <EyeIcon className="h-4 w-4" />
               ) : (
-                <ChevronRightIcon className="h-4 w-4" />
+                <EyeOffIcon className="h-4 w-4" />
               )}
+              Attacks
             </Button>
           </div>
-          {showAttacks && (
+          {showCombo && (
             <ComboCard
               comboMode={comboMode}
               setComboMode={setComboMode}

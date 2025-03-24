@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useBuild, useComputed } from "@/builder";
 import Attacks from "@/data/attacks";
-import { Attack } from "@/types";
+import { Attack, isGunlance, isWeaponBowgun } from "@/types";
 import { cn } from "@/utils";
 import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
 
@@ -14,11 +14,38 @@ export function MovesTableTwo({
   onClick?: (a: Attack, i: number) => void;
   hideHits?: boolean;
 }) {
-  const { weapon: w } = useBuild();
-  const { calcHit, calcCrit, calcAverage } = useComputed();
+  const { weapon: w, calcHit, calcCrit, calcAverage } = useComputed();
 
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
+
+    if (w.type === "Charge Blade") {
+      return Attacks["Charge Blade"].filter((a) => {
+        if (!a.cbPhial) return true;
+        if (w.phial === "Element") return a.eleMul !== 0;
+        else if (w.phial === "Impact") return a.ignoreHzv;
+        return true;
+      });
+    }
+
+    if (isWeaponBowgun(w)) {
+      return Attacks[w.type].filter((a) => {
+        if (!a.ammo) return w.type === "Heavy Bowgun";
+        if (!w.ammo[a.ammo.type]?.levels.includes(a.ammo.level)) return false;
+        if (a.rapidFire && !w.ammo[a.ammo.type]?.rapidFire) return false;
+        return true;
+      });
+    }
+    if (isGunlance(w)) {
+      const { type, level } = w.shelling;
+      return Attacks["Gunlance"].filter((a) => {
+        if (!a.shelling) return true;
+        if (a.shelling.type && a.shelling.type !== type) return false;
+        if (a.shelling.level && a.shelling.level !== level) return false;
+        return true;
+      });
+    }
+
     return Attacks[w.type];
   }, [custom, w]);
 

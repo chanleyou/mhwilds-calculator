@@ -2,9 +2,10 @@ import { produce } from "immer";
 import { create } from "zustand";
 import { ArtianTypeToGunlanceShellType, Buffs, Sharpnesses } from "@/data";
 import {
-  CombinedSkillsTwo,
-  GroupAndSeriesSkills,
+  GroupSkillsTwo,
+  SeriesSkillsTwo,
   UnsupportedArmorSkills,
+  WeaponArmorSkills,
 } from "@/data/skills";
 import {
   calculateAffinity,
@@ -14,6 +15,7 @@ import {
   calculateElementTwo,
   calculateHandicraft,
   calculateHitTwo,
+  calculateStatus,
 } from "@/model";
 import {
   type Armor,
@@ -34,6 +36,7 @@ import {
   isMeleeWeapon,
   isSkillGroup,
   isStatusType,
+  isWeaponBowgun,
 } from "@/types";
 import { SwordAndShields } from "./data/weapons/SwordAndShields";
 
@@ -62,7 +65,7 @@ export type InitialBuilder = {
 
 const initialBuilder: InitialBuilder = {
   weapon: SwordAndShields[0],
-  artian: { type: undefined, infusions: [], upgrades: [] },
+  artian: { type: "No Element", infusions: [], upgrades: [] },
   otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
   rawHzv: 80,
   eleHzv: 30,
@@ -80,7 +83,7 @@ const initialBuilder: InitialBuilder = {
 export type Builder = InitialBuilder & {
   reset: () => void;
   setW: (w: Weapon) => void;
-  setArtianType: (type?: ArtianType) => void;
+  setArtianType: (type: ArtianType) => void;
   setArtianInfusion: (i: number, v?: ArtianInfusion) => void;
   setArtianUpgrade: (i: number, v?: ArtianUpgrade) => void;
   setOtherBuff: (id: string, buff?: Buff) => void;
@@ -108,11 +111,11 @@ export const useBuild = create<Builder>((set) => ({
   reset: () => set(initialBuilder),
   setW: (w: Weapon) =>
     set({ weapon: w, weaponSlots: [], artian: initialBuilder.artian }),
-  setArtianType: (type?: ArtianType) => {
+  setArtianType: (type: ArtianType) => {
     set(
       produce<InitialBuilder>((d) => {
         d.artian.type = type;
-        if (type !== "Non-Element" && type !== undefined) return;
+        if (type !== "No Element" && type !== undefined) return;
         d.artian.upgrades.forEach((u, i) => {
           if (u === "Element") {
             d.artian.upgrades[i] = undefined;
@@ -276,13 +279,14 @@ export const useComputed = () => {
     return acc;
   }, {});
 
+  // Weapon & Armor Skills
   const buffs = Object.entries(skillPoints).reduce<Record<Skill, Buff>>(
     (acc, [k, v]) => {
       if (disabled[k]) return acc;
       if (UnsupportedArmorSkills[k]) return acc;
-      if (!CombinedSkillsTwo[k]) return acc;
+      if (!WeaponArmorSkills[k]) return acc;
 
-      const skill = CombinedSkillsTwo[k];
+      const skill = WeaponArmorSkills[k];
 
       if (isSkillGroup(skill)) {
         const maxLevel = Object.values(skill.levels).length;
@@ -304,16 +308,17 @@ export const useComputed = () => {
     { ...otherBuffs },
   );
 
+  // Group Skills
   Object.entries(groupPoints).forEach(([k, v]) => {
     if (disabled[k]) return;
-    if (!GroupAndSeriesSkills[k]) return;
 
-    const { levels } = GroupAndSeriesSkills[k];
+    if (GroupSkillsTwo[k] && v >= 3) {
+      buffs[k] = GroupSkillsTwo[k].levels[3];
+    }
 
-    for (let i = v; i > 0; i--) {
-      if (!levels[i]) continue;
-      buffs[k] = levels[i];
-      break;
+    if (SeriesSkillsTwo[k]) {
+      if (v >= 2) buffs[k] = SeriesSkillsTwo[k].levels[2];
+      else if (v >= 4) buffs[k] = SeriesSkillsTwo[k].levels[4];
     }
   });
 
@@ -341,14 +346,49 @@ export const useComputed = () => {
       d.shelling.type = ArtianTypeToGunlanceShellType[artian.type];
     }
 
+    if (d.coatings) {
+      if (artian.type === "Thunder" || artian.type === "Dragon") {
+        d.coatings = ["Power"];
+      } else if (artian.type === "Ice") {
+        d.coatings = ["Pierce"];
+      } else if (isStatusType(artian.type)) {
+        d.coatings = [artian.type];
+      }
+    }
+
+    if (isWeaponBowgun(d)) {
+      const rapidFire = d.type === "Light Bowgun" ? true : undefined;
+      if (artian.type === "Dragon") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Dragon = { levels: [1], rapidFire };
+      } else if (artian.type === "Blast") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Sticky = { levels: [1] };
+      } else if (artian.type === "Fire") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+      } else if (artian.type === "Ice" || artian.type === "Sleep") {
+        d.ammo.Freeze = { levels: [1, 2], rapidFire };
+      } else if (artian.type === "Thunder" || artian.type === "Paralysis") {
+        d.ammo.Thunder = { levels: [1, 2], rapidFire };
+      } else if (artian.type === "Water" || artian.type === "Poison") {
+        d.ammo.Water = { levels: [1, 2], rapidFire };
+      }
+    }
+
     if (isElementType(artian.type)) {
       if (d.type === "Switch Axe" || d.type === "Charge Blade") {
         d.phial = "Element";
       }
-      d.element = { type: artian.type, value: d.artian.element };
+      if (!isWeaponBowgun(d)) {
+        d.element = { type: artian.type, value: d.artian.element };
+      }
     } else if (isStatusType(artian.type)) {
       if (d.type === "Switch Axe") d.phial = "Power";
-      d.status = { type: artian.type, value: d.artian.status };
+      if (artian.type === "Blast" && d.type === "Bow") {
+        d.status = { type: artian.type, value: 80 };
+      } else {
+        d.status = { type: artian.type, value: d.artian.status };
+      }
     }
 
     [...artian.infusions, ...artian.upgrades].forEach((i) => {
@@ -416,9 +456,14 @@ export const useComputed = () => {
   const uiElement = weapon.element
     ? calculateElementTwo(weapon.element.value, weapon.element.type, buffs)
     : 0;
+  const uiStatus = weapon.status
+    ? calculateStatus(weapon.status.value, weapon.status.type, buffs)
+    : 0;
 
-  const critMulti = buffs["Critical Boost"]?.criticalBoost ?? 1.25;
-  const eleCritMulti = buffs["Critical Element"]?.criticalElement ?? 1;
+  const critMulti =
+    uiAffinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+  const eleCritMulti =
+    uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
   const calcHit = (atk: Attack, eleHzvOverride?: number) => {
     return calculateHitTwo(
@@ -458,9 +503,10 @@ export const useComputed = () => {
     buffs,
     uiAttack,
     uiElement,
+    uiStatus,
     uiAffinity,
-    critMulti: uiAffinity >= 0 ? critMulti : 0.75,
-    eleCritMulti: uiAffinity >= 0 ? eleCritMulti : 1,
+    critMulti,
+    eleCritMulti,
     calcHit,
     calcCrit,
     calcAverage,

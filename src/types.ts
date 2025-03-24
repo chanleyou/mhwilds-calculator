@@ -48,6 +48,41 @@ export type Shelling = {
   level: number;
 };
 
+export const AmmoTypes = [
+  "Normal",
+  "Pierce",
+  "Spread",
+  "Slicing",
+  "Sticky",
+  "Cluster",
+  "Thunder",
+  "Flaming",
+  "Water",
+  "Freeze",
+  "Dragon",
+  "Wyvern",
+] as const;
+export type AmmoType = (typeof AmmoTypes)[number];
+
+export const BowCoatings = [
+  "Power",
+  "Close-range",
+  "Pierce",
+  "Exhaust",
+  "Blast",
+  "Poison",
+  "Paralysis",
+  "Sleep",
+] as const;
+export type BowCoating = (typeof BowCoatings)[number];
+
+export type BowgunAmmo = {
+  levels: number[];
+  rapidFire?: boolean;
+};
+
+export type BowgunAmmoLevels = Partial<Record<AmmoType, BowgunAmmo>>;
+
 export interface IWeapon extends Equip {
   type: WeaponType;
   rarity?: number;
@@ -62,6 +97,8 @@ export interface IWeapon extends Equip {
   artian?: { element: number; status: number }; // if 3 matching
   phial?: SwitchAxePhialType | ChargeBladePhialType;
   shelling?: Shelling;
+  ammo?: BowgunAmmoLevels;
+  coatings?: BowCoating[];
 }
 
 export interface MeleeWeapon extends IWeapon {
@@ -69,8 +106,11 @@ export interface MeleeWeapon extends IWeapon {
   handicraft: Handicraft;
 }
 
-export type Bow = IWeapon & { type: "Bow" };
-export type Bowgun = IWeapon & { type: "Light Bowgun" | "Heavy Bowgun" };
+export type Bow = IWeapon & { type: "Bow"; coatings: BowCoating[] };
+export type Bowgun = IWeapon & {
+  type: "Light Bowgun" | "Heavy Bowgun";
+  ammo: BowgunAmmoLevels;
+};
 
 export type ChargeBlade = MeleeWeapon & { phial: ChargeBladePhialType };
 export type Gunlance = MeleeWeapon & { shelling: Shelling };
@@ -93,6 +133,8 @@ export type BuffValues = {
   affinity?: number;
   element?: number;
   elementMul?: number;
+  status?: number;
+  statusMul?: number;
   bowgunOffset?: boolean;
 };
 
@@ -127,6 +169,7 @@ export type Buff = BuffValues & {
   elePhialMul?: number;
   chargeEleMul?: number;
   elementType?: ElementType;
+  statusType?: StatusType;
 };
 
 export type BuffGroup = {
@@ -137,10 +180,22 @@ export type BuffGroup = {
   levels: Buff[];
 };
 
-export type SkillGroup = {
+export type SkillTwo = {
   toggle?: boolean;
   description?: string;
   levels: Record<number, Buff>;
+};
+
+export type GroupSkill = {
+  toggle?: boolean;
+  description?: string;
+  levels: { [3]: Buff };
+};
+
+export type SeriesSkill = {
+  toggle?: boolean;
+  description?: string;
+  levels: { [2]: Buff; [4]: Buff };
 };
 
 export type WeaponGroup = {
@@ -178,7 +233,7 @@ export interface IAttack {
   ignoreCoating?: boolean; // ignore Bow Coating
   total?: boolean;
   hits?: number;
-  shelling?: boolean;
+  shelling?: Partial<Shelling>;
   normalShot?: boolean;
   piercingShot?: boolean;
   spreadPowerShot?: boolean;
@@ -186,6 +241,10 @@ export interface IAttack {
   artilleryAmmo?: boolean;
   rapidFire?: boolean;
   airborne?: boolean; // TODO
+  ammo?: {
+    type: AmmoType;
+    level: number;
+  };
 }
 
 export type BowgunElementAmmo = IAttack & {
@@ -221,13 +280,15 @@ export const isBowgun = (weapon?: WeaponType) => {
   return weapon === "Light Bowgun" || weapon === "Heavy Bowgun";
 };
 
-export const isSkillGroup = (
-  s: SkillGroup | SkillWeaponGroup,
-): s is SkillGroup => {
+export const isWeaponBowgun = (weapon?: Weapon): weapon is Bowgun => {
+  return isBowgun(weapon?.type) && "ammo" in weapon;
+};
+
+export const isSkillGroup = (s: SkillTwo | SkillWeaponGroup): s is SkillTwo => {
   return "levels" in s;
 };
 
-export const getSkillLevels = (s: SkillGroup | SkillWeaponGroup) => {
+export const getSkillLevels = (s: SkillTwo | SkillWeaponGroup) => {
   return "levels" in s ? s.levels : s.groups[0].levels;
 };
 
@@ -283,7 +344,7 @@ export const isGunlance = (weapon: Weapon): weapon is Gunlance => {
 };
 
 export const ArtianTypeOptions = [
-  "Non-Element",
+  "No Element",
   ...ElementTypes,
   ...StatusTypes,
 ] as const;
@@ -302,7 +363,7 @@ export const ArtianUpgradeOptions = [
 export type ArtianUpgrade = (typeof ArtianUpgradeOptions)[number];
 
 export type Artian = {
-  type?: ArtianType;
+  type: ArtianType;
   infusions: [ArtianInfusion?, ArtianInfusion?, ArtianInfusion?];
   upgrades: [
     ArtianUpgrade?,

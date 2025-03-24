@@ -1,8 +1,10 @@
 import type {
   Buff,
   BuffGroup,
+  GroupSkill,
+  SeriesSkill,
   Skill,
-  SkillGroup,
+  SkillTwo,
   SkillWeaponGroup,
   WeaponType,
 } from "@/types";
@@ -570,7 +572,7 @@ export const GroupSkills: Record<string, BuffGroup> = {
   },
 };
 
-export const UnsupportedWeaponSkills: Record<Skill, SkillGroup> = {
+export const UnsupportedWeaponSkills: Record<Skill, SkillTwo> = {
   ["Airborne"]: skill(1),
   ["Ballistics"]: skill(3),
   ["Blast Functionality"]: skill(1),
@@ -598,7 +600,7 @@ export const UnsupportedWeaponSkills: Record<Skill, SkillGroup> = {
   ["Stamina Thief"]: skill(3),
 };
 
-export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
+export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
   ...UnsupportedWeaponSkills,
   ["Artillery"]: {
     levels: {
@@ -633,9 +635,19 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Blast Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Blast Attack 1", statusType: "Blast", status: 40 },
+      2: {
+        name: "Blast Attack 2",
+        statusType: "Blast",
+        status: 50,
+        statusMul: 1.1,
+      },
+      3: {
+        name: "Blast Attack 3",
+        statusType: "Blast",
+        status: 60,
+        statusMul: 1.2,
+      },
     },
   },
   ["Charge Master"]: {
@@ -731,15 +743,15 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Dragon Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", elementType: "Dragon", element: 40 },
+      1: { name: "Dragon Attack 1", elementType: "Dragon", element: 40 },
       2: {
-        name: "Element Attack 2",
+        name: "Dragon Attack 2",
         elementType: "Dragon",
         element: 50,
         elementMul: 1.1,
       },
       3: {
-        name: "Element Attack 3",
+        name: "Dragon Attack 3",
         elementType: "Dragon",
         element: 60,
         elementMul: 1.2,
@@ -748,15 +760,15 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Fire Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", elementType: "Fire", element: 40 },
+      1: { name: "Fire Attack 1", elementType: "Fire", element: 40 },
       2: {
-        name: "Element Attack 2",
+        name: "Fire Attack 2",
         elementType: "Fire",
         element: 50,
         elementMul: 1.1,
       },
       3: {
-        name: "Element Attack 3",
+        name: "Fire Attack 3",
         elementType: "Fire",
         element: 60,
         elementMul: 1.2,
@@ -827,9 +839,19 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Paralysis Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Paralysis Attack 1", statusType: "Paralysis", status: 40 },
+      2: {
+        name: "Paralysis Attack 2",
+        statusType: "Paralysis",
+        status: 50,
+        statusMul: 1.1,
+      },
+      3: {
+        name: "Paralysis Attack 3",
+        statusType: "Paralysis",
+        status: 60,
+        statusMul: 1.2,
+      },
     },
   },
   ["Piercing Shots"]: {
@@ -839,9 +861,19 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Poison Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Poison Attack 1", statusType: "Poison", status: 40 },
+      2: {
+        name: "Poison Attack 2",
+        statusType: "Poison",
+        status: 50,
+        statusMul: 1.1,
+      },
+      3: {
+        name: "Poison Attack 3",
+        statusType: "Poison",
+        status: 60,
+        statusMul: 1.2,
+      },
     },
   },
   ["Punishing Draw"]: {
@@ -859,9 +891,19 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Sleep Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", element: 40 },
-      2: { name: "Element Attack 2", element: 50, elementMul: 1.1 },
-      3: { name: "Element Attack 3", element: 60, elementMul: 1.2 },
+      1: { name: "Sleep Attack 1", statusType: "Sleep", status: 40 },
+      2: {
+        name: "Sleep Attack 2",
+        statusType: "Sleep",
+        status: 50,
+        statusMul: 1.1,
+      },
+      3: {
+        name: "Sleep Attack 3",
+        statusType: "Sleep",
+        status: 60,
+        statusMul: 1.2,
+      },
     },
   },
   ["Special Ammo Boost"]: {
@@ -908,15 +950,15 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Thunder Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", elementType: "Thunder", element: 40 },
+      1: { name: "Thunder Attack 1", elementType: "Thunder", element: 40 },
       2: {
-        name: "Element Attack 2",
+        name: "Thunder Attack 2",
         elementType: "Thunder",
         element: 50,
         elementMul: 1.1,
       },
       3: {
-        name: "Element Attack 3",
+        name: "Thunder Attack 3",
         elementType: "Thunder",
         element: 60,
         elementMul: 1.2,
@@ -925,15 +967,15 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Water Attack"]: {
     levels: {
-      1: { name: "Element Attack 1", elementType: "Water", element: 40 },
+      1: { name: "Water Attack 1", elementType: "Water", element: 40 },
       2: {
-        name: "Element Attack 2",
+        name: "Water Attack 2",
         elementType: "Water",
         element: 50,
         elementMul: 1.1,
       },
       3: {
-        name: "Element Attack 3",
+        name: "Water Attack 3",
         elementType: "Water",
         element: 60,
         elementMul: 1.2,
@@ -942,7 +984,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
 };
 
-export const UnsupportedArmorSkills: Record<Skill, SkillGroup> = {
+export const UnsupportedArmorSkills: Record<Skill, SkillTwo> = {
   ["Adaptability"]: skill(2),
   ["Aquatic/Oilsilt Mobility"]: skill(2),
   ["Bind Resistance"]: skill(3),
@@ -999,7 +1041,7 @@ export const UnsupportedArmorSkills: Record<Skill, SkillGroup> = {
   ["Windproof"]: skill(3),
 };
 
-export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
+export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
   ...UnsupportedArmorSkills,
   ["Adrenaline Rush"]: {
     toggle: true,
@@ -1104,9 +1146,9 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
           "Bow",
         ],
         levels: {
-          1: { name: "Coalescence 1", elementMul: 1.05 },
-          2: { name: "Coalescence 2", elementMul: 1.1 },
-          3: { name: "Coalescence 3", elementMul: 1.15 },
+          1: { name: "Coalescence 1", statusMul: 1.05, elementMul: 1.05 },
+          2: { name: "Coalescence 2", statusMul: 1.1, elementMul: 1.1 },
+          3: { name: "Coalescence 3", statusMul: 1.15, elementMul: 1.15 },
         },
       },
       {
@@ -1121,9 +1163,9 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
           "Heavy Bowgun",
         ],
         levels: {
-          1: { name: "Coalescence 1", elementMul: 1.1 },
-          2: { name: "Coalescence 2", elementMul: 1.2 },
-          3: { name: "Coalescence 3", elementMul: 1.3 },
+          1: { name: "Coalescence 1", statusMul: 1.05, elementMul: 1.05 },
+          2: { name: "Coalescence 2", statusMul: 1.1, elementMul: 1.1 },
+          3: { name: "Coalescence 3", statusMul: 1.15, elementMul: 1.15 },
         },
       },
     ],
@@ -1252,7 +1294,7 @@ export const ArmorSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
 };
 
-export const GroupSkillsTwo: Record<Skill, SkillGroup> = {
+export const GroupSkillsTwo: Record<Skill, GroupSkill> = {
   ["Alluring Pelt"]: { levels: { 3: { name: "Diversion" } } },
   ["Buttery Leathercraft"]: {
     toggle: true,
@@ -1277,7 +1319,7 @@ export const GroupSkillsTwo: Record<Skill, SkillGroup> = {
   ["Scaling Prowess"]: { levels: { 3: { name: "Master Mounter" } } },
 };
 
-export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
+export const SeriesSkillsTwo: Record<Skill, SeriesSkill> = {
   ["Arkveld's Hunger"]: {
     levels: {
       2: { name: "Hasten Recovery I" },
@@ -1358,6 +1400,11 @@ export const SeriesSkillsTwo: Record<Skill, SkillGroup> = {
 export const GroupAndSeriesSkills = {
   ...GroupSkillsTwo,
   ...SeriesSkillsTwo,
+};
+
+export const WeaponArmorSkills = {
+  ...WeaponSkillsTwo,
+  ...ArmorSkillsTwo,
 };
 
 export const CombinedSkillsTwo = {
