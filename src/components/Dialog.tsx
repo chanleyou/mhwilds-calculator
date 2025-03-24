@@ -2,7 +2,6 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import React from "react";
-import { cn } from "@/utils";
 
 export const Dialog = DialogPrimitive.Root;
 
@@ -16,11 +15,8 @@ type DialogProps = DialogPrimitive.DialogContentProps & {
 
 export const DialogContent = ({ className, ...props }: DialogProps) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black/75">
-      <DialogPrimitive.Content
-        className={cn("max-h-[95%] w-3xl max-w-[95%] overflow-auto", className)}
-        {...props}
-      />
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-2">
+      <DialogPrimitive.Content {...props} />
     </DialogPrimitive.Overlay>
   </DialogPrimitive.Portal>
 );

@@ -16,7 +16,7 @@ export function SnapshotMovesTable({
   return (
     <table className="w-full table-auto border-collapse text-xs">
       <thead>
-        <tr className="border-primary border-b">
+        <tr className="border-divider border-b">
           <th className={cellCn}></th>
           <th className={cellCn}>Hit</th>
           <th className={cellCn}>Crit</th>
@@ -26,14 +26,17 @@ export function SnapshotMovesTable({
       <tbody>
         {moves.map((a, i) => (
           <tr
-            className="border-b border-zinc-800 p-1.5 last:border-0"
+            className={cn(
+              "border-content-alt border-b p-1.5 last:border-0",
+              onClick && "hover:bg-content-alt",
+            )}
             key={`${a.name}-${i}`}
             onClick={() => onClick?.(a, i)}
           >
             <td className={cellCn}>{a.name}</td>
             <td className={cn(cellCn, "font-mono")}>{a.hit}</td>
             <td className={cn(cellCn, "font-mono")}>{!a.cantCrit && a.crit}</td>
-            <td className={cn(cellCn, "text-primary font-mono font-bold")}>
+            <td className={cn(cellCn, "text-primary font-mono font-medium")}>
               {a.avg}
             </td>
           </tr>

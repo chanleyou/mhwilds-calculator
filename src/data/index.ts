@@ -1,7 +1,7 @@
-import { BuffGroup, Sharpness } from "@/types";
-import { ArmorSkills, SetSkills, WeaponSkills } from "./skills";
+import { ArtianType, BuffGroup, Sharpness, Shelling } from "@/types";
+import { ArmorSkills, GroupSkills, WeaponSkills } from "./skills";
 
-export const Weapons = [
+export const WeaponTypes = [
   "Sword and Shield",
   "Dual Blades",
   "Great Sword",
@@ -19,53 +19,80 @@ export const Weapons = [
 ] as const;
 
 export const Sharpnesses = [
-  "Ranged",
   "Red",
   "Orange",
   "Yellow",
   "Green",
   "Blue",
   "White",
+  "Purple",
+  "Ranged",
 ] as const;
 
-export const sharpnessRaw: { [K in Sharpness]: number } = {
-  Ranged: 1,
+export const SharpnessRaw: { [K in Sharpness]: number } = {
   Red: 0.5,
   Orange: 0.75,
   Yellow: 1,
   Green: 1.05,
   Blue: 1.2,
   White: 1.32,
+  Purple: 1.39,
+  Ranged: 1,
 } as const;
 
-export const sharpnessEle: { [K in Sharpness]: number } = {
-  Ranged: 1,
+export const SharpnessEle: { [K in Sharpness]: number } = {
   Red: 0.25,
   Orange: 0.5,
   Yellow: 0.75,
   Green: 1,
   Blue: 1.0625,
   White: 1.15,
+  Purple: 1.25,
+  Ranged: 1,
 } as const;
+
+export const getSharpness = (n?: number[]): Sharpness => {
+  if (!n) return "Ranged";
+  let index = 0;
+  for (let i = 1; i < n.length; i++) {
+    if (n[i] > 0) index = i;
+    else break;
+  }
+
+  const s = Sharpnesses[index];
+  return s;
+};
+export const getSharpnessRaw = (n?: number[]) => SharpnessRaw[getSharpness(n)];
+export const getSharpnessEle = (n?: number[]) => SharpnessEle[getSharpness(n)];
 
 export const WeaponBuffs: Record<string, BuffGroup> = {
   BowCoating: {
     name: "Coating",
     weapons: ["Bow"],
     levels: [
-      { name: "Power Coating", coatingRawMul: 1.3 },
-      { name: "Close Range Coating", coatingRawMul: 1.4 },
+      { name: "Power Coating", coatingRawMul: 1.3, rawMul: 1.3 },
+      { name: "Close Range Coating", coatingRawMul: 1.4, rawMul: 1.3 },
     ],
   },
   ChargeBladeShieldElement: {
     name: "Shield: Element Boost",
     weapons: ["Charge Blade"],
-    levels: [{ name: "Shield: Element Boost", cbShieldElement: true }],
+    levels: [
+      {
+        name: "Shield: Element Boost",
+        cbShieldElement: true,
+        axeRawMul: 1.1,
+        impactPhialMul: 1.2,
+        elePhialMul: 1.3,
+      },
+    ],
   },
   DualBladesDemonBoost: {
     name: "Demon Boost",
     weapons: ["Dual Blades"],
-    levels: [{ name: "Demon Boost", attackMul: 1.2, demonBoost: true }],
+    levels: [
+      { name: "Demon Boost", attackMul: 1.2, demonBoost: true, eleMul: 1.2 },
+    ],
   },
   HornSelfImprovement: {
     name: "Self-Improvement",
@@ -123,8 +150,8 @@ export const FieldBuffs: Record<string, BuffGroup> = {
   Food: {
     name: "Food",
     levels: [
-      { name: "Attack +2", attack: 2 },
-      { name: "Attack +5", attack: 5 },
+      { name: "Food Attack +2", attack: 2 },
+      { name: "Food Attack +5", attack: 5 },
     ],
   },
   Demondrug: {
@@ -143,10 +170,7 @@ export const FieldBuffs: Record<string, BuffGroup> = {
   },
   CorruptedMantle: {
     name: "Corrupted Mantle",
-    levels: [
-      { name: "Stage 1", affinity: 10 },
-      { name: "Stage 2", attackMul: 1.1, affinity: 30 },
-    ],
+    levels: [{ name: "Corrupted Mantle", attackMul: 1.1, affinity: 30 }],
   },
 };
 
@@ -178,7 +202,22 @@ export const CombinedBuffs: Record<string, BuffGroup> = {
   ...WeaponBuffs,
   ...WeaponSkills,
   ...ArmorSkills,
-  ...SetSkills,
+  ...GroupSkills,
   ...FieldBuffs,
   ...HuntingHornBuffs,
 };
+
+export const ArtianTypeToGunlanceShellType: {
+  [K in ArtianType]: Shelling["type"];
+} = {
+  ["Non-Element"]: "Normal",
+  Fire: "Normal",
+  Water: "Long",
+  Thunder: "Long",
+  Dragon: "Long",
+  Ice: "Normal",
+  Poison: "Wide",
+  Paralysis: "Wide",
+  Sleep: "Normal",
+  Blast: "Wide",
+} as const;

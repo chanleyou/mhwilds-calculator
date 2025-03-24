@@ -1,21 +1,25 @@
 import { useMemo } from "react";
 import Attacks from "@/data/attacks";
-import { useCalcs, useModel } from "@/store";
-import { Attack } from "@/types";
+import { Attack, WeaponType } from "@/types";
 import { cn } from "@/utils";
 
 export function MovesTable({
+  weapon,
+  calcHit,
+  calcCrit,
+  calcAverage,
   custom,
   onClick,
   hideHits,
 }: {
+  weapon: WeaponType;
+  calcHit: (a: Attack) => number;
+  calcCrit: (a: Attack) => number;
+  calcAverage: (a: Attack) => number;
   custom?: Attack[];
   onClick?: (a: Attack, i: number) => void;
   hideHits?: boolean;
 }) {
-  const { weapon } = useModel();
-  const { calcHit, calcCrit, calcAverage } = useCalcs();
-
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
     return Attacks[weapon];
@@ -29,7 +33,7 @@ export function MovesTable({
   return (
     <table className="w-full table-auto border-collapse text-xs">
       <thead>
-        <tr className="border-primary border-b">
+        <tr className="border-divider border-b">
           <th className={cellCn}></th>
           <th className={cellCn}></th>
           <th className={cellCn}>Hit</th>
@@ -44,7 +48,10 @@ export function MovesTable({
           const avg = calcAverage(a);
           return (
             <tr
-              className="border-b border-zinc-800 p-1.5 last:border-0"
+              className={cn(
+                "border-content-alt border-b p-1.5 last:border-0",
+                onClick && "hover:bg-content-alt",
+              )}
               key={`${a.name}-${i}`}
               onClick={() => onClick?.(a, i)}
             >
@@ -54,7 +61,7 @@ export function MovesTable({
               </td>
               <td className={cn(cellCn, "font-mono")}>{hit}</td>
               <td className={cn(cellCn, "font-mono")}>{!a.cantCrit && crit}</td>
-              <td className={cn(cellCn, "text-primary font-mono font-bold")}>
+              <td className={cn(cellCn, "text-primary font-mono font-medium")}>
                 {avg}
               </td>
             </tr>

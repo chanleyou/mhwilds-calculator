@@ -15,9 +15,7 @@ export function InputContainer({ label, description, children }: Props) {
         </label>
       )}
       {children}
-      {description && (
-        <p className="text-secondary pl-0.5 text-xs">{description}</p>
-      )}
+      {description && <p className="pl-0.5 text-xs">{description}</p>}
     </div>
   );
 }

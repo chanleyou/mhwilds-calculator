@@ -2,22 +2,29 @@
 
 @theme {
   --font-inter: "Inter", "Inter Fallback";
+  --font-funnel: "Funnel Sans", "Inter", "Funnel Sans Fallback";
   --font-noto-sans-mono: "Noto Sans Mono", "Noto Sans Mono Fallback";
-  --font-sans: var(--font-inter), sans-serif;
+  --font-sans: var(--font-funnel), sans-serif;
   --font-mono: var(--font-noto-sans-mono), monospace;
 
-  --color-background: var(--color-zinc-950);
+  --color-background: var(--color-black);
   --color-content: var(--color-zinc-900);
   --color-content-alt: var(--color-zinc-800);
   --color-divider: var(--color-zinc-700);
+  --color-disabled: var(--color-zinc-800);
   --color-primary: var(--color-white);
   --color-secondary: var(--color-zinc-300);
+  --color-tertiary: var(--color-zinc-400);
   --color-placeholder: var(--color-zinc-600);
+  
+  --color-accent: var(--color-amber-500);
+  --color-accent-alt: var(--color-teal-300);
+  
   --color-info: var(--color-blue-300);
   --color-success: var(--color-green-500);
-  --color-accent: var(--color-amber-500);
   --color-error: var(--color-rose-400);
   --color-warning: var(--color-yellow-200);
+
 
   --spacing-8xl: 88rem;
   --spacing-9xl: 96rem;
@@ -26,11 +33,15 @@
 }
 
 h1 {
-  @apply text-xl;
+  @apply text-base;
+}
+
+h2 {
+  @apply text-sm;
 }
 
 h3 {
-  @apply text-xs text-secondary;
+  @apply text-xs;
 }
 
 
@@ -58,4 +69,8 @@ select::-ms-expand {
 
 textarea {
   @apply focus:outline-none border border-divider focus:border-secondary;
+}
+
+th {
+  @apply font-medium;
 }

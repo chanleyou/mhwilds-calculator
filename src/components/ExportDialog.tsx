@@ -1,3 +1,5 @@
+"use client";
+
 import { CopyIcon, XIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { CombinedBuffs } from "@/data";
@@ -87,7 +89,7 @@ export const ExportDialog = () => {
             <div className="flex items-start justify-between gap-2">
               <h1>Export</h1>
               <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-                <XIcon className="h-4 w-4" />
+                <XIcon className="h-5 w-5" />
               </Button>
             </div>
           </DialogTitle>
