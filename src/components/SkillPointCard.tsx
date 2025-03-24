@@ -62,50 +62,54 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
           .sort(([, v1], [, v2]) => {
             return v2 - v1;
           })
-          .map(([k, v]) => (
-            <div key={k} className="flex justify-between">
-              <div className="flex flex-col gap-1">
-                <p className={cn("text-sm", disabled[k] && "line-through")}>
-                  {k} {v}
-                </p>
-                <div className="flex gap-1">
-                  {Object.entries(
-                    "levels" in CombinedSkillsTwo[k]
-                      ? CombinedSkillsTwo[k].levels
-                      : CombinedSkillsTwo[k].groups[0].levels,
-                  ).map((k, i) => (
-                    <div
-                      key={i}
-                      className={cn(
-                        "border-divider bg-background h-4 w-4 border",
-                        v > i && "border-accent/50 bg-accent",
-                      )}
+          .map(([k, v]) => {
+            const levels =
+              "levels" in CombinedSkillsTwo[k]
+                ? CombinedSkillsTwo[k].levels
+                : CombinedSkillsTwo[k].groups[0].levels;
+
+            const entries = Object.entries(levels);
+            return (
+              <div key={k} className="flex justify-between">
+                <div className="flex flex-col gap-1">
+                  <p className={cn("text-sm", disabled[k] && "line-through")}>
+                    {k} {Math.min(v, entries.length)}
+                  </p>
+                  <div className="flex gap-1">
+                    {entries.map((_, i) => (
+                      <div
+                        key={`${k}-${i}`}
+                        className={cn(
+                          "border-divider bg-background h-4 w-4 border",
+                          v > i && "border-accent/50 bg-accent",
+                        )}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {CombinedSkillsTwo[k]?.toggle && (
+                  <Checkbox
+                    value={!disabled[k]}
+                    onChangeValue={() => setDisabled(k, !disabled[k])}
+                  />
+                )}
+                {k === "Tetrad Shot" && (
+                  <div className="flex gap-2">
+                    <Checkbox
+                      // label="Affinity"
+                      value={"TetradAffinity" in flags}
+                      onChangeValue={(v) => setFlag("TetradAffinity", v)}
                     />
-                  ))}
-                </div>
+                    <Checkbox
+                      // label="Attack"
+                      value={"TetradAttack" in flags}
+                      onChangeValue={(v) => setFlag("TetradAttack", v)}
+                    />
+                  </div>
+                )}
               </div>
-              {CombinedSkillsTwo[k]?.toggle && (
-                <Checkbox
-                  value={!disabled[k]}
-                  onChangeValue={() => setDisabled(k, !disabled[k])}
-                />
-              )}
-              {k === "Tetrad Shot" && (
-                <div className="flex gap-2">
-                  <Checkbox
-                    // label="Affinity"
-                    value={"TetradAffinity" in flags}
-                    onChangeValue={(v) => setFlag("TetradAffinity", v)}
-                  />
-                  <Checkbox
-                    // label="Attack"
-                    value={"TetradAttack" in flags}
-                    onChangeValue={(v) => setFlag("TetradAttack", v)}
-                  />
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         {Object.entries(groupPoints)
           .filter(([k, v]) => {
             if (!(k in GroupSkillsTwo)) return false;

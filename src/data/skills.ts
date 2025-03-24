@@ -645,7 +645,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
         levels: {
           1: { chargeEleMul: 1.05 },
           2: { chargeEleMul: 1.1 },
-          3: { chargeEleMul: 1.05 },
+          3: { chargeEleMul: 1.15 },
         },
       },
       {
@@ -791,7 +791,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Normal Shots"]: {
     levels: {
-      1: { name: "Normal Shots 1", normalShotsRawMul: 1.05 },
+      1: { name: "Normal Shots 1", rawMul: 1.05 },
     },
   },
   ["Offensive Guard"]: {
@@ -834,7 +834,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Piercing Shots"]: {
     levels: {
-      1: { name: "Piercing Shots 1", piercingShotsRawMul: 1.05 },
+      1: { name: "Piercing Shots 1", rawMul: 1.05 },
     },
   },
   ["Poison Attack"]: {
@@ -854,7 +854,7 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Rapid Fire Up"]: {
     levels: {
-      1: { name: "Rapid Fire Up 1", rapidFireMul: 1.05 },
+      1: { name: "Rapid Fire Up 1", rawMul: 1.05 },
     },
   },
   ["Sleep Attack"]: {
@@ -866,13 +866,13 @@ export const WeaponSkillsTwo: Record<Skill, SkillGroup | SkillWeaponGroup> = {
   },
   ["Special Ammo Boost"]: {
     levels: {
-      1: { name: "Special Ammo Boost 1", specialAmmoBoostRawMul: 1.1 },
-      2: { name: "Special Ammo Boost 2", specialAmmoBoostRawMul: 1.2 },
+      1: { name: "Special Ammo Boost 1", rawMul: 1.1 },
+      2: { name: "Special Ammo Boost 2", rawMul: 1.2 },
     },
   },
   ["Spread/Power Shots"]: {
     levels: {
-      1: { name: "Spread/Power Shots 1", spreadPowerShotsRawMul: 1.05 },
+      1: { name: "Spread/Power Shots 1", rawMul: 1.05 },
     },
   },
   ["Tetrad Shot"]: {

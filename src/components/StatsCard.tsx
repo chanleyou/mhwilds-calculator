@@ -55,11 +55,11 @@ export const StatsCard = ({ className }: { className?: string }) => {
         </NumberDisplay>
         {w.sharpness && (
           <>
-            <NumberDisplay label="Sharpness Multi">
-              {`${getSharpnessRaw(w.sharpness)}x / ${getSharpnessEle(w.sharpness)}x`}
-            </NumberDisplay>
             <NumberDisplay label="Sharpness">
               <SharpnessBar sharpness={w.sharpness} />
+            </NumberDisplay>
+            <NumberDisplay label="Sharpness Multi">
+              {`${getSharpnessRaw(w.sharpness)}x / ${getSharpnessEle(w.sharpness)}x`}
             </NumberDisplay>
           </>
         )}

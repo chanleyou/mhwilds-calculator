@@ -237,7 +237,7 @@ export const useComputed = () => {
     legsSlots,
     disabled,
     flags,
-  } = useBuild();
+  } = useBuild.getState();
 
   const equipment = [helm, body, arms, waist, legs].filter(
     (n): n is Armor => !!n,
@@ -354,6 +354,8 @@ export const useComputed = () => {
     [...artian.infusions, ...artian.upgrades].forEach((i) => {
       if (i === "Attack") d.attack += 5;
       if (i === "Affinity") d.affinity += 5;
+
+      // TODO: refactor
       if (i === "Element" && d.element) {
         if (d.type === "Great Sword") d.element.value += 80;
         if (d.type === "Lance") d.element.value += 50;
@@ -368,6 +370,7 @@ export const useComputed = () => {
         if (d.type === "Bow") d.element.value += 30;
         if (d.type === "Dual Blades") d.element.value += 20;
       }
+
       if (i === "Element" && d.status) {
         if (d.type === "Great Sword") d.status.value += 80;
         if (d.type === "Lance") d.status.value += 50;
@@ -382,6 +385,7 @@ export const useComputed = () => {
         if (d.type === "Bow") d.status.value += 30;
         if (d.type === "Dual Blades") d.status.value += 20;
       }
+
       if (i === "Sharpness" && d.sharpness) {
         d.sharpness[Sharpnesses.indexOf("White")] += 30;
       }

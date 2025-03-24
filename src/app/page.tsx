@@ -1,7 +1,7 @@
 "use client";
 
 import { produce } from "immer";
-import { SwordsIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useBuild, useComputed } from "@/builder";
@@ -31,6 +31,7 @@ export default function Builder() {
   const { calcHit, calcCrit, calcAverage } = build;
 
   const [showAttacks, setShowAttacks] = useState(true);
+  const [showNotice, setShowNotice] = useState(true);
 
   const [comboMode, setComboMode] = useState<ComboModeOption>("Dynamic");
 
@@ -76,15 +77,28 @@ export default function Builder() {
         showAttacks && "max-w-10xl",
       )}
     >
-      <Notice>
-        <p>
-          {"The manual damage calculator can be found "}
-          <Link className="font-bold underline" href="/calc">
-            here
-          </Link>
-          .
-        </p>
-      </Notice>
+      {showNotice && (
+        <Notice>
+          <div className="flex justify-between gap-2">
+            <p>
+              {
+                "Set builder is new and might have bugs. Status calculations are not implemented yet. The old manual damage calculator can be found "
+              }
+              <Link className="font-bold underline" href="/calc">
+                here
+              </Link>
+              .
+            </p>
+            <Button
+              variant="text"
+              size="icon"
+              onClick={() => setShowNotice(false)}
+            >
+              <XIcon className="text-info h-4 w-4" />
+            </Button>
+          </div>
+        </Notice>
+      )}
       <div className="flex justify-end gap-2">
         <ImportDialogTwo />
         <ExportDialogTwo />
@@ -104,18 +118,14 @@ export default function Builder() {
               size="sm"
               onClick={() => setShowAttacks(!showAttacks)}
             >
-              <SwordsIcon className="h-4 w-4" />
               Attacks
+              {showAttacks ? (
+                <ChevronLeftIcon className="h-4 w-4" />
+              ) : (
+                <ChevronRightIcon className="h-4 w-4" />
+              )}
             </Button>
           </div>
-          {/* <Card>
-            <textarea
-              className="font-mono text-xs"
-              value={JSON.stringify(build, undefined, 2)}
-              rows={100}
-              readOnly
-            />
-          </Card> */}
           {showAttacks && (
             <ComboCard
               comboMode={comboMode}
@@ -129,6 +139,14 @@ export default function Builder() {
         </div>
         {showAttacks && (
           <div className="flex-1">
+            {/* <Card>
+              <textarea
+                className="font-mono text-xs"
+                value={JSON.stringify(build, undefined, 2)}
+                rows={100}
+                readOnly
+              />
+            </Card> */}
             <Card>
               <h1>Attacks</h1>
               <div className="flex place-items-center">

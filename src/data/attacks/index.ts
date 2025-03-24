@@ -19,7 +19,7 @@ const Attacks: Record<WeaponType, Attack[]> = {
   ["Charge Blade"]: ChargeBladeAttacks,
   ["Dual Blades"]: DualBladesAttacks,
   ["Great Sword"]: GreatSwordAttacks,
-  ["Gunlance"]: GunlanceAttacks,
+  Gunlance: GunlanceAttacks,
   Hammer: HammerAttacks,
   ["Heavy Bowgun"]: HeavyBowgunAttacks,
   ["Hunting Horn"]: HuntingHornAttacks,

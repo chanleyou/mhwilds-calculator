@@ -7,26 +7,9 @@ import { useBuild } from "@/builder";
 import { Armors } from "@/data/armor";
 import { Charms } from "@/data/charms";
 import { Decorations } from "@/data/decorations";
-import {
-  Armor,
-  Bows,
-  ChargeBlades,
-  Decoration,
-  DualBlades,
-  GreatSwords,
-  Gunlances,
-  Hammers,
-  HeavyBowguns,
-  HuntingHorns,
-  InsectGlaives,
-  Lances,
-  LightBowguns,
-  LongSwords,
-  SwitchAxes,
-  SwordAndShields,
-  Weapon,
-} from "@/data/weapons";
+import Weapons from "@/data/weapons";
 import text from "@/text";
+import { Armor, Decoration, Weapon } from "@/types";
 import { importSchemaTwo } from "@/zod";
 import { Button } from "./Button";
 import { Card } from "./Card";
@@ -186,22 +169,9 @@ export const ImportDialogTwo = () => {
         else addWarning(`${d.charm} not found.`);
       }
 
-      const w = [
-        ...Bows,
-        ...ChargeBlades,
-        ...DualBlades,
-        ...GreatSwords,
-        ...Gunlances,
-        ...Hammers,
-        ...HuntingHorns,
-        ...InsectGlaives,
-        ...Lances,
-        ...LightBowguns,
-        ...LongSwords,
-        ...SwitchAxes,
-        ...SwordAndShields,
-        ...HeavyBowguns,
-      ].find((w) => w.name === d.weapon.name && w.type === d.weapon.type);
+      const w = Object.values(Weapons)
+        .flat()
+        .find((w) => w.name === d.weapon.name && w.type === d.weapon.type);
 
       if (!w) {
         addWarning(`${d.weapon.name} not found.`);

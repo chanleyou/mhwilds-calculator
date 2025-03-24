@@ -1,5 +1,5 @@
 import { CheckCircleIcon, WrenchIcon, XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useBuild } from "@/builder";
 import {
   ArtianInfusion,
@@ -22,8 +22,6 @@ export const ArtianDialog = () => {
   const { weapon, artian, setArtianType, setArtianInfusion, setArtianUpgrade } =
     useBuild();
   const [open, setOpen] = useState(false);
-
-  useEffect(() => void (weapon.artian && setOpen(true)), [weapon.artian]);
 
   const combined = useMemo(
     () => [...artian.infusions, ...artian.upgrades],
@@ -73,7 +71,7 @@ export const ArtianDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="secondary" className="text-success">
+        <Button size="sm" variant="secondary" className="text-teal-500">
           <WrenchIcon className="h-4 w-4" />
           Artian
         </Button>

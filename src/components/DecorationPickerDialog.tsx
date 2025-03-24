@@ -86,6 +86,7 @@ export const DecorationPickerDialog = ({
             value={filter}
             onChangeValue={setFilter}
             placeholder={"Search..."}
+            autoFocus
           />
           <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
             {filteredOptions.map((c) => (

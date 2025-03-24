@@ -2,22 +2,7 @@ import { XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useBuild } from "@/builder";
 import { WeaponTypes } from "@/data";
-import {
-  Bows,
-  ChargeBlades,
-  DualBlades,
-  GreatSwords,
-  Gunlances,
-  Hammers,
-  HeavyBowguns,
-  HuntingHorns,
-  InsectGlaives,
-  Lances,
-  LightBowguns,
-  LongSwords,
-  SwitchAxes,
-  SwordAndShields,
-} from "@/data/weapons";
+import { Weapons } from "@/data/weapons";
 import { calculateHandicraft } from "@/model";
 import { WeaponType, isBowgun, isMeleeWeapon, isRanged } from "@/types";
 import {
@@ -42,20 +27,7 @@ export const WeaponPickerDialog = () => {
   const [type, setType] = useState<WeaponType>("Sword and Shield");
 
   const weapons = useMemo(() => {
-    if (type === "Bow") return Bows;
-    if (type === "Charge Blade") return ChargeBlades;
-    if (type === "Dual Blades") return DualBlades;
-    if (type === "Great Sword") return GreatSwords;
-    if (type === "Gunlance") return Gunlances;
-    if (type === "Hammer") return Hammers;
-    if (type === "Heavy Bowgun") return HeavyBowguns;
-    if (type === "Hunting Horn") return HuntingHorns;
-    if (type === "Insect Glaive") return InsectGlaives;
-    if (type === "Lance") return Lances;
-    if (type === "Light Bowgun") return LightBowguns;
-    if (type === "Long Sword") return LongSwords;
-    if (type === "Switch Axe") return SwitchAxes;
-    return SwordAndShields;
+    return Weapons[type];
   }, [type]);
 
   const filteredOptions = useMemo(() => {
@@ -109,6 +81,7 @@ export const WeaponPickerDialog = () => {
             value={filter}
             onChangeValue={setFilter}
             placeholder={"Search..."}
+            autoFocus
           />
           <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
             {filteredOptions.map((o) => (

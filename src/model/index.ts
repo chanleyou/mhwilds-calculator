@@ -376,11 +376,11 @@ export const calculateRawHitTwo = (
     atk.rawMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessRaw(weapon.sharpness),
     !atk.ignoreCoating && buffs.coatingRawMul?.rawMul,
-    atk.spreadPowerShot && buffs.spreadPowerShot?.rawMul,
-    atk.specialAmmo && buffs.specialAmmo?.rawMul,
-    atk.normalShot && buffs.normalShot?.rawMul,
-    atk.rapidFire && buffs.rapidFire?.rawMul,
-    atk.piercingShot && buffs.PiercingShots?.rawMul,
+    atk.spreadPowerShot && buffs["Spread/Power Shots"]?.rawMul,
+    atk.specialAmmo && buffs["Special Ammo Boost"]?.rawMul,
+    atk.normalShot && buffs["Normal Shot"]?.rawMul,
+    atk.rapidFire && buffs["Rapid Fire Up"]?.rawMul,
+    atk.piercingShot && buffs["Piercing Shots"]?.rawMul,
     atk.cbAxe && buffs.ChargeBladeShieldElement?.axeRawMul,
     atk.cbPhial && buffs.ChargeBladeShieldElement?.impactPhialMul,
   );
@@ -419,7 +419,7 @@ export const calculateEleHitTwo = (
     const bowgunAttack = calculateAttackTwo(
       weapon.attack,
       buffs,
-      [atk.rawEle / 10],
+      [atk.rawEle / 10, atk.rapidFire && buffs["Rapid Fire Up"]?.rawMul],
       [-bowgunOffset],
     );
 
@@ -442,8 +442,9 @@ export const calculateEleHitTwo = (
     uiElement,
     0.1,
     eleHzv,
+    atk.eleMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessEle(weapon.sharpness),
-    atk.charge && buffs.ChargeMaster?.chargeEleMul,
+    atk.charge && buffs["Charge Master"]?.chargeEleMul,
     buffs.DualBladesDemonBoost?.eleMul,
   );
 };

@@ -1,6 +1,4 @@
 import { expect, test } from "vitest";
-import { CombinedBuffs } from "@/data";
-import Attacks from "@/data/attacks";
 import {
   calculateAttack,
   calculateBowgunElement,
@@ -12,23 +10,7 @@ import {
   dmg,
 } from "@/model";
 import { Sharpness, WeaponType } from "@/types";
-
-// TODO: refactor tests to use store instead of manually setting parameters
-
-const display = (n: number) => Math.floor(n + 0.1);
-
-const buff = (key: string, level: number = 1) => {
-  const buff = CombinedBuffs[key]?.levels[level - 1];
-  if (!buff) throw new Error(`Buff not found: ${key} ${level}`);
-  const { frenzy, ...values } = buff;
-  return values;
-};
-
-const atk = (weapon: WeaponType, name: string) => {
-  const attack = Attacks[weapon].find((a) => a.name === name)!;
-  if (!attack) throw new Error(`Attack not found: ${name}`);
-  return attack;
-};
+import { atk, buff, display } from "./utils";
 
 const base = {
   uiElement: 0,
@@ -37,6 +19,8 @@ const base = {
   critMulti: 1.25,
   eleCritMulti: 1,
 };
+
+// TODO: refactor tests to use store instead of manually setting parameters
 
 // 230 Attack, Attack Boost 4, Offensive Guard 3, Powercharm
 const a = calculateAttack({
@@ -410,8 +394,8 @@ test("Heavy Bowgun", () => {
     weapon: "Heavy Bowgun" as WeaponType,
   };
 
-  const e1 = atk("Heavy Bowgun", "Element Lv1");
-  const e2 = atk("Heavy Bowgun", "Element Lv2");
+  const e1 = atk("Heavy Bowgun", "Fire Lv1");
+  const e2 = atk("Heavy Bowgun", "Fire Lv2");
   const p1 = atk("Heavy Bowgun", "Pierce Lv1");
   const sp2 = atk("Heavy Bowgun", "Spread Lv2");
   // const st1 = atk("Heavy Bowgun", "Sticky Lv1");
