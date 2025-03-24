@@ -25,7 +25,7 @@ export const importSchemaTwo = z.object({
   }),
   artian: z
     .object({
-      type: z.enum(ArtianTypeOptions).optional(),
+      type: z.enum(ArtianTypeOptions),
       infusions: z.array(z.enum(ArtianInfusionOptions).optional()).max(3),
       upgrades: z.array(z.enum(ArtianUpgradeOptions).optional()).max(5),
     })
