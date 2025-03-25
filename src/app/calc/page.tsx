@@ -67,7 +67,9 @@ export default function Home() {
   const [hideSkills, setHideSkills] = useState(false);
   const [hideBuffs, setHideBuffs] = useState(false);
   const [dynamicCombo, setDynamicCombo] = useState<Attack[]>([]);
-  const [snapshotCombo, setSnapshotCombo] = useState<SnapshotAttack[]>([]);
+  const [snapshotCombo, setSnapshotCombo] = useState<
+    Omit<SnapshotAttack, "count">[]
+  >([]);
   const [comboMode, setComboMode] = useState<ComboModeOption>("Dynamic");
 
   const notice = useMemo(() => {

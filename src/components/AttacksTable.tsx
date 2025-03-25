@@ -2,10 +2,9 @@ import { useMemo } from "react";
 import Attacks from "@/data/attacks";
 import { useComputed } from "@/store/builder";
 import { Attack, isGunlance, isWeaponBowgun } from "@/types";
-import { cn } from "@/utils";
 import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
 
-export function MovesTableTwo({
+export function AttacksTable({
   custom,
   onClick,
   hideHits,

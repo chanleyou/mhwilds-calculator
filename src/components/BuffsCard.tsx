@@ -79,7 +79,7 @@ export const BuffsCard = () => {
         {showWeaponSection && (
           <div className="flex flex-col gap-2">
             <h2>{w.type}</h2>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
               {w.coatings && (
                 <SkillSelect
                   skill={WeaponBuffs.BowCoating}
@@ -126,7 +126,7 @@ export const BuffsCard = () => {
         {showItemsSection && (
           <div className="flex flex-col gap-2">
             <h2>Consumables</h2>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
               {Object.entries(FieldBuffs).map(([k, s]) => {
                 if (hideBuffs && !otherBuffs[k]) return undefined;
                 return (
@@ -146,7 +146,7 @@ export const BuffsCard = () => {
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <h2>Hunting Horn</h2>
-              <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
                 {Object.entries(HuntingHornBuffs).map(([k, b]) => {
                   if (hideBuffs && !otherBuffs[k]) return undefined;
                   return (
