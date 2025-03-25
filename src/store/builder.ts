@@ -324,8 +324,8 @@ export const useComputed = () => {
     }
 
     if (SeriesSkillsTwo[k]) {
-      if (v >= 2) buffs[k] = SeriesSkillsTwo[k].levels[2];
-      else if (v >= 4) buffs[k] = SeriesSkillsTwo[k].levels[4];
+      if (v >= 4) buffs[k] = SeriesSkillsTwo[k].levels[4];
+      else if (v >= 2) buffs[k] = SeriesSkillsTwo[k].levels[2];
     }
   });
 

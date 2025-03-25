@@ -13,7 +13,6 @@ import {
   StatsCard,
 } from "@/components";
 import { useComputed } from "@/store/builder";
-import { cn } from "@/utils";
 
 export default function Builder() {
   const build = useComputed();
@@ -21,7 +20,7 @@ export default function Builder() {
   // const [comboView, setComboView] = useState(false);
 
   return (
-    <div className={cn("font-funnel max-w-10xl mx-auto flex flex-col gap-2")}>
+    <div className="max-w-9xl mx-auto flex flex-col gap-2">
       <Notice closable>
         {"The previous manual damage calculator can be found "}
         <Link className="font-bold underline" href="/calc">
@@ -34,7 +33,7 @@ export default function Builder() {
         <ExportDialogTwo />
       </div>
       <div className="flex flex-col gap-2 lg:flex-row">
-        <div className="flex flex-3 flex-col gap-2">
+        <div className="flex flex-4 flex-col gap-2">
           <EquipmentCard />
           <BuffsCard />
         </div>
@@ -52,9 +51,8 @@ export default function Builder() {
             />
           </Card> */}
         </div>
-        <div className="flex flex-2 flex-col gap-2">
+        <div className="flex-3">
           <AttacksCard />
-          {/* <ComboDialog /> */}
         </div>
       </div>
     </div>

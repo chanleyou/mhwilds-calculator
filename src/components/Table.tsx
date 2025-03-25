@@ -61,7 +61,7 @@ export const TableCell = ({
   ...props
 }: React.ComponentProps<"td"> & { small?: boolean }) => {
   return (
-    <td className={cn("py-2", small ? "px-1" : "px-2", className)} {...props}>
+    <td className={cn("p-2", className)} {...props}>
       {children}
     </td>
   );
