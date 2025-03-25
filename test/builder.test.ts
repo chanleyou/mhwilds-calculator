@@ -54,7 +54,3 @@ test("Artian", () => {
   st.setWeaponDecoration(0, deco("Charge Jewel III [3]"));
   expect(useComputed().calcHit(tcs3p)).toBe(568.1);
 });
-
-// test("Tetrad Shot", () => {
-//   st.setW({ type: "Bow", attack: 180 });
-// });

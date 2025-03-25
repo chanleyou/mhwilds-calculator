@@ -1163,9 +1163,9 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
           "Heavy Bowgun",
         ],
         levels: {
-          1: { name: "Coalescence 1", statusMul: 1.05, elementMul: 1.05 },
-          2: { name: "Coalescence 2", statusMul: 1.1, elementMul: 1.1 },
-          3: { name: "Coalescence 3", statusMul: 1.15, elementMul: 1.15 },
+          1: { name: "Coalescence 1", statusMul: 1.05, elementMul: 1.1 },
+          2: { name: "Coalescence 2", statusMul: 1.1, elementMul: 1.2 },
+          3: { name: "Coalescence 3", statusMul: 1.15, elementMul: 1.3 },
         },
       },
     ],

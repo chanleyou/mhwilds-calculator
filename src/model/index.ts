@@ -440,13 +440,18 @@ export const calculateEleHitTwo = (
     const bowgunAttack = calculateAttackTwo(
       weapon.attack,
       buffs,
-      [atk.rawEle / 10, atk.rapidFire && buffs["Rapid Fire Up"]?.rawMul],
+      [],
       [-bowgunOffset],
+    );
+    const value = mul(
+      bowgunAttack,
+      atk.rawEle / 10,
+      atk.rapidFire && buffs["Rapid Fire Up"]?.rawMul,
     );
 
     weapon = {
       ...weapon,
-      element: { value: bowgunAttack, type: atk.elementType },
+      element: { value, type: atk.elementType },
     };
   }
 
@@ -467,6 +472,7 @@ export const calculateEleHitTwo = (
     atk.ignoreSharpness ? 1 : getSharpnessEle(weapon.sharpness),
     atk.charge && buffs["Charge Master"]?.eleMul,
     buffs.DualBladesDemonBoost?.eleMul,
+    atk.cbPhial && buffs.ChargeBladeShieldElement?.elePhialMul,
   );
 };
 
