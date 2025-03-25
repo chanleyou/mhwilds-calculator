@@ -2,7 +2,8 @@
 
 import { CopyIcon, XIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import { useBuild } from "@/builder";
+import { CombinedBuffs } from "@/data";
+import { useBuild } from "@/store/builder";
 import text from "@/text";
 import { Button } from "./Button";
 import { Card } from "./Card";
@@ -11,7 +12,7 @@ import { Notice } from "./Notice";
 
 export const ExportDialogTwo = () => {
   const {
-    weapon,
+    w: weapon,
     artian,
     helm,
     body,
@@ -25,6 +26,7 @@ export const ExportDialogTwo = () => {
     armsSlots,
     waistSlots,
     legsSlots,
+    otherBuffs,
   } = useBuild();
 
   const [open, setOpen] = useState(false);
@@ -35,8 +37,8 @@ export const ExportDialogTwo = () => {
       JSON.stringify(
         {
           weapon: {
-            type: weapon.type,
             name: weapon.name,
+            type: weapon.type,
           },
           artian: weapon.artian ? artian : undefined,
           helm: helm?.name,
@@ -59,6 +61,16 @@ export const ExportDialogTwo = () => {
             waistSlots.length > 0 ? waistSlots.map((s) => s?.name) : undefined,
           legsSlots:
             legsSlots.length > 0 ? legsSlots.map((s) => s?.name) : undefined,
+          buffs: Object.entries(otherBuffs).reduce(
+            (a, [k, v]) => {
+              const buff = CombinedBuffs[k];
+              if (!buff) return a;
+              const i = buff.levels.findIndex((l) => l.name === v.name);
+              if (i === -1) return a;
+              return { ...a, [k]: i + 1 };
+            },
+            {} as Record<string, number>,
+          ),
         },
         null,
         2,
@@ -78,6 +90,7 @@ export const ExportDialogTwo = () => {
       armsSlots,
       waistSlots,
       legsSlots,
+      otherBuffs,
     ],
   );
 
@@ -94,8 +107,8 @@ export const ExportDialogTwo = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm">
-          <CopyIcon className="h-4 w-4" />
+        <Button size="sm" className="bg-accent-alt">
+          <CopyIcon className="size-4" />
           Export
         </Button>
       </DialogTrigger>
@@ -119,7 +132,7 @@ export const ExportDialogTwo = () => {
           <div className="flex justify-end gap-2">
             {copied && <Notice variant="success">Copied to clipboard.</Notice>}
             <Button onClick={copy}>
-              <CopyIcon className="h-4 w-4" /> Copy
+              <CopyIcon className="size-4" /> Copy
             </Button>
           </div>
         </Card>

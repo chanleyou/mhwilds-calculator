@@ -4,7 +4,7 @@ import { DownloadIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ZodError } from "zod";
 import { CombinedBuffs } from "@/data";
-import { useModel } from "@/store";
+import { useModel } from "@/store/store";
 import text from "@/text";
 import { importSchema } from "@/zod";
 import { Button } from "./Button";
@@ -108,7 +108,7 @@ export const ImportDialog = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary" size="sm">
-          <DownloadIcon className="h-4 w-4" />
+          <DownloadIcon className="size-4" />
           Import
         </Button>
       </DialogTrigger>
@@ -118,7 +118,7 @@ export const ImportDialog = () => {
             <div className="flex items-start justify-between gap-2">
               <h1>Import</h1>
               <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-                <XIcon className="h-4 w-4" />
+                <XIcon className="size-4" />
               </Button>
             </div>
           </DialogTitle>
@@ -133,7 +133,7 @@ export const ImportDialog = () => {
           <div className="flex justify-end gap-2">
             {message && <Notice variant={variant}>{message}</Notice>}
             <Button onClick={process}>
-              <DownloadIcon className="h-4 w-4" /> Import
+              <DownloadIcon className="size-4" /> Import
             </Button>
           </div>
         </Card>

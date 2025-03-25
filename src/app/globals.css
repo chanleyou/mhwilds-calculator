@@ -17,13 +17,13 @@
   --color-tertiary: var(--color-zinc-400);
   --color-placeholder: var(--color-zinc-600);
   
-  --color-accent: var(--color-amber-500);
-  --color-accent-alt: var(--color-teal-300);
+  --color-accent: var(--color-orange-400);
+  --color-accent-alt: var(--color-cyan-500);
   
   --color-info: var(--color-blue-300);
   --color-success: var(--color-green-500);
   --color-error: var(--color-rose-400);
-  --color-warning: var(--color-yellow-200);
+  --color-warning: var(--color-amber-400);
 
 
   --spacing-8xl: 88rem;

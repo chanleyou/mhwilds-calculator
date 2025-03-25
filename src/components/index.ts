@@ -1,10 +1,11 @@
 export * from "./ArmorPickerDialog";
+export * from "./AttacksCard";
 export * from "./BuffsCard";
 export * from "./Button";
 export * from "./Card";
 export * from "./CharmPickerDialog";
 export * from "./Checkbox";
-export * from "./ComboCard";
+export * from "./ComboDialog";
 export * from "./DecorationPickerDialog";
 export * from "./Dialog";
 export * from "./ExportDialog";
@@ -25,9 +26,9 @@ export * from "./SkillSelectTwo";
 export * from "./SkillPointCard";
 export * from "./StatsCard";
 export * from "./SnapshotMovesTable";
+export * from "./Tab";
 export * from "./Table";
 export * from "./TextInput";
-
 export * from "./Tooltip";
 export * from "./EquipmentCard";
 export * from "./WeaponPickerDialog";

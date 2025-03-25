@@ -42,8 +42,8 @@ export const TableRow = ({
   return (
     <tr
       className={cn(
-        onClick &&
-          "hover:bg-content-alt border-content-alt cursor-pointer border-b last:border-none",
+        "border-content-alt border-b last:border-none",
+        onClick && "hover:bg-content-alt cursor-pointer",
         className,
       )}
       onClick={onClick}

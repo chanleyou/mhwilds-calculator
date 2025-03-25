@@ -203,14 +203,28 @@ export const useCalcs = () => {
       return calculateAverage(hit, crit, atk.cantCrit ? 0 : g.uiAffinity);
     },
     calcEffectiveRaw: () => {
-      const params = { ...s, ...g, mv: 100, rawHzv: 100, eleHzv: 0 };
+      const params = {
+        name: "EFR",
+        ...s,
+        ...g,
+        mv: 100,
+        rawHzv: 100,
+        eleHzv: 0,
+      };
       const hit = calculateHit(params);
       const crit = calculateCrit(params);
       const avg = calculateAverage(hit, crit, g.uiAffinity);
       return avg;
     },
     calcEffectiveEle: () => {
-      const params = { ...s, ...g, mv: 0, rawHzv: 0, eleHzv: 100 };
+      const params = {
+        name: "EFE",
+        ...s,
+        ...g,
+        mv: 0,
+        rawHzv: 0,
+        eleHzv: 100,
+      };
       const hit = calculateHit(params);
       const crit = calculateCrit(params);
       const avg = calculateAverage(hit, crit, g.uiAffinity);

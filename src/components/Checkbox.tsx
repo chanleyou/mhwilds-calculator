@@ -16,12 +16,12 @@ export function Checkbox({ value, onChangeValue, label, disabled }: Props) {
       <input
         type="checkbox"
         checked={value}
-        className="accent-info h-4 w-4"
+        className="size-4 accent-blue-500"
         onChange={(e) => onChangeValue(e.target.checked)}
         disabled={disabled}
       />
       {label && (
-        <label className="flex cursor-pointer place-items-center">
+        <label className="flex cursor-pointer place-items-center text-sm">
           {label}
         </label>
       )}

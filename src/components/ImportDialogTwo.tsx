@@ -3,11 +3,12 @@
 import { DownloadIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ZodError } from "zod";
-import { useBuild } from "@/builder";
+import { CombinedBuffs } from "@/data";
 import { Armors } from "@/data/armor";
 import { Charms } from "@/data/charms";
 import { Decorations } from "@/data/decorations";
 import Weapons from "@/data/weapons";
+import { useBuild } from "@/store/builder";
 import text from "@/text";
 import { Armor, Decoration, Weapon } from "@/types";
 import { importSchemaTwo } from "@/zod";
@@ -18,7 +19,7 @@ import { Notice } from "./Notice";
 
 export const ImportDialogTwo = () => {
   const {
-    setW,
+    setW: setW,
     setHelm,
     setBody,
     setArms,
@@ -35,6 +36,8 @@ export const ImportDialogTwo = () => {
     setWaistDecoration,
     setLegsDecoration,
     setWeaponDecoration,
+    setOtherBuff,
+    emptyBuffs,
   } = useBuild();
 
   const [open, setOpen] = useState(false);
@@ -179,7 +182,7 @@ export const ImportDialogTwo = () => {
         setW(w);
 
         if (w.artian && d.artian) {
-          setArtianType(d.artian.type);
+          setArtianType(d.artian.element);
           d.artian.infusions.forEach((u, i) => setArtianInfusion(i, u));
           d.artian.upgrades.forEach((u, i) => setArtianUpgrade(i, u));
         }
@@ -187,12 +190,21 @@ export const ImportDialogTwo = () => {
         if (d.weaponSlots) {
           setDecorations(d.weaponSlots, w, setWeaponDecoration, "Weapon");
         }
+
+        emptyBuffs();
+
+        Object.entries(d.buffs).forEach(([key, value]) => {
+          const buff = CombinedBuffs[key]?.levels[value - 1];
+          if (buff) setOtherBuff(key, buff);
+          else setWarnings((w) => [...w, `Buff ${key} ${value} not found.`]);
+        });
       }
 
       setSuccess(true);
     } catch (e: unknown) {
       if (e instanceof SyntaxError) setError("Invalid JSON.");
       else if (e instanceof ZodError) {
+        console.error(e);
         setError(
           Object.entries(e.flatten().fieldErrors)
             .map(([k, v]) => `${k}: ${v}`)
@@ -219,6 +231,8 @@ export const ImportDialogTwo = () => {
     setArmsDecoration,
     setWaistDecoration,
     setLegsDecoration,
+    emptyBuffs,
+    setOtherBuff,
   ]);
 
   useEffect(() => {
@@ -228,18 +242,18 @@ export const ImportDialogTwo = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
-          <DownloadIcon className="h-4 w-4" />
+        <Button variant="secondary" className="text-accent-alt" size="sm">
+          <DownloadIcon className="size-4" />
           Import
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <Card>
+        <Card className="max-h-dvh w-[100vw] sm:w-4xl sm:max-w-[95vw]">
           <DialogTitle asChild>
             <div className="flex items-start justify-between gap-2">
               <h1>Import</h1>
               <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-                <XIcon className="h-4 w-4" />
+                <XIcon className="size-4" />
               </Button>
             </div>
           </DialogTitle>
@@ -254,7 +268,7 @@ export const ImportDialogTwo = () => {
           <div className="flex justify-end gap-2">
             {message && <Notice variant={variant}>{message}</Notice>}
             <Button onClick={process}>
-              <DownloadIcon className="h-4 w-4" /> Import
+              <DownloadIcon className="size-4" /> Import
             </Button>
           </div>
         </Card>

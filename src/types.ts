@@ -1,5 +1,5 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
-import { InitialStore, useGetters } from "@/store";
+import { InitialStore, useGetters } from "@/store/store";
 
 export const ElementTypes = [
   "Dragon",
@@ -215,7 +215,7 @@ export type WeaponFlags = {
 };
 
 export interface IAttack {
-  name?: string;
+  name: string;
   mv: number;
   rawMul?: number;
   eleMul?: number;
@@ -363,7 +363,7 @@ export const ArtianUpgradeOptions = [
 export type ArtianUpgrade = (typeof ArtianUpgradeOptions)[number];
 
 export type Artian = {
-  type: ArtianType;
+  element: ArtianType;
   infusions: [ArtianInfusion?, ArtianInfusion?, ArtianInfusion?];
   upgrades: [
     ArtianUpgrade?,

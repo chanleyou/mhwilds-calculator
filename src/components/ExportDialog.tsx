@@ -3,7 +3,7 @@
 import { CopyIcon, XIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { CombinedBuffs } from "@/data";
-import { useModel } from "@/store";
+import { useModel } from "@/store/store";
 import text from "@/text";
 import { Button } from "./Button";
 import { Card } from "./Card";
@@ -79,7 +79,7 @@ export const ExportDialog = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">
-          <CopyIcon className="h-4 w-4" />
+          <CopyIcon className="size-4" />
           Export
         </Button>
       </DialogTrigger>
@@ -103,7 +103,7 @@ export const ExportDialog = () => {
           <div className="flex justify-end gap-2">
             {copied && <Notice variant="success">Copied to clipboard.</Notice>}
             <Button onClick={copy}>
-              <CopyIcon className="h-4 w-4" /> Copy
+              <CopyIcon className="size-4" /> Copy
             </Button>
           </div>
         </Card>

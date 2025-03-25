@@ -24,7 +24,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "test/**/*.ts",
+    "__tests__/**/*.ts",
     "vitest.config.mts"
   ],
   "exclude": ["node_modules"]

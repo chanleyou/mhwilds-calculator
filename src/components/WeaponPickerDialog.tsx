@@ -1,9 +1,9 @@
 import { XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useBuild } from "@/builder";
 import { WeaponTypes } from "@/data";
 import { Weapons } from "@/data/weapons";
 import { calculateHandicraft } from "@/model";
+import { useBuild } from "@/store/builder";
 import {
   WeaponType,
   isBowgun,
@@ -11,6 +11,7 @@ import {
   isRanged,
   isWeaponBowgun,
 } from "@/types";
+import { cn } from "@/utils";
 import {
   BowgunAmmoDisplay,
   Button,
@@ -27,7 +28,7 @@ import {
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 
 export const WeaponPickerDialog = () => {
-  const { weapon: a, setW } = useBuild();
+  const { w: a, setW: setW } = useBuild();
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
 
@@ -70,6 +71,10 @@ export const WeaponPickerDialog = () => {
 
   useEffect(() => void setFilter(""), [open]);
 
+  const rowCn = cn(
+    "border-content-alt flex flex-row justify-between gap-3 border-b p-2 last:border-0",
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -96,7 +101,7 @@ export const WeaponPickerDialog = () => {
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="flex flex-col gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
+          <div className="flex flex-col gap-1 overflow-y-auto pr-3 text-sm sm:hidden">
             {filteredOptions.map((o) => (
               <div
                 className="border-divider gap-1 rounded border p-3"
@@ -106,35 +111,31 @@ export const WeaponPickerDialog = () => {
                   setOpen(false);
                 }}
               >
-                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                  <div className="text-tertiary flex-1 text-right">Name</div>
+                <div className={rowCn}>
+                  <div className="text-tertiary flex-1">Name</div>
                   <div className="flex-3">{o.name}</div>
                 </div>
-                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                  <div className="text-tertiary flex-1 text-right">Attack</div>
+                <div className={rowCn}>
+                  <div className="text-tertiary flex-1">Attack</div>
                   <div className="flex-3">{o.attack}</div>
                 </div>
                 {o.affinity !== 0 && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">
-                      Affinity
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Affinity</div>
                     <div className="flex-3">{o.affinity}</div>
                   </div>
                 )}
                 {o.ammo && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">Ammo</div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Ammo</div>
                     <div className="flex-3">
                       <BowgunAmmoDisplay ammo={o.ammo} />
                     </div>
                   </div>
                 )}
                 {o.coatings && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">
-                      Coatings
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Coatings</div>
                     <div className="flex-3">
                       {o.coatings.map((c) => (
                         <p key={c}>{c}</p>
@@ -143,38 +144,32 @@ export const WeaponPickerDialog = () => {
                   </div>
                 )}
                 {o.phial !== "Dragon" && o.element && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">
-                      Element
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Element</div>
                     <div className="flex-3">
                       {o.element.value} {o.element.type}
                     </div>
                   </div>
                 )}
                 {o.status && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">
-                      Status
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Status</div>
                     <div className="flex-3">
                       {o.status.type} {o.status.value}
                     </div>
                   </div>
                 )}
                 {o.shelling && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">
-                      Shelling
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Shelling</div>
                     <div className="flex-3">
                       {o.shelling.type} {o.shelling.level}
                     </div>
                   </div>
                 )}
                 {o.phial && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                    <div className="text-tertiary flex-1 text-right">Phial</div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Phial</div>
                     <div className="flex-3">
                       {o.phial}{" "}
                       {(o.phial === "Dragon" ||
@@ -184,8 +179,8 @@ export const WeaponPickerDialog = () => {
                     </div>
                   </div>
                 )}
-                <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2">
-                  <div className="text-tertiary flex-1 text-right">Skills</div>
+                <div className={rowCn}>
+                  <div className="text-tertiary flex-1">Skills</div>
                   <div className="flex-3">
                     {Object.entries(o.skills).map(([k, v]) => (
                       <p className="text-sm" key={k + v}>
@@ -195,16 +190,14 @@ export const WeaponPickerDialog = () => {
                   </div>
                 </div>
                 <div className="border-content-alt flex flex-row justify-center gap-4 border-b p-2 last:border-0">
-                  <div className="text-tertiary flex-1 text-right">Slots</div>
+                  <div className="text-tertiary flex-1">Slots</div>
                   <div className="flex-3">
                     {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
                   </div>
                 </div>
                 {isMeleeWeapon(o) && (
-                  <div className="border-content-alt flex flex-row items-center justify-center gap-4 border-b p-2 last:border-0">
-                    <div className="text-tertiary flex-1 text-right">
-                      Sharpness
-                    </div>
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Sharpness</div>
                     <div className="flex flex-3 flex-col pt-1">
                       <SharpnessBar sharpness={o.sharpness} />
                       <SharpnessBar sharpness={calculateHandicraft(o, 5)} />
@@ -214,7 +207,7 @@ export const WeaponPickerDialog = () => {
               </div>
             ))}
           </div>
-          <div className="hidden overflow-auto sm:block">
+          <div className="hidden overflow-auto pr-3 sm:block">
             <Table>
               <thead>
                 <TableHeadRow>
@@ -268,7 +261,6 @@ export const WeaponPickerDialog = () => {
                     {isMeleeWeapon(o) && (
                       <TableCell className="text-center">
                         <SharpnessBar sharpness={o.sharpness} small />
-                        <div className="h-[1px]" />
                         <SharpnessBar
                           sharpness={calculateHandicraft(o, 5)}
                           small

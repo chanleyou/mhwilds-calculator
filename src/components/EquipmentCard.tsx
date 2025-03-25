@@ -1,4 +1,3 @@
-import { useBuild } from "@/builder";
 import {
   ArmorPickerDialog,
   ArtianDialog,
@@ -7,10 +6,11 @@ import {
   DecorationPickerDialog,
   WeaponPickerDialog,
 } from "@/components";
+import { useBuild } from "@/store/builder";
 
 export const EquipmentCard = () => {
   const {
-    weapon: w,
+    w: w,
     weaponSlots,
     setWeaponDecoration,
     helm,
@@ -38,9 +38,7 @@ export const EquipmentCard = () => {
   } = useBuild();
   return (
     <Card>
-      <div>
-        <h1>Equipment</h1>
-      </div>
+      <h1>Equipment</h1>
       <div className="flex flex-col gap-2">
         <p className="text-sm">Weapon</p>
         <div className="flex gap-2">

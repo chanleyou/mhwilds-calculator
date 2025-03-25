@@ -28,7 +28,7 @@ import {
 } from "@/data";
 import { ArmorSkills, GroupSkills, WeaponSkills } from "@/data/skills";
 import { round } from "@/model";
-import { useCalcs, useGetters, useModel } from "@/store";
+import { useCalcs, useGetters, useModel } from "@/store/store";
 import { Attack, Buff, SnapshotAttack, isRanged } from "@/types";
 
 const ComboModeOptions = ["Dynamic", "Snapshot"] as const;

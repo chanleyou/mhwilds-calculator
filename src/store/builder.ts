@@ -1,6 +1,11 @@
 import { produce } from "immer";
 import { create } from "zustand";
-import { ArtianTypeToGunlanceShellType, Buffs, Sharpnesses } from "@/data";
+import {
+  ArtianElementUpgrade,
+  ArtianTypeToGunlanceShellType,
+  Buffs,
+  Sharpnesses,
+} from "@/data";
 import {
   GroupSkillsTwo,
   SeriesSkillsTwo,
@@ -38,10 +43,10 @@ import {
   isStatusType,
   isWeaponBowgun,
 } from "@/types";
-import { SwordAndShields } from "./data/weapons/SwordAndShields";
+import { SwordAndShields } from "../data/weapons/SwordAndShields";
 
 export type InitialBuilder = {
-  weapon: Weapon;
+  w: Weapon;
   artian: Artian;
   otherBuffs: Record<string, Buff>;
   rawHzv: number;
@@ -64,8 +69,8 @@ export type InitialBuilder = {
 };
 
 const initialBuilder: InitialBuilder = {
-  weapon: SwordAndShields[0],
-  artian: { type: "No Element", infusions: [], upgrades: [] },
+  w: SwordAndShields[0],
+  artian: { element: "No Element", infusions: [], upgrades: [] },
   otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
   rawHzv: 80,
   eleHzv: 30,
@@ -104,17 +109,18 @@ export type Builder = InitialBuilder & {
   setLegsDecoration: (i: number, d?: Decoration) => void;
   setDisabled: (s: Skill, a: boolean) => void;
   setFlag: (f: Flag, a: boolean) => void;
+  emptyBuffs: () => void;
 };
 
 export const useBuild = create<Builder>((set) => ({
   ...initialBuilder,
   reset: () => set(initialBuilder),
   setW: (w: Weapon) =>
-    set({ weapon: w, weaponSlots: [], artian: initialBuilder.artian }),
+    set({ w: w, weaponSlots: [], artian: initialBuilder.artian }),
   setArtianType: (type: ArtianType) => {
     set(
       produce<InitialBuilder>((d) => {
-        d.artian.type = type;
+        d.artian.element = type;
         if (type !== "No Element" && type !== undefined) return;
         d.artian.upgrades.forEach((u, i) => {
           if (u === "Element") {
@@ -150,7 +156,7 @@ export const useBuild = create<Builder>((set) => ({
   setWeaponDecoration: (i: number, dc?: Decoration) => {
     set(
       produce<InitialBuilder>((d) => {
-        if (dc && d.weapon.slots[i] < dc.level) return;
+        if (dc && d.w.slots[i] < dc.level) return;
         d.weaponSlots[i] = dc;
       }),
     );
@@ -216,11 +222,12 @@ export const useBuild = create<Builder>((set) => ({
       }),
     );
   },
+  emptyBuffs: () => set({ otherBuffs: {} }),
 }));
 
 export const useComputed = () => {
   const {
-    weapon: w,
+    w,
     artian,
     rawHzv,
     eleHzv,
@@ -240,7 +247,7 @@ export const useComputed = () => {
     legsSlots,
     disabled,
     flags,
-  } = useBuild.getState();
+  } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
     (n): n is Armor => !!n,
@@ -342,52 +349,55 @@ export const useComputed = () => {
 
     // Artian
     if (!d.artian) return;
-    if (isGunlance(d) && artian.type) {
-      d.shelling.type = ArtianTypeToGunlanceShellType[artian.type];
+    if (isGunlance(d) && artian.element) {
+      d.shelling.type = ArtianTypeToGunlanceShellType[artian.element];
     }
 
     if (d.coatings) {
-      if (artian.type === "Thunder" || artian.type === "Dragon") {
+      if (artian.element === "Thunder" || artian.element === "Dragon") {
         d.coatings = ["Power"];
-      } else if (artian.type === "Ice") {
+      } else if (artian.element === "Ice") {
         d.coatings = ["Pierce"];
-      } else if (isStatusType(artian.type)) {
-        d.coatings = [artian.type];
+      } else if (isStatusType(artian.element)) {
+        d.coatings = [artian.element];
       }
     }
 
     if (isWeaponBowgun(d)) {
       const rapidFire = d.type === "Light Bowgun" ? true : undefined;
-      if (artian.type === "Dragon") {
+      if (artian.element === "Dragon") {
         d.ammo.Flaming = { levels: [1, 2], rapidFire };
         d.ammo.Dragon = { levels: [1], rapidFire };
-      } else if (artian.type === "Blast") {
+      } else if (artian.element === "Blast") {
         d.ammo.Flaming = { levels: [1, 2], rapidFire };
         d.ammo.Sticky = { levels: [1] };
-      } else if (artian.type === "Fire") {
+      } else if (artian.element === "Fire") {
         d.ammo.Flaming = { levels: [1, 2], rapidFire };
-      } else if (artian.type === "Ice" || artian.type === "Sleep") {
+      } else if (artian.element === "Ice" || artian.element === "Sleep") {
         d.ammo.Freeze = { levels: [1, 2], rapidFire };
-      } else if (artian.type === "Thunder" || artian.type === "Paralysis") {
+      } else if (
+        artian.element === "Thunder" ||
+        artian.element === "Paralysis"
+      ) {
         d.ammo.Thunder = { levels: [1, 2], rapidFire };
-      } else if (artian.type === "Water" || artian.type === "Poison") {
+      } else if (artian.element === "Water" || artian.element === "Poison") {
         d.ammo.Water = { levels: [1, 2], rapidFire };
       }
     }
 
-    if (isElementType(artian.type)) {
+    if (isElementType(artian.element)) {
       if (d.type === "Switch Axe" || d.type === "Charge Blade") {
         d.phial = "Element";
       }
       if (!isWeaponBowgun(d)) {
-        d.element = { type: artian.type, value: d.artian.element };
+        d.element = { type: artian.element, value: d.artian.element };
       }
-    } else if (isStatusType(artian.type)) {
+    } else if (isStatusType(artian.element)) {
       if (d.type === "Switch Axe") d.phial = "Power";
-      if (artian.type === "Blast" && d.type === "Bow") {
-        d.status = { type: artian.type, value: 80 };
+      if (artian.element === "Blast" && d.type === "Bow") {
+        d.status = { type: artian.element, value: 80 };
       } else {
-        d.status = { type: artian.type, value: d.artian.status };
+        d.status = { type: artian.element, value: d.artian.status };
       }
     }
 
@@ -395,35 +405,12 @@ export const useComputed = () => {
       if (i === "Attack") d.attack += 5;
       if (i === "Affinity") d.affinity += 5;
 
-      // TODO: refactor
       if (i === "Element" && d.element) {
-        if (d.type === "Great Sword") d.element.value += 80;
-        if (d.type === "Lance") d.element.value += 50;
-        if (d.type === "Charge Blade") d.element.value += 50;
-        if (d.type === "Long Sword") d.element.value += 50;
-        if (d.type === "Hammer") d.element.value += 50;
-        if (d.type === "Gunlance") d.element.value += 50;
-        if (d.type === "Hunting Horn") d.element.value += 50;
-        if (d.type === "Sword and Shield") d.element.value += 30;
-        if (d.type === "Switch Axe") d.element.value += 30;
-        if (d.type === "Insect Glaive") d.element.value += 30;
-        if (d.type === "Bow") d.element.value += 30;
-        if (d.type === "Dual Blades") d.element.value += 20;
+        d.element.value += ArtianElementUpgrade[d.type];
       }
 
       if (i === "Element" && d.status) {
-        if (d.type === "Great Sword") d.status.value += 80;
-        if (d.type === "Lance") d.status.value += 50;
-        if (d.type === "Charge Blade") d.status.value += 50;
-        if (d.type === "Long Sword") d.status.value += 50;
-        if (d.type === "Hammer") d.status.value += 50;
-        if (d.type === "Gunlance") d.status.value += 50;
-        if (d.type === "Hunting Horn") d.status.value += 50;
-        if (d.type === "Sword and Shield") d.status.value += 30;
-        if (d.type === "Switch Axe") d.status.value += 30;
-        if (d.type === "Insect Glaive") d.status.value += 30;
-        if (d.type === "Bow") d.status.value += 30;
-        if (d.type === "Dual Blades") d.status.value += 20;
+        d.status.value += ArtianElementUpgrade[d.type];
       }
 
       if (i === "Sharpness" && d.sharpness) {
@@ -493,9 +480,15 @@ export const useComputed = () => {
     return calculateAverage(hit, crit, atk.cantCrit ? 0 : uiAffinity);
   };
 
-  const effectiveRaw = calcAverage({ mv: 100, eleMul: 0, ignoreHzv: true });
-  const effectiveEle = calcAverage({ mv: 0 }, 100);
+  const effectiveRaw = calcAverage({
+    name: "EFR",
+    mv: 100,
+    eleMul: 0,
+    ignoreHzv: true,
+  });
+  const effectiveEle = calcAverage({ name: "EFE", mv: 0 }, 100);
 
+  // TODO: separate these into slices
   return {
     weapon,
     skillPoints,

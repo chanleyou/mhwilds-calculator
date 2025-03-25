@@ -655,9 +655,9 @@ export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
       {
         weapons: ["Bow"],
         levels: {
-          1: { chargeEleMul: 1.05 },
-          2: { chargeEleMul: 1.1 },
-          3: { chargeEleMul: 1.15 },
+          1: { eleMul: 1.05 },
+          2: { eleMul: 1.1 },
+          3: { eleMul: 1.15 },
         },
       },
       {
@@ -677,9 +677,9 @@ export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
           "Sword and Shield",
         ],
         levels: {
-          1: { chargeEleMul: 1.15 },
-          2: { chargeEleMul: 1.2 },
-          3: { chargeEleMul: 1.25 },
+          1: { eleMul: 1.15 },
+          2: { eleMul: 1.2 },
+          3: { eleMul: 1.25 },
         },
       },
     ],

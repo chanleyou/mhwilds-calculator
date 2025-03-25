@@ -1,5 +1,5 @@
 import { afterEach, expect, test } from "vitest";
-import { useBuild, useComputed } from "@/builder";
+import { useBuild, useComputed } from "@/store/builder";
 import { atk, deco, wpn } from "./utils";
 
 const st = useBuild.getState();
@@ -8,7 +8,7 @@ afterEach(() => st.reset());
 
 test("Gunlance", () => {
   const gl = wpn("Gunlance", "G. Lawful Bors");
-  useBuild.setState({ weapon: gl });
+  useBuild.setState({ w: gl });
   useBuild.setState({ otherBuffs: {} });
 
   let calcHit = useComputed().calcHit;

@@ -4,9 +4,11 @@ import { cn } from "@/utils";
 export function SnapshotMovesTable({
   moves,
   onClick,
+  className,
 }: {
   moves: SnapshotAttack[];
   onClick?: (a: SnapshotAttack, i: number) => void;
+  className?: string;
 }) {
   const cellCn = cn(
     "text-secondary px-2 py-1.5 text-right first:w-full first:pl-0 first:text-left last:pr-0",
@@ -14,7 +16,9 @@ export function SnapshotMovesTable({
   );
 
   return (
-    <table className="w-full table-auto border-collapse text-xs">
+    <table
+      className={cn("w-full table-auto border-collapse text-xs", className)}
+    >
       <thead>
         <tr className="border-divider border-b">
           <th className={cellCn}></th>

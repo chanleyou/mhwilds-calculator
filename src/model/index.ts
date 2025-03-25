@@ -331,7 +331,7 @@ export const calculateElementTwo = (
 
   buffs = produce(buffs, (d) => {
     Object.entries(d).forEach(([k, v]) => {
-      if (!v || v.elementType !== type) delete d[k];
+      if (!v || (v.elementType && v.elementType !== type)) delete d[k];
     });
   });
 
@@ -399,7 +399,7 @@ export const calculateRawHitTwo = (
     !atk.ignoreCoating && buffs.BowCoating?.rawMul,
     atk.spreadPowerShot && buffs["Spread/Power Shots"]?.rawMul,
     atk.specialAmmo && buffs["Special Ammo Boost"]?.rawMul,
-    atk.normalShot && buffs["Normal Shot"]?.rawMul,
+    atk.normalShot && buffs["Normal Shots"]?.rawMul,
     atk.rapidFire && buffs["Rapid Fire Up"]?.rawMul,
     atk.piercingShot && buffs["Piercing Shots"]?.rawMul,
     atk.cbAxe && buffs.ChargeBladeShieldElement?.axeRawMul,
@@ -465,7 +465,7 @@ export const calculateEleHitTwo = (
     eleHzv,
     atk.eleMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessEle(weapon.sharpness),
-    atk.charge && buffs["Charge Master"]?.chargeEleMul,
+    atk.charge && buffs["Charge Master"]?.eleMul,
     buffs.DualBladesDemonBoost?.eleMul,
   );
 };

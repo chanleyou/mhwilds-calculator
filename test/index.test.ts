@@ -20,8 +20,6 @@ const base = {
   eleCritMulti: 1,
 };
 
-// TODO: refactor tests to use store instead of manually setting parameters
-
 // 230 Attack, Attack Boost 4, Offensive Guard 3, Powercharm
 const a = calculateAttack({
   attack: 230,
@@ -96,6 +94,7 @@ test("calculateElement", () => {
 test("calculateHit", () => {
   expect(
     calculateHit({
+      name: "",
       ...base,
       uiAttack: a,
       sharpness: "Blue",
@@ -104,6 +103,7 @@ test("calculateHit", () => {
   ).toBe(73.6);
   expect(
     calculateHit({
+      name: "",
       ...base,
       uiAttack: b,
       uiElement: c,
@@ -113,6 +113,7 @@ test("calculateHit", () => {
   ).toBe(59.4);
   expect(
     calculateHit({
+      name: "",
       ...base,
       uiAttack: b,
       uiElement: c,
@@ -123,6 +124,7 @@ test("calculateHit", () => {
 
   expect(
     calculateHit({
+      name: "",
       ...base,
       uiAttack: h3,
       uiElement: 400,
@@ -135,6 +137,7 @@ test("calculateHit", () => {
 test("calculateCrit", () => {
   expect(
     calculateCrit({
+      name: "",
       ...base,
       uiAttack: b,
       uiElement: c,
@@ -144,6 +147,7 @@ test("calculateCrit", () => {
   ).toBe(72.3);
   expect(
     calculateCrit({
+      name: "",
       ...base,
       uiAttack: h3,
       uiElement: 400,
@@ -394,8 +398,8 @@ test("Heavy Bowgun", () => {
     weapon: "Heavy Bowgun" as WeaponType,
   };
 
-  const e1 = atk("Heavy Bowgun", "Fire Lv1");
-  const e2 = atk("Heavy Bowgun", "Fire Lv2");
+  const e1 = atk("Heavy Bowgun", "Flaming Lv1");
+  const e2 = atk("Heavy Bowgun", "Flaming Lv2");
   const p1 = atk("Heavy Bowgun", "Pierce Lv1");
   const sp2 = atk("Heavy Bowgun", "Spread Lv2");
   // const st1 = atk("Heavy Bowgun", "Sticky Lv1");

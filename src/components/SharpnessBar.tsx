@@ -24,12 +24,18 @@ const SharpnessBarComponent = ({ sharpness, small, className }: Props) => {
                 <div
                   className={cn(
                     "group relative inline-block h-3",
-                    small && "h-2",
+                    small && "h-2.5",
+                    Sharpnesses[i] === "Red" && "bg-red-500",
+                    Sharpnesses[i] === "Orange" && "bg-orange-500",
+                    Sharpnesses[i] === "Yellow" && "bg-yellow-500",
+                    Sharpnesses[i] === "Green" && "bg-green-500",
+                    Sharpnesses[i] === "Blue" && "bg-blue-500",
+                    Sharpnesses[i] === "White" && "bg-neutral-100",
                   )}
                   key={`${id}-${i}`}
                   style={{
                     width: `${small ? v / 5 : v / 2}px`,
-                    backgroundColor: Sharpnesses[i],
+                    // backgroundColor: Sharpnesses[i],
                   }}
                 ></div>
               </TooltipTrigger>

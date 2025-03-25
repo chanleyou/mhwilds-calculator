@@ -1,4 +1,10 @@
-import { ArtianType, BuffGroup, Sharpness, Shelling } from "@/types";
+import {
+  ArtianType,
+  BuffGroup,
+  Sharpness,
+  Shelling,
+  WeaponType,
+} from "@/types";
 import { ArmorSkills, GroupSkills, WeaponSkills } from "./skills";
 
 export const WeaponTypes = [
@@ -221,3 +227,20 @@ export const ArtianTypeToGunlanceShellType: {
   Sleep: "Normal",
   Blast: "Wide",
 } as const;
+
+export const ArtianElementUpgrade: Record<WeaponType, number> = {
+  ["Great Sword"]: 80,
+  ["Lance"]: 50,
+  ["Charge Blade"]: 50,
+  ["Long Sword"]: 50,
+  ["Hammer"]: 50,
+  ["Gunlance"]: 50,
+  ["Hunting Horn"]: 50,
+  ["Sword and Shield"]: 30,
+  ["Switch Axe"]: 30,
+  ["Insect Glaive"]: 30,
+  ["Bow"]: 30,
+  ["Dual Blades"]: 20,
+  ["Light Bowgun"]: 0,
+  ["Heavy Bowgun"]: 0,
+};

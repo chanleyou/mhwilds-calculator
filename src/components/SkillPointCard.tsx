@@ -1,11 +1,11 @@
 import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip";
-import { useBuild, useComputed } from "@/builder";
 import { Card, Checkbox, TooltipContent } from "@/components";
 import {
   GroupSkillsTwo,
   SeriesSkillsTwo,
   WeaponArmorSkills,
 } from "@/data/skills";
+import { useBuild, useComputed } from "@/store/builder";
 import { Buff, isSkillGroup } from "@/types";
 import { cn } from "@/utils";
 
@@ -54,8 +54,8 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                         <div
                           key={l}
                           className={cn(
-                            "border-divider bg-background h-4 w-4 border",
-                            v >= l && "border-accent-alt/50 bg-accent-alt",
+                            "border-divider bg-background size-4 border",
+                            v >= l && "border-none bg-cyan-300",
                           )}
                         />
                       );
@@ -91,15 +91,16 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                       <p
                         className={cn("text-sm", disabled[k] && "line-through")}
                       >
-                        {k} {Math.min(v, entries.length)}
+                        {k} {Math.min(v, entries.length)}{" "}
+                        {v > entries.length && `(${v})`}
                       </p>
                       <div className="flex gap-1">
                         {entries.map((_, i) => (
                           <div
                             key={`${k}-${i}`}
                             className={cn(
-                              "border-divider bg-background h-4 w-4 border",
-                              v > i && "border-accent/50 bg-accent",
+                              "border-divider bg-background size-4 border",
+                              v > i && "border-none bg-amber-500",
                             )}
                           />
                         ))}
@@ -164,8 +165,8 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                         <div
                           key={i}
                           className={cn(
-                            "border-divider bg-background h-4 w-4 border",
-                            v >= i && "border-indigo-400/50 bg-indigo-400",
+                            "border-divider bg-background size-4 border",
+                            v >= i && "border-none bg-indigo-300",
                           )}
                         />
                       );

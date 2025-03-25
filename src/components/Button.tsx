@@ -8,7 +8,7 @@ const button = cva({
     variant: {
       primary: "bg-accent text-background",
       secondary: "text-accent border bg-inherit",
-      text: "border-none bg-inherit text-white hover:opacity-50",
+      text: "border-none bg-inherit text-inherit hover:opacity-50",
     },
     size: {
       md: "px-4 py-2",

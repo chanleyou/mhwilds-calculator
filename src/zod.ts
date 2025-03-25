@@ -20,12 +20,12 @@ export const importSchema = z.object({
 
 export const importSchemaTwo = z.object({
   weapon: z.object({
-    type: z.enum(WeaponTypes),
     name: z.string(),
+    type: z.enum(WeaponTypes),
   }),
   artian: z
     .object({
-      type: z.enum(ArtianTypeOptions),
+      element: z.enum(ArtianTypeOptions),
       infusions: z.array(z.enum(ArtianInfusionOptions).optional()).max(3),
       upgrades: z.array(z.enum(ArtianUpgradeOptions).optional()).max(5),
     })
@@ -42,4 +42,5 @@ export const importSchemaTwo = z.object({
   armsSlots: z.array(z.string().optional().nullable()).max(3).optional(),
   waistSlots: z.array(z.string().optional().nullable()).max(3).optional(),
   legsSlots: z.array(z.string().optional().nullable()).max(3).optional(),
+  buffs: z.record(z.number().int()).default({}),
 });

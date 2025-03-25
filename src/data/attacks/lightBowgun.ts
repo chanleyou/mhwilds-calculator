@@ -155,6 +155,7 @@ export const LightBowgunAttacks = [
     fixedEle: 5,
     ignoreHzv: true,
     cantCrit: true,
+    artilleryAmmo: true,
     ammo: { type: "Sticky", level: 1 },
   },
   {

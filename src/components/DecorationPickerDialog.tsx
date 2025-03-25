@@ -66,7 +66,7 @@ export const DecorationPickerDialog = ({
               className="text-secondary"
             >
               <div>
-                <XIcon className="h-4 w-4" />
+                <XIcon className="size-4" />
               </div>
             </Button>
           )}
@@ -88,7 +88,7 @@ export const DecorationPickerDialog = ({
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-3 sm:grid-cols-2">
             {filteredOptions.map((c) => (
               <div
                 className="border-divider hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"

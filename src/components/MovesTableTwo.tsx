@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useBuild, useComputed } from "@/builder";
 import Attacks from "@/data/attacks";
+import { useComputed } from "@/store/builder";
 import { Attack, isGunlance, isWeaponBowgun } from "@/types";
 import { cn } from "@/utils";
 import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
@@ -13,6 +13,7 @@ export function MovesTableTwo({
   custom?: Attack[];
   onClick?: (a: Attack, i: number) => void;
   hideHits?: boolean;
+  canHide?: boolean;
 }) {
   const { weapon: w, calcHit, calcCrit, calcAverage } = useComputed();
 
@@ -73,9 +74,8 @@ export function MovesTableTwo({
           const avg = calcAverage(a);
           return (
             <TableRow
-              className={cn(onClick && "hover:bg-content-alt")}
               key={`${a.name}-${i}`}
-              onClick={() => onClick?.(a, i)}
+              onClick={onClick ? () => onClick(a, i) : undefined}
             >
               <TableCell small className="w-full text-left">
                 {a.name}
