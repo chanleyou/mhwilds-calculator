@@ -1,6 +1,7 @@
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { Funnel_Sans } from "next/font/google";
+// import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { inter, notoSansMono } from "@/fonts";
 import "./globals.css";
@@ -27,7 +28,10 @@ export default function RootLayout({
           className={`bg-background text-white ${inter.variable} ${notoSansMono.variable} ${funnel.variable} antialiased`}
         >
           <Header />
-          <main className="max-w-11xl mx-auto py-2 sm:p-2">{children}</main>
+          <main className="max-w-11xl mx-auto pt-2 pb-12 sm:px-2">
+            {children}
+          </main>
+          {/* <Footer /> */}
         </body>
       </TooltipProvider>
     </html>

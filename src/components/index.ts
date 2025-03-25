@@ -14,7 +14,7 @@ export * from "./ImportDialog";
 export * from "./ImportDialogTwo";
 export * from "./InputContainer";
 export * from "./MovesTable";
-export * from "./MovesTableTwo";
+export * from "./AttacksTable";
 export * from "./Notice";
 export * from "./NumberDisplay";
 export * from "./NumberInput";

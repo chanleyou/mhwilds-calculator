@@ -262,12 +262,17 @@ export const isBowgunElementAmmo = (
 
 export type ComputedStore = InitialStore & ReturnType<typeof useGetters>;
 
+export type DynamicAttack = IAttack & {
+  count: number;
+};
+
 export type SnapshotAttack = {
   name: string;
   hit: number;
   crit: number;
   avg: number;
   cantCrit?: boolean;
+  count: number;
 };
 
 export const isRanged = (weapon?: WeaponType) => {

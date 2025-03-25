@@ -73,7 +73,7 @@ export const DecorationPickerDialog = ({
         </Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-dvh w-[100vw] sm:h-[85vh] sm:w-4xl sm:max-w-[95vw]">
+        <Card className="h-dvh w-[100vw] sm:h-[85dvh] sm:w-4xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Decoration {level}</h1>

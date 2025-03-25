@@ -1,5 +1,7 @@
-import { SnapshotAttack } from "@/types";
+import { SnapshotAttack as SnapshotAttackTwo } from "@/types";
 import { cn } from "@/utils";
+
+type SnapshotAttack = Omit<SnapshotAttackTwo, "count">;
 
 export function SnapshotMovesTable({
   moves,
@@ -20,7 +22,7 @@ export function SnapshotMovesTable({
       className={cn("w-full table-auto border-collapse text-xs", className)}
     >
       <thead>
-        <tr className="border-divider border-b">
+        <tr className="border-tertiary border-b font-medium">
           <th className={cellCn}></th>
           <th className={cellCn}>Hit</th>
           <th className={cellCn}>Crit</th>
