@@ -99,7 +99,63 @@ export interface IWeapon extends Equip {
   shelling?: Shelling;
   ammo?: BowgunAmmoLevels;
   coatings?: BowCoating[];
+  songs?: HuntingHornSong[];
 }
+
+export const HuntingHornSongs = [
+  "Attack Up (S)",
+  "Attack Up (L)",
+  "Health Recovery (S)",
+  "Health Rec. (M) + Antidote",
+  "Health Recovery (L)",
+  "Recovery Speed (S)",
+  "Recovery Speed (L)",
+  "Stamina Use Reduced (L)",
+  "Defense Up (S)",
+  "Defense Up (L)",
+  "Attack/Defense Up (S)",
+  "Elem Attack Boost",
+  "Status Attack Up",
+  "Earplugs (S)",
+  "Earplugs (L)",
+  "Affinity Up/Health Recovery",
+  "Aquatic/Oilsilt Mobility",
+  "Envir. Damage Negated",
+  "Knockback Negated",
+  "All Ailments Negated",
+  "Divine Protection",
+  "Fire Res(L)",
+  "Ice Res (L)",
+  "Thunder Res (L)",
+  "Water Res (L)",
+  "Dragon Res (L)",
+  "Tremors Negated",
+  "Paralysis Negated",
+  "Blight Negated",
+  "Stun Negated",
+  "Wind Pressure Negated",
+  "All Wind Pressure Negated",
+  "Extend All Melodies",
+  "Restore Sharpness",
+  "Sonic Waves",
+  "Sonic Barrier",
+  "Echo Wave (Blunt)",
+  "Echo Wave (Slash)",
+  "Echo Wave (Fire)",
+  "Echo Wave (Ice)",
+  "Echo Wave (Thunder)",
+  "Echo Wave (Water)",
+  "Echo Wave (Dragon)",
+  "Echo Wave (Blast)",
+  "Echo Wave (Paralysis)",
+  "Echo Wave (Poison)",
+  "Echo Wave (Sleep)",
+  "Offset Melody",
+  "Resounding Melody",
+  "Melody of Life",
+] as const;
+
+type HuntingHornSong = (typeof HuntingHornSongs)[number];
 
 export interface MeleeWeapon extends IWeapon {
   sharpness: WeaponSharpness;
@@ -115,6 +171,7 @@ export type Bowgun = IWeapon & {
 export type ChargeBlade = MeleeWeapon & { phial: ChargeBladePhialType };
 export type Gunlance = MeleeWeapon & { shelling: Shelling };
 export type SwitchAxe = MeleeWeapon & { phial: SwitchAxePhialType };
+export type HuntingHorn = MeleeWeapon & { songs: HuntingHornSong[] };
 
 export type Weapon =
   | Bow
@@ -245,6 +302,7 @@ export interface IAttack {
     type: AmmoType;
     level: number;
   };
+  melody?: boolean;
 }
 
 export type BowgunElementAmmo = IAttack & {

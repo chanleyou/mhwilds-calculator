@@ -386,6 +386,16 @@ export const useComputed = () => {
     }
 
     if (isElementType(artian.element)) {
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Elem Attack Boost",
+          "Blight Negated",
+          "Sonic Waves",
+          "Restore Sharpness",
+          `Echo Wave (${artian.element})`,
+          "Resounding Melody",
+        ];
+      }
       if (d.type === "Switch Axe" || d.type === "Charge Blade") {
         d.phial = "Element";
       }
@@ -393,6 +403,15 @@ export const useComputed = () => {
         d.element = { type: artian.element, value: d.artian.element };
       }
     } else if (isStatusType(artian.element)) {
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Status Attack Up",
+          "Divine Protection",
+          "All Ailments Negated",
+          `Echo Wave (${artian.element})`,
+          "Offset Melody",
+        ];
+      }
       if (d.type === "Switch Axe") d.phial = "Power";
       if (artian.element === "Blast" && d.type === "Bow") {
         d.status = { type: artian.element, value: 80 };

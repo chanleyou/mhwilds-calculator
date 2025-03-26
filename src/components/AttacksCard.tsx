@@ -1,6 +1,6 @@
 import { ListIcon } from "lucide-react";
 import { useState } from "react";
-import { useBuild } from "@/store/builder";
+import { useBuild, useComputed } from "@/store/builder";
 import { useCombo, useTotalDamage, useTotalHits } from "@/store/combo";
 import { cn } from "@/utils";
 import {

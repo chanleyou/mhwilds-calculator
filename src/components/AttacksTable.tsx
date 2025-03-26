@@ -19,6 +19,18 @@ export function AttacksTable({
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
 
+    if (w.type === "Hunting Horn") {
+      return Attacks["Hunting Horn"].filter((a) => {
+        if (!a.melody) return true;
+        return w.songs?.some((s) => {
+          if (a.name.includes("Resounding Melody")) {
+            return w.songs?.includes("Resounding Melody");
+          }
+          return a.name.includes(s);
+        });
+      });
+    }
+
     if (w.type === "Charge Blade") {
       return Attacks["Charge Blade"].filter((a) => {
         if (!a.cbPhial) return true;

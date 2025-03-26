@@ -1,6 +1,27 @@
-import { type MeleeWeapon } from "@/types";
+import { type HuntingHorn } from "@/types";
 
-export const HuntingHorns: MeleeWeapon[] = [
+export const HuntingHorns: HuntingHorn[] = [
+  {
+    type: "Hunting Horn",
+    name: "Esperanza Horn",
+    rarity: 8,
+    attack: 210,
+    affinity: 0,
+    sharpness: [50, 60, 70, 60, 40, 70, 0],
+    handicraft: [50, 0, 0, 0],
+    slots: [3, 2, 1],
+    skills: {
+      "Critical Eye": 2,
+      "Speed Sharpening": 2,
+    },
+    songs: [
+      "Attack Up (S)",
+      "Fire Res(L)",
+      "Sonic Waves",
+      "Echo Wave (Blunt)",
+      "Offset Melody",
+    ],
+  },
   {
     type: "Hunting Horn",
     name: "G. Rathalos Tree Feroce",
@@ -12,6 +33,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [50, 150, 50, 40, 40, 20, 0],
     handicraft: [50, 0, 0, 0],
     skills: { "Master's Touch": 1, "Critical Element": 1 },
+    songs: [
+      "Attack Up (L)",
+      "Defense Up (L)",
+      "Wind Pressure Negated",
+      "Sonic Barrier",
+      "Echo Wave (Blunt)",
+      "Resounding Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -22,7 +51,15 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [40, 60, 90, 70, 50, 40, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "Critical Draw": 3, Horn: 1 },
+    skills: { "Critical Draw": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Attack Up (L)",
+      "Earplugs (S)",
+      "Aquatic/Oilsilt Mobility",
+      "Envir. Damage Negated",
+      "Echo Wave (Slash)",
+      "Offset Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -47,6 +84,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [40, 40, 40, 80, 120, 30, 0],
     handicraft: [50, 0, 0, 0],
     skills: { Slugger: 3 },
+    songs: [
+      "Health Recovery (S)",
+      "Recovery Speed (S)",
+      "Elem Attack Boost",
+      "Divine Protection",
+      "Thunder Res (L)",
+      "Sonic Waves",
+      "Echo Wave (Ice)",
+      "Offset Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -59,6 +106,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [50, 80, 50, 90, 40, 40, 0],
     handicraft: [50, 0, 0, 0],
     skills: { Slugger: 3 },
+    songs: [
+      "Attack Up (L)",
+      "Earplugs (S)",
+      "Aquatic/Oilsilt Mobility",
+      "Envir. Damage Negated",
+      "Echo Wave (Blast)",
+      "Offset Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -70,7 +125,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [20, 110, 50, 50, 60, 60, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "Stamina Thief": 3, Horn: 1 },
+    skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Health Recovery (S)",
+      "Health Rec. (M) + Antidote",
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "Wind Pressure Negated",
+      "Echo Wave (Blunt)",
+      "Melody of Life",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -107,6 +171,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [40, 30, 100, 90, 70, 20, 0],
     handicraft: [50, 0, 0, 0],
     skills: { Slugger: 3 },
+    songs: [
+      "Health Recovery (S)",
+      "Recovery Speed (S)",
+      "Elem Attack Boost",
+      "Divine Protection",
+      "Thunder Res (L)",
+      "Sonic Waves",
+      "Echo Wave (Water)",
+      "Offset Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -130,7 +204,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [10, 10, 120, 70, 70, 70, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "Stamina Thief": 3, Horn: 1 },
+    skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Attack Up (S)",
+      "Fire Res(L)",
+      "Sonic Waves",
+      "Echo Wave (Thunder)",
+      "Offset Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -155,6 +236,15 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [50, 50, 80, 80, 90, 0, 0],
     handicraft: [0, 50, 0, 0],
     skills: { "Protective Polish": 3, "Speed Sharpening": 2 },
+    songs: [
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "Ice Res (L)",
+      "All Wind Pressure Negated",
+      "Sonic Waves",
+      "Echo Wave (Paralysis)",
+      "Resounding Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -166,6 +256,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [50, 70, 70, 70, 90, 0, 0],
     handicraft: [50, 0, 0, 0],
     skills: { "Stamina Thief": 3, "Attack Boost": 1 },
+    songs: [
+      "Attack Up (L)",
+      "Defense Up (L)",
+      "Wind Pressure Negated",
+      "Sonic Barrier",
+      "Echo Wave (Blunt)",
+      "Resounding Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -176,7 +274,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [50, 100, 120, 50, 30, 0, 0],
     handicraft: [0, 50, 0, 0],
-    skills: { Slugger: 2, Horn: 1 },
+    skills: { Slugger: 2, ["Horn Maestro"]: 1 },
+    songs: [
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "Stun Negated",
+      "Wind Pressure Negated",
+      "Sonic Barrier",
+      "Echo Wave (Blunt)",
+      "Offset Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -188,7 +295,15 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 3, 1],
     sharpness: [100, 80, 50, 80, 40, 0, 0],
     handicraft: [10, 40, 0, 0],
-    skills: { Horn: 2 },
+    skills: { ["Horn Maestro"]: 2 },
+    songs: [
+      "Attack Up (L)",
+      "Defense Up (L)",
+      "Wind Pressure Negated",
+      "Sonic Barrier",
+      "Echo Wave (Slash)",
+      "Resounding Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -200,7 +315,7 @@ export const HuntingHorns: MeleeWeapon[] = [
   //   slots: [3, 2, 0],
   //   sharpness: [50, 50, 50, 80, 100, 20, 0],
   //   handicraft: [50, 0, 0, 0],
-  //   skills: { Slugger: 2, Horn: 2 },
+  //   skills: { Slugger: 2, ["Horn Maestro"]: 2 },
   // },
   // {
   //   type: "Hunting Horn",
@@ -224,7 +339,15 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [50, 50, 50, 70, 90, 40, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { Slugger: 2, Horn: 2 },
+    skills: { Slugger: 2, ["Horn Maestro"]: 2 },
+    songs: [
+      "Attack Up (L)",
+      "Knockback Negated",
+      "Extend All Melodies",
+      "Restore Sharpness",
+      "Echo Wave (Dragon)",
+      "Resounding Melody",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -235,7 +358,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [60, 80, 100, 70, 40, 0, 0],
     handicraft: [10, 40, 0, 0],
-    skills: { "Stamina Thief": 3, Horn: 1 },
+    skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Health Recovery (S)",
+      "Health Recovery (L)",
+      "Earplugs (L)",
+      "Echo Wave (Blunt)",
+      "Melody of Life",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -246,7 +376,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 3, 1],
     sharpness: [60, 90, 60, 60, 50, 30, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { Horn: 2, "Speed Sharpening": 1 },
+    skills: { ["Horn Maestro"]: 2, "Speed Sharpening": 1 },
+    songs: [
+      "Health Recovery (S)",
+      "Health Rec. (M) + Antidote",
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "Wind Pressure Negated",
+      "Echo Wave (Blunt)",
+      "Melody of Life",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -258,7 +397,7 @@ export const HuntingHorns: MeleeWeapon[] = [
   //   slots: [3, 2, 0],
   //   sharpness: [100, 120, 40, 70, 20, 0, 0],
   //   handicraft: [20, 30, 0, 0],
-  //   skills: { "Stamina Thief": 3, Horn: 1 },
+  //   skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
   // },
   // {
   //   type: "Hunting Horn",
@@ -282,7 +421,16 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [110, 120, 30, 60, 30, 0, 0],
     handicraft: [0, 50, 0, 0],
-    skills: { "Stamina Thief": 3, Horn: 1 },
+    skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Elem Attack Boost",
+      "Water Res (L)",
+      "Dragon Res (L)",
+      "Tremors Negated",
+      "Paralysis Negated",
+      "Sonic Waves",
+      "Melody of Life",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -295,6 +443,15 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [40, 90, 120, 60, 40, 0, 0],
     handicraft: [0, 50, 0, 0],
     skills: { "Critical Element": 3 },
+    songs: [
+      "Elem Attack Boost",
+      "Water Res (L)",
+      "Dragon Res (L)",
+      "Tremors Negated",
+      "Paralysis Negated",
+      "Sonic Waves",
+      "Melody of Life",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -306,7 +463,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [90, 50, 110, 60, 40, 0, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "Critical Draw": 3, Horn: 1 },
+    skills: { "Critical Draw": 3, ["Horn Maestro"]: 1 },
+    songs: [
+      "Status Attack Up",
+      "Divine Protection",
+      "All Ailments Negated",
+      "Echo Wave (Poison)",
+      "Offset Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -331,6 +495,13 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [40, 80, 30, 120, 30, 50, 0],
     handicraft: [50, 0, 0, 0],
     skills: { "Critical Status": 3, "Poison Duration Up": 1 },
+    songs: [
+      "Attack Up (L)",
+      "Health Recovery (S)",
+      "Recovery Speed (L)",
+      "Echo Wave (Blunt)",
+      "Melody of Life",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -343,6 +514,14 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [100, 70, 50, 40, 60, 30, 0],
     handicraft: [50, 0, 0, 0],
     skills: { "Critical Boost": 3 },
+    songs: [
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "All Wind Pressure Negated",
+      "Attack/Defense Up (S)",
+      "Echo Wave (Fire)",
+      "Offset Melody",
+    ],
   },
   // {
   //   type: "Hunting Horn",
@@ -379,6 +558,13 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [50, 50, 80, 60, 50, 60, 0],
     handicraft: [50, 0, 0, 0],
     skills: { "Critical Element": 3 },
+    songs: [
+      "Health Recovery (S)",
+      "Earplugs (L)",
+      "Affinity Up/Health Recovery",
+      "Echo Wave (Blunt)",
+      "Melody of Life",
+    ],
   },
   {
     type: "Hunting Horn",
@@ -391,5 +577,13 @@ export const HuntingHorns: MeleeWeapon[] = [
     sharpness: [80, 40, 60, 80, 70, 20, 0],
     handicraft: [50, 0, 0, 0],
     skills: {},
+    songs: [
+      "Stamina Use Reduced (L)",
+      "Defense Up (L)",
+      "All Wind Pressure Negated",
+      "Attack/Defense Up (S)",
+      "Echo Wave (Slash)",
+      "Offset Melody",
+    ],
   },
 ];

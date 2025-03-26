@@ -207,6 +207,7 @@ export default function Home() {
                 disabled={isRanged(weapon)}
                 onChangeValue={setSharpness}
                 options={[...Sharpnesses]}
+                disabledOptions={["Ranged"]}
                 // description={`Raw: ${sharpnessRaw[sharpness]} Element: ${sharpnessEle[sharpness]}`}
               />
               {Object.entries(WeaponBuffs).map(([k, s]) => {
