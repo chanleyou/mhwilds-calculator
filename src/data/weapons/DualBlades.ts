@@ -184,8 +184,7 @@ export const DualBlades: MeleeWeapon[] = [
     name: "Fastflayers Jambastra",
     rarity: 8,
     attack: 240,
-    affinity: 5,
-
+    affinity: -5,
     slots: [3, 3, 1],
     sharpness: [50, 100, 90, 50, 60, 0, 0],
     handicraft: [0, 50, 0, 0],

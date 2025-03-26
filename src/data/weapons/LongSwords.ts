@@ -151,7 +151,6 @@ export const LongSwords: MeleeWeapon[] = [
     rarity: 8,
     attack: 240,
     affinity: -5,
-
     slots: [3, 2, 1],
     sharpness: [50, 100, 110, 50, 40, 0, 0],
     handicraft: [0, 50, 0, 0],
