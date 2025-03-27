@@ -230,6 +230,8 @@ export type Buff = BuffValues & {
   chargeEleMul?: number;
   elementType?: ElementType;
   statusType?: StatusType;
+  airAttackMul?: number;
+  airAttackMulHalf?: number;
 };
 
 export type BuffGroup = {
@@ -303,6 +305,7 @@ export interface IAttack {
   artilleryAmmo?: boolean;
   rapidFire?: boolean;
   airborne?: boolean; // TODO
+  noExtract?: boolean;
   ammo?: {
     type: AmmoType;
     level: number;

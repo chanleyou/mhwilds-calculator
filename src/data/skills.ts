@@ -573,7 +573,6 @@ export const GroupSkills: Record<string, BuffGroup> = {
 };
 
 export const UnsupportedWeaponSkills: Record<Skill, SkillTwo> = {
-  ["Airborne"]: skill(1),
   ["Ballistics"]: skill(3),
   ["Blast Functionality"]: skill(1),
   ["Bludgeoner"]: skill(3),
@@ -602,6 +601,11 @@ export const UnsupportedWeaponSkills: Record<Skill, SkillTwo> = {
 
 export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
   ...UnsupportedWeaponSkills,
+  ["Airborne"]: {
+    levels: {
+      1: { name: "Airborne 1", airAttackMul: 1.1 },
+    },
+  },
   ["Artillery"]: {
     levels: {
       1: {

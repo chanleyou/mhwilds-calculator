@@ -21,10 +21,10 @@ export const HitzoneDialog = () => {
   const [monster, setMonster] = useState<keyof typeof Monsters>("Arkveld");
 
   const rowCn = cn(
-    "border-content-alt flex flex-row justify-between gap-3 border-b p-2 last:border-0",
+    "border-content-alt flex flex-row justify-between gap-3 border-b p-2 [&:nth-last-child(-n+2)]:border-0",
   );
 
-  const cellCn = cn("text-right first:w-full first:text-left");
+  const cellCn = cn("b text-right first:w-full first:text-left");
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -35,7 +35,7 @@ export const HitzoneDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-dvh w-[100vw] sm:h-[50dvh] sm:w-2xl sm:max-w-[95vw]">
+        <Card className="sm: h-dvh w-[100vw] sm:h-fit sm:w-2xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Monster</h1>
@@ -55,15 +55,14 @@ export const HitzoneDialog = () => {
               const { wound, ...hitzones } = target;
               return (
                 <div
-                  className="border-divider grid grid-cols-2 gap-1 rounded border p-3"
+                  className="border-divider hover:bg-content-alt grid cursor-pointer grid-cols-2 gap-y-1 rounded border p-3"
                   key={name}
                   onClick={() => {
                     setTarget(target);
                     setOpen(false);
                   }}
                 >
-                  <div className={cn(rowCn, "col-span-2 gap-5 border-0")}>
-                    {/* <div className="text-tertiary flex-1">Name</div> */}
+                  <div className={cn(rowCn, "col-span-2 grid grid-cols-2")}>
                     <div className="flex-1">{name}</div>
                   </div>
                   {/* {wound && (

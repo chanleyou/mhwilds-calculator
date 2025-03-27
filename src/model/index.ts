@@ -415,6 +415,12 @@ export const calculateRawHitTwo = (
   if (atk.saType === "Sword" && weapon.phial === "Power") {
     multipliers.push(1.17);
   }
+  if (atk.airborne) {
+    multipliers.push(buffs.Airborne?.airAttackMul);
+  }
+  if (atk.noExtract) {
+    delete buffs.KinsectExtracts;
+  }
   if (atk.shelling) {
     multipliers.push(buffs.Artillery?.artilleryShellAttackMul);
   }
