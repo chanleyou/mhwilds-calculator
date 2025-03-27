@@ -45,11 +45,13 @@ export const WeaponPickerDialog = () => {
         const { name, attack, element, skills, artian, ammo } = a;
 
         const elementString = element ? `${element.value} ${element.type}` : "";
+        const songsString = a.songs ? a.songs.join(" ") : "";
 
         const search = [
           name,
           attack,
           elementString,
+          songsString,
           ...Object.entries(skills).map(([k, v]) => `${k} ${v}`),
           ammo
             ? Object.entries(ammo).map(([k, v]) =>
@@ -151,6 +153,16 @@ export const WeaponPickerDialog = () => {
                     </div>
                   </div>
                 )}
+                {o.songs && (
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Songs</div>
+                    <div className="flex-3">
+                      {o.songs.map((s) => (
+                        <p key={s}>{s}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {o.status && (
                   <div className={rowCn}>
                     <div className="text-tertiary flex-1">Status</div>
@@ -225,6 +237,7 @@ export const WeaponPickerDialog = () => {
                     <TableCell>Phial</TableCell>
                   )}
                   {type === "Gunlance" && <TableCell>Shelling</TableCell>}
+                  {type === "Hunting Horn" && <TableCell>Songs</TableCell>}
                   <TableCell>Skills</TableCell>
                   <TableCell>Slots</TableCell>
                 </TableHeadRow>
@@ -275,6 +288,13 @@ export const WeaponPickerDialog = () => {
                     {o.shelling && (
                       <TableCell>
                         {o.shelling.type} {o.shelling.level}
+                      </TableCell>
+                    )}
+                    {o.songs && (
+                      <TableCell>
+                        {o.songs.map((s) => (
+                          <p key={s}>{s}</p>
+                        ))}
                       </TableCell>
                     )}
                     <TableCell>

@@ -5,6 +5,7 @@ import {
   getSharpnessEle,
   getSharpnessRaw,
 } from "@/data";
+import Attacks from "@/data/attacks";
 import {
   Attack,
   Buff,
@@ -12,8 +13,11 @@ import {
   ComputedStore,
   ElementType,
   MeleeWeapon,
+  RawType,
   StatusType,
+  Target,
   Weapon,
+  WeaponType,
   isBowgunElementAmmo,
 } from "@/types";
 
@@ -155,6 +159,34 @@ export const calculateAffinity = ({
         frenzy ? getAffinity(b.frenzy) : 0,
         rawHzv >= 45 ? getAffinity(b.weakness) : 0,
         isWound ? getAffinity(b.wound) : 0,
+      ),
+    ),
+  );
+
+  return n > 0 ? Math.min(n, 100) : Math.max(n, -100);
+};
+
+export const calculateAffinityTwo = ({
+  affinity,
+  buffs = {},
+  frenzy,
+  target,
+  rawType,
+}: {
+  affinity: number;
+  buffs?: Record<string, Buff>;
+  frenzy?: boolean;
+  target: Target;
+  rawType: RawType;
+}) => {
+  const n = sum(
+    affinity,
+    ...Object.values(buffs).map((b) =>
+      sum(
+        getAffinity(b),
+        frenzy ? getAffinity(b.frenzy) : 0,
+        target[rawType] >= 45 ? getAffinity(b.weakness) : 0,
+        target.wound ? getAffinity(b.wound) : 0,
       ),
     ),
   );
@@ -371,8 +403,10 @@ export const calculateRawHitTwo = (
   weapon: Weapon,
   buffs: Record<string, Buff | undefined>,
   atk: Attack,
-  rawHzv: number,
+  hitzone: Target,
 ) => {
+  if (atk.fixedRaw) return atk.fixedRaw;
+
   const multipliers = [];
   const bonuses = [];
   if (atk.saType === "Axe" && buffs.SwitchAxePowerAxe?.powerAxe) {
@@ -390,10 +424,12 @@ export const calculateRawHitTwo = (
 
   const attack = calculateAttackTwo(weapon.attack, buffs, multipliers, bonuses);
 
+  const rawType = atk.rawType ?? "Slash";
+
   return mul(
     attack,
     atk.mv / 100,
-    atk.ignoreHzv ? 1 : rawHzv / 100,
+    atk.ignoreHzv ? 1 : hitzone[rawType] / 100,
     atk.rawMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessRaw(weapon.sharpness),
     !atk.ignoreCoating && buffs.BowCoating?.rawMul,
@@ -411,8 +447,12 @@ export const calculateEleHitTwo = (
   weapon: Weapon,
   buffs: Record<string, Buff | undefined>,
   atk: Attack,
-  eleHzv: number,
+  hitzone: Target,
 ) => {
+  const elementType = atk.elementType ?? weapon.element?.type;
+  if (!elementType) return 0;
+
+  let eleHzv = hitzone[elementType];
   eleHzv = atk.eleHzvCap ? Math.min(eleHzv, atk.eleHzvCap) : eleHzv;
   eleHzv = eleHzv / 100;
 
@@ -480,11 +520,10 @@ export const calculateHitTwo = (
   weapon: Weapon,
   buffs: Record<string, Buff>,
   atk: Attack,
-  rawHzv: number,
-  eleHzv: number,
+  target: Target,
 ) => {
-  const r = calculateRawHitTwo(weapon, buffs, atk, rawHzv);
-  const e = calculateEleHitTwo(weapon, buffs, atk, eleHzv);
+  const r = calculateRawHitTwo(weapon, buffs, atk, target);
+  const e = calculateEleHitTwo(weapon, buffs, atk, target);
   return round(dmg(r) + dmg(e));
 };
 
@@ -492,13 +531,12 @@ export const calculateCritTwo = (
   weapon: Weapon,
   buffs: Record<string, Buff>,
   atk: Attack,
-  rawHzv: number,
-  eleHzv: number,
+  target: Target,
   critMulti: number,
   eleCritMulti: number,
 ) => {
-  const r = calculateRawHitTwo(weapon, buffs, atk, rawHzv);
-  const e = calculateEleHitTwo(weapon, buffs, atk, eleHzv);
+  const r = calculateRawHitTwo(weapon, buffs, atk, target);
+  const e = calculateEleHitTwo(weapon, buffs, atk, target);
   return round(dmg(r * critMulti) + dmg(e * eleCritMulti));
 };
 

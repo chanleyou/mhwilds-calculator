@@ -46,12 +46,6 @@ export const StatsCard = ({ className }: { className?: string }) => {
             </NumberDisplay> */}
           </>
         )}
-        {w.shelling && (
-          <NumberDisplay label="Shelling">
-            {w.shelling.type} {w.shelling.level}
-          </NumberDisplay>
-        )}
-        {w.phial && <NumberDisplay label="Phial">{w.phial}</NumberDisplay>}
         <NumberDisplay label="Crit Multi">
           {`${critMulti}x / ${eleCritMulti}x`}
         </NumberDisplay>
@@ -75,6 +69,21 @@ export const StatsCard = ({ className }: { className?: string }) => {
             {w.coatings.map((c) => (
               <p className="text-right" key={c}>
                 {c}
+              </p>
+            ))}
+          </NumberDisplay>
+        )}
+        {w.shelling && (
+          <NumberDisplay label="Shelling">
+            {w.shelling.type} {w.shelling.level}
+          </NumberDisplay>
+        )}
+        {w.phial && <NumberDisplay label="Phial">{w.phial}</NumberDisplay>}
+        {w.songs && (
+          <NumberDisplay label="Songs" className="border-none">
+            {w.songs.map((s) => (
+              <p className="text-right" key={s}>
+                {s}
               </p>
             ))}
           </NumberDisplay>

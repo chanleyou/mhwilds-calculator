@@ -17,7 +17,7 @@ export const GreatSwordAttacks = [
   { name: "Follow-up Cross Slash Lv3 1", mv: 58, charge: true },
   { name: "Follow-up Cross Slash Lv3 2", mv: 230, charge: true },
   { name: "Kick", mv: 5, eleMul: 0, ignoreSharpness: true, ignoreHzv: true },
-  { name: "Side Blow", mv: 16 },
+  { name: "Side Blow", mv: 16, rawType: "Blunt" },
   { name: "Strong Charged Slash Lv1", mv: 108, eleMul: 1.2, charge: true },
   { name: "Strong Charged Slash Lv2", mv: 140, eleMul: 1.3, charge: true },
   { name: "Strong Charged Slash Lv3", mv: 176, eleMul: 1.4, charge: true },
@@ -30,6 +30,7 @@ export const GreatSwordAttacks = [
     eleMul: 0,
     rawMul: 1.05,
     ignoreSharpness: true,
+    rawType: "Blunt",
   },
   {
     name: "Tackle Lv1",
@@ -37,6 +38,7 @@ export const GreatSwordAttacks = [
     eleMul: 0,
     rawMul: 1.05,
     ignoreSharpness: true,
+    rawType: "Blunt",
   },
   {
     name: "Tackle Lv2",
@@ -44,6 +46,7 @@ export const GreatSwordAttacks = [
     eleMul: 0,
     rawMul: 1.05,
     ignoreSharpness: true,
+    rawType: "Blunt",
   },
   {
     name: "Tackle Lv3",
@@ -51,6 +54,7 @@ export const GreatSwordAttacks = [
     eleMul: 0,
     rawMul: 1.05,
     ignoreSharpness: true,
+    rawType: "Blunt",
   },
   { name: "Leaping Wide Slash", mv: 88 },
   { name: "Leaping Wide Slash Lv1", mv: 106, eleMul: 2, charge: true },

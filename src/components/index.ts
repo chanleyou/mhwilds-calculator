@@ -10,6 +10,7 @@ export * from "./DecorationPickerDialog";
 export * from "./Dialog";
 export * from "./ExportDialog";
 export * from "./ExportDialogTwo";
+export * from "./HitzoneDialog";
 export * from "./ImportDialog";
 export * from "./ImportDialogTwo";
 export * from "./InputContainer";

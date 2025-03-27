@@ -8,6 +8,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     charge: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Charged Shot Lv2",
@@ -17,6 +18,7 @@ export const BowAttacks = [
     hits: 2,
     charge: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Charged Shot Lv3",
@@ -26,6 +28,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     charge: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Quick Shot / Power Shot Lv 1",
@@ -34,6 +37,7 @@ export const BowAttacks = [
     hits: 3,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Power Shot Lv2",
@@ -42,6 +46,7 @@ export const BowAttacks = [
     hits: 4,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Power Shot Lv3",
@@ -50,6 +55,7 @@ export const BowAttacks = [
     hits: 5,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Flying Swallow Shot Lv1",
@@ -58,6 +64,7 @@ export const BowAttacks = [
     hits: 3,
     rawMul: 1.1,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Flying Swallow Shot Lv2",
@@ -66,6 +73,7 @@ export const BowAttacks = [
     hits: 4,
     rawMul: 1.1,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Flying Swallow Shot Lv3",
@@ -74,6 +82,7 @@ export const BowAttacks = [
     hits: 5,
     rawMul: 1.1,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Power Volley Lv1",
@@ -82,6 +91,7 @@ export const BowAttacks = [
     hits: 4,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Power Volley Lv2",
@@ -90,6 +100,7 @@ export const BowAttacks = [
     hits: 5,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Power Volley Lv3",
@@ -98,30 +109,35 @@ export const BowAttacks = [
     hits: 6,
     rawMul: 1.1,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Arc Shot Lv1",
     mv: 8,
     eleMul: 0,
     ignoreCoating: true,
+    rawType: "Shot",
   },
   {
     name: "Arc Shot Lv2",
     mv: 9,
     eleMul: 0,
     ignoreCoating: true,
+    rawType: "Shot",
   },
   {
     name: "Arc Shot Lv3",
     mv: 10,
     eleMul: 0,
     ignoreCoating: true,
+    rawType: "Shot",
   },
   {
     name: "Arc Shot Explosion",
     mv: 12,
     eleMul: 0,
     ignoreCoating: true,
+    rawType: "Shot",
   },
   {
     name: "Dragon Piercer",
@@ -130,6 +146,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     specialAmmo: true,
     piercingShot: true,
+    rawType: "Shot",
   },
   {
     name: "Dragon Piercer (Fast)",
@@ -138,6 +155,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     specialAmmo: true,
     piercingShot: true,
+    rawType: "Shot",
   },
   {
     name: "Thousand Dragons",
@@ -146,6 +164,7 @@ export const BowAttacks = [
     hits: 6,
     rawMul: 1.1,
     specialAmmo: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Charge Shot Lv1",
@@ -155,6 +174,7 @@ export const BowAttacks = [
     charge: true,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Charge Shot Lv2",
@@ -165,6 +185,7 @@ export const BowAttacks = [
     charge: true,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Charge Shot Lv3",
@@ -175,6 +196,7 @@ export const BowAttacks = [
     charge: true,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Quick Shot / Power Shot Lv1",
@@ -184,6 +206,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Power Shot Lv2",
@@ -193,6 +216,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Power Shot Lv3",
@@ -202,6 +226,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Flying Swallow Shot Lv1",
@@ -211,6 +236,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Flying Swallow Shot Lv2",
@@ -220,6 +246,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Flying Swallow Shot Lv3",
@@ -229,6 +256,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     normalShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Power Volley Lv1",
@@ -238,6 +266,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Power Volley Lv2",
@@ -247,6 +276,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Power Volley Lv3",
@@ -256,6 +286,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Pierce Thousand Dragons",
@@ -264,6 +295,7 @@ export const BowAttacks = [
     rawMul: 1.1,
     ignoreCoating: true,
     specialAmmo: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Arrow",
@@ -271,6 +303,7 @@ export const BowAttacks = [
     eleMul: 1,
     ignoreCoating: true,
     specialAmmo: true,
+    rawType: "Shot",
   },
   // { name: "Tracer Arrow (Explosion)", mv: 25 },
   {
@@ -279,12 +312,14 @@ export const BowAttacks = [
     eleMul: 0.5,
     hits: 3,
     charge: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Charged Shot (Miss)",
     mv: 6,
     eleMul: 0.5,
     hits: 3,
+    rawType: "Shot",
   },
   {
     name: "Tracer Quick Shot",
@@ -292,6 +327,7 @@ export const BowAttacks = [
     eleMul: 0.6,
     hits: 3,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Power Shot",
@@ -299,6 +335,7 @@ export const BowAttacks = [
     eleMul: 0.6,
     hits: 5,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Power Volley",
@@ -306,6 +343,7 @@ export const BowAttacks = [
     eleMul: 0.65,
     hits: 6,
     spreadPowerShot: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Dragon Piercer",
@@ -313,6 +351,7 @@ export const BowAttacks = [
     eleMul: 0.3,
     specialAmmo: true,
     piercingShot: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Dragon Piercer (Fast)",
@@ -320,6 +359,7 @@ export const BowAttacks = [
     eleMul: 0.3,
     specialAmmo: true,
     piercingShot: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Thousand Dragons",
@@ -327,6 +367,7 @@ export const BowAttacks = [
     eleMul: 0.3,
     hits: 6,
     specialAmmo: true,
+    rawType: "Shot",
   },
   {
     name: "Tracer Pierce Thousand Dragons",
@@ -335,17 +376,20 @@ export const BowAttacks = [
     hits: 6,
     ignoreCoating: true,
     specialAmmo: true,
+    rawType: "Shot",
   },
   {
     name: "Focus Fire: Hailstorm",
     mv: 12,
     eleMul: 0.3,
     ignoreCoating: true,
+    rawType: "Shot",
   },
   {
     name: "Focus Fire: Hailstorm Dragon Piercer",
     mv: 20,
     eleMul: 0.3,
     ignoreCoating: true,
+    rawType: "Shot",
   },
 ] satisfies Attack[];
