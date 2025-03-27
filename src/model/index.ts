@@ -5,7 +5,6 @@ import {
   getSharpnessEle,
   getSharpnessRaw,
 } from "@/data";
-import Attacks from "@/data/attacks";
 import {
   Attack,
   Buff,
@@ -17,7 +16,6 @@ import {
   StatusType,
   Target,
   Weapon,
-  WeaponType,
   isBowgunElementAmmo,
 } from "@/types";
 
