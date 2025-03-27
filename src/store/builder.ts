@@ -78,9 +78,9 @@ const initialBuilder: InitialBuilder = {
     Blunt: 80,
     Shot: 80,
     Fire: 30,
-    Ice: 30,
-    Thunder: 30,
     Water: 30,
+    Thunder: 30,
+    Ice: 30,
     Dragon: 30,
   },
   weaponSlots: [],
@@ -373,6 +373,7 @@ export const useComputed = () => {
       ) {
         d.coatings.push("Pierce");
       } else if (
+        artian.element === "No Element" ||
         artian.element === "Water" ||
         artian.element === "Fire" ||
         artian.element === "Sleep"

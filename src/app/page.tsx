@@ -11,13 +11,12 @@ import {
   Notice,
   SkillPointCard,
   StatsCard,
-  Tab,
+  // Tab,
 } from "@/components";
 
-const options = ["Builder", "Manual"] as const;
-
 export default function Builder() {
-  const [view, setView] = useState<(typeof options)[number]>(options[0]);
+  // const options = ["Builder", "Manual"] as const;
+  // const [view, setView] = useState<(typeof options)[number]>(options[0]);
   // const [comboView, setComboView] = useState(false);
 
   return (
