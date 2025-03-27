@@ -30,13 +30,6 @@ export default function Builder() {
         .
       </Notice>
       <div className="flex items-end justify-between gap-2">
-        <div className="flex-1 justify-start">
-          <Tab
-            options={[...options]}
-            value={view}
-            setValue={(option) => setView(option as (typeof options)[number])}
-          />
-        </div>
         <div className="flex flex-3 justify-end gap-2">
           <ImportDialogTwo />
           <ExportDialogTwo />
