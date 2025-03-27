@@ -85,6 +85,12 @@ export const SwitchAxeAttacks = [
     saType: "Sword",
     hits: 5,
   },
+  // { name: "Elemental Discharge Start", mv: 20, saType: "Sword" },
+  // { name: "Elemental Discharge Tick", mv: 12, eleMul: 0.7, saType: "Sword" },
+  // { name: "Elemental Discharge Explosion", mv: 135, saType: "Sword" },
+  // { name: "Elemental Discharge Explosion (Early)", mv: 65, saType: "Sword" },
+  // { name: "Zero Sum Discharge Explosion", mv: 160, saType: "Sword" },
+  // { name: "Zero Sum Discharge Explosion (Early)", mv: 75, saType: "Sword" },
   // {
   //   name: "Full Release Slash Element Phial Explosion 1",
   //   mv: 20,
