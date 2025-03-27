@@ -77,7 +77,7 @@ export const HitzoneDialog = () => {
                   {Object.entries(hitzones).map(([k, v]) => (
                     <div className={rowCn} key={k}>
                       <div className="text-tertiary flex-1">{k}</div>
-                      <div className="flex-2">{v}</div>
+                      <div className="flex-1">{v}</div>
                     </div>
                   ))}
                 </div>

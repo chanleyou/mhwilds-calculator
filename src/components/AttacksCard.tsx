@@ -30,7 +30,7 @@ export const AttacksCard = ({ ...props }: Props) => {
   return (
     <Card {...props}>
       <h1>Damage</h1>
-      <div className="mb-1">
+      <div className="mb-1 flex justify-start">
         <Checkbox
           label="Wound"
           value={target.wound}
@@ -44,6 +44,8 @@ export const AttacksCard = ({ ...props }: Props) => {
             label={k}
             value={v}
             onChangeValue={(v) => setTarget(k as keyof Target, v)}
+            min={0}
+            max={100}
           />
         ))}
       </div>

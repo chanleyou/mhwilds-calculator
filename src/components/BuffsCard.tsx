@@ -5,8 +5,8 @@ import { useBuild, useComputed } from "@/store/builder";
 import { Button, Card, Checkbox, Notice, SkillSelect } from ".";
 
 export const BuffsCard = () => {
-  const { w: w, otherBuffs, setOtherBuff } = useBuild();
-  const { buffs } = useComputed();
+  const { otherBuffs, setOtherBuff } = useBuild();
+  const { weapon: w, buffs } = useComputed();
 
   const [hideBuffs, setHideBuffs] = useState(false);
 

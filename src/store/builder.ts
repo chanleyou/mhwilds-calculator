@@ -359,13 +359,28 @@ export const useComputed = () => {
     }
 
     if (d.coatings) {
-      if (artian.element === "Thunder" || artian.element === "Dragon") {
-        d.coatings = ["Power"];
-      } else if (artian.element === "Ice") {
-        d.coatings = ["Pierce"];
-      } else if (isStatusType(artian.element)) {
-        d.coatings = [artian.element];
+      d.coatings = [];
+      if (
+        artian.element === "Thunder" ||
+        artian.element === "Dragon" ||
+        artian.element === "Blast"
+      ) {
+        d.coatings.push("Power");
+      } else if (
+        artian.element === "Ice" ||
+        artian.element === "Paralysis" ||
+        artian.element === "Poison"
+      ) {
+        d.coatings.push("Pierce");
+      } else if (
+        artian.element === "Water" ||
+        artian.element === "Fire" ||
+        artian.element === "Sleep"
+      ) {
+        d.coatings.push("Close-range");
       }
+
+      if (isStatusType(artian.element)) d.coatings.push(artian.element);
     }
 
     if (isWeaponBowgun(d)) {
