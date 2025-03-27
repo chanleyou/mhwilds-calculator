@@ -1,17 +1,17 @@
 import { type MeleeWeapon } from "@/types";
 
 export const GreatSwords: MeleeWeapon[] = [
-  {
-    type: "Great Sword",
-    name: "Hope Blade V",
-    rarity: 7,
-    attack: 190,
-    affinity: 0,
-    slots: [3, 2, 0],
-    sharpness: [50, 60, 80, 70, 60, 30, 0],
-    handicraft: [50, 0, 0, 0],
-    skills: { "Speed Sharpening": 2, "Critical Eye": 1 },
-  },
+  // {
+  //   type: "Great Sword",
+  //   name: "Hope Blade V",
+  //   rarity: 7,
+  //   attack: 190,
+  //   affinity: 0,
+  //   slots: [3, 2, 0],
+  //   sharpness: [50, 60, 80, 70, 60, 30, 0],
+  //   handicraft: [50, 0, 0, 0],
+  //   skills: { "Speed Sharpening": 2, "Critical Eye": 1 },
+  // },
   {
     type: "Great Sword",
     name: "Esperanza Blade",

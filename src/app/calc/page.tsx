@@ -249,7 +249,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-2">
               <p className="text-xs">Weapon</p>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {Object.entries(WeaponSkills).map(([k, s]) => {
                   if (hideSkills && !buffs[k]) return undefined;
                   if (s.weapons && !s.weapons.includes(weapon))
@@ -265,7 +265,7 @@ export default function Home() {
                 })}
               </div>
               <p className="text-xs">Armor</p>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {Object.entries(ArmorSkills).map(([k, s]) => {
                   if (hideSkills && !buffs[k]) return undefined;
                   if (s.weapons && !s.weapons.includes(weapon))
@@ -281,7 +281,7 @@ export default function Home() {
                 })}
               </div>
               <p className="text-xs">Set</p>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {Object.entries(GroupSkills).map(([k, s]) => {
                   if (hideSkills && !buffs[k]) return undefined;
                   return (

@@ -60,110 +60,106 @@ export const BuffsCard = () => {
       >
         {"Tick 'Overcame Frenzy' to enable related skills."}
       </Notice>
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap gap-x-4 gap-y-0">
-          {Object.entries(Buffs).map(([k, b]) => {
-            if (hideBuffs && !otherBuffs[k]) return undefined;
-            return (
-              <Checkbox
-                key={k}
-                label={b.name}
-                value={otherBuffs[k] === b.levels[0]}
-                onChangeValue={(checked) =>
-                  setOtherBuff(k, checked ? b.levels[0] : undefined)
-                }
+      <div className="flex flex-wrap gap-x-4 gap-y-0">
+        {Object.entries(Buffs).map(([k, b]) => {
+          if (hideBuffs && !otherBuffs[k]) return undefined;
+          return (
+            <Checkbox
+              key={k}
+              label={b.name}
+              value={otherBuffs[k] === b.levels[0]}
+              onChangeValue={(checked) =>
+                setOtherBuff(k, checked ? b.levels[0] : undefined)
+              }
+            />
+          );
+        })}
+      </div>
+      {showWeaponSection && (
+        <>
+          <h2>{w.type}</h2>
+          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+            {w.coatings && (
+              <SkillSelect
+                skill={WeaponBuffs.BowCoating}
+                value={otherBuffs["BowCoating"]}
+                placeholder={"Coating"}
+                disabledOptions={WeaponBuffs.BowCoating.levels.filter((l) => {
+                  return !w.coatings!.some((c) => c === l.name);
+                })}
+                onChangeValue={(buff) => setOtherBuff("BowCoating", buff)}
               />
-            );
-          })}
-        </div>
-        {showWeaponSection && (
-          <div className="flex flex-col gap-2">
-            <h2>{w.type}</h2>
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-              {w.coatings && (
-                <SkillSelect
-                  skill={WeaponBuffs.BowCoating}
-                  value={otherBuffs["BowCoating"]}
-                  placeholder={"Coating"}
-                  disabledOptions={WeaponBuffs.BowCoating.levels.filter((l) => {
-                    return !w.coatings!.some((c) => c === l.name);
-                  })}
-                  onChangeValue={(buff) => setOtherBuff("BowCoating", buff)}
-                />
-              )}
-              {Object.entries(WeaponBuffs)
-                .filter(([k]) => {
-                  return k !== "SwitchAxePhial" && k !== "BowCoating"; // TODO: remove all this
-                })
-                .map(([k, s]) => {
-                  if (!s.weapons?.includes(w.type)) return undefined;
-                  return (
-                    <SkillSelect
-                      key={k}
-                      skill={s}
-                      value={otherBuffs[k]}
-                      placeholder={s.name}
-                      onChangeValue={(buff) => setOtherBuff(k, buff)}
-                    />
-                  );
-                })}
-              {w.type === "Hunting Horn" &&
-                Object.entries(HuntingHornBuffs).map(([k, b]) => {
-                  if (hideBuffs && !otherBuffs[k]) return undefined;
-                  return (
-                    <SkillSelect
-                      key={k}
-                      value={otherBuffs[k]}
-                      skill={b}
-                      placeholder={b.name}
-                      onChangeValue={(buff) => setOtherBuff(k, buff)}
-                    />
-                  );
-                })}
-            </div>
-          </div>
-        )}
-        {showItemsSection && (
-          <div className="flex flex-col gap-2">
-            <h2>Consumables</h2>
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-              {Object.entries(FieldBuffs).map(([k, s]) => {
-                if (hideBuffs && !otherBuffs[k]) return undefined;
+            )}
+            {Object.entries(WeaponBuffs)
+              .filter(([k]) => {
+                return k !== "SwitchAxePhial" && k !== "BowCoating"; // TODO: remove all this
+              })
+              .map(([k, s]) => {
+                if (!s.weapons?.includes(w.type)) return undefined;
                 return (
                   <SkillSelect
                     key={k}
-                    value={otherBuffs[k]}
                     skill={s}
+                    value={otherBuffs[k]}
                     placeholder={s.name}
                     onChangeValue={(buff) => setOtherBuff(k, buff)}
                   />
                 );
               })}
-            </div>
+            {w.type === "Hunting Horn" &&
+              Object.entries(HuntingHornBuffs).map(([k, b]) => {
+                if (hideBuffs && !otherBuffs[k]) return undefined;
+                return (
+                  <SkillSelect
+                    key={k}
+                    value={otherBuffs[k]}
+                    skill={b}
+                    placeholder={b.name}
+                    onChangeValue={(buff) => setOtherBuff(k, buff)}
+                  />
+                );
+              })}
           </div>
-        )}
-        {showHornBelowSection && (
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2">
-              <h2>Hunting Horn</h2>
-              <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-                {Object.entries(HuntingHornBuffs).map(([k, b]) => {
-                  if (hideBuffs && !otherBuffs[k]) return undefined;
-                  return (
-                    <SkillSelect
-                      key={k}
-                      value={otherBuffs[k]}
-                      skill={b}
-                      placeholder={b.name}
-                      onChangeValue={(buff) => setOtherBuff(k, buff)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+        </>
+      )}
+      {showItemsSection && (
+        <>
+          <h2>Consumables</h2>
+          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+            {Object.entries(FieldBuffs).map(([k, s]) => {
+              if (hideBuffs && !otherBuffs[k]) return undefined;
+              return (
+                <SkillSelect
+                  key={k}
+                  value={otherBuffs[k]}
+                  skill={s}
+                  placeholder={s.name}
+                  onChangeValue={(buff) => setOtherBuff(k, buff)}
+                />
+              );
+            })}
           </div>
-        )}
-      </div>
+        </>
+      )}
+      {showHornBelowSection && (
+        <>
+          <h2>Hunting Horn</h2>
+          <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+            {Object.entries(HuntingHornBuffs).map(([k, b]) => {
+              if (hideBuffs && !otherBuffs[k]) return undefined;
+              return (
+                <SkillSelect
+                  key={k}
+                  value={otherBuffs[k]}
+                  skill={b}
+                  placeholder={b.name}
+                  onChangeValue={(buff) => setOtherBuff(k, buff)}
+                />
+              );
+            })}
+          </div>
+        </>
+      )}
     </Card>
   );
 };

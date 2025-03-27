@@ -80,7 +80,7 @@ export const CharmPickerDialog = ({
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid grid-cols-1 gap-1 overflow-y-auto pr-3 sm:grid-cols-2">
+          <div className="grid gap-1 overflow-y-auto pr-3 sm:grid-cols-2">
             {filteredOptions.map((c) => (
               <div
                 className="border-divider bg-content hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"

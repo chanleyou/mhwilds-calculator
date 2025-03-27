@@ -13,18 +13,18 @@ export function Tab<T>({
   setValue: (option: T) => void;
 }) {
   return (
-    <div className="bg-accent flex gap-1 rounded p-0.5">
+    <div>
       {options.map((o) => (
         <Button
-          variant="text"
+          // variant="text"
           size="sm"
           onClick={() => setValue(o)}
           key={labelFn(o)}
           className={cn(
-            "text-bold flex-1 px-2 py-0.5 text-base",
+            "border-accent w-fit flex-1 overflow-visible rounded-none px-4 text-sm first:rounded-l last:rounded-r",
             value === o
-              ? "bg-content rounded text-white"
-              : "text-primary border-0 bg-inherit",
+              ? "bg-accent text-background"
+              : "bg-background text-accent/60",
           )}
         >
           {labelFn(o)}

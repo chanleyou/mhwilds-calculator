@@ -1,22 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import {
   AttacksCard,
   BuffsCard,
-  Card,
   EquipmentCard,
   ExportDialogTwo,
   ImportDialogTwo,
   Notice,
   SkillPointCard,
   StatsCard,
+  Tab,
 } from "@/components";
-import { useComputed } from "@/store/builder";
+
+const options = ["Builder", "Manual"] as const;
 
 export default function Builder() {
-  const build = useComputed();
-
+  const [view, setView] = useState<(typeof options)[number]>(options[0]);
   // const [comboView, setComboView] = useState(false);
 
   return (
@@ -28,9 +29,18 @@ export default function Builder() {
         </Link>
         .
       </Notice>
-      <div className="flex justify-end gap-2">
-        <ImportDialogTwo />
-        <ExportDialogTwo />
+      <div className="flex items-end justify-between gap-2">
+        <div className="flex-1 justify-start">
+          <Tab
+            options={[...options]}
+            value={view}
+            setValue={(option) => setView(option as (typeof options)[number])}
+          />
+        </div>
+        <div className="flex flex-3 justify-end gap-2">
+          <ImportDialogTwo />
+          <ExportDialogTwo />
+        </div>
       </div>
       <div className="flex flex-col gap-2 lg:flex-row">
         <div className="flex flex-4 flex-col gap-2">

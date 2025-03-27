@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Attacks from "@/data/attacks";
+import Attacks, { OtherAttacks } from "@/data/attacks";
 import { useComputed } from "@/store/builder";
 import { Attack, isGunlance, isWeaponBowgun } from "@/types";
 import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
@@ -14,7 +14,7 @@ export function AttacksTable({
   hideHits?: boolean;
   canHide?: boolean;
 }) {
-  const { weapon: w, calcHit, calcCrit, calcAverage } = useComputed();
+  const { weapon: w, calcHit, buffs, calcCrit, calcAverage } = useComputed();
 
   const attacks: Attack[] = useMemo(() => {
     if (custom) return custom;
@@ -58,8 +58,17 @@ export function AttacksTable({
       });
     }
 
+    const convertElement = buffs["Convert Element"]?.name;
+    const convertElementAttack = convertElement
+      ? OtherAttacks[convertElement]
+      : undefined;
+
+    if (convertElementAttack) {
+      return [convertElementAttack, ...Attacks[w.type]];
+    }
+
     return Attacks[w.type];
-  }, [custom, w]);
+  }, [custom, w, buffs]);
 
   return (
     <Table>

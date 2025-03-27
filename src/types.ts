@@ -1,6 +1,9 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
 import { InitialStore, useGetters } from "@/store/store";
 
+export const RawTypes = ["Slash", "Blunt", "Shot"] as const;
+export type RawType = (typeof RawTypes)[number];
+
 export const ElementTypes = [
   "Dragon",
   "Fire",
@@ -277,8 +280,10 @@ export interface IAttack {
   rawMul?: number;
   eleMul?: number;
   fixedEle?: number;
+  fixedRaw?: number;
   eleHzvCap?: number;
   rawEle?: number;
+  rawType?: RawType; // optional, default to Slash
   elementType?: ElementType;
   ignoreHzv?: boolean; // only applies to raw hitzone
   cantCrit?: boolean;
@@ -389,12 +394,6 @@ export type Slots = [Decoration?, Decoration?, Decoration?];
 export const ComboModeOptions = ["Dynamic", "Snapshot"] as const;
 export type ComboModeOption = (typeof ComboModeOptions)[number];
 
-export type Target = {
-  rawHzv: number;
-  eleHzv: number;
-  wound: boolean;
-};
-
 export type BuffName = string;
 export type Flag = "TetradAttack" | "TetradAffinity";
 
@@ -436,3 +435,7 @@ export type Artian = {
     ArtianUpgrade?,
   ];
 };
+
+export type Target = { wound: boolean } & Hitzone;
+
+export type Hitzone = Record<RawType | ElementType, number>;

@@ -1,30 +1,31 @@
 import { Attack } from "@/types";
 
 export const HuntingHornAttacks = [
-  { name: "Forward Smash", mv: 32 },
-  { name: "Left Swing", mv: 33 },
-  { name: "Right Swing", mv: 33 },
-  { name: "Flourish 1", mv: 15 },
-  { name: "Flourish 2", mv: 25 },
-  { name: "Backwards Strike", mv: 46 },
-  { name: "Overhead Smash 1", mv: 14 },
-  { name: "Overhead Smash 2", mv: 42 },
-  { name: "Overhead Smash Follow-up Attack", mv: 65 },
+  { name: "Forward Smash", mv: 32, rawType: "Blunt" },
+  { name: "Left Swing", mv: 33, rawType: "Blunt" },
+  { name: "Right Swing", mv: 33, rawType: "Blunt" },
+  { name: "Flourish 1", mv: 15, rawType: "Blunt" },
+  { name: "Flourish 2", mv: 25, rawType: "Blunt" },
+  { name: "Backwards Strike", mv: 46, rawType: "Blunt" },
+  { name: "Overhead Smash 1", mv: 14, rawType: "Blunt" },
+  { name: "Overhead Smash 2", mv: 42, rawType: "Blunt" },
+  { name: "Overhead Smash Follow-up Attack", mv: 65, rawType: "Blunt" },
   { name: "Hilt Stab", mv: 10 },
-  { name: "Perform", mv: 29 },
-  { name: "Performance Beat I", mv: 29 },
-  { name: "Performance Beat I (Power)", mv: 35 },
-  { name: "Performance Beat II", mv: 31 },
-  { name: "Performance Beat II (Power)", mv: 45 },
-  { name: "Encore 1", mv: 20 },
-  { name: "Encore 2", mv: 35 },
-  { name: "Encore 2 (Power)", mv: 50 },
-  { name: "Offset Melody", mv: 75, melody: true },
-  { name: "Resounding Melody 1", mv: 20, melody: true },
-  { name: "Resounding Melody 2", mv: 22, melody: true },
-  { name: "Resounding Melody 3", mv: 20, melody: true },
+  { name: "Perform", mv: 29, rawType: "Blunt" },
+  { name: "Performance Beat I", mv: 29, rawType: "Blunt" },
+  { name: "Performance Beat I (Power)", mv: 35, rawType: "Blunt" },
+  { name: "Performance Beat II", mv: 31, rawType: "Blunt" },
+  { name: "Performance Beat II (Power)", mv: 45, rawType: "Blunt" },
+  { name: "Encore 1", mv: 20, rawType: "Blunt" },
+  { name: "Encore 2", mv: 35, rawType: "Blunt" },
+  { name: "Encore 2 (Power)", mv: 50, rawType: "Blunt" },
+  { name: "Offset Melody", mv: 75, melody: true, rawType: "Blunt" },
+  { name: "Resounding Melody 1", mv: 20, melody: true, rawType: "Blunt" },
+  { name: "Resounding Melody 2", mv: 22, melody: true, rawType: "Blunt" },
+  { name: "Resounding Melody 3", mv: 20, melody: true, rawType: "Blunt" },
   {
     name: "Resounding Melody Soundwaves",
+    rawType: "Blunt",
     mv: 15,
     eleMul: 0.5,
     ignoreSharpness: true,
@@ -32,18 +33,21 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Perform Soundwave",
+    rawType: "Blunt",
     mv: 27,
     ignoreSharpness: true,
     cantCrit: true,
   },
   {
     name: "Song Soundwave",
+    rawType: "Blunt",
     mv: 10,
     ignoreSharpness: true,
     cantCrit: true,
   },
   {
     name: "Echo Bubble",
+    rawType: "Blunt",
     mv: 30,
     eleMul: 0.3,
     ignoreHzv: true,
@@ -52,6 +56,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Bubble (Note)",
+    rawType: "Blunt",
     mv: 5,
     eleMul: 0.3,
     ignoreHzv: true,
@@ -60,6 +65,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Bubble (Song)",
+    rawType: "Blunt",
     mv: 12,
     eleMul: 0.3,
     ignoreHzv: true,
@@ -68,6 +74,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blunt)",
+    rawType: "Blunt",
     mv: 50,
     eleMul: 0,
     cantCrit: true,
@@ -76,6 +83,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blunt) II",
+    rawType: "Blunt",
     mv: 70,
     eleMul: 0,
     cantCrit: true,
@@ -84,6 +92,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blunt) III",
+    rawType: "Blunt",
     mv: 100,
     eleMul: 0,
     cantCrit: true,
@@ -113,6 +122,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Fire)",
+    rawType: "Blunt",
     mv: 45,
     fixedEle: 60,
     elementType: "Fire",
@@ -122,6 +132,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Fire) II",
+    rawType: "Blunt",
     mv: 65,
     fixedEle: 100,
     elementType: "Fire",
@@ -131,6 +142,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Fire) III",
+    rawType: "Blunt",
     mv: 85,
     fixedEle: 140,
     elementType: "Fire",
@@ -140,6 +152,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Water)",
+    rawType: "Blunt",
     mv: 45,
     fixedEle: 60,
     elementType: "Water",
@@ -149,6 +162,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Water) II",
+    rawType: "Blunt",
     mv: 65,
     fixedEle: 100,
     elementType: "Water",
@@ -158,6 +172,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Water) III",
+    rawType: "Blunt",
     mv: 85,
     fixedEle: 140,
     elementType: "Water",
@@ -167,6 +182,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Thunder)",
+    rawType: "Blunt",
     mv: 45,
     fixedEle: 60,
     elementType: "Thunder",
@@ -176,6 +192,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Thunder) II",
+    rawType: "Blunt",
     mv: 65,
     fixedEle: 100,
     elementType: "Thunder",
@@ -185,6 +202,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Thunder) III",
+    rawType: "Blunt",
     mv: 85,
     fixedEle: 140,
     elementType: "Thunder",
@@ -194,6 +212,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Ice)",
+    rawType: "Blunt",
     mv: 45,
     fixedEle: 60,
     elementType: "Ice",
@@ -203,6 +222,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Ice) II",
+    rawType: "Blunt",
     mv: 65,
     fixedEle: 100,
     elementType: "Ice",
@@ -212,6 +232,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Ice) III",
+    rawType: "Blunt",
     mv: 85,
     fixedEle: 140,
     elementType: "Ice",
@@ -221,6 +242,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Dragon)",
+    rawType: "Blunt",
     mv: 45,
     fixedEle: 60,
     elementType: "Dragon",
@@ -230,6 +252,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Dragon) II",
+    rawType: "Blunt",
     mv: 65,
     fixedEle: 100,
     elementType: "Dragon",
@@ -239,6 +262,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Dragon) III",
+    rawType: "Blunt",
     mv: 85,
     fixedEle: 140,
     elementType: "Dragon",
@@ -248,6 +272,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blast)",
+    rawType: "Blunt",
     mv: 45,
     eleMul: 0,
     cantCrit: true,
@@ -256,6 +281,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blast) II",
+    rawType: "Blunt",
     mv: 65,
     eleMul: 0,
     cantCrit: true,
@@ -264,6 +290,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Blast) III",
+    rawType: "Blunt",
     mv: 85,
     eleMul: 0,
     cantCrit: true,
@@ -272,6 +299,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Paralysis)",
+    rawType: "Blunt",
     mv: 45,
     eleMul: 0,
     cantCrit: true,
@@ -280,6 +308,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Paralysis) II",
+    rawType: "Blunt",
     mv: 65,
     eleMul: 0,
     cantCrit: true,
@@ -288,6 +317,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Paralysis) III",
+    rawType: "Blunt",
     mv: 85,
     eleMul: 0,
     cantCrit: true,
@@ -296,6 +326,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Poison)",
+    rawType: "Blunt",
     mv: 45,
     eleMul: 0,
     cantCrit: true,
@@ -304,6 +335,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Poison) II",
+    rawType: "Blunt",
     mv: 65,
     eleMul: 0,
     cantCrit: true,
@@ -312,6 +344,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Poison) III",
+    rawType: "Blunt",
     mv: 85,
     eleMul: 0,
     cantCrit: true,
@@ -320,6 +353,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Sleep)",
+    rawType: "Blunt",
     mv: 45,
     eleMul: 0,
     cantCrit: true,
@@ -328,6 +362,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Sleep) II",
+    rawType: "Blunt",
     mv: 65,
     eleMul: 0,
     cantCrit: true,
@@ -336,6 +371,7 @@ export const HuntingHornAttacks = [
   },
   {
     name: "Echo Wave (Sleep) III",
+    rawType: "Blunt",
     mv: 85,
     eleMul: 0,
     cantCrit: true,

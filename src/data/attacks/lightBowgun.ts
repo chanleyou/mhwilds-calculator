@@ -34,6 +34,7 @@ export const LightBowgunAttacks = [
     mv: 9.75,
     hits: 3,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 1 },
   },
   {
@@ -41,6 +42,7 @@ export const LightBowgunAttacks = [
     mv: 13.65,
     hits: 3,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 2 },
   },
   {
@@ -48,6 +50,7 @@ export const LightBowgunAttacks = [
     mv: 18.525,
     hits: 3,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 3 },
   },
   {
@@ -55,6 +58,7 @@ export const LightBowgunAttacks = [
     mv: 19.5,
     normalShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 1 },
   },
   {
@@ -62,6 +66,7 @@ export const LightBowgunAttacks = [
     mv: 27.3,
     normalShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 2 },
   },
   {
@@ -69,24 +74,28 @@ export const LightBowgunAttacks = [
     mv: 37.05,
     normalShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 3 },
   },
   {
     name: "Pierce Lv1",
     mv: 8.8,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 1 },
   },
   {
     name: "Pierce Lv2",
     mv: 9.6,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 2 },
   },
   {
     name: "Pierce Lv3",
     mv: 9.6,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 3 },
   },
   {
@@ -94,6 +103,7 @@ export const LightBowgunAttacks = [
     mv: 13.2,
     piercingShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 1 },
   },
   {
@@ -101,6 +111,7 @@ export const LightBowgunAttacks = [
     mv: 14.4,
     piercingShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 2 },
   },
   {
@@ -108,24 +119,28 @@ export const LightBowgunAttacks = [
     mv: 14.4,
     piercingShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 3 },
   },
   {
     name: "Spread Lv1",
     mv: 7.7,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 1 },
   },
   {
     name: "Spread Lv2",
     mv: 8.855,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 2 },
   },
   {
     name: "Spread Lv3",
     mv: 10.01,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 3 },
   },
   {
@@ -133,6 +148,7 @@ export const LightBowgunAttacks = [
     mv: 9.35,
     spreadPowerShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 1 },
   },
   {
@@ -140,6 +156,7 @@ export const LightBowgunAttacks = [
     mv: 10.7525,
     spreadPowerShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 2 },
   },
   {
@@ -147,6 +164,7 @@ export const LightBowgunAttacks = [
     mv: 12.155,
     spreadPowerShot: true,
     hits: 2,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 3 },
   },
   {
@@ -198,13 +216,14 @@ export const LightBowgunAttacks = [
   //   cantCrit: true,
   //   artilleryAmmo: true,
   // },
-  { name: "Element Lv1", mv: 5.2, rawEle: 13 },
-  { name: "Element Lv2", mv: 6.5, rawEle: 16.25 },
+  { name: "Element Lv1", mv: 5.2, rawEle: 13, rawType: "Shot" },
+  { name: "Element Lv2", mv: 6.5, rawEle: 16.25, rawType: "Shot" },
   {
     name: "Flaming Lv1",
     mv: 5.2,
     rawEle: 13,
     elementType: "Fire",
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 1 },
   },
   {
@@ -212,6 +231,7 @@ export const LightBowgunAttacks = [
     mv: 6.5,
     rawEle: 16.25,
     elementType: "Fire",
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 2 },
   },
   {
@@ -219,6 +239,7 @@ export const LightBowgunAttacks = [
     mv: 5.2,
     rawEle: 13,
     elementType: "Thunder",
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 1 },
   },
   {
@@ -226,6 +247,7 @@ export const LightBowgunAttacks = [
     mv: 6.5,
     rawEle: 16.25,
     elementType: "Thunder",
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 2 },
   },
   {
@@ -233,6 +255,7 @@ export const LightBowgunAttacks = [
     mv: 5.2,
     rawEle: 13,
     elementType: "Water",
+    rawType: "Shot",
     ammo: { type: "Water", level: 1 },
   },
   {
@@ -240,6 +263,7 @@ export const LightBowgunAttacks = [
     mv: 6.5,
     rawEle: 16.25,
     elementType: "Water",
+    rawType: "Shot",
     ammo: { type: "Water", level: 2 },
   },
   {
@@ -247,6 +271,7 @@ export const LightBowgunAttacks = [
     mv: 5.2,
     rawEle: 13,
     elementType: "Ice",
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 1 },
   },
   {
@@ -254,6 +279,7 @@ export const LightBowgunAttacks = [
     mv: 6.5,
     rawEle: 16.25,
     elementType: "Ice",
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 2 },
   },
   {
@@ -261,16 +287,30 @@ export const LightBowgunAttacks = [
     mv: 14,
     rawEle: 30.8,
     elementType: "Dragon",
+    rawType: "Shot",
     ammo: { type: "Dragon", level: 1 },
   },
-  { name: "Chaser Element Lv1", mv: 6, rawEle: 15, hits: 2 },
-  { name: "Chaser Element Lv2", mv: 7.5, rawEle: 18.75, hits: 2 },
-  { name: "Rapid Fire Normal Lv1", mv: 7.5, normalShot: true, rapidFire: true },
+  { name: "Chaser Element Lv1", mv: 6, rawEle: 15, hits: 2, rawType: "Shot" },
+  {
+    name: "Chaser Element Lv2",
+    mv: 7.5,
+    rawEle: 18.75,
+    hits: 2,
+    rawType: "Shot",
+  },
+  {
+    name: "Rapid Fire Normal Lv1",
+    mv: 7.5,
+    normalShot: true,
+    rapidFire: true,
+    rawType: "Shot",
+  },
   {
     name: "Rapid Fire Normal Lv2",
     mv: 10.5,
     normalShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 2 },
   },
   {
@@ -278,6 +318,7 @@ export const LightBowgunAttacks = [
     mv: 14.25,
     normalShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 3 },
   },
   {
@@ -285,6 +326,7 @@ export const LightBowgunAttacks = [
     mv: 22.5,
     rapidFire: true,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 1 },
   },
   {
@@ -292,6 +334,7 @@ export const LightBowgunAttacks = [
     mv: 31.5,
     rapidFire: true,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 2 },
   },
   {
@@ -299,6 +342,7 @@ export const LightBowgunAttacks = [
     mv: 42.75,
     rapidFire: true,
     normalShot: true,
+    rawType: "Shot",
     ammo: { type: "Normal", level: 3 },
   },
   {
@@ -306,6 +350,7 @@ export const LightBowgunAttacks = [
     mv: 7.15,
     piercingShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 1 },
   },
   {
@@ -313,6 +358,7 @@ export const LightBowgunAttacks = [
     mv: 7.8,
     piercingShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 2 },
   },
   {
@@ -320,6 +366,7 @@ export const LightBowgunAttacks = [
     mv: 7.8,
     piercingShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 3 },
   },
   {
@@ -327,6 +374,7 @@ export const LightBowgunAttacks = [
     mv: 21.45,
     rapidFire: true,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 1 },
   },
   {
@@ -334,6 +382,7 @@ export const LightBowgunAttacks = [
     mv: 23.4,
     rapidFire: true,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 2 },
   },
   {
@@ -341,6 +390,7 @@ export const LightBowgunAttacks = [
     mv: 23.4,
     rapidFire: true,
     piercingShot: true,
+    rawType: "Shot",
     ammo: { type: "Pierce", level: 3 },
   },
   {
@@ -348,6 +398,7 @@ export const LightBowgunAttacks = [
     mv: 6.05,
     spreadPowerShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 1 },
   },
   {
@@ -355,6 +406,7 @@ export const LightBowgunAttacks = [
     mv: 6.9575,
     spreadPowerShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 2 },
   },
   {
@@ -362,6 +414,7 @@ export const LightBowgunAttacks = [
     mv: 7.865,
     spreadPowerShot: true,
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 3 },
   },
   {
@@ -369,6 +422,7 @@ export const LightBowgunAttacks = [
     mv: 10.285,
     rapidFire: true,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 1 },
   },
   {
@@ -376,6 +430,7 @@ export const LightBowgunAttacks = [
     mv: 11.82775,
     rapidFire: true,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 2 },
   },
   {
@@ -383,6 +438,7 @@ export const LightBowgunAttacks = [
     mv: 13.3705,
     rapidFire: true,
     spreadPowerShot: true,
+    rawType: "Shot",
     ammo: { type: "Spread", level: 3 },
   },
   {
@@ -429,14 +485,27 @@ export const LightBowgunAttacks = [
     artilleryAmmo: true,
     ammo: { type: "Sticky", level: 2 },
   },
-  { name: "Rapid Fire Element Lv1", mv: 4.4, rawEle: 11, rapidFire: true },
-  { name: "Rapid Fire Element Lv2", mv: 5.5, rawEle: 13.75, rapidFire: true },
+  {
+    name: "Rapid Fire Element Lv1",
+    mv: 4.4,
+    rawEle: 11,
+    rapidFire: true,
+    rawType: "Shot",
+  },
+  {
+    name: "Rapid Fire Element Lv2",
+    mv: 5.5,
+    rawEle: 13.75,
+    rapidFire: true,
+    rawType: "Shot",
+  },
   {
     name: "Rapid Fire Flaming Lv1",
     mv: 4.4,
     rawEle: 11,
     elementType: "Fire",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 1 },
   },
   {
@@ -445,6 +514,7 @@ export const LightBowgunAttacks = [
     rawEle: 13.75,
     elementType: "Fire",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 2 },
   },
   {
@@ -453,6 +523,7 @@ export const LightBowgunAttacks = [
     rawEle: 18.7,
     elementType: "Fire",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 1 },
   },
   {
@@ -461,6 +532,7 @@ export const LightBowgunAttacks = [
     rawEle: 23.375,
     elementType: "Fire",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Flaming", level: 2 },
   },
   {
@@ -469,6 +541,7 @@ export const LightBowgunAttacks = [
     rawEle: 11,
     elementType: "Thunder",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 1 },
   },
   {
@@ -477,6 +550,7 @@ export const LightBowgunAttacks = [
     rawEle: 13.75,
     elementType: "Thunder",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 2 },
   },
   {
@@ -485,6 +559,7 @@ export const LightBowgunAttacks = [
     rawEle: 18.7,
     elementType: "Thunder",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 1 },
   },
   {
@@ -493,6 +568,7 @@ export const LightBowgunAttacks = [
     rawEle: 23.375,
     elementType: "Thunder",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Thunder", level: 2 },
   },
   {
@@ -501,6 +577,7 @@ export const LightBowgunAttacks = [
     rawEle: 11,
     elementType: "Water",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Water", level: 1 },
   },
   {
@@ -509,6 +586,7 @@ export const LightBowgunAttacks = [
     rawEle: 13.75,
     elementType: "Water",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Water", level: 2 },
   },
   {
@@ -517,6 +595,7 @@ export const LightBowgunAttacks = [
     rawEle: 18.7,
     elementType: "Water",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Water", level: 1 },
   },
   {
@@ -525,6 +604,7 @@ export const LightBowgunAttacks = [
     rawEle: 23.375,
     elementType: "Water",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Water", level: 2 },
   },
   {
@@ -533,6 +613,7 @@ export const LightBowgunAttacks = [
     rawEle: 11,
     elementType: "Ice",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 1 },
   },
   {
@@ -541,6 +622,7 @@ export const LightBowgunAttacks = [
     rawEle: 13.75,
     elementType: "Ice",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 2 },
   },
   {
@@ -549,6 +631,7 @@ export const LightBowgunAttacks = [
     rawEle: 18.7,
     elementType: "Ice",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 1 },
   },
   {
@@ -557,6 +640,7 @@ export const LightBowgunAttacks = [
     rawEle: 23.375,
     elementType: "Ice",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Freeze", level: 2 },
   },
   {
@@ -564,12 +648,14 @@ export const LightBowgunAttacks = [
     mv: 7.48,
     rawEle: 18.7,
     rapidFire: true,
+    rawType: "Shot",
   },
   {
     name: "Rapid Fire Element Lv2 Chaser",
     mv: 9.35,
     rawEle: 23.375,
     rapidFire: true,
+    rawType: "Shot",
   },
   {
     name: "Rapid Fire Dragon Lv1",
@@ -577,6 +663,7 @@ export const LightBowgunAttacks = [
     rawEle: 28.6,
     elementType: "Dragon",
     rapidFire: true,
+    rawType: "Shot",
     ammo: { type: "Dragon", level: 1 },
   },
   // {
@@ -585,6 +672,7 @@ export const LightBowgunAttacks = [
   //   rawEle: 36.5,
   //   elementType: "Dragon",
   //   rapidFire: true,
+  //   rawType: "Shot",
   //   ammo: { type: "Dragon", level: 1 },
   // },
 ] satisfies Attack[];

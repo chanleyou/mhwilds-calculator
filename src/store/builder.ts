@@ -6,6 +6,7 @@ import {
   Buffs,
   Sharpnesses,
 } from "@/data";
+import Attacks from "@/data/attacks";
 import {
   GroupSkillsTwo,
   SeriesSkillsTwo,
@@ -13,7 +14,7 @@ import {
   WeaponArmorSkills,
 } from "@/data/skills";
 import {
-  calculateAffinity,
+  calculateAffinityTwo,
   calculateAttackTwo,
   calculateAverage,
   calculateCritTwo,
@@ -35,6 +36,7 @@ import {
   Flag,
   type Skill,
   type Slots,
+  Target,
   Weapon,
   isElementType,
   isGunlance,
@@ -49,9 +51,7 @@ export type InitialBuilder = {
   w: Weapon;
   artian: Artian;
   otherBuffs: Record<string, Buff>;
-  rawHzv: number;
-  eleHzv: number;
-  isWound: boolean;
+  target: Target;
   helm?: Armor;
   body?: Armor;
   arms?: Armor;
@@ -72,9 +72,17 @@ const initialBuilder: InitialBuilder = {
   w: SwordAndShields[0],
   artian: { element: "No Element", infusions: [], upgrades: [] },
   otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
-  rawHzv: 80,
-  eleHzv: 30,
-  isWound: false,
+  target: {
+    wound: false,
+    Slash: 80,
+    Blunt: 80,
+    Shot: 80,
+    Fire: 30,
+    Ice: 30,
+    Thunder: 30,
+    Water: 30,
+    Dragon: 30,
+  },
   weaponSlots: [],
   helmSlots: [],
   bodySlots: [],
@@ -92,9 +100,6 @@ export type Builder = InitialBuilder & {
   setArtianInfusion: (i: number, v?: ArtianInfusion) => void;
   setArtianUpgrade: (i: number, v?: ArtianUpgrade) => void;
   setOtherBuff: (id: string, buff?: Buff) => void;
-  setRawHzv: (rawHzv: number) => void;
-  setEleHzv: (eleHzv: number) => void;
-  setIsWound: (isWound: boolean) => void;
   setHelm: (helm?: Armor) => void;
   setWaist: (waist?: Armor) => void;
   setArms: (arms?: Armor) => void;
@@ -110,6 +115,8 @@ export type Builder = InitialBuilder & {
   setDisabled: (s: Skill, a: boolean) => void;
   setFlag: (f: Flag, a: boolean) => void;
   emptyBuffs: () => void;
+  setTarget: (target: Target) => void;
+  setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
 };
 
 export const useBuild = create<Builder>((set) => ({
@@ -136,8 +143,6 @@ export const useBuild = create<Builder>((set) => ({
   setArtianUpgrade: (i: number, v?: ArtianUpgrade) => {
     set(produce((d) => void (d.artian.upgrades[i] = v)));
   },
-  setRawHzv: (rawHzv) => set({ rawHzv }),
-  setEleHzv: (eleHzv) => set({ eleHzv }),
   setOtherBuff: (id, buff?) => {
     set(
       produce((d) => {
@@ -146,7 +151,9 @@ export const useBuild = create<Builder>((set) => ({
       }),
     );
   },
-  setIsWound: (isWound) => set({ isWound }),
+  setTarget: (target: Target) => set({ target }),
+  setTargetValue: (key, value) =>
+    set(produce((d) => void (d.target[key] = value))),
   setHelm: (helm?) => set({ helm, helmSlots: [] }),
   setWaist: (waist?) => set({ waist, waistSlots: [] }),
   setArms: (arms?) => set({ arms, armsSlots: [] }),
@@ -229,9 +236,6 @@ export const useComputed = () => {
   const {
     w,
     artian,
-    rawHzv,
-    eleHzv,
-    isWound,
     otherBuffs,
     helm,
     body,
@@ -247,6 +251,7 @@ export const useComputed = () => {
     legsSlots,
     disabled,
     flags,
+    target,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -451,11 +456,11 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAffinity = calculateAffinity({
-    affinity: weapon.affinity ?? 0,
+  const uiAffinity = calculateAffinityTwo({
+    affinity: weapon.affinity,
     buffs,
-    rawHzv,
-    isWound,
+    target,
+    rawType: Attacks[weapon.type][0].rawType ?? "Slash",
   });
 
   const uiAttack = calculateAttackTwo(weapon.attack, buffs);
@@ -471,32 +476,36 @@ export const useComputed = () => {
   const eleCritMulti =
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
-  const calcHit = (atk: Attack, eleHzvOverride?: number) => {
-    return calculateHitTwo(
-      weapon,
-      buffs,
-      atk,
-      rawHzv,
-      eleHzvOverride ?? eleHzv,
-    );
+  const calcHit = (atk: Attack, targetOverride?: Partial<Target>) => {
+    return calculateHitTwo(weapon, buffs, atk, {
+      ...target,
+      ...targetOverride,
+    });
   };
 
-  const calcCrit = (atk: Attack, eleHzvOverride?: number) => {
+  const calcCrit = (atk: Attack, targetOverride?: Partial<Target>) => {
     return calculateCritTwo(
       weapon,
       buffs,
       atk,
-      rawHzv,
-      eleHzvOverride ?? eleHzv,
+      { ...target, ...targetOverride },
       critMulti,
       eleCritMulti,
     );
   };
 
-  const calcAverage = (atk: Attack, eleHzvOverride?: number) => {
-    const hit = calcHit(atk, eleHzvOverride);
-    const crit = calcCrit(atk, eleHzvOverride);
-    return calculateAverage(hit, crit, atk.cantCrit ? 0 : uiAffinity);
+  const calcAverage = (atk: Attack, targetOverride?: Partial<Target>) => {
+    const hit = calcHit(atk, targetOverride);
+    const crit = calcCrit(atk, targetOverride);
+    const affinity = atk.cantCrit
+      ? 0
+      : calculateAffinityTwo({
+          affinity: weapon.affinity,
+          buffs,
+          target,
+          rawType: atk.rawType ?? "Slash",
+        });
+    return calculateAverage(hit, crit, affinity);
   };
 
   const effectiveRaw = calcAverage({
@@ -505,7 +514,16 @@ export const useComputed = () => {
     eleMul: 0,
     ignoreHzv: true,
   });
-  const effectiveEle = calcAverage({ name: "EFE", mv: 0 }, 100);
+  const effectiveEle = calcAverage(
+    { name: "EFE", mv: 0 },
+    {
+      Fire: 100,
+      Ice: 100,
+      Thunder: 100,
+      Dragon: 100,
+      Water: 100,
+    },
+  );
 
   // TODO: separate these into slices
   return {

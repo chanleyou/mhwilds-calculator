@@ -31,4 +31,30 @@ const Attacks: Record<WeaponType, Attack[]> = {
   ["Sword and Shield"]: SwordAndShieldAttacks,
 };
 
+export const OtherAttacks: Record<string, Attack> = {
+  ["Convert Element 1"]: {
+    name: "Convert Element Lv1",
+    mv: 0,
+    fixedRaw: 150,
+    cantCrit: true,
+    fixedEle: 60,
+    elementType: "Dragon",
+  },
+  ["Convert Element 2"]: {
+    name: "Convert Element Lv2",
+    mv: 0,
+    fixedRaw: 200,
+    cantCrit: true,
+    fixedEle: 80,
+    elementType: "Dragon",
+  },
+  ["Convert Element 3"]: {
+    name: "Convert Element Lv3",
+    mv: 0,
+    fixedRaw: 280,
+    cantCrit: true,
+    fixedEle: 100,
+    elementType: "Dragon",
+  },
+};
 export default Attacks;
