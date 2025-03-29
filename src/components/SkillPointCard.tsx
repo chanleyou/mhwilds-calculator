@@ -109,6 +109,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                   </TooltipTrigger>
                   {skill.description && (
                     <TooltipContent>
+                      <h2>{k}</h2>
                       <p>{skill.description}</p>
                     </TooltipContent>
                   )}

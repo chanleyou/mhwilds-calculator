@@ -200,6 +200,7 @@ export type BuffValues = {
 
 export type Buff = BuffValues & {
   name?: string;
+  description?: string;
   criticalBoost?: number;
   criticalElement?: number;
   frenzy?: BuffValues;
@@ -295,7 +296,6 @@ export interface IAttack {
   saType?: "Sword" | "Axe"; // Switch Axe mode
   charge?: boolean; // Charge Master
   ignoreCoating?: boolean; // ignore Bow Coating
-  total?: boolean;
   hits?: number;
   shelling?: Partial<Shelling>;
   normalShot?: boolean;

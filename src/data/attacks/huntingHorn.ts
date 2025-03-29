@@ -30,6 +30,7 @@ export const HuntingHornAttacks = [
     eleMul: 0.5,
     ignoreSharpness: true,
     cantCrit: true,
+    melody: true,
   },
   {
     name: "Perform Soundwave",

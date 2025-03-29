@@ -1,5 +1,6 @@
 import { ListIcon, SwordsIcon, TimerResetIcon, XIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useBuild } from "@/store/builder";
 import {
   useAddAttack,
   useCombo,
@@ -22,6 +23,7 @@ import {
 import { ComboTable } from "./ComboTable";
 
 export const ComboDialog = () => {
+  const { w } = useBuild();
   const { mode, reset, setComboMode } = useCombo();
   const addAttack = useAddAttack();
   const totalHits = useTotalHits();
@@ -37,6 +39,8 @@ export const ComboDialog = () => {
     }
     return "Re-calculates damage of all attacks when inputs change.";
   }, [mode]);
+
+  useEffect(() => void reset(), [w.type, reset]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

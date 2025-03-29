@@ -170,7 +170,7 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   },
   NormalShots: {
     name: "Normal Shots",
-    levels: [{ name: "Normal Shots 1", normalShotsRawMul: 1.05 }],
+    levels: [{ name: "Normal Shots 1", rawMul: 1.05 }],
   },
   OffensiveGuard: {
     name: "Offensive Guard",
@@ -205,22 +205,22 @@ export const WeaponSkills: Record<string, BuffGroup> = {
   },
   PiercingShots: {
     name: "Piercing Shots",
-    levels: [{ name: "Piercing Shots 1", rawMul: 1.05 }],
+    levels: [{ name: "Piercing Shots 1", piercingShotsRawMul: 1.05 }],
   },
   RapidFireUp: {
     name: "Rapid Fire Up",
-    levels: [{ name: "Rapid Fire Up 1", rawMul: 1.05 }],
+    levels: [{ name: "Rapid Fire Up 1", rapidFireMul: 1.05 }],
   },
   SpecialAmmoBoost: {
     name: "Special Ammo Boost",
     levels: [
-      { name: "Special Ammo Boost 1", rawMul: 1.1 },
-      { name: "Special Ammo Boost 2", rawMul: 1.2 },
+      { name: "Special Ammo Boost 1", specialAmmoBoostRawMul: 1.1 },
+      { name: "Special Ammo Boost 2", specialAmmoBoostRawMul: 1.2 },
     ],
   },
   SpreadPowerShots: {
     name: "Spread/Power Shots",
-    levels: [{ name: "Spread/Power Shots 1", rawMul: 1.05 }],
+    levels: [{ name: "Spread/Power Shots 1", spreadPowerShotsRawMul: 1.05 }],
   },
   TetradShot: {
     name: "Tetrad Shot",
@@ -633,8 +633,16 @@ export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
       1: { name: "Attack Boost 1", attack: 3 },
       2: { name: "Attack Boost 2", attack: 5 },
       3: { name: "Attack Boost 3", attack: 7 },
-      4: { name: "Attack Boost 4", attack: 8, attackMul: 1.02 },
-      5: { name: "Attack Boost 5", attack: 9, attackMul: 1.04 },
+      4: {
+        name: "Attack Boost 4",
+        attack: 8,
+        attackMul: 1.02,
+      },
+      5: {
+        name: "Attack Boost 5",
+        attack: 9,
+        attackMul: 1.04,
+      },
     },
   },
   ["Blast Attack"]: {
@@ -922,6 +930,8 @@ export const WeaponSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
     },
   },
   ["Tetrad Shot"]: {
+    description:
+      "Increases Affinity of Bowgun ammo and Bow Coatings by 8/10/12% from the 4th shot onwards (first checkbox). Attack +3/6/10 and 5% Element on the 4th and 6th shot (second checkbox).",
     levels: {
       1: {
         name: "Tetrad Shot 1",
@@ -1068,6 +1078,7 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
     },
   },
   Ambush: {
+    description: "Attack +5/10/15% for 30s after a successful Sneak Attack.",
     toggle: true,
     levels: {
       1: { name: "Ambush 1", attackMul: 1.05 },
@@ -1076,6 +1087,8 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
     },
   },
   Antivirus: {
+    description:
+      "Increases recovery rate from Frenzy. Affinity +3/6/10% after overcoming Frenzy.",
     levels: {
       1: { name: "Antivirus 1", frenzy: { affinity: 3 } },
       2: { name: "Antivirus 2", frenzy: { affinity: 6 } },
