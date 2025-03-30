@@ -4,6 +4,7 @@ import {
   ArtianElementUpgrade,
   ArtianTypeToGunlanceShellType,
   Buffs,
+  CombinedBuffs,
   Sharpnesses,
 } from "@/data";
 import Attacks from "@/data/attacks";
@@ -126,11 +127,21 @@ export type Builder = InitialBuilder & {
   setManualWeapon: (w: Weapon) => void;
 };
 
-export const useBuild = create<Builder>((set) => ({
+export const useBuild = create<Builder>((set, get) => ({
   ...initialBuilder,
   reset: () => set(initialBuilder),
-  setW: (w: Weapon) =>
-    set({ w: w, weaponSlots: [], artian: initialBuilder.artian }),
+  setW: (w: Weapon) => {
+    set({
+      w: w,
+      weaponSlots: [],
+      artian: initialBuilder.artian,
+      otherBuffs: produce(get().otherBuffs, (d) => {
+        Object.keys(d).forEach((k) => {
+          if (!CombinedBuffs[k]?.weapons?.includes(w.type)) delete d[k];
+        });
+      }),
+    });
+  },
   setArtianType: (type: ArtianType) => {
     set(
       produce<InitialBuilder>((d) => {

@@ -165,10 +165,12 @@ export const calculateStatus = (
 
 export const calculateRawHitTwo = (
   weapon: Weapon,
-  buffs: Record<string, Buff | undefined>,
+  eBuffs: Record<string, Buff | undefined>,
   atk: Attack,
   hitzone: Target,
 ) => {
+  const buffs = { ...eBuffs };
+
   if (atk.fixedRaw) return atk.fixedRaw;
 
   const multipliers = [];
