@@ -5,7 +5,6 @@ import {
   Shelling,
   WeaponType,
 } from "@/types";
-import { ArmorSkills, GroupSkills, WeaponSkills } from "./skills";
 
 export const WeaponTypes = [
   "Sword and Shield",
@@ -60,9 +59,11 @@ export const SharpnessEle: { [K in Sharpness]: number } = {
 export const getSharpness = (n?: number[]): Sharpness => {
   if (!n) return "Ranged";
   let index = 0;
-  for (let i = 1; i < n.length; i++) {
-    if (n[i] > 0) index = i;
-    else break;
+  for (let i = Sharpnesses.length - 1; i >= 0; i--) {
+    if (n[i] > 0) {
+      index = i;
+      break;
+    }
   }
 
   const s = Sharpnesses[index];
@@ -206,9 +207,6 @@ export const HuntingHornBuffs: Record<string, BuffGroup> = {
 export const CombinedBuffs: Record<string, BuffGroup> = {
   ...Buffs,
   ...WeaponBuffs,
-  ...WeaponSkills,
-  ...ArmorSkills,
-  ...GroupSkills,
   ...FieldBuffs,
   ...HuntingHornBuffs,
 };

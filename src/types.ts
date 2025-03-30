@@ -1,5 +1,4 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
-import { InitialStore, useGetters } from "@/store/store";
 
 export const RawTypes = ["Slash", "Blunt", "Shot"] as const;
 export type RawType = (typeof RawTypes)[number];
@@ -326,8 +325,6 @@ export const isBowgunElementAmmo = (
   return "rawEle" in attack && "elementType" in attack;
 };
 
-export type ComputedStore = InitialStore & ReturnType<typeof useGetters>;
-
 export type DynamicAttack = IAttack & {
   count: number;
 };
@@ -364,22 +361,22 @@ export const getSkillLevels = (s: SkillTwo | SkillWeaponGroup) => {
 };
 
 // TODO
-export type Skill = string;
+export type SkillName = string;
 export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
 
 export type SlotLevel = 0 | 1 | 2 | 3 | 4;
 
 export interface Equip {
   name: string;
-  skills: Record<Skill, number>;
+  skills: Record<SkillName, number>;
 }
 
 export type Armor = Equip & {
   id: number;
   type: ArmorType;
   slots: [SlotLevel, SlotLevel, SlotLevel];
-  groupSkill?: Skill;
-  seriesSkill?: Skill;
+  groupSkill?: SkillName;
+  seriesSkill?: SkillName;
 };
 
 export type Decoration = Equip & {

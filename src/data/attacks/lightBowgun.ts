@@ -216,8 +216,6 @@ export const LightBowgunAttacks = [
   //   cantCrit: true,
   //   artilleryAmmo: true,
   // },
-  { name: "Element Lv1", mv: 5.2, rawEle: 13, rawType: "Shot" },
-  { name: "Element Lv2", mv: 6.5, rawEle: 16.25, rawType: "Shot" },
   {
     name: "Flaming Lv1",
     mv: 5.2,
@@ -289,14 +287,6 @@ export const LightBowgunAttacks = [
     elementType: "Dragon",
     rawType: "Shot",
     ammo: { type: "Dragon", level: 1 },
-  },
-  { name: "Chaser Element Lv1", mv: 6, rawEle: 15, hits: 2, rawType: "Shot" },
-  {
-    name: "Chaser Element Lv2",
-    mv: 7.5,
-    rawEle: 18.75,
-    hits: 2,
-    rawType: "Shot",
   },
   {
     name: "Rapid Fire Normal Lv1",
@@ -486,20 +476,6 @@ export const LightBowgunAttacks = [
     ammo: { type: "Sticky", level: 2 },
   },
   {
-    name: "Rapid Fire Element Lv1",
-    mv: 4.4,
-    rawEle: 11,
-    rapidFire: true,
-    rawType: "Shot",
-  },
-  {
-    name: "Rapid Fire Element Lv2",
-    mv: 5.5,
-    rawEle: 13.75,
-    rapidFire: true,
-    rawType: "Shot",
-  },
-  {
     name: "Rapid Fire Flaming Lv1",
     mv: 4.4,
     rawEle: 11,
@@ -642,20 +618,6 @@ export const LightBowgunAttacks = [
     rapidFire: true,
     rawType: "Shot",
     ammo: { type: "Freeze", level: 2 },
-  },
-  {
-    name: "Rapid Fire Element Lv1 Chaser",
-    mv: 7.48,
-    rawEle: 18.7,
-    rapidFire: true,
-    rawType: "Shot",
-  },
-  {
-    name: "Rapid Fire Element Lv2 Chaser",
-    mv: 9.35,
-    rawEle: 23.375,
-    rapidFire: true,
-    rawType: "Shot",
   },
   {
     name: "Rapid Fire Dragon Lv1",

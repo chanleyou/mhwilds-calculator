@@ -31,6 +31,7 @@ const SharpnessBarComponent = ({ sharpness, small, className }: Props) => {
                     Sharpnesses[i] === "Green" && "bg-green-500",
                     Sharpnesses[i] === "Blue" && "bg-blue-500",
                     Sharpnesses[i] === "White" && "bg-neutral-50",
+                    Sharpnesses[i] === "Purple" && "bg-purple-500",
                   )}
                   key={`${id}-${i}`}
                   style={{

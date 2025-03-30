@@ -17,7 +17,7 @@ export function Select<T>({
   label,
   options,
   value,
-  labelFn = (o) => String(o),
+  labelFn = (o) => (o ? String(o) : ""),
   keyFn = labelFn,
   description,
   onChangeValue,

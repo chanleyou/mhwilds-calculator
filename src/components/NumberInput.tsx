@@ -29,7 +29,7 @@ export function NumberInput({
     <InputContainer label={label} description={description}>
       <div className="relative flex items-center">
         <input
-          className="border-divider text-primary focus:border-primary disabled:hover:bg-content hover:bg-content-alt focus:bg-content-alt disabled:text-placeholder w-full rounded-sm border px-2 py-1.5 text-sm focus:outline-none sm:py-1"
+          className="border-divider text-primary focus:border-primary hover:border-primary disabled:text-placeholder w-full rounded-sm border px-2 py-1.5 text-sm focus:outline-none disabled:pointer-events-none sm:py-1"
           type="number"
           onChange={(e) => onChangeValue?.(Number(e.target.value))}
           value={value}
