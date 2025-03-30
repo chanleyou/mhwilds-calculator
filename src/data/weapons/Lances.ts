@@ -227,7 +227,7 @@ export const Lances: MeleeWeapon[] = [
     slots: [3, 3, 1],
     sharpness: [50, 100, 110, 50, 40, 0, 0],
     handicraft: [0, 50, 0, 0],
-    skills: { "Punishing Draw": 3 },
+    skills: { "Critical Element": 3 },
   },
   {
     type: "Lance",
