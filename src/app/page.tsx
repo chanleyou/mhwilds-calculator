@@ -8,8 +8,6 @@ import {
   ExportDialogTwo,
   ImportDialogTwo,
   ManualDialog,
-  ManualSkillsCard,
-  ManualWeaponCard,
   // Notice,
   SkillPointCard,
   StatsCard,
@@ -32,8 +30,8 @@ export default function Builder() {
       </div>
       <div className="flex flex-col gap-2 lg:flex-row">
         <div className="flex flex-4 flex-col gap-2">
-          <ManualWeaponCard />
-          <ManualSkillsCard />
+          {/* <ManualWeaponCard />
+          <ManualSkillsCard /> */}
           <EquipmentCard />
           <BuffsCard />
         </div>

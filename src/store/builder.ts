@@ -14,13 +14,13 @@ import {
   WeaponArmorSkills,
 } from "@/data/skills";
 import {
-  calculateAffinityTwo,
-  calculateAttackTwo,
+  calculateAffinity,
+  calculateAttack,
   calculateAverage,
-  calculateCritTwo,
-  calculateElementTwo,
+  calculateCrit,
+  calculateElement,
   calculateHandicraft,
-  calculateHitTwo,
+  calculateHit,
   calculateStatus,
 } from "@/model";
 import {
@@ -34,10 +34,12 @@ import {
   type Charm,
   type Decoration,
   Flag,
+  Sharpness,
   type SkillName,
   type Slots,
   Target,
   Weapon,
+  WeaponSharpness,
   isElementType,
   isGunlance,
   isMeleeWeapon,
@@ -66,9 +68,8 @@ export type InitialBuilder = {
   legsSlots: Slots;
   disabled: Record<SkillName, boolean>;
   flags: Partial<Record<Flag, boolean>>;
-  manual: boolean;
   manualSkills: Record<SkillName, number>;
-  manualWeapon?: Weapon;
+  manualSharpness?: Sharpness;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -94,7 +95,6 @@ const initialBuilder: InitialBuilder = {
   legsSlots: [],
   disabled: {},
   flags: {},
-  manual: true,
   manualSkills: {},
 };
 
@@ -122,9 +122,8 @@ export type Builder = InitialBuilder & {
   emptyBuffs: () => void;
   setTarget: (target: Target) => void;
   setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
-  setManual: (manual: boolean) => void;
   setManualSkills: (s: SkillName, v?: number) => void;
-  setManualWeapon: (w: Weapon) => void;
+  setManualSharpness: (s?: Sharpness) => void;
 };
 
 export const useBuild = create<Builder>((set, get) => ({
@@ -248,7 +247,6 @@ export const useBuild = create<Builder>((set, get) => ({
     );
   },
   emptyBuffs: () => set({ otherBuffs: {} }),
-  setManual: (manual) => set({ manual }),
   setManualSkills: (s, v) => {
     set(
       produce<Builder>((d) => {
@@ -257,7 +255,7 @@ export const useBuild = create<Builder>((set, get) => ({
       }),
     );
   },
-  setManualWeapon: (w: Weapon) => set({ manualWeapon: w }),
+  setManualSharpness: (s) => set({ manualSharpness: s }),
 }));
 
 export const useComputed = () => {
@@ -280,9 +278,8 @@ export const useComputed = () => {
     disabled,
     flags,
     target,
-    manual,
     manualSkills,
-    manualWeapon,
+    manualSharpness,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -300,36 +297,36 @@ export const useComputed = () => {
     .flat()
     .filter((n): n is Decoration => !!n);
 
-  const skillPoints = manual
-    ? manualSkills
-    : [w, ...equipment, ...decorations, charm].reduce<
-        Record<SkillName, number>
-      >((acc, i) => {
-        if (!i) return acc;
-        const { skills } = i;
-        Object.entries(skills).forEach(([k, v]) => {
-          acc[k] = acc[k] ? acc[k] + v : v;
-        });
-        return acc;
-      }, {});
+  const skillPoints = {
+    ...[w, ...equipment, ...decorations, charm].reduce<
+      Record<SkillName, number>
+    >((acc, i) => {
+      if (!i) return acc;
+      const { skills } = i;
+      Object.entries(skills).forEach(([k, v]) => {
+        acc[k] = acc[k] ? acc[k] + v : v;
+      });
+      return acc;
+    }, {}),
+    ...manualSkills,
+  };
 
-  const groupPoints = manual
-    ? manualSkills
-    : equipment.reduce<Record<SkillName, number>>((acc, i) => {
-        const { groupSkill, seriesSkill } = i;
-        if (groupSkill) {
-          acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
-        }
-        if (seriesSkill) {
-          acc[seriesSkill] = acc[seriesSkill] ? acc[seriesSkill] + 1 : 1;
-        }
-        return acc;
-      }, {});
+  const groupPoints = {
+    ...equipment.reduce<Record<SkillName, number>>((acc, i) => {
+      const { groupSkill, seriesSkill } = i;
+      if (groupSkill) {
+        acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
+      }
+      if (seriesSkill) {
+        acc[seriesSkill] = acc[seriesSkill] ? acc[seriesSkill] + 1 : 1;
+      }
+      return acc;
+    }, {}),
+    ...manualSkills,
+  };
 
   // Weapon & Armor Skills
-  const buffs = Object.entries(manual ? skillPoints : manualSkills).reduce<
-    Record<SkillName, Buff>
-  >(
+  const buffs = Object.entries(skillPoints).reduce<Record<SkillName, Buff>>(
     (acc, [k, v]) => {
       if (disabled[k]) return acc;
       if (!WeaponArmorSkills[k]) return acc;
@@ -370,8 +367,8 @@ export const useComputed = () => {
     }
   });
 
+  // Frenzy
   const frenzy = buffs.Frenzy !== undefined;
-
   if (frenzy) {
     Object.entries(buffs).forEach(([k, v]) => {
       if (!v.frenzy) return;
@@ -379,127 +376,129 @@ export const useComputed = () => {
     });
   }
 
-  const weapon =
-    manual && manualWeapon
-      ? manualWeapon
-      : produce(w, (d) => {
-          // Handicraft
-          if (isMeleeWeapon(d)) {
-            d.sharpness = calculateHandicraft(
-              d,
-              Math.min(skillPoints["Handicraft"] ?? 0, 5),
-            );
-          }
+  const weapon = produce(w, (d) => {
+    // Handicraft
+    if (isMeleeWeapon(d)) {
+      if (manualSharpness) {
+        const array = [0, 0, 0, 0, 0, 0, 0] as WeaponSharpness;
+        const sharpnessIndex = Sharpnesses.indexOf(manualSharpness);
+        array[sharpnessIndex] = 150;
+        d.sharpness = array;
+        d.handicraft = [50, 0, 0, 0];
+      }
 
-          // Artian
-          if (!d.artian) return;
-          if (isGunlance(d) && artian.element) {
-            d.shelling.type = ArtianTypeToGunlanceShellType[artian.element];
-          }
+      d.sharpness = calculateHandicraft(
+        d,
+        Math.min(skillPoints["Handicraft"] ?? 0, 5),
+      );
+    }
 
-          if (d.coatings) {
-            d.coatings = [];
-            if (
-              artian.element === "Thunder" ||
-              artian.element === "Dragon" ||
-              artian.element === "Blast"
-            ) {
-              d.coatings.push("Power");
-            } else if (
-              artian.element === "Ice" ||
-              artian.element === "Paralysis" ||
-              artian.element === "Poison"
-            ) {
-              d.coatings.push("Pierce");
-            } else if (
-              artian.element === "No Element" ||
-              artian.element === "Water" ||
-              artian.element === "Fire" ||
-              artian.element === "Sleep"
-            ) {
-              d.coatings.push("Close-range");
-            }
+    // Artian
+    if (!d.artian) return;
+    if (isGunlance(d) && artian.element) {
+      d.shelling.type = ArtianTypeToGunlanceShellType[artian.element];
+    }
 
-            if (isStatusType(artian.element)) d.coatings.push(artian.element);
-          }
+    if (d.coatings) {
+      d.coatings = [];
+      if (
+        artian.element === "Thunder" ||
+        artian.element === "Dragon" ||
+        artian.element === "Blast"
+      ) {
+        d.coatings.push("Power");
+      } else if (
+        artian.element === "Ice" ||
+        artian.element === "Paralysis" ||
+        artian.element === "Poison"
+      ) {
+        d.coatings.push("Pierce");
+      } else if (
+        artian.element === "No Element" ||
+        artian.element === "Water" ||
+        artian.element === "Fire" ||
+        artian.element === "Sleep"
+      ) {
+        d.coatings.push("Close-range");
+      }
 
-          if (isWeaponBowgun(d)) {
-            const rapidFire = d.type === "Light Bowgun" ? true : undefined;
-            if (artian.element === "Dragon") {
-              d.ammo.Flaming = { levels: [1, 2], rapidFire };
-              d.ammo.Dragon = { levels: [1], rapidFire };
-            } else if (artian.element === "Blast") {
-              d.ammo.Flaming = { levels: [1, 2], rapidFire };
-              d.ammo.Sticky = { levels: [1] };
-            } else if (artian.element === "Fire") {
-              d.ammo.Flaming = { levels: [1, 2], rapidFire };
-            } else if (artian.element === "Ice" || artian.element === "Sleep") {
-              d.ammo.Freeze = { levels: [1, 2], rapidFire };
-            } else if (
-              artian.element === "Thunder" ||
-              artian.element === "Paralysis"
-            ) {
-              d.ammo.Thunder = { levels: [1, 2], rapidFire };
-            } else if (
-              artian.element === "Water" ||
-              artian.element === "Poison"
-            ) {
-              d.ammo.Water = { levels: [1, 2], rapidFire };
-            }
-          }
+      if (isStatusType(artian.element)) d.coatings.push(artian.element);
+    }
 
-          if (isElementType(artian.element)) {
-            if (d.type === "Hunting Horn") {
-              d.songs = [
-                "Elem Attack Boost",
-                "Blight Negated",
-                "Sonic Waves",
-                "Restore Sharpness",
-                `Echo Wave (${artian.element})`,
-                "Resounding Melody",
-              ];
-            }
-            if (d.type === "Switch Axe" || d.type === "Charge Blade") {
-              d.phial = "Element";
-            }
-            if (!isWeaponBowgun(d)) {
-              d.element = { type: artian.element, value: d.artian.element };
-            }
-          } else if (isStatusType(artian.element)) {
-            if (d.type === "Hunting Horn") {
-              d.songs = [
-                "Status Attack Up",
-                "Divine Protection",
-                "All Ailments Negated",
-                `Echo Wave (${artian.element})`,
-                "Offset Melody",
-              ];
-            }
-            if (d.type === "Switch Axe") d.phial = "Power";
-            if (artian.element === "Blast" && d.type === "Bow") {
-              d.status = { type: artian.element, value: 80 };
-            } else {
-              d.status = { type: artian.element, value: d.artian.status };
-            }
-          }
+    if (isWeaponBowgun(d)) {
+      const rapidFire = d.type === "Light Bowgun" ? true : undefined;
+      if (artian.element === "Dragon") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Dragon = { levels: [1], rapidFire };
+      } else if (artian.element === "Blast") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Sticky = { levels: [1] };
+      } else if (artian.element === "Fire") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+      } else if (artian.element === "Ice" || artian.element === "Sleep") {
+        d.ammo.Freeze = { levels: [1, 2], rapidFire };
+      } else if (
+        artian.element === "Thunder" ||
+        artian.element === "Paralysis"
+      ) {
+        d.ammo.Thunder = { levels: [1, 2], rapidFire };
+      } else if (artian.element === "Water" || artian.element === "Poison") {
+        d.ammo.Water = { levels: [1, 2], rapidFire };
+      }
+    }
 
-          [...artian.infusions, ...artian.upgrades].forEach((i) => {
-            if (i === "Attack") d.attack += 5;
-            if (i === "Affinity") d.affinity += 5;
+    if (isElementType(artian.element)) {
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Elem Attack Boost",
+          "Blight Negated",
+          "Sonic Waves",
+          "Restore Sharpness",
+          `Echo Wave (${artian.element})`,
+          "Resounding Melody",
+        ];
+      }
+      if (d.type === "Switch Axe" || d.type === "Charge Blade") {
+        d.phial = "Element";
+      }
+      if (!isWeaponBowgun(d)) {
+        d.element = { type: artian.element, value: d.artian.element };
+      }
+    } else if (isStatusType(artian.element)) {
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Status Attack Up",
+          "Divine Protection",
+          "All Ailments Negated",
+          `Echo Wave (${artian.element})`,
+          "Offset Melody",
+        ];
+      }
+      if (d.type === "Switch Axe") d.phial = "Power";
+      if (artian.element === "Blast" && d.type === "Bow") {
+        d.status = { type: artian.element, value: 80 };
+      } else {
+        d.status = { type: artian.element, value: d.artian.status };
+      }
+    }
 
-            if (i === "Element" && d.element) {
-              d.element.value += ArtianElementUpgrade[d.type];
-            }
+    [...artian.infusions, ...artian.upgrades].forEach((i) => {
+      if (i === "Attack") d.attack += 5;
+      if (i === "Affinity") d.affinity += 5;
 
-            if (i === "Element" && d.status) {
-              d.status.value += ArtianElementUpgrade[d.type];
-            }
+      if (i === "Element" && d.element) {
+        d.element.value += ArtianElementUpgrade[d.type];
+      }
 
-            if (i === "Sharpness" && d.sharpness) {
-              d.sharpness[Sharpnesses.indexOf("White")] += 30;
-            }
-          });
-        });
+      if (i === "Element" && d.status) {
+        d.status.value += ArtianElementUpgrade[d.type];
+      }
+
+      if (i === "Sharpness" && d.sharpness) {
+        d.sharpness[Sharpnesses.indexOf("White")] += 30;
+      }
+    });
+  });
 
   // Tetrad Shot
   const tetradBuff = buffs["Tetrad Shot"]?.tetrad;
@@ -514,16 +513,16 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAffinity = calculateAffinityTwo({
+  const uiAffinity = calculateAffinity({
     affinity: weapon.affinity,
     buffs,
     target,
     rawType: Attacks[weapon.type][0].rawType ?? "Slash",
   });
 
-  const uiAttack = calculateAttackTwo(weapon.attack, buffs);
+  const uiAttack = calculateAttack(weapon.attack, buffs);
   const uiElement = weapon.element
-    ? calculateElementTwo(weapon.element.value, weapon.element.type, buffs)
+    ? calculateElement(weapon.element.value, weapon.element.type, buffs)
     : 0;
   const uiStatus = weapon.status
     ? calculateStatus(weapon.status.value, weapon.status.type, buffs)
@@ -535,14 +534,14 @@ export const useComputed = () => {
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
   const calcHit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateHitTwo(weapon, buffs, atk, {
+    return calculateHit(weapon, buffs, atk, {
       ...target,
       ...targetOverride,
     });
   };
 
   const calcCrit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateCritTwo(
+    return calculateCrit(
       weapon,
       buffs,
       atk,
@@ -557,7 +556,7 @@ export const useComputed = () => {
     const crit = calcCrit(atk, targetOverride);
     const affinity = atk.cantCrit
       ? 0
-      : calculateAffinityTwo({
+      : calculateAffinity({
           affinity: weapon.affinity,
           buffs,
           target,

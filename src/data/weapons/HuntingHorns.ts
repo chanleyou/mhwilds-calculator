@@ -16,7 +16,7 @@ export const HuntingHorns: HuntingHorn[] = [
     },
     songs: [
       "Attack Up (S)",
-      "Fire Res(L)",
+      "Fire Res (L)",
       "Sonic Waves",
       "Echo Wave (Blunt)",
       "Offset Melody",
@@ -207,7 +207,7 @@ export const HuntingHorns: HuntingHorn[] = [
     skills: { "Stamina Thief": 3, ["Horn Maestro"]: 1 },
     songs: [
       "Attack Up (S)",
-      "Fire Res(L)",
+      "Fire Res (L)",
       "Sonic Waves",
       "Echo Wave (Thunder)",
       "Offset Melody",

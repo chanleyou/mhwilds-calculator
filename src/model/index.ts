@@ -62,16 +62,14 @@ const getElementMul = (b?: BuffValues) => get("elementMul", 1, b);
 const getStatus = (b?: BuffValues) => get("status", 0, b);
 const getStatusMul = (b?: BuffValues) => get("statusMul", 1, b);
 
-export const calculateAffinityTwo = ({
+export const calculateAffinity = ({
   affinity,
   buffs = {},
-  frenzy,
   target,
   rawType,
 }: {
   affinity: number;
   buffs?: Record<string, Buff>;
-  frenzy?: boolean;
   target: Target;
   rawType: RawType;
 }) => {
@@ -80,7 +78,6 @@ export const calculateAffinityTwo = ({
     ...Object.values(buffs).map((b) =>
       sum(
         getAffinity(b),
-        frenzy ? getAffinity(b.frenzy) : 0,
         target[rawType] >= 45 ? getAffinity(b.weakness) : 0,
         target.wound ? getAffinity(b.wound) : 0,
       ),
@@ -100,7 +97,7 @@ export const calculateAverage = (
   return round(avg, 2);
 };
 
-export const calculateAttackTwo = (
+export const calculateAttack = (
   base: number,
   buffs: Record<string, Buff | undefined>,
   multipliers: (number | undefined | false)[] = [],
@@ -113,7 +110,7 @@ export const calculateAttackTwo = (
   );
 };
 
-export const calculateElementTwo = (
+export const calculateElement = (
   base: number | undefined,
   type: ElementType,
   buffs: Record<string, Buff | undefined>,
@@ -163,7 +160,7 @@ export const calculateStatus = (
   );
 };
 
-export const calculateRawHitTwo = (
+export const calculateRawHit = (
   weapon: Weapon,
   eBuffs: Record<string, Buff | undefined>,
   atk: Attack,
@@ -194,7 +191,7 @@ export const calculateRawHitTwo = (
     multipliers.push(buffs.Artillery?.artilleryAmmoAttackMul);
   }
 
-  const attack = calculateAttackTwo(weapon.attack, buffs, multipliers, bonuses);
+  const attack = calculateAttack(weapon.attack, buffs, multipliers, bonuses);
 
   const rawType = atk.rawType ?? "Slash";
 
@@ -215,7 +212,7 @@ export const calculateRawHitTwo = (
   );
 };
 
-export const calculateEleHitTwo = (
+export const calculateEleHit = (
   weapon: Weapon,
   buffs: Record<string, Buff | undefined>,
   atk: Attack,
@@ -249,7 +246,7 @@ export const calculateEleHitTwo = (
       return acc;
     }, 0);
 
-    const bowgunAttack = calculateAttackTwo(
+    const bowgunAttack = calculateAttack(
       weapon.attack,
       buffs,
       [],
@@ -269,7 +266,7 @@ export const calculateEleHitTwo = (
 
   if (!weapon.element) return 0;
 
-  const uiElement = calculateElementTwo(
+  const uiElement = calculateElement(
     weapon.element.value,
     weapon.element.type,
     buffs,
@@ -288,18 +285,18 @@ export const calculateEleHitTwo = (
   );
 };
 
-export const calculateHitTwo = (
+export const calculateHit = (
   weapon: Weapon,
   buffs: Record<string, Buff>,
   atk: Attack,
   target: Target,
 ) => {
-  const r = calculateRawHitTwo(weapon, buffs, atk, target);
-  const e = calculateEleHitTwo(weapon, buffs, atk, target);
+  const r = calculateRawHit(weapon, buffs, atk, target);
+  const e = calculateEleHit(weapon, buffs, atk, target);
   return round(dmg(r) + dmg(e));
 };
 
-export const calculateCritTwo = (
+export const calculateCrit = (
   weapon: Weapon,
   buffs: Record<string, Buff>,
   atk: Attack,
@@ -307,8 +304,8 @@ export const calculateCritTwo = (
   critMulti: number,
   eleCritMulti: number,
 ) => {
-  const r = calculateRawHitTwo(weapon, buffs, atk, target);
-  const e = calculateEleHitTwo(weapon, buffs, atk, target);
+  const r = calculateRawHit(weapon, buffs, atk, target);
+  const e = calculateEleHit(weapon, buffs, atk, target);
   return round(dmg(r * critMulti) + dmg(e * eleCritMulti));
 };
 

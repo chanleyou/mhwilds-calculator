@@ -126,7 +126,7 @@ export const HuntingHornSongs = [
   "Knockback Negated",
   "All Ailments Negated",
   "Divine Protection",
-  "Fire Res(L)",
+  "Fire Res (L)",
   "Ice Res (L)",
   "Thunder Res (L)",
   "Water Res (L)",

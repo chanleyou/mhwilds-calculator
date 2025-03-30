@@ -15,7 +15,6 @@ import {
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
-import { NumberDisplay } from "./NumberDisplay";
 import { Select } from "./Select";
 
 export const ArtianDialog = () => {
@@ -145,41 +144,5 @@ export const ArtianDialog = () => {
         </Card>
       </DialogContent>
     </Dialog>
-  );
-};
-
-export const ArtianCard = () => {
-  const { w, artian } = useBuild();
-
-  if (!w.artian) return;
-  return (
-    <Card>
-      <h1>Artian</h1>
-      <div>
-        <NumberDisplay label="Type">{artian.element}</NumberDisplay>
-        <NumberDisplay label="Infusion" className="text-right">
-          {ArtianInfusionOptions.map((o) => {
-            const length = artian.infusions.filter((i) => i === o).length;
-            if (length === 0) return;
-            return (
-              <p key={o}>
-                {length}x {o}
-              </p>
-            );
-          })}
-        </NumberDisplay>
-        <NumberDisplay label="Reinforcement" className="text-right">
-          {ArtianUpgradeOptions.map((o) => {
-            const length = artian.upgrades.filter((i) => i === o).length;
-            if (length === 0) return;
-            return (
-              <p key={o}>
-                {length}x {o}
-              </p>
-            );
-          })}
-        </NumberDisplay>
-      </div>
-    </Card>
   );
 };
