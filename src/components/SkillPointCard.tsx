@@ -1,5 +1,5 @@
 import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip";
-import { Card, Checkbox, TooltipContent } from "@/components";
+import { Card, Checkbox, Slider, TooltipContent } from "@/components";
 import {
   GroupSkillsCombined,
   SeriesSkillsCombined,
@@ -10,7 +10,8 @@ import { Buff, isSkillGroup } from "@/types";
 import { cn } from "@/utils";
 
 export const SkillPointCard = ({ className }: { className?: string }) => {
-  const { disabled, flags, setDisabled, setFlag } = useBuild();
+  const { disabled, flags, setDisabled, setFlag, uptime, setUptime } =
+    useBuild();
   const { skillPoints, groupPoints } = useComputed();
 
   return (
@@ -81,25 +82,49 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
 
           const entries = Object.entries(levels);
           return (
-            <div key={k} className="flex justify-between">
+            <div key={k} className="flex flex-col gap-3">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex flex-col gap-1">
-                    <p className={cn("text-sm", disabled[k] && "line-through")}>
-                      {k} {Math.min(v, entries.length)}{" "}
-                      {v > entries.length && `(${v})`}
-                    </p>
-                    <div className="flex gap-1">
-                      {entries.map((_, i) => (
-                        <div
-                          key={`${k}-${i}`}
-                          className={cn(
-                            "border-divider bg-background size-4 border",
-                            v > i && "border-none bg-amber-500",
-                          )}
-                        />
-                      ))}
+                  <div className="flex justify-between">
+                    <div className="flex flex-col gap-1">
+                      <p
+                        className={cn("text-sm", disabled[k] && "line-through")}
+                      >
+                        {k} {Math.min(v, entries.length)}{" "}
+                        {v > entries.length && `(${v})`}
+                      </p>
+                      <div className="flex gap-1">
+                        {entries.map((_, i) => (
+                          <div
+                            key={`${k}-${i}`}
+                            className={cn(
+                              "border-divider bg-background size-4 border",
+                              v > i && "border-none bg-amber-500",
+                            )}
+                          />
+                        ))}
+                      </div>
                     </div>
+                    {skill.toggle && (
+                      <Checkbox
+                        value={!disabled[k]}
+                        onChangeValue={() => setDisabled(k, !disabled[k])}
+                      />
+                    )}
+                    {k === "Tetrad Shot" && (
+                      <div className="flex gap-2">
+                        <Checkbox
+                          // label="Affinity"
+                          value={"TetradAffinity" in flags}
+                          onChangeValue={(v) => setFlag("TetradAffinity", v)}
+                        />
+                        <Checkbox
+                          // label="Attack"
+                          value={"TetradAttack" in flags}
+                          onChangeValue={(v) => setFlag("TetradAttack", v)}
+                        />
+                      </div>
+                    )}
                   </div>
                 </TooltipTrigger>
                 {skill.description && (
@@ -109,25 +134,15 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                   </TooltipContent>
                 )}
               </Tooltip>
-              {skill.toggle && (
-                <Checkbox
-                  value={!disabled[k]}
-                  onChangeValue={() => setDisabled(k, !disabled[k])}
+              {skill.uptime && (
+                <Slider
+                  skill={k}
+                  defaultValue={[uptime[k] ?? 100]}
+                  max={100}
+                  step={1}
+                  onValueChange={(v) => setUptime(k, v[0])}
+                  tooltip={`${uptime[k] ?? 100}%`}
                 />
-              )}
-              {k === "Tetrad Shot" && (
-                <div className="flex gap-2">
-                  <Checkbox
-                    // label="Affinity"
-                    value={"TetradAffinity" in flags}
-                    onChangeValue={(v) => setFlag("TetradAffinity", v)}
-                  />
-                  <Checkbox
-                    // label="Attack"
-                    value={"TetradAttack" in flags}
-                    onChangeValue={(v) => setFlag("TetradAttack", v)}
-                  />
-                </div>
               )}
             </div>
           );

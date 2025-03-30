@@ -4,6 +4,7 @@
 import {
   AttacksCard,
   BuffsCard,
+  Card,
   EquipmentCard,
   ExportDialogTwo,
   ImportDialogTwo,
@@ -13,8 +14,10 @@ import {
   StatsCard,
   // Tab,
 } from "@/components";
+import { useComputed } from "@/store/builder";
 
 export default function Builder() {
+  const { head, weights } = useComputed();
   // const options = ["Builder", "Manual"] as const;
   // const [view, setView] = useState<(typeof options)[number]>(options[0]);
   // const [comboView, setComboView] = useState(false);
@@ -38,19 +41,26 @@ export default function Builder() {
         <div className="flex flex-2 flex-col gap-2">
           <StatsCard />
           <SkillPointCard />
-          {/* <Card>
+          <Card>
             <h1>Debug</h1>
+            <h1>TotalWeights: {weights.reduce((acc, [, v]) => acc + v, 0)}</h1>
             <textarea
               className="font-mono text-xs"
-              value={JSON.stringify(build, undefined, 2)}
-              rows={30}
+              value={JSON.stringify(weights, undefined, 2)}
+              rows={60}
               readOnly
             />
-          </Card> */}
+            <textarea
+              className="font-mono text-xs"
+              value={JSON.stringify(head, undefined, 2)}
+              rows={60}
+              readOnly
+            />
+          </Card>
         </div>
-        <div className="flex-3">
+        {/* <div className="flex-3">
           <AttacksCard />
-        </div>
+        </div> */}
       </div>
     </div>
   );

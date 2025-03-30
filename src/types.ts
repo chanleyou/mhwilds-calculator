@@ -242,7 +242,8 @@ export type BuffGroup = {
   levels: Buff[];
 };
 
-export type SkillTwo = {
+export type Skill = {
+  uptime?: boolean;
   toggle?: boolean;
   description?: string;
   levels: Record<number, Buff>;
@@ -267,6 +268,7 @@ export type WeaponGroup = {
 
 export type SkillWeaponGroup = {
   toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   groups: WeaponGroup[];
 };
@@ -352,11 +354,11 @@ export const isWeaponBowgun = (weapon?: Weapon): weapon is Bowgun => {
   return isBowgun(weapon?.type) && "ammo" in weapon;
 };
 
-export const isSkillGroup = (s: SkillTwo | SkillWeaponGroup): s is SkillTwo => {
+export const isSkillGroup = (s: Skill | SkillWeaponGroup): s is Skill => {
   return "levels" in s;
 };
 
-export const getSkillLevels = (s: SkillTwo | SkillWeaponGroup) => {
+export const getSkillLevels = (s: Skill | SkillWeaponGroup) => {
   return "levels" in s ? s.levels : s.groups[0].levels;
 };
 

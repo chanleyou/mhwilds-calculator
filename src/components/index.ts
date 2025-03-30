@@ -32,6 +32,7 @@ export * from "./Tab";
 export * from "./Table";
 export * from "./TextInput";
 export * from "./Tooltip";
+export * from "./Slider";
 export * from "./EquipmentCard";
 export * from "./WeaponPickerDialog";
 export * from "./Artian";

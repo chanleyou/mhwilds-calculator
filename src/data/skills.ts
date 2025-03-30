@@ -2,8 +2,8 @@ import type {
   Buff,
   GroupSkill,
   SeriesSkill,
+  Skill,
   SkillName,
-  SkillTwo,
   SkillWeaponGroup,
   WeaponType,
 } from "@/types";
@@ -46,7 +46,7 @@ const skill = (n: number) => ({
   ),
 });
 
-export const UnsupportedWeaponSkills: Record<SkillName, SkillTwo> = {
+export const UnsupportedWeaponSkills: Record<SkillName, Skill> = {
   ["Ballistics"]: skill(3),
   ["Blast Functionality"]: skill(1),
   ["Bludgeoner"]: skill(3),
@@ -73,7 +73,7 @@ export const UnsupportedWeaponSkills: Record<SkillName, SkillTwo> = {
   ["Stamina Thief"]: skill(3),
 };
 
-export const WeaponSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
+export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
   ["Airborne"]: {
     levels: {
       1: { name: "Airborne 1", airAttackMul: 1.1 },
@@ -293,6 +293,7 @@ export const WeaponSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
   },
   ["Offensive Guard"]: {
     toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Offensive Guard 1", attackMul: 1.05 },
       2: { name: "Offensive Guard 2", attackMul: 1.1 },
@@ -471,7 +472,7 @@ export const WeaponSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
   },
 };
 
-export const UnsupportedArmorSkills: Record<SkillName, SkillTwo> = {
+export const UnsupportedArmorSkills: Record<SkillName, Skill> = {
   ["Adaptability"]: skill(2),
   ["Aquatic/Oilsilt Mobility"]: skill(2),
   ["Bind Resistance"]: skill(3),
@@ -528,7 +529,7 @@ export const UnsupportedArmorSkills: Record<SkillName, SkillTwo> = {
   ["Windproof"]: skill(3),
 };
 
-export const ArmorSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
+export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
   ["Adrenaline Rush"]: {
     toggle: true,
     levels: {
@@ -541,6 +542,7 @@ export const ArmorSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
   },
   Agitator: {
     toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Agitator 1", attack: 4, affinity: 3 },
       2: { name: "Agitator 2", attack: 8, affinity: 5 },
@@ -552,6 +554,7 @@ export const ArmorSkills: Record<SkillName, SkillTwo | SkillWeaponGroup> = {
   Ambush: {
     description: "Attack +5/10/15% for 30s after a successful Sneak Attack.",
     toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Ambush 1", attackMul: 1.05 },
       2: { name: "Ambush 2", attackMul: 1.1 },

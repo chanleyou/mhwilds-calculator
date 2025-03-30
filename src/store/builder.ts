@@ -70,6 +70,7 @@ export type InitialBuilder = {
   flags: Partial<Record<Flag, boolean>>;
   manualSkills: Record<SkillName, number>;
   manualSharpness?: Sharpness;
+  uptime: Record<SkillName, number>;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -95,7 +96,16 @@ const initialBuilder: InitialBuilder = {
   legsSlots: [],
   disabled: {},
   flags: {},
-  manualSkills: {},
+  manualSkills: {
+    Ambush: 3,
+    Agitator: 5,
+    "Offensive Guard": 3,
+  },
+  uptime: {
+    Ambush: 50,
+    Agitator: 50,
+    "Offensive Guard": 50,
+  },
 };
 
 export type Builder = InitialBuilder & {
@@ -124,6 +134,7 @@ export type Builder = InitialBuilder & {
   setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
   setManualSkills: (s: SkillName, v?: number) => void;
   setManualSharpness: (s?: Sharpness) => void;
+  setUptime: (s: SkillName, v: number) => void;
 };
 
 export const useBuild = create<Builder>((set, get) => ({
@@ -256,6 +267,14 @@ export const useBuild = create<Builder>((set, get) => ({
     );
   },
   setManualSharpness: (s) => set({ manualSharpness: s }),
+  setUptime: (s, v) => {
+    set(
+      produce<Builder>((d) => {
+        if (v === 100) delete d.uptime[s];
+        else d.uptime[s] = v;
+      }),
+    );
+  },
 }));
 
 export const useComputed = () => {
@@ -280,6 +299,7 @@ export const useComputed = () => {
     target,
     manualSkills,
     manualSharpness,
+    uptime,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -533,6 +553,44 @@ export const useComputed = () => {
   const eleCritMulti =
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
+  // Uptime Binary Tree
+  type Node = {
+    keys: SkillName[];
+    weight: number;
+    left?: Node;
+    right?: Node;
+  };
+
+  const entries = Object.entries(uptime);
+
+  const node = (
+    i: number = 0,
+    keys: SkillName[] = [],
+    weight: number = 100,
+  ): Node => {
+    if (!entries[i]) return { keys, weight };
+
+    const left = node(
+      i + 1,
+      [...keys, entries[i][0]],
+      (weight * entries[i][1]) / 100,
+    );
+    const right = node(i + 1, keys, weight - left.weight);
+
+    return { keys, weight, left, right };
+  };
+
+  const head = node(0);
+  const weights: [string[], number][] = [];
+
+  const weight = (node: Node) => {
+    if (!node.left && !node.right) weights.push([node.keys, node.weight]);
+    if (node.left) weight(node.left);
+    if (node.right) weight(node.right);
+  };
+
+  weight(head);
+
   const calcHit = (atk: Attack, targetOverride?: Partial<Target>) => {
     return calculateHit(weapon, buffs, atk, {
       ...target,
@@ -599,5 +657,7 @@ export const useComputed = () => {
     calcAverage,
     effectiveRaw,
     effectiveEle,
+    head,
+    weights,
   };
 };
