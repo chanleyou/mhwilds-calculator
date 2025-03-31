@@ -141,20 +141,6 @@ export const HeavyBowgunAttacks = [
     ammo: { type: "Wyvern", level: 1 },
   },
   {
-    name: "Element Lv1",
-    mv: 8,
-    rawEle: 20,
-    rawType: "Shot",
-    ammo: { type: "Dragon", level: 5 }, // hacky way to disable it
-  },
-  {
-    name: "Element Lv2",
-    mv: 10,
-    rawEle: 25,
-    rawType: "Shot",
-    ammo: { type: "Dragon", level: 6 }, // hacky way to disable it
-  },
-  {
     name: "Flaming Lv1",
     mv: 8,
     rawEle: 20,

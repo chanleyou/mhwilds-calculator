@@ -1,5 +1,4 @@
 import { Sharpnesses, WeaponTypes } from "@/data";
-import { InitialStore, useGetters } from "@/store/store";
 
 export const RawTypes = ["Slash", "Blunt", "Shot"] as const;
 export type RawType = (typeof RawTypes)[number];
@@ -127,7 +126,7 @@ export const HuntingHornSongs = [
   "Knockback Negated",
   "All Ailments Negated",
   "Divine Protection",
-  "Fire Res(L)",
+  "Fire Res (L)",
   "Ice Res (L)",
   "Thunder Res (L)",
   "Water Res (L)",
@@ -243,20 +242,21 @@ export type BuffGroup = {
   levels: Buff[];
 };
 
-export type SkillTwo = {
+export type Skill = {
   toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: Record<number, Buff>;
 };
 
 export type GroupSkill = {
-  toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: { [3]: Buff };
 };
 
 export type SeriesSkill = {
-  toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: { [2]: Buff; [4]: Buff };
 };
@@ -268,6 +268,7 @@ export type WeaponGroup = {
 
 export type SkillWeaponGroup = {
   toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   groups: WeaponGroup[];
 };
@@ -326,8 +327,6 @@ export const isBowgunElementAmmo = (
   return "rawEle" in attack && "elementType" in attack;
 };
 
-export type ComputedStore = InitialStore & ReturnType<typeof useGetters>;
-
 export type DynamicAttack = IAttack & {
   count: number;
 };
@@ -355,31 +354,31 @@ export const isWeaponBowgun = (weapon?: Weapon): weapon is Bowgun => {
   return isBowgun(weapon?.type) && "ammo" in weapon;
 };
 
-export const isSkillGroup = (s: SkillTwo | SkillWeaponGroup): s is SkillTwo => {
+export const isSkillGroup = (s: Skill | SkillWeaponGroup): s is Skill => {
   return "levels" in s;
 };
 
-export const getSkillLevels = (s: SkillTwo | SkillWeaponGroup) => {
+export const getSkillLevels = (s: Skill | SkillWeaponGroup) => {
   return "levels" in s ? s.levels : s.groups[0].levels;
 };
 
 // TODO
-export type Skill = string;
+export type SkillName = string;
 export type ArmorType = "Helm" | "Body" | "Arms" | "Waist" | "Legs";
 
 export type SlotLevel = 0 | 1 | 2 | 3 | 4;
 
 export interface Equip {
   name: string;
-  skills: Record<Skill, number>;
+  skills: Record<SkillName, number>;
 }
 
 export type Armor = Equip & {
   id: number;
   type: ArmorType;
   slots: [SlotLevel, SlotLevel, SlotLevel];
-  groupSkill?: Skill;
-  seriesSkill?: Skill;
+  groupSkill?: SkillName;
+  seriesSkill?: SkillName;
 };
 
 export type Decoration = Equip & {

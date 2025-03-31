@@ -9,21 +9,21 @@ import {
 } from "@/data";
 import Attacks from "@/data/attacks";
 import {
-  CombinedSkillsTwo,
-  GroupSkillsTwo,
-  SeriesSkillsTwo,
-  UnsupportedArmorSkills,
+  GroupSkillsCombined,
+  SeriesSkillsCombined,
   WeaponArmorSkills,
 } from "@/data/skills";
 import {
-  calculateAffinityTwo,
-  calculateAttackTwo,
+  calculateAffinity,
+  calculateAttack,
   calculateAverage,
-  calculateCritTwo,
-  calculateElementTwo,
+  calculateCrit,
+  calculateElement,
   calculateHandicraft,
-  calculateHitTwo,
+  calculateHit,
   calculateStatus,
+  dmg,
+  round,
 } from "@/model";
 import {
   type Armor,
@@ -36,10 +36,12 @@ import {
   type Charm,
   type Decoration,
   Flag,
-  type Skill,
+  Sharpness,
+  type SkillName,
   type Slots,
   Target,
   Weapon,
+  WeaponSharpness,
   isElementType,
   isGunlance,
   isMeleeWeapon,
@@ -66,8 +68,11 @@ export type InitialBuilder = {
   armsSlots: Slots;
   waistSlots: Slots;
   legsSlots: Slots;
-  disabled: Record<Skill, boolean>;
+  disabled: Record<SkillName, boolean>;
   flags: Partial<Record<Flag, boolean>>;
+  manualSkills: Record<SkillName, number>;
+  manualSharpness?: Sharpness;
+  uptime: Record<SkillName, number>;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -93,6 +98,8 @@ const initialBuilder: InitialBuilder = {
   legsSlots: [],
   disabled: {},
   flags: {},
+  manualSkills: {},
+  uptime: {},
 };
 
 export type Builder = InitialBuilder & {
@@ -114,11 +121,14 @@ export type Builder = InitialBuilder & {
   setArmsDecoration: (i: number, d?: Decoration) => void;
   setWaistDecoration: (i: number, d?: Decoration) => void;
   setLegsDecoration: (i: number, d?: Decoration) => void;
-  setDisabled: (s: Skill, a: boolean) => void;
+  setDisabled: (s: SkillName, a: boolean) => void;
   setFlag: (f: Flag, a: boolean) => void;
   emptyBuffs: () => void;
   setTarget: (target: Target) => void;
   setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
+  setManualSkills: (s: SkillName, v?: number) => void;
+  setManualSharpness: (s?: Sharpness) => void;
+  setUptime: (s: SkillName, v: number) => void;
 };
 
 export const useBuild = create<Builder>((set, get) => ({
@@ -242,6 +252,22 @@ export const useBuild = create<Builder>((set, get) => ({
     );
   },
   emptyBuffs: () => set({ otherBuffs: {} }),
+  setManualSkills: (s, v) => {
+    set(
+      produce<Builder>((d) => {
+        if (v) d.manualSkills[s] = v;
+        else delete d.manualSkills[s];
+      }),
+    );
+  },
+  setManualSharpness: (s) => set({ manualSharpness: s }),
+  setUptime: (s, v) => {
+    set(
+      produce<Builder>((d) => {
+        d.uptime[s] = v;
+      }),
+    );
+  },
 }));
 
 export const useComputed = () => {
@@ -264,6 +290,9 @@ export const useComputed = () => {
     disabled,
     flags,
     target,
+    manualSkills,
+    manualSharpness,
+    uptime,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -281,33 +310,39 @@ export const useComputed = () => {
     .flat()
     .filter((n): n is Decoration => !!n);
 
-  const skillPoints = [w, ...equipment, ...decorations, charm].reduce<
-    Record<Skill, number>
-  >((acc, i) => {
-    if (!i) return acc;
-    const { skills } = i;
-    Object.entries(skills).forEach(([k, v]) => {
-      acc[k] = acc[k] ? acc[k] + v : v;
-    });
-    return acc;
-  }, {});
+  const skillPoints = {
+    ...[w, ...equipment, ...decorations, charm].reduce<
+      Record<SkillName, number>
+    >((acc, i) => {
+      if (!i) return acc;
+      const { skills } = i;
+      Object.entries(skills).forEach(([k, v]) => {
+        acc[k] = acc[k] ? acc[k] + v : v;
+      });
+      return acc;
+    }, {}),
+    ...manualSkills,
+  };
 
-  const groupPoints = equipment.reduce<Record<Skill, number>>((acc, i) => {
-    const { groupSkill, seriesSkill } = i;
-    if (groupSkill) {
-      acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
-    }
-    if (seriesSkill) {
-      acc[seriesSkill] = acc[seriesSkill] ? acc[seriesSkill] + 1 : 1;
-    }
-    return acc;
-  }, {});
+  const groupPoints = {
+    ...equipment.reduce<Record<SkillName, number>>((acc, i) => {
+      const { groupSkill, seriesSkill } = i;
+      if (groupSkill) {
+        acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
+      }
+      if (seriesSkill) {
+        acc[seriesSkill] = acc[seriesSkill] ? acc[seriesSkill] + 1 : 1;
+      }
+      return acc;
+    }, {}),
+    ...manualSkills,
+  };
 
   // Weapon & Armor Skills
-  const buffs = Object.entries(skillPoints).reduce<Record<Skill, Buff>>(
+  const buffs = Object.entries(skillPoints).reduce<Record<SkillName, Buff>>(
     (acc, [k, v]) => {
       if (disabled[k]) return acc;
-      if (UnsupportedArmorSkills[k]) return acc;
+      if (uptime[k] === 0) return acc;
       if (!WeaponArmorSkills[k]) return acc;
 
       const skill = WeaponArmorSkills[k];
@@ -336,18 +371,18 @@ export const useComputed = () => {
   Object.entries(groupPoints).forEach(([k, v]) => {
     if (disabled[k]) return;
 
-    if (GroupSkillsTwo[k] && v >= 3) {
-      buffs[k] = GroupSkillsTwo[k].levels[3];
+    if (GroupSkillsCombined[k] && v >= 3) {
+      buffs[k] = GroupSkillsCombined[k].levels[3];
     }
 
-    if (SeriesSkillsTwo[k]) {
-      if (v >= 4) buffs[k] = SeriesSkillsTwo[k].levels[4];
-      else if (v >= 2) buffs[k] = SeriesSkillsTwo[k].levels[2];
+    if (SeriesSkillsCombined[k]) {
+      if (v >= 4) buffs[k] = SeriesSkillsCombined[k].levels[4];
+      else if (v >= 2) buffs[k] = SeriesSkillsCombined[k].levels[2];
     }
   });
 
+  // Frenzy
   const frenzy = buffs.Frenzy !== undefined;
-
   if (frenzy) {
     Object.entries(buffs).forEach(([k, v]) => {
       if (!v.frenzy) return;
@@ -358,6 +393,14 @@ export const useComputed = () => {
   const weapon = produce(w, (d) => {
     // Handicraft
     if (isMeleeWeapon(d)) {
+      if (manualSharpness) {
+        const array = [0, 0, 0, 0, 0, 0, 0] as WeaponSharpness;
+        const sharpnessIndex = Sharpnesses.indexOf(manualSharpness);
+        array[sharpnessIndex] = 150;
+        d.sharpness = array;
+        d.handicraft = [50, 0, 0, 0];
+      }
+
       d.sharpness = calculateHandicraft(
         d,
         Math.min(skillPoints["Handicraft"] ?? 0, 5),
@@ -484,56 +527,140 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAffinity = calculateAffinityTwo({
-    affinity: weapon.affinity,
-    buffs,
-    target,
-    rawType: Attacks[weapon.type][0].rawType ?? "Slash",
-  });
-
-  const uiAttack = calculateAttackTwo(weapon.attack, buffs);
+  const uiAttack = calculateAttack(weapon.attack, buffs);
   const uiElement = weapon.element
-    ? calculateElementTwo(weapon.element.value, weapon.element.type, buffs)
+    ? calculateElement(weapon.element.value, weapon.element.type, buffs)
     : 0;
   const uiStatus = weapon.status
     ? calculateStatus(weapon.status.value, weapon.status.type, buffs)
     : 0;
 
-  const critMulti =
-    uiAffinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
-  const eleCritMulti =
-    uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
-
-  const calcHit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateHitTwo(weapon, buffs, atk, {
-      ...target,
-      ...targetOverride,
-    });
+  // Uptime Binary Tree
+  type Node = {
+    skills: SkillName[];
+    weight: number;
+    left?: Node;
+    right?: Node;
   };
 
-  const calcCrit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateCritTwo(
-      weapon,
-      buffs,
-      atk,
-      { ...target, ...targetOverride },
-      critMulti,
-      eleCritMulti,
+  const entries = Object.entries(uptime);
+
+  type Weight = { buffs: Record<string, Buff>; weight: number };
+  const weights: Weight[] = [];
+
+  const node = (
+    i: number = 0,
+    skills: SkillName[] = [],
+    weight: number = 100,
+  ): Node => {
+    if (!entries[i]) {
+      weights.push({
+        buffs: produce(buffs, (d) => {
+          Object.keys(d).forEach((k) => {
+            if (uptime[k] !== undefined && !skills.includes(k)) delete d[k];
+          });
+        }),
+        weight,
+      });
+      return { skills, weight };
+    }
+
+    const left = node(
+      i + 1,
+      [...skills, entries[i][0]],
+      (weight * entries[i][1]) / 100,
     );
+    const right = node(i + 1, skills, weight - left.weight);
+
+    return { skills, weight, left, right };
+  };
+
+  const head = node(0);
+
+  // can be slightly off 100 due to JavaScript floating point math
+  const totalWeight = weights.reduce((acc, w) => acc + w.weight, 0);
+
+  const uiAffinity = round(
+    weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const affinity = calculateAffinity({
+        affinity: weapon.affinity,
+        buffs: weight.buffs,
+        target,
+        rawType: Attacks[weapon.type][0].rawType ?? "Slash",
+      });
+
+      return acc + (affinity * weight.weight) / totalWeight;
+    }, 0),
+    2,
+  );
+
+  const calcHit = (atk: Attack) => {
+    const avg = weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const hit = calculateHit(weapon, weight.buffs, atk, target);
+      return acc + (hit * weight.weight) / totalWeight;
+    }, 0);
+
+    return dmg(avg);
+  };
+
+  const baseCritMulti =
+    uiAffinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+  const baseEleCritMulti =
+    uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
+
+  const calcCrit = (
+    atk: Attack,
+    critMulti: number = baseCritMulti,
+    eleCritMulti: number = baseEleCritMulti,
+  ) => {
+    const avg = weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const crit = calculateCrit(
+        weapon,
+        weight.buffs,
+        atk,
+        target,
+        critMulti,
+        eleCritMulti,
+      );
+      return acc + (crit * weight.weight) / totalWeight;
+    }, 0);
+
+    return dmg(avg);
   };
 
   const calcAverage = (atk: Attack, targetOverride?: Partial<Target>) => {
-    const hit = calcHit(atk, targetOverride);
-    const crit = calcCrit(atk, targetOverride);
-    const affinity = atk.cantCrit
-      ? 0
-      : calculateAffinityTwo({
-          affinity: weapon.affinity,
-          buffs,
-          target,
-          rawType: atk.rawType ?? "Slash",
-        });
-    return calculateAverage(hit, crit, affinity);
+    const averages = weights.reduce((acc, weight) => {
+      const hit = calculateHit(weapon, weight.buffs, atk, {
+        ...target,
+        ...targetOverride,
+      });
+      const affinity = calculateAffinity({
+        affinity: weapon.affinity,
+        buffs: weight.buffs,
+        target,
+        rawType: atk.rawType ?? "Slash",
+      });
+      const critMulti =
+        affinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+      const eleCritMulti =
+        affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
+
+      const crit = calculateCrit(
+        weapon,
+        weight.buffs,
+        atk,
+        { ...target, ...targetOverride },
+        critMulti,
+        eleCritMulti,
+      );
+      const avg = calculateAverage(hit, crit, affinity);
+      return acc + (avg * weight.weight) / totalWeight;
+    }, 0);
+
+    return round(averages, 2);
   };
 
   const effectiveRaw = calcAverage({
@@ -563,12 +690,15 @@ export const useComputed = () => {
     uiElement,
     uiStatus,
     uiAffinity,
-    critMulti,
-    eleCritMulti,
+    critMulti: baseCritMulti,
+    eleCritMulti: baseEleCritMulti,
     calcHit,
     calcCrit,
     calcAverage,
     effectiveRaw,
     effectiveEle,
+    head,
+    weights,
+    totalWeight,
   };
 };

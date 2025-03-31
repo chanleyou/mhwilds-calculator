@@ -10,6 +10,7 @@ import {
   Card,
   Checkbox,
   ComboDialog,
+  Notice,
   NumberDisplay,
   NumberInputTwo,
 } from ".";
@@ -37,7 +38,7 @@ export const AttacksCard = ({ ...props }: Props) => {
           onChangeValue={() => setTarget("wound", !target.wound)}
         />
       </div>
-      <div className="mb-3 grid grid-cols-2 gap-x-2 gap-y-2.5 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mb-2 grid grid-cols-2 gap-x-2 gap-y-2.5 lg:grid-cols-3 xl:grid-cols-4">
         {Object.entries(hitzones).map(([k, v]) => (
           <NumberInputTwo
             key={k}
