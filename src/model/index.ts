@@ -185,12 +185,8 @@ export const calculateRawHit = (
     multipliers.push(buffs["Rapid Morph"].morphAttackMul);
   }
 
-  if (
-    buffs["Mind's Eye"] &&
-    weapon.sharpness &&
-    hitzone[rawType] * (getSharpnessRaw(weapon.sharpness) ?? 1) < 45
-  ) {
-    multipliers.push(buffs["Mind's Eye"].rawMul);
+  if (hitzone[rawType] < 45) {
+    multipliers.push(buffs["Mind's Eye"]?.rawMul);
   }
 
   if (buffs.Bludgeoner) {
