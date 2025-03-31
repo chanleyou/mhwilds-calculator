@@ -9,6 +9,7 @@ import {
   ExportDialogTwo,
   ImportDialogTwo,
   ManualDialog,
+  Notice,
   // Notice,
   SkillPointCard,
   StatsCard,
@@ -17,13 +18,18 @@ import {
 import { useComputed } from "@/store/builder";
 
 export default function Builder() {
-  const { head, weights } = useComputed();
+  // const { head, weights, totalWeight } = useComputed();
   // const options = ["Builder", "Manual"] as const;
   // const [view, setView] = useState<(typeof options)[number]>(options[0]);
   // const [comboView, setComboView] = useState(false);
 
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">
+      <Notice closable>
+        The manual damage calculator has been deprecated. You can click on{" "}
+        <strong>Overrides</strong> to manually set skill levels. Damage numbers
+        are averaged when uptime sliders are in use.
+      </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
           <ManualDialog />
@@ -41,9 +47,9 @@ export default function Builder() {
         <div className="flex flex-2 flex-col gap-2">
           <StatsCard />
           <SkillPointCard />
-          <Card>
+          {/* <Card>
             <h1>Debug</h1>
-            <h1>TotalWeights: {weights.reduce((acc, [, v]) => acc + v, 0)}</h1>
+            <h1>Total Weight: {totalWeight}</h1>
             <textarea
               className="font-mono text-xs"
               value={JSON.stringify(weights, undefined, 2)}
@@ -56,11 +62,11 @@ export default function Builder() {
               rows={60}
               readOnly
             />
-          </Card>
+          </Card> */}
         </div>
-        {/* <div className="flex-3">
+        <div className="flex-3">
           <AttacksCard />
-        </div> */}
+        </div>
       </div>
     </div>
   );

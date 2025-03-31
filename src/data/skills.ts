@@ -179,7 +179,7 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Critical Draw"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Critical Draw 1", affinity: 50 },
       2: { name: "Critical Draw 2", affinity: 75 },
@@ -292,7 +292,6 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Offensive Guard"]: {
-    toggle: true,
     uptime: true,
     levels: {
       1: { name: "Offensive Guard 1", attackMul: 1.05 },
@@ -363,7 +362,7 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Punishing Draw"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Punishing Draw 1", attack: 3 },
       2: { name: "Punishing Draw 2", attack: 5 },
@@ -531,7 +530,7 @@ export const UnsupportedArmorSkills: Record<SkillName, Skill> = {
 
 export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
   ["Adrenaline Rush"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Adrenaline Rush 1", attack: 10 },
       2: { name: "Adrenaline Rush 2", attack: 15 },
@@ -541,7 +540,6 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Agitator: {
-    toggle: true,
     uptime: true,
     levels: {
       1: { name: "Agitator 1", attack: 4, affinity: 3 },
@@ -552,8 +550,8 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Ambush: {
-    description: "Attack +5/10/15% for 30s after a successful Sneak Attack.",
-    toggle: true,
+    description:
+      "Increases Attack  by 5/10/15% for 30s after a successful Sneak Attack.",
     uptime: true,
     levels: {
       1: { name: "Ambush 1", attackMul: 1.05 },
@@ -571,7 +569,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Burst: {
-    toggle: true,
+    uptime: true,
     groups: [
       {
         weapons: ["Dual Blades"],
@@ -626,7 +624,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     ],
   },
   Coalescence: {
-    toggle: true,
+    uptime: true,
     groups: [
       {
         weapons: [
@@ -663,7 +661,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     ],
   },
   ["Convert Element"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Convert Element 1", elementType: "Dragon", element: 80 },
       2: { name: "Convert Element 2", elementType: "Dragon", element: 120 },
@@ -671,7 +669,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Counterstrike: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Counterstrike 1", attack: 10 },
       2: { name: "Counterstrike 2", attack: 15 },
@@ -679,7 +677,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Elemental Absorption"]: {
-    toggle: true,
+    uptime: true,
     groups: [
       {
         weapons: LightGroup,
@@ -708,7 +706,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     ],
   },
   Foray: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Foray 1", attack: 6 },
       2: { name: "Foray 2", attack: 8, affinity: 5 },
@@ -718,7 +716,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Heroics: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Heroics 1" },
       2: { name: "Heroics 2", attackMul: 1.05 },
@@ -728,7 +726,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Latent Power"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Latent Power 1", affinity: 10 },
       2: { name: "Latent Power 2", affinity: 20 },
@@ -738,7 +736,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   ["Maximum Might"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Maximum Might 1", affinity: 10 },
       2: { name: "Maximum Might 2", affinity: 20 },
@@ -746,7 +744,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   "Peak Performance": {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Peak Performance 1", attack: 3 },
       2: { name: "Peak Performance 2", attack: 6 },
@@ -756,7 +754,7 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
     },
   },
   Resentment: {
-    toggle: true,
+    uptime: true,
     levels: {
       1: { name: "Resentment 1", attack: 5 },
       2: { name: "Resentment 2", attack: 10 },
@@ -811,15 +809,15 @@ export const UnsupportedGroupSkills: Record<SkillName, GroupSkill> = {
 
 export const GroupSkills: Record<SkillName, GroupSkill> = {
   ["Buttery Leathercraft"]: {
-    toggle: true,
+    uptime: true,
     levels: { 3: { name: "Affinity Sliding", affinity: 30 } },
   },
   ["Lord's Favor"]: {
-    toggle: true,
+    uptime: true,
     levels: { 3: { name: "Inspiration", attack: 10 } },
   },
   ["Lord's Fury"]: {
-    toggle: true,
+    uptime: true,
     levels: { 3: { name: "Resuscitate ", attack: 10 } },
   },
 };
@@ -868,21 +866,21 @@ export const UnsupportedSeriesSkills: Record<SkillName, SeriesSkill> = {
 
 export const SeriesSkills: Record<SkillName, SeriesSkill> = {
   ["Blangonga's Spirit"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       2: { name: "War Cry I", attack: 10 },
       4: { name: "War Cry II", attack: 20 },
     },
   },
   ["Doshaguma's Might"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       2: { name: "Powerhouse I", attack: 10 },
       4: { name: "Powerhouse II", attack: 25 },
     },
   },
   ["Ebony Odogaron's Power"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       2: { name: "Burst Boost I", attack: 3 },
       4: { name: "Burst Boost II", attack: 10 },
@@ -895,14 +893,14 @@ export const SeriesSkills: Record<SkillName, SeriesSkill> = {
     },
   },
   ["Jin Dahaad's Revolt"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       2: { name: "Binding Counter I", attack: 25 },
       4: { name: "Binding Counter II", attack: 50 },
     },
   },
   ["Xu Wu's Vigor"]: {
-    toggle: true,
+    uptime: true,
     levels: {
       2: { name: "Protein Fiend I", attack: 15 },
       4: { name: "Protein Fiend II", attack: 25 },

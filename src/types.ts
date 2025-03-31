@@ -243,20 +243,20 @@ export type BuffGroup = {
 };
 
 export type Skill = {
-  uptime?: boolean;
   toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: Record<number, Buff>;
 };
 
 export type GroupSkill = {
-  toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: { [3]: Buff };
 };
 
 export type SeriesSkill = {
-  toggle?: boolean;
+  uptime?: boolean;
   description?: string;
   levels: { [2]: Buff; [4]: Buff };
 };

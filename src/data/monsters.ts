@@ -71,7 +71,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 15,
     },
     "Foreleg (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 90,
       Blunt: 90,
       Shot: 90,
@@ -348,7 +348,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 38,
     },
     "Chainblade (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 52,
       Blunt: 52,
       Shot: 48,
@@ -539,7 +539,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 0,
     },
     "Torso (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 80,
       Blunt: 80,
       Shot: 80,
@@ -640,7 +640,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 0,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 90,
       Blunt: 90,
       Shot: 95,
@@ -840,7 +840,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Torso (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 80,
       Blunt: 80,
       Shot: 90,
@@ -963,7 +963,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Torso (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 80,
       Blunt: 80,
       Shot: 70,
@@ -1108,7 +1108,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 30,
     },
     "Foreleg (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 100,
       Blunt: 100,
       Shot: 100,
@@ -1297,7 +1297,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 30,
     },
     "Foreleg (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 100,
       Blunt: 100,
       Shot: 100,
@@ -1374,7 +1374,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 30,
     },
     "Tail (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 100,
       Blunt: 100,
       Shot: 100,
@@ -1453,7 +1453,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 30,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 100,
       Blunt: 100,
       Shot: 100,
@@ -1730,7 +1730,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 15,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 75,
       Blunt: 70,
       Shot: 50,
@@ -2163,7 +2163,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 10,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 70,
       Blunt: 70,
       Shot: 70,
@@ -2431,7 +2431,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 75,
       Blunt: 75,
       Shot: 50,
@@ -2552,7 +2552,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Tail (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 95,
       Blunt: 95,
       Shot: 50,
@@ -2585,7 +2585,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Iceplate (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 95,
       Blunt: 95,
       Shot: 50,
@@ -2675,7 +2675,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 0,
     },
     "Tail (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 90,
       Blunt: 90,
       Shot: 90,
@@ -3286,7 +3286,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 80,
       Blunt: 80,
       Shot: 70,
@@ -3923,7 +3923,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 80,
       Blunt: 80,
       Shot: 90,
@@ -4090,7 +4090,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 5,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 90,
       Blunt: 90,
       Shot: 86,
@@ -4347,7 +4347,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 0,
     },
     "Head (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 70,
       Blunt: 85,
       Shot: 90,
@@ -4592,7 +4592,7 @@ export const Monsters: Record<string, Part> = {
       Dragon: 20,
     },
     "Wingarm (Weak Point)": {
-      wound: false,
+      wound: true,
       Slash: 100,
       Blunt: 100,
       Shot: 100,

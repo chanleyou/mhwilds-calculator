@@ -22,6 +22,8 @@ import {
   calculateHandicraft,
   calculateHit,
   calculateStatus,
+  dmg,
+  round,
 } from "@/model";
 import {
   type Armor,
@@ -96,16 +98,8 @@ const initialBuilder: InitialBuilder = {
   legsSlots: [],
   disabled: {},
   flags: {},
-  manualSkills: {
-    Ambush: 3,
-    Agitator: 5,
-    "Offensive Guard": 3,
-  },
-  uptime: {
-    Ambush: 50,
-    Agitator: 50,
-    "Offensive Guard": 50,
-  },
+  manualSkills: {},
+  uptime: {},
 };
 
 export type Builder = InitialBuilder & {
@@ -270,8 +264,7 @@ export const useBuild = create<Builder>((set, get) => ({
   setUptime: (s, v) => {
     set(
       produce<Builder>((d) => {
-        if (v === 100) delete d.uptime[s];
-        else d.uptime[s] = v;
+        d.uptime[s] = v;
       }),
     );
   },
@@ -349,6 +342,7 @@ export const useComputed = () => {
   const buffs = Object.entries(skillPoints).reduce<Record<SkillName, Buff>>(
     (acc, [k, v]) => {
       if (disabled[k]) return acc;
+      if (uptime[k] === 0) return acc;
       if (!WeaponArmorSkills[k]) return acc;
 
       const skill = WeaponArmorSkills[k];
@@ -533,13 +527,6 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAffinity = calculateAffinity({
-    affinity: weapon.affinity,
-    buffs,
-    target,
-    rawType: Attacks[weapon.type][0].rawType ?? "Slash",
-  });
-
   const uiAttack = calculateAttack(weapon.attack, buffs);
   const uiElement = weapon.element
     ? calculateElement(weapon.element.value, weapon.element.type, buffs)
@@ -548,14 +535,9 @@ export const useComputed = () => {
     ? calculateStatus(weapon.status.value, weapon.status.type, buffs)
     : 0;
 
-  const critMulti =
-    uiAffinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
-  const eleCritMulti =
-    uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
-
   // Uptime Binary Tree
   type Node = {
-    keys: SkillName[];
+    skills: SkillName[];
     weight: number;
     left?: Node;
     right?: Node;
@@ -563,64 +545,122 @@ export const useComputed = () => {
 
   const entries = Object.entries(uptime);
 
+  type Weight = { buffs: Record<string, Buff>; weight: number };
+  const weights: Weight[] = [];
+
   const node = (
     i: number = 0,
-    keys: SkillName[] = [],
+    skills: SkillName[] = [],
     weight: number = 100,
   ): Node => {
-    if (!entries[i]) return { keys, weight };
+    if (!entries[i]) {
+      weights.push({
+        buffs: produce(buffs, (d) => {
+          Object.keys(d).forEach((k) => {
+            if (uptime[k] !== undefined && !skills.includes(k)) delete d[k];
+          });
+        }),
+        weight,
+      });
+      return { skills, weight };
+    }
 
     const left = node(
       i + 1,
-      [...keys, entries[i][0]],
+      [...skills, entries[i][0]],
       (weight * entries[i][1]) / 100,
     );
-    const right = node(i + 1, keys, weight - left.weight);
+    const right = node(i + 1, skills, weight - left.weight);
 
-    return { keys, weight, left, right };
+    return { skills, weight, left, right };
   };
 
   const head = node(0);
-  const weights: [string[], number][] = [];
 
-  const weight = (node: Node) => {
-    if (!node.left && !node.right) weights.push([node.keys, node.weight]);
-    if (node.left) weight(node.left);
-    if (node.right) weight(node.right);
+  // can be slightly off 100 due to JavaScript floating point math
+  const totalWeight = weights.reduce((acc, w) => acc + w.weight, 0);
+
+  const uiAffinity = round(
+    weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const affinity = calculateAffinity({
+        affinity: weapon.affinity,
+        buffs: weight.buffs,
+        target,
+        rawType: Attacks[weapon.type][0].rawType ?? "Slash",
+      });
+
+      return acc + (affinity * weight.weight) / totalWeight;
+    }, 0),
+    2,
+  );
+
+  const calcHit = (atk: Attack) => {
+    const avg = weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const hit = calculateHit(weapon, weight.buffs, atk, target);
+      return acc + (hit * weight.weight) / totalWeight;
+    }, 0);
+
+    return dmg(avg);
   };
 
-  weight(head);
+  const baseCritMulti =
+    uiAffinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+  const baseEleCritMulti =
+    uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
-  const calcHit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateHit(weapon, buffs, atk, {
-      ...target,
-      ...targetOverride,
-    });
-  };
+  const calcCrit = (
+    atk: Attack,
+    critMulti: number = baseCritMulti,
+    eleCritMulti: number = baseEleCritMulti,
+  ) => {
+    const avg = weights.reduce((acc, weight) => {
+      if (weight.weight === 0) return acc;
+      const crit = calculateCrit(
+        weapon,
+        weight.buffs,
+        atk,
+        target,
+        critMulti,
+        eleCritMulti,
+      );
+      return acc + (crit * weight.weight) / totalWeight;
+    }, 0);
 
-  const calcCrit = (atk: Attack, targetOverride?: Partial<Target>) => {
-    return calculateCrit(
-      weapon,
-      buffs,
-      atk,
-      { ...target, ...targetOverride },
-      critMulti,
-      eleCritMulti,
-    );
+    return dmg(avg);
   };
 
   const calcAverage = (atk: Attack, targetOverride?: Partial<Target>) => {
-    const hit = calcHit(atk, targetOverride);
-    const crit = calcCrit(atk, targetOverride);
-    const affinity = atk.cantCrit
-      ? 0
-      : calculateAffinity({
-          affinity: weapon.affinity,
-          buffs,
-          target,
-          rawType: atk.rawType ?? "Slash",
-        });
-    return calculateAverage(hit, crit, affinity);
+    const averages = weights.reduce((acc, weight) => {
+      const hit = calculateHit(weapon, weight.buffs, atk, {
+        ...target,
+        ...targetOverride,
+      });
+      const affinity = calculateAffinity({
+        affinity: weapon.affinity,
+        buffs: weight.buffs,
+        target,
+        rawType: atk.rawType ?? "Slash",
+      });
+      const critMulti =
+        affinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+      const eleCritMulti =
+        affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
+
+      const crit = calculateCrit(
+        weapon,
+        weight.buffs,
+        atk,
+        { ...target, ...targetOverride },
+        critMulti,
+        eleCritMulti,
+      );
+      const avg = calculateAverage(hit, crit, affinity);
+      return acc + (avg * weight.weight) / totalWeight;
+    }, 0);
+
+    return round(averages, 2);
   };
 
   const effectiveRaw = calcAverage({
@@ -650,8 +690,8 @@ export const useComputed = () => {
     uiElement,
     uiStatus,
     uiAffinity,
-    critMulti,
-    eleCritMulti,
+    critMulti: baseCritMulti,
+    eleCritMulti: baseEleCritMulti,
     calcHit,
     calcCrit,
     calcAverage,
@@ -659,5 +699,6 @@ export const useComputed = () => {
     effectiveEle,
     head,
     weights,
+    totalWeight,
   };
 };

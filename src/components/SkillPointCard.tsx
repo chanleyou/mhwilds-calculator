@@ -10,7 +10,7 @@ import { Buff, isSkillGroup } from "@/types";
 import { cn } from "@/utils";
 
 export const SkillPointCard = ({ className }: { className?: string }) => {
-  const { disabled, flags, setDisabled, setFlag, uptime, setUptime } =
+  const { disabled, flags, setFlag, uptime, setUptime, setDisabled } =
     useBuild();
   const { skillPoints, groupPoints } = useComputed();
 
@@ -36,35 +36,45 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
           );
 
           return (
-            <div key={k} className="flex justify-between">
-              <div className="flex flex-col gap-1">
-                <div>
-                  <p className="text-secondary text-xs">{k}</p>
-                  {level && (
-                    <p className={cn("text-sm", disabled[k] && "line-through")}>
-                      {level.name}
-                    </p>
-                  )}
-                </div>
-                <div className="flex gap-1">
-                  {[2, 4].map((l) => {
-                    return (
-                      <div
-                        key={l}
-                        className={cn(
-                          "border-divider bg-background size-4 border",
-                          v >= l && "border-none bg-cyan-300",
-                        )}
-                      />
-                    );
-                  })}
+            <div key={k} className="flex flex-col gap-1">
+              <div key={k} className="flex justify-between">
+                <div className="flex flex-col gap-1">
+                  <div>
+                    <p className="text-secondary text-xs">{k}</p>
+                    {level && (
+                      <p
+                        className={cn("text-sm", disabled[k] && "line-through")}
+                      >
+                        {level.name}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex gap-1">
+                    {[2, 4].map((l) => {
+                      return (
+                        <div
+                          key={l}
+                          className={cn(
+                            "border-divider bg-background size-4 border",
+                            v >= l && "border-none bg-cyan-300",
+                          )}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-              {skill.toggle && (
-                <Checkbox
-                  value={!disabled[k]}
-                  onChangeValue={() => setDisabled(k, !disabled[k])}
-                />
+              {skill.uptime && (
+                <div className="flex items-center justify-between gap-2">
+                  <Slider
+                    skill={k}
+                    defaultValue={[uptime[k] ?? 100]}
+                    max={100}
+                    step={1}
+                    onValueChange={(v) => setUptime(k, v[0])}
+                  />
+                  <div className="text-sm">{uptime[k] ?? 100}%</div>
+                </div>
               )}
             </div>
           );
@@ -82,13 +92,16 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
 
           const entries = Object.entries(levels);
           return (
-            <div key={k} className="flex flex-col gap-3">
+            <div key={k} className="flex flex-col gap-1">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="flex justify-between">
                     <div className="flex flex-col gap-1">
                       <p
-                        className={cn("text-sm", disabled[k] && "line-through")}
+                        className={cn(
+                          "text-sm",
+                          disabled[k] || (uptime[k] === 0 && "line-through"),
+                        )}
                       >
                         {k} {Math.min(v, entries.length)}{" "}
                         {v > entries.length && `(${v})`}
@@ -135,14 +148,16 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                 )}
               </Tooltip>
               {skill.uptime && (
-                <Slider
-                  skill={k}
-                  defaultValue={[uptime[k] ?? 100]}
-                  max={100}
-                  step={1}
-                  onValueChange={(v) => setUptime(k, v[0])}
-                  tooltip={`${uptime[k] ?? 100}%`}
-                />
+                <div className="flex items-center justify-between gap-2">
+                  <Slider
+                    skill={k}
+                    defaultValue={[uptime[k] ?? 100]}
+                    max={100}
+                    step={1}
+                    onValueChange={(v) => setUptime(k, v[0])}
+                  />
+                  <div className="text-sm">{uptime[k] ?? 100}%</div>
+                </div>
               )}
             </div>
           );
@@ -158,35 +173,45 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
           const level = skill.levels[3];
 
           return (
-            <div key={k} className="flex justify-between">
-              <div className="flex flex-col gap-1">
-                <div>
-                  <p className="text-secondary text-xs">{k}</p>
-                  {v >= 3 && level && (
-                    <p className={cn("text-sm", disabled[k] && "line-through")}>
-                      {level.name}
-                    </p>
-                  )}
-                </div>
-                <div className="flex gap-1">
-                  {[3].map((i) => {
-                    return (
-                      <div
-                        key={i}
-                        className={cn(
-                          "border-divider bg-background size-4 border",
-                          v >= i && "border-none bg-indigo-300",
-                        )}
-                      />
-                    );
-                  })}
+            <div key={k} className="flex flex-col gap-1">
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-1">
+                  <div>
+                    <p className="text-secondary text-xs">{k}</p>
+                    {v >= 3 && level && (
+                      <p
+                        className={cn("text-sm", disabled[k] && "line-through")}
+                      >
+                        {level.name}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex gap-1">
+                    {[3].map((i) => {
+                      return (
+                        <div
+                          key={i}
+                          className={cn(
+                            "border-divider bg-background size-4 border",
+                            v >= i && "border-none bg-indigo-300",
+                          )}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-              {skill.toggle && (
-                <Checkbox
-                  value={!disabled[k]}
-                  onChangeValue={() => setDisabled(k, !disabled[k])}
-                />
+              {skill.uptime && (
+                <div className="flex items-center justify-between gap-2">
+                  <Slider
+                    skill={k}
+                    defaultValue={[uptime[k] ?? 100]}
+                    max={100}
+                    step={1}
+                    onValueChange={(v) => setUptime(k, v[0])}
+                  />
+                  <div className="text-sm">{uptime[k] ?? 100}%</div>
+                </div>
               )}
             </div>
           );

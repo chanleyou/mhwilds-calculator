@@ -25,7 +25,7 @@ export const StatsCard = ({ className }: { className?: string }) => {
       <div>
         <NumberDisplay label="Attack">{uiAttack}</NumberDisplay>
         <NumberDisplay label="Effective Attack">{effectiveRaw}</NumberDisplay>
-        <NumberDisplay label="Affinity">{`${uiAffinity}%`}</NumberDisplay>
+        <NumberDisplay label="Effective Affinity">{`${uiAffinity}%`}</NumberDisplay>
         {w.element && uiElement > 0 && (
           <>
             <NumberDisplay label="Element">

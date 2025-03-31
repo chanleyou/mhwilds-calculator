@@ -57,8 +57,7 @@ export const ManualDialog = () => {
             <Notice>
               <div className="flex justify-between gap-2">
                 <p className="flex-1">
-                  You can manually override weapon sharpness and skill levels
-                  here.
+                  Manually override weapon sharpness and skill levels here.
                 </p>
                 <Button
                   variant="text"
@@ -70,7 +69,7 @@ export const ManualDialog = () => {
               </div>
             </Notice>
           )}
-          <div className="flex flex-col gap-4 overflow-auto">
+          <div className="flex flex-col gap-4 overflow-auto pr-3">
             <div className="flex flex-col gap-2">
               <h2>Weapon</h2>
               <Select
