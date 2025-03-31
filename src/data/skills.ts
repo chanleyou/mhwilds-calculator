@@ -1270,6 +1270,16 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
       3: { name: "Maximum Might 3", affinity: 30 },
     },
   },
+  "Peak Performance": {
+    toggle: true,
+    levels: {
+      1: { name: "Peak Performance 1", attack: 3 },
+      2: { name: "Peak Performance 2", attack: 6 },
+      3: { name: "Peak Performance 3", attack: 10 },
+      4: { name: "Peak Performance 4", attack: 15 },
+      5: { name: "Peak Performance 5", attack: 20 },
+    },
+  },
   Resentment: {
     toggle: true,
     levels: {
@@ -1278,15 +1288,6 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
       3: { name: "Resentment 3", attack: 15 },
       4: { name: "Resentment 4", attack: 20 },
       5: { name: "Resentment 5", attack: 25 },
-    },
-  },
-  "Peak Performance": {
-    levels: {
-      1: { name: "Peak Performance 1", attack: 3 },
-      2: { name: "Peak Performance 2", attack: 6 },
-      3: { name: "Peak Performance 3", attack: 10 },
-      4: { name: "Peak Performance 4", attack: 15 },
-      5: { name: "Peak Performance 5", attack: 20 },
     },
   },
   ["Weakness Exploit"]: {
