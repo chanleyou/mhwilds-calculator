@@ -3,7 +3,7 @@
 import { DownloadIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ZodError } from "zod";
-import { Buffs, CombinedBuffs } from "@/data";
+import { CombinedBuffs } from "@/data";
 import { Armors } from "@/data/armor";
 import { Charms } from "@/data/charms";
 import { Decorations } from "@/data/decorations";

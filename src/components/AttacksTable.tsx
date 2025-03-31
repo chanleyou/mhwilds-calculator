@@ -23,6 +23,7 @@ export function AttacksTable({
 
     if (w.songs !== undefined) {
       return Attacks["Hunting Horn"].filter((a) => {
+        if (!a.melody) return true;
         if (a.name.includes("Resounding Melody")) {
           return w.songs?.includes("Resounding Melody");
         }
