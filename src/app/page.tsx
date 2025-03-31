@@ -2,7 +2,7 @@
 
 // import { useState } from "react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   AttacksCard,
   BuffsCard,
@@ -16,19 +16,19 @@ import {
   StatsCard,
   // Tab,
 } from "@/components";
-import { SwordAndShields } from "@/data/weapons/SwordAndShields";
 import { useBuild } from "@/store/builder";
 
 export default function Builder() {
-  const { w, setW } = useBuild();
+  const { reset } = useBuild();
 
-  // const options = ["Builder", "Manual"] as const;
-  // const [view, setView] = useState<(typeof options)[number]>(options[0]);
-  // const [comboView, setComboView] = useState(false);
+  const [hasReset, setHasReset] = useState(false);
 
   useEffect(() => {
-    if (w.name === "Custom Weapon") setW(SwordAndShields[0]);
-  }, [w, setW]);
+    if (!hasReset) {
+      reset();
+      setHasReset(true);
+    }
+  }, [reset, hasReset]);
 
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">

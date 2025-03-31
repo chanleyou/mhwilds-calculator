@@ -15,7 +15,8 @@ import {
 import { Card, NumberInput, Select } from "./";
 
 export const ManualWeaponCard = () => {
-  const { setW } = useBuild();
+  const { setW, reset } = useBuild();
+  const [hasReset, setHasReset] = useState(false);
   const [weaponType, setWeaponType] = useState<WeaponType>("Sword and Shield");
   const [attack, setAttack] = useState(200);
   const [affinity, setAffinity] = useState(0);
@@ -77,7 +78,13 @@ export const ManualWeaponCard = () => {
     phial,
   ]);
 
-  useEffect(() => void setW(weapon), [weapon, setW]);
+  useEffect(() => {
+    if (!hasReset) {
+      reset();
+      setHasReset(true);
+    }
+    void setW(weapon);
+  }, [weapon, reset, hasReset, setW]);
 
   return (
     <Card>

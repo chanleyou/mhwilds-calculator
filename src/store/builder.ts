@@ -82,6 +82,12 @@ const initialBuilder: InitialBuilder = {
     Powercharm: Buffs.Powercharm.levels[0],
     Frenzy: Buffs.Frenzy.levels[0],
   },
+  helm: undefined,
+  body: undefined,
+  arms: undefined,
+  waist: undefined,
+  legs: undefined,
+  charm: undefined,
   target: {
     wound: false,
     Slash: 80,
@@ -105,6 +111,7 @@ const initialBuilder: InitialBuilder = {
   uptime: {
     Frenzy: 0,
   },
+  manualSharpness: undefined,
 };
 
 export type Builder = InitialBuilder & {
@@ -138,7 +145,9 @@ export type Builder = InitialBuilder & {
 
 export const useBuild = create<Builder>((set, get) => ({
   ...initialBuilder,
-  reset: () => set(initialBuilder),
+  reset: () => {
+    set({ ...initialBuilder });
+  },
   setW: (w: Weapon) => {
     set({
       w: w,

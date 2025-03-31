@@ -3,12 +3,10 @@
 // import { useState } from "react";
 import { LinkIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect } from "react";
 import {
   AttacksCard,
   BuffsCard,
   Button,
-  EquipmentCard,
   ManualSkillsCard,
   ManualWeaponCard,
   Notice,
@@ -17,19 +15,8 @@ import {
   StatsCard,
   // Tab,
 } from "@/components";
-import { useBuild } from "@/store/builder";
 
 export default function Calculator() {
-  const { manualSharpness, setManualSharpness } = useBuild();
-
-  // const options = ["Builder", "Manual"] as const;
-  // const [view, setView] = useState<(typeof options)[number]>(options[0]);
-  // const [comboView, setComboView] = useState(false);
-
-  useEffect(() => {
-    if (manualSharpness) setManualSharpness(undefined);
-  }, [manualSharpness, setManualSharpness]);
-
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">
       <Notice closable>

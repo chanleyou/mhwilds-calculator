@@ -50,7 +50,7 @@ export const HitzoneDialog = () => {
             onChangeValue={setMonster}
           />
 
-          <div className="grid gap-1 overflow-y-auto pr-3 text-sm sm:hidden">
+          <div className="grid gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
             {Object.entries(Monsters[monster]).map(([name, target]) => {
               const { wound, ...hitzones } = target;
               return (
@@ -83,7 +83,7 @@ export const HitzoneDialog = () => {
               );
             })}
           </div>
-          <div className="hidden overflow-auto pr-3 sm:block">
+          <div className="hidden overflow-auto pr-2 sm:block">
             <Table>
               <thead>
                 <TableHeadRow>

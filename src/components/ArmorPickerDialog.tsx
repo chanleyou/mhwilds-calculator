@@ -95,7 +95,7 @@ export const ArmorPickerDialog = ({
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid gap-1 overflow-y-auto pr-3 md:grid-cols-2">
+          <div className="grid gap-1 overflow-y-auto pr-2 md:grid-cols-2">
             {filteredOptions.map((a) => (
               <div
                 className="border-divider bg-content hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"

@@ -103,7 +103,7 @@ export const WeaponPickerDialog = () => {
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="flex flex-col gap-1 overflow-y-auto pr-3 text-sm sm:hidden">
+          <div className="flex flex-col gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
             {filteredOptions.map((o) => (
               <div
                 className="border-divider gap-1 rounded border p-3"
@@ -219,7 +219,7 @@ export const WeaponPickerDialog = () => {
               </div>
             ))}
           </div>
-          <div className="hidden overflow-auto pr-3 sm:block">
+          <div className="hidden overflow-auto pr-2 sm:block">
             <Table>
               <thead>
                 <TableHeadRow>

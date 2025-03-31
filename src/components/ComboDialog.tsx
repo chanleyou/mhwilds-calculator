@@ -104,7 +104,7 @@ export const ComboDialog = () => {
               </div>
             </Notice>
           )}
-          <div className="overflow-auto pr-3">
+          <div className="overflow-auto pr-2">
             {showCombo ? <ComboTable /> : <AttacksTable onClick={addAttack} />}
           </div>
         </Card>

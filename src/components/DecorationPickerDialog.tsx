@@ -88,7 +88,7 @@ export const DecorationPickerDialog = ({
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid gap-1 overflow-y-auto pr-3 sm:grid-cols-2">
+          <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
             {filteredOptions.map((c) => (
               <div
                 className="border-divider hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
