@@ -1280,6 +1280,15 @@ export const ArmorSkillsTwo: Record<Skill, SkillTwo | SkillWeaponGroup> = {
       5: { name: "Resentment 5", attack: 25 },
     },
   },
+  "Peak Performance": {
+    levels: {
+      1: { name: "Peak Performance 1", attack: 3 },
+      2: { name: "Peak Performance 2", attack: 6 },
+      3: { name: "Peak Performance 3", attack: 10 },
+      4: { name: "Peak Performance 4", attack: 15 },
+      5: { name: "Peak Performance 5", attack: 20 },
+    },
+  },
   ["Weakness Exploit"]: {
     levels: {
       1: {
