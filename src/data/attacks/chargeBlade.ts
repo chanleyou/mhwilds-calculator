@@ -14,7 +14,7 @@ export const ChargeBladeAttacks: Attack[] = [
     mv: 15,
   },
   {
-    name: "Sword: Roundslash / Axe: Morph Slash / Elemental Roundslash",
+    name: "Sword: Roundslash",
     mv: 30,
   },
   {
@@ -69,6 +69,7 @@ export const ChargeBladeAttacks: Attack[] = [
     name: "Sword: Morph Slash",
     mv: 54,
     cbAxe: true,
+    morph: true,
   },
   {
     name: "Axe: Rising Slash",
@@ -89,6 +90,11 @@ export const ChargeBladeAttacks: Attack[] = [
     name: "Axe: Lateral Fade Slash / Backstep Slash",
     mv: 42,
     cbAxe: true,
+  },
+  {
+    name: "Axe: Morph Slash / Elemental Roundslash",
+    mv: 30,
+    morph: true,
   },
   {
     name: "Axe: Elemental Discharge I",

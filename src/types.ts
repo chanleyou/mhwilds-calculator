@@ -216,13 +216,7 @@ export type Buff = BuffValues & {
   coatingRawMul?: number;
   artilleryShellAttackMul?: number; // base attack multiplier
   artilleryEle?: number; // bonus fixed fire damage
-  normalShotsRawMul?: number; // TODO: deprecate these
-  piercingShotsRawMul?: number;
-  spreadPowerShotsRawMul?: number;
-  specialAmmoBoostRawMul?: number;
   artilleryAmmoAttackMul?: number;
-  rapidFireMul?: number;
-  demonBoost?: boolean;
   tetrad?: BuffValues;
   handicraft?: number;
   rawMul?: number;
@@ -234,7 +228,9 @@ export type Buff = BuffValues & {
   elementType?: ElementType;
   statusType?: StatusType;
   airAttackMul?: number;
-  airAttackMulHalf?: number;
+  morphAttackMul?: number;
+  sharpnesses?: Sharpness[];
+  bludgeonerAttackMul?: number;
 };
 
 export type BuffGroup = {
@@ -315,6 +311,7 @@ export interface IAttack {
     level: number;
   };
   melody?: boolean;
+  morph?: boolean;
 }
 
 export type BowgunElementAmmo = IAttack & {

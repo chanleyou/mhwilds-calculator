@@ -142,6 +142,7 @@ export function AttacksTable({
                       {a.specialAmmo && <p>Special Ammo Boost</p>}
                       {(a.shelling || a.artilleryAmmo) && <p>Artillery</p>}
                       {a.rapidFire && <p>Rapid Fire</p>}
+                      {a.morph && <p>Rapid Morph</p>}
                     </div>
                   </TooltipContent>
                 </Tooltip>

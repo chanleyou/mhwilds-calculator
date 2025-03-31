@@ -49,7 +49,6 @@ const skill = (n: number) => ({
 export const UnsupportedWeaponSkills: Record<SkillName, Skill> = {
   ["Ballistics"]: skill(3),
   ["Blast Functionality"]: skill(1),
-  ["Bludgeoner"]: skill(3),
   ["Charge Up"]: skill(1),
   ["Critical Status"]: skill(3),
   ["Exhaust Functionality"]: skill(1),
@@ -59,13 +58,11 @@ export const UnsupportedWeaponSkills: Record<SkillName, Skill> = {
   ["Horn Maestro"]: skill(2),
   ["Load Shells"]: skill(2),
   ["Master's Touch"]: skill(1),
-  ["Mind's Eye"]: skill(3),
   ["Para Functionality"]: skill(1),
   ["Poison Duration Up"]: skill(1),
   ["Poison Functionality"]: skill(1),
   ["Power Prolonger"]: skill(3),
   ["Protective Polish"]: skill(3),
-  ["Rapid Morph"]: skill(3),
   ["Razor Sharp"]: skill(3),
   ["Sleep Functionality"]: skill(1),
   ["Slugger"]: skill(3),
@@ -132,6 +129,25 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
         statusType: "Blast",
         status: 60,
         statusMul: 1.2,
+      },
+    },
+  },
+  ["Bludgeoner"]: {
+    levels: {
+      1: {
+        name: "Bludgeoner 1",
+        sharpnesses: ["Yellow"],
+        bludgeonerAttackMul: 1.05,
+      },
+      2: {
+        name: "Bludgeoner 2",
+        sharpnesses: ["Yellow"],
+        bludgeonerAttackMul: 1.1,
+      },
+      3: {
+        name: "Bludgeoner 3",
+        sharpnesses: ["Yellow", "Green"],
+        bludgeonerAttackMul: 1.1,
       },
     },
   },
@@ -286,6 +302,13 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
       },
     },
   },
+  ["Mind's Eye"]: {
+    levels: {
+      1: { name: "Mind's Eye 1", rawMul: 1.1 },
+      2: { name: "Mind's Eye 2", rawMul: 1.15 },
+      3: { name: "Mind's Eye 3", rawMul: 1.3 },
+    },
+  },
   ["Normal Shots"]: {
     levels: {
       1: { name: "Normal Shots 1", rawMul: 1.05 },
@@ -372,6 +395,13 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
   ["Rapid Fire Up"]: {
     levels: {
       1: { name: "Rapid Fire Up 1", rawMul: 1.05 },
+    },
+  },
+  ["Rapid Morph"]: {
+    levels: {
+      1: { name: "Rapid Morph 1" },
+      2: { name: "Rapid Morph 2", morphAttackMul: 1.1 },
+      3: { name: "Rapid Morph 3", morphAttackMul: 1.2 },
     },
   },
   ["Sleep Attack"]: {

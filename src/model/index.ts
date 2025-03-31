@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { getSharpnessEle, getSharpnessRaw } from "@/data";
+import { getSharpness, getSharpnessEle, getSharpnessRaw } from "@/data";
 import {
   Attack,
   Buff,
@@ -166,9 +166,11 @@ export const calculateRawHit = (
   atk: Attack,
   hitzone: Target,
 ) => {
+  if (atk.fixedRaw) return atk.fixedRaw;
+
   const buffs = { ...eBuffs };
 
-  if (atk.fixedRaw) return atk.fixedRaw;
+  const rawType = atk.rawType ?? "Slash";
 
   const multipliers = [];
   const bonuses = [];
@@ -178,6 +180,26 @@ export const calculateRawHit = (
   if (atk.saType === "Sword" && weapon.phial === "Power") {
     multipliers.push(1.17);
   }
+
+  if (atk.morph && buffs["Rapid Morph"]) {
+    multipliers.push(buffs["Rapid Morph"].morphAttackMul);
+  }
+
+  if (
+    buffs["Mind's Eye"] &&
+    weapon.sharpness &&
+    hitzone[rawType] * (getSharpnessRaw(weapon.sharpness) ?? 1) < 45
+  ) {
+    multipliers.push(buffs["Mind's Eye"].rawMul);
+  }
+
+  if (buffs.Bludgeoner) {
+    const { sharpnesses, bludgeonerAttackMul } = buffs.Bludgeoner;
+    if (sharpnesses?.some((s) => s === getSharpness(weapon.sharpness))) {
+      multipliers.push(bludgeonerAttackMul);
+    }
+  }
+
   if (atk.airborne) {
     multipliers.push(buffs.Airborne?.airAttackMul);
   }
@@ -192,8 +214,6 @@ export const calculateRawHit = (
   }
 
   const attack = calculateAttack(weapon.attack, buffs, multipliers, bonuses);
-
-  const rawType = atk.rawType ?? "Slash";
 
   return mul(
     attack,

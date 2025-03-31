@@ -97,9 +97,7 @@ export const WeaponBuffs: Record<string, BuffGroup> = {
   DualBladesDemonBoost: {
     name: "Demon Boost",
     weapons: ["Dual Blades"],
-    levels: [
-      { name: "Demon Boost", attackMul: 1.2, demonBoost: true, eleMul: 1.2 },
-    ],
+    levels: [{ name: "Demon Boost", attackMul: 1.2, eleMul: 1.2 }],
   },
   HornSelfImprovement: {
     name: "Self-Improvement",
