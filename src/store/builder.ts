@@ -638,13 +638,22 @@ export const useComputed = () => {
   const baseEleCritMulti =
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
-  const calcCrit = (
-    atk: Attack,
-    critMulti: number = baseCritMulti,
-    eleCritMulti: number = baseEleCritMulti,
-  ) => {
+  const calcCrit = (atk: Attack) => {
     const avg = weights.reduce((acc, weight) => {
       if (weight.weight === 0) return acc;
+
+      const affinity = calculateAffinity({
+        affinity: weapon.affinity,
+        buffs: weight.buffs,
+        target,
+        rawType: atk.rawType ?? "Slash",
+      });
+
+      const critMulti =
+        affinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
+      const eleCritMulti =
+        affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
+
       const crit = calculateCrit(
         weapon,
         weight.buffs,
