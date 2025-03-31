@@ -78,7 +78,10 @@ export type InitialBuilder = {
 const initialBuilder: InitialBuilder = {
   w: SwordAndShields[0],
   artian: { element: "No Element", infusions: [], upgrades: [] },
-  otherBuffs: { Powercharm: Buffs.Powercharm.levels[0] },
+  otherBuffs: {
+    Powercharm: Buffs.Powercharm.levels[0],
+    Frenzy: Buffs.Frenzy.levels[0],
+  },
   target: {
     wound: false,
     Slash: 80,
@@ -99,7 +102,9 @@ const initialBuilder: InitialBuilder = {
   disabled: {},
   flags: {},
   manualSkills: {},
-  uptime: {},
+  uptime: {
+    Frenzy: 0,
+  },
 };
 
 export type Builder = InitialBuilder & {
@@ -385,20 +390,10 @@ export const useComputed = () => {
     }
   });
 
-  // Frenzy
-  const frenzy = buffs.Frenzy !== undefined;
-  if (frenzy) {
-    Object.entries(buffs).forEach(([k, v]) => {
-      if (!v.frenzy) return;
-      buffs["Frenzy" + k] = v.frenzy;
-    });
-  }
-
   const weapon = produce(w, (d) => {
     // Handicraft
     if (isMeleeWeapon(d)) {
       if (manualSharpness) {
-        console.log("here", { manualSharpness });
         const array = [0, 0, 0, 0, 0, 0, 0] as WeaponSharpness;
         const sharpnessIndex = Sharpnesses.indexOf(manualSharpness);
         array[sharpnessIndex] = 150;
@@ -532,7 +527,17 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAttack = calculateAttack(weapon.attack, buffs);
+  const buffsWithFrenzy =
+    uptime.Frenzy > 0
+      ? produce(buffs, (d) => {
+          Object.entries(d).forEach(([k, v]) => {
+            if (!v.frenzy) return;
+            d["Frenzy" + k] = v.frenzy;
+          });
+        })
+      : buffs;
+
+  const uiAttack = calculateAttack(weapon.attack, buffsWithFrenzy);
   const uiElement = weapon.element
     ? calculateElement(weapon.element.value, weapon.element.type, buffs)
     : 0;
@@ -564,6 +569,15 @@ export const useComputed = () => {
           Object.keys(d).forEach((k) => {
             if (uptime[k] !== undefined && !skills.includes(k)) delete d[k];
           });
+
+          // Frenzy
+          const frenzy = d.Frenzy !== undefined;
+          if (frenzy) {
+            Object.entries(d).forEach(([k, v]) => {
+              if (!v.frenzy) return;
+              d["Frenzy" + k] = v.frenzy;
+            });
+          }
         }),
         weight,
       });

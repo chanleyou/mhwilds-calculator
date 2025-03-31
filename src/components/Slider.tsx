@@ -26,7 +26,7 @@ export const Slider = ({ className, ref, tooltip, ...props }: SliderProps) => (
         <SliderPrimitive.Range className="bg-secondary absolute h-full" />
       </SliderPrimitive.Track>
       <TooltipTrigger asChild>
-        <SliderPrimitive.Thumb className="bg-primary ring-offset-background focus-visible:bg-accent block size-4 rounded-full focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" />
+        <SliderPrimitive.Thumb className="bg-primary ring-offset-background focus:bg-accent block size-4 rounded-full focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" />
       </TooltipTrigger>
     </SliderPrimitive.Root>
     {tooltip && <TooltipContent>{tooltip}</TooltipContent>}

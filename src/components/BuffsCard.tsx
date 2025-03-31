@@ -2,20 +2,23 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Buffs, FieldBuffs, HuntingHornBuffs, WeaponBuffs } from "@/data";
 import { useBuild, useComputed } from "@/store/builder";
-import { Button, Card, Checkbox, Notice, SkillSelect } from ".";
+import { Button, Card, Checkbox, Notice, SkillSelect, Slider } from ".";
 
 export const BuffsCard = () => {
-  const { otherBuffs, setOtherBuff } = useBuild();
+  const { otherBuffs, setOtherBuff, uptime, setUptime } = useBuild();
   const { weapon: w, buffs } = useComputed();
 
   const [hideBuffs, setHideBuffs] = useState(false);
 
   const showBuffsNotice = useMemo(() => {
-    if ((!!buffs.Antivirus || !!buffs["Black Eclipse II"]) && !buffs.Frenzy) {
+    if (
+      (!!buffs.Antivirus || !!buffs["Black Eclipse II"]) &&
+      uptime.Frenzy === 0
+    ) {
       return true;
     }
     return false;
-  }, [buffs]);
+  }, [buffs, uptime.Frenzy]);
 
   const showWeaponSection = useMemo(() => {
     if (!Object.values(WeaponBuffs).some((b) => b.weapons?.includes(w.type)))
@@ -58,11 +61,12 @@ export const BuffsCard = () => {
         variant="warning"
         className={!showBuffsNotice ? "hidden" : undefined}
       >
-        {"Tick 'Overcame Frenzy' to enable related skills."}
+        {"Frenzy controls Antivirus and Black Eclipse II's bonus Attack."}
       </Notice>
       <div className="flex flex-wrap gap-x-4 gap-y-0">
         {Object.entries(Buffs).map(([k, b]) => {
           if (hideBuffs && !otherBuffs[k]) return undefined;
+          if (k === "Frenzy") return undefined;
           return (
             <Checkbox
               key={k}
@@ -75,6 +79,20 @@ export const BuffsCard = () => {
           );
         })}
       </div>
+      {(!hideBuffs || uptime.Frenzy > 0) && (
+        <div className="flex flex-col">
+          <label className="text-sm">Frenzy Uptime</label>
+          <div className="flex items-center justify-between gap-2">
+            <Slider
+              defaultValue={[uptime["Frenzy"] ?? 0]}
+              max={100}
+              step={1}
+              onValueChange={(v) => setUptime("Frenzy", v[0])}
+            />
+            <div className="text-sm">{uptime["Frenzy"] ?? 100}%</div>
+          </div>
+        </div>
+      )}
       {showWeaponSection && (
         <>
           <h2>{w.type}</h2>
