@@ -71,8 +71,8 @@ export type InitialBuilder = {
   disabled: Record<SkillName, boolean>;
   flags: Partial<Record<Flag, boolean>>;
   manualSkills: Record<SkillName, number>;
-  manualSharpness?: Sharpness;
   uptime: Record<SkillName, number>;
+  manualSharpness?: Sharpness;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -127,8 +127,8 @@ export type Builder = InitialBuilder & {
   setTarget: (target: Target) => void;
   setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
   setManualSkills: (s: SkillName, v?: number) => void;
-  setManualSharpness: (s?: Sharpness) => void;
   setUptime: (s: SkillName, v: number) => void;
+  setManualSharpness: (s?: Sharpness) => void;
 };
 
 export const useBuild = create<Builder>((set, get) => ({
@@ -141,7 +141,11 @@ export const useBuild = create<Builder>((set, get) => ({
       artian: initialBuilder.artian,
       otherBuffs: produce(get().otherBuffs, (d) => {
         Object.keys(d).forEach((k) => {
-          if (!CombinedBuffs[k]?.weapons?.includes(w.type)) delete d[k];
+          if (
+            CombinedBuffs[k]?.weapons &&
+            !CombinedBuffs[k]?.weapons.includes(w.type)
+          )
+            delete d[k];
         });
       }),
     });
@@ -260,7 +264,6 @@ export const useBuild = create<Builder>((set, get) => ({
       }),
     );
   },
-  setManualSharpness: (s) => set({ manualSharpness: s }),
   setUptime: (s, v) => {
     set(
       produce<Builder>((d) => {
@@ -268,6 +271,7 @@ export const useBuild = create<Builder>((set, get) => ({
       }),
     );
   },
+  setManualSharpness: (s) => set({ manualSharpness: s }),
 }));
 
 export const useComputed = () => {
@@ -291,8 +295,8 @@ export const useComputed = () => {
     flags,
     target,
     manualSkills,
-    manualSharpness,
     uptime,
+    manualSharpness,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -394,6 +398,7 @@ export const useComputed = () => {
     // Handicraft
     if (isMeleeWeapon(d)) {
       if (manualSharpness) {
+        console.log("here", { manualSharpness });
         const array = [0, 0, 0, 0, 0, 0, 0] as WeaponSharpness;
         const sharpnessIndex = Sharpnesses.indexOf(manualSharpness);
         array[sharpnessIndex] = 150;

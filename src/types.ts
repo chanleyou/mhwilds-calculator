@@ -23,13 +23,16 @@ export const isStatusType = (t?: string): t is StatusType => {
   return StatusTypes.includes(t as StatusType);
 };
 
-export type SwitchAxePhialType =
-  | "Dragon"
-  | "Element"
-  | "Exhaust"
-  | "Paralysis"
-  | "Poison"
-  | "Power";
+export const SwitchAxePhialTypes = [
+  "Dragon",
+  "Element",
+  "Exhaust",
+  "Paralysis",
+  "Poison",
+  "Power",
+] as const;
+
+export type SwitchAxePhialType = (typeof SwitchAxePhialTypes)[number];
 
 export type ChargeBladePhialType = "Impact" | "Element";
 
@@ -400,7 +403,7 @@ export type BuffName = string;
 export type Flag = "TetradAttack" | "TetradAffinity";
 
 export const isMeleeWeapon = (weapon: Weapon): weapon is MeleeWeapon => {
-  return "sharpness" in weapon && "handicraft" in weapon;
+  return weapon.sharpness !== undefined && weapon.handicraft !== undefined;
 };
 
 export const isGunlance = (weapon: Weapon): weapon is Gunlance => {

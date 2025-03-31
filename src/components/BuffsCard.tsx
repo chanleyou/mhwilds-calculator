@@ -79,13 +79,14 @@ export const BuffsCard = () => {
         <>
           <h2>{w.type}</h2>
           <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-            {w.coatings && (
+            {w.type === "Bow" && (
               <SkillSelect
                 skill={WeaponBuffs.BowCoating}
                 value={otherBuffs["BowCoating"]}
                 placeholder={"Coating"}
                 disabledOptions={WeaponBuffs.BowCoating.levels.filter((l) => {
-                  return !w.coatings!.some((c) => c === l.name);
+                  if (!w.coatings) return false;
+                  return !w.coatings.some((c) => c === l.name);
                 })}
                 onChangeValue={(buff) => setOtherBuff("BowCoating", buff)}
               />
