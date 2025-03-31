@@ -185,7 +185,7 @@ export const calculateRawHit = (
     multipliers.push(buffs["Rapid Morph"].morphAttackMul);
   }
 
-  if (hitzone[rawType] < 45) {
+  if (hitzone[rawType] < 45 && !atk.ignoreHzv) {
     multipliers.push(buffs["Mind's Eye"]?.rawMul);
   }
 

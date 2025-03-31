@@ -488,6 +488,7 @@ export const useComputed = () => {
         d.element = { type: artian.element, value: d.artian.element };
       }
     } else if (isStatusType(artian.element)) {
+      delete d.element;
       if (d.type === "Hunting Horn") {
         d.songs = [
           "Status Attack Up",
