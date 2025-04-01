@@ -23,6 +23,7 @@ export const GunlanceAttacks: Attack[] = [
     name: "Focus Strike: Drake Auger Ticks",
     mv: 7,
     eleMul: 0.1,
+    shelling: { level: 0 },
   },
   {
     name: "Wyrmstake Lv1 Ticks",
