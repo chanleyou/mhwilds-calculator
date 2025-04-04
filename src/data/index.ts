@@ -173,9 +173,12 @@ export const FieldBuffs: Record<string, BuffGroup> = {
       { name: "Might Pill", attack: 25 },
     ],
   },
-  CorruptedMantle: {
-    name: "Corrupted Mantle",
-    levels: [{ name: "Corrupted Mantle", attackMul: 1.1, affinity: 30 }],
+  Mantle: {
+    name: "Mantle",
+    levels: [
+      { name: "Corrupted Mantle", attackMul: 1.05, affinity: 10 },
+      { name: "Evasion Mantle", attackMul: 1.2 },
+    ],
   },
 };
 
