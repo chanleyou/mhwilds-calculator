@@ -256,6 +256,10 @@ export const calculateEleHit = (
     return 0;
   }
 
+  if (atk.charge) {
+    multipliers.push(buffs["Charge Master"]?.eleMul);
+  }
+
   if (isBowgunElementAmmo(atk)) {
     const bowgunOffset = Object.values(buffs).reduce((acc, b) => {
       if (b?.bowgunOffset) return acc + (b.attack ?? 0);
@@ -295,7 +299,7 @@ export const calculateEleHit = (
     eleHzv,
     atk.eleMul ?? 1,
     atk.ignoreSharpness ? 1 : getSharpnessEle(weapon.sharpness),
-    atk.charge && buffs["Charge Master"]?.eleMul,
+    // atk.charge && buffs["Charge Master"]?.eleMul,
     buffs.DualBladesDemonBoost?.eleMul,
     atk.cbPhial && buffs.ChargeBladeShieldElement?.elePhialMul,
   );

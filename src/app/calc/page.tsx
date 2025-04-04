@@ -20,7 +20,8 @@ export default function Calculator() {
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">
       <Notice closable>
-        Damage numbers are averaged when uptime sliders are in use.
+        Damage numbers are averaged when uptime sliders are in use. TU1 updates
+        are still in progress.
       </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-1 justify-end gap-2">

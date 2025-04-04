@@ -211,8 +211,6 @@ export type Buff = BuffValues & {
   cbShieldElement?: boolean;
   saPhial?: "Power" | "Element";
   powerAxe?: boolean;
-  meleeChargeEleMul?: number;
-  rangedChargeEleMul?: number;
   coatingRawMul?: number;
   artilleryShellAttackMul?: number; // base attack multiplier
   artilleryEle?: number; // bonus fixed fire damage
@@ -224,7 +222,6 @@ export type Buff = BuffValues & {
   axeRawMul?: number;
   impactPhialMul?: number;
   elePhialMul?: number;
-  chargeEleMul?: number;
   elementType?: ElementType;
   statusType?: StatusType;
   airAttackMul?: number;
