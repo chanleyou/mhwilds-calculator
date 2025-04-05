@@ -109,7 +109,7 @@ export const BuffsCard = () => {
                 setUptime("Frenzy", v[0]);
               }}
             />
-            <div className="text-sm">{uptime["Frenzy"] ?? 100}%</div>
+            <div className="text-sm">{uptime["Frenzy"] ?? 0}%</div>
           </div>
         </div>
       )}

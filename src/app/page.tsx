@@ -20,7 +20,7 @@ import {
 import { useBuild, useComputed } from "@/store/builder";
 
 export default function Builder() {
-  const { reset } = useBuild();
+  const { reset, uptime } = useBuild();
   const { buffs } = useComputed();
 
   const [hasReset, setHasReset] = useState(false);
@@ -40,7 +40,7 @@ export default function Builder() {
           here
         </Link>
         {`. Damage numbers are averaged when uptime sliders are in use. TU1
-        updates are in. Wet/Bubbleblight uptime can be set in the Buffs section. I don't know what Lord's Soul does.`}
+        updates are in. Wet/Bubbleblight uptime for Slicked Blade can be set in the Buffs section.`}
       </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
@@ -63,8 +63,8 @@ export default function Builder() {
             <h1>Debug</h1>
             <textarea
               className="font-mono text-xs"
-              value={JSON.stringify(buffs, undefined, 2)}
-              rows={60}
+              value={JSON.stringify({ buffs, uptime }, undefined, 2)}
+              rows={30}
               readOnly
             />
           </Card> */}

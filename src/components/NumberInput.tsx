@@ -11,6 +11,7 @@ interface Props
   max?: number;
   step?: number;
   value: number;
+  hideButtons?: boolean;
 }
 
 export function NumberInput({
@@ -23,10 +24,16 @@ export function NumberInput({
   max,
   disabled,
   readOnly,
+  hideButtons,
+  className,
   ...props
 }: Props) {
   return (
-    <InputContainer label={label} description={description}>
+    <InputContainer
+      className={className}
+      label={label}
+      description={description}
+    >
       <div className="relative flex items-center">
         <input
           className="border-divider text-primary focus:border-primary hover:border-primary disabled:text-placeholder w-full rounded-sm border px-2 py-1.5 text-sm focus:outline-none disabled:pointer-events-none sm:py-1"
@@ -38,7 +45,7 @@ export function NumberInput({
           readOnly={readOnly}
           {...props}
         />
-        {!readOnly && (
+        {!readOnly && !hideButtons && (
           <div className="absolute right-0 flex">
             <button
               disabled={disabled || (min !== undefined && value <= min)}
@@ -83,10 +90,12 @@ export function NumberInputTwo({
   max,
   disabled,
   readOnly,
+  hideButtons,
+  className,
   ...props
 }: Props) {
   return (
-    <InputContainer description={description}>
+    <InputContainer className={className} description={description}>
       <div className="group text-secondary hover:text-primary focus-within:text-primary relative flex items-center">
         <input
           className="border-divider text-primary group-hover:border-primary focus:border-primary disabled:hover:bg-content group disabled:text-placeholder bg-content w-full rounded-xs border p-2 text-sm focus:outline-none"
@@ -101,7 +110,7 @@ export function NumberInputTwo({
         <label className="bg-content absolute top-[-7.5px] left-1 z-1 px-1 text-xs text-inherit">
           {label}
         </label>
-        {!readOnly && (
+        {!readOnly && !hideButtons && (
           <div className="absolute right-0 flex">
             <button
               disabled={disabled || (min !== undefined && value <= min)}

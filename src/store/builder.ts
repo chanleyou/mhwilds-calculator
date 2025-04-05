@@ -383,7 +383,7 @@ export const useComputed = () => {
 
   // Group Skills
   Object.entries(groupPoints).forEach(([k, v]) => {
-    if (disabled[k]) return;
+    if (disabled[k] || uptime[k] === 0) return;
 
     if (GroupSkillsCombined[k] && v >= 3) {
       buffs[k] = GroupSkillsCombined[k].levels[3];

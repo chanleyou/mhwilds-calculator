@@ -68,7 +68,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                 <div className="flex items-center justify-between gap-2">
                   <Slider
                     skill={k}
-                    defaultValue={[uptime[k] ?? 100]}
+                    value={[uptime[k] ?? 100]}
                     max={100}
                     step={1}
                     onValueChange={(v) => setUptime(k, v[0])}
@@ -95,8 +95,8 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
             <div key={k} className="flex flex-col gap-1">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex justify-between">
-                    <div className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-3 flex-col gap-1">
                       <p
                         className={cn(
                           "text-sm",
@@ -118,6 +118,15 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                         ))}
                       </div>
                     </div>
+                    {/* {skill.uptime && (
+                      <NumberInputTwo
+                        className="flex-1"
+                        hideButtons
+                        value={uptime[k] ?? 100}
+                        onChangeValue={(v) => setUptime(k, v)}
+                        label="Uptime %"
+                      />
+                    )} */}
                     {skill.toggle && (
                       <Checkbox
                         value={!disabled[k]}
@@ -151,7 +160,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                 <div className="flex items-center justify-between gap-2">
                   <Slider
                     skill={k}
-                    defaultValue={[uptime[k] ?? 100]}
+                    value={[uptime[k] ?? 100]}
                     max={100}
                     step={1}
                     onValueChange={(v) => setUptime(k, v[0])}
@@ -205,7 +214,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                 <div className="flex items-center justify-between gap-2">
                   <Slider
                     skill={k}
-                    defaultValue={[uptime[k] ?? 100]}
+                    value={[uptime[k] ?? 100]}
                     max={100}
                     step={1}
                     onValueChange={(v) => setUptime(k, v[0])}

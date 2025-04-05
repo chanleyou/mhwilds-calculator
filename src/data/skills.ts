@@ -851,7 +851,6 @@ export const UnsupportedGroupSkills: Record<SkillName, GroupSkill> = {
   ["Guardian's Protection"]: { levels: { 3: { name: "Ward of Wyveria" } } },
   ["Guardian's Pulse"]: { levels: { 3: { name: "Wylk Burst" } } },
   ["Imparted Wisdom"]: { levels: { 3: { name: "Forager's Luck" } } },
-  ["Lord's Soul"]: { levels: { 3: { name: "Guts (Tenacity)" } } },
   ["Neopteron Alert"]: { levels: { 3: { name: "Honey Hunter" } } },
   ["Neopteron Camouflage"]: { levels: { 3: { name: "Fleetfoot" } } },
   ["Scale Layering"]: { levels: { 3: { name: "Adrenaline" } } },
@@ -870,6 +869,10 @@ export const GroupSkills: Record<SkillName, GroupSkill> = {
   ["Lord's Fury"]: {
     uptime: true,
     levels: { 3: { name: "Resuscitate ", attack: 10 } },
+  },
+  ["Lord's Soul"]: {
+    uptime: true,
+    levels: { 3: { name: "Guts (Tenacity)", attackMul: 1.05 } },
   },
 };
 
