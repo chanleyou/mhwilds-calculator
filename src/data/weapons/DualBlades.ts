@@ -392,7 +392,7 @@ export const DualBlades: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [90, 40, 90, 30, 30, 70, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "WhiteFlame Torrent": 1 },
+    skills: { "Whiteflame Torrent": 1 },
   },
   {
     type: "Dual Blades",

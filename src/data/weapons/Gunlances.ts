@@ -385,7 +385,7 @@ export const Gunlances: Gunlance[] = [
     sharpness: [100, 40, 100, 40, 30, 40, 0],
     handicraft: [50, 0, 0, 0],
     shelling: { type: "Normal", level: 3 },
-    skills: { "WhiteFlame Torrent": 1 },
+    skills: { "Whiteflame Torrent": 1 },
   },
   {
     type: "Gunlance",

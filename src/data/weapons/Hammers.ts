@@ -368,7 +368,7 @@ export const Hammers: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [100, 40, 100, 40, 30, 40, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "WhiteFlame Torrent": 1 },
+    skills: { "Whiteflame Torrent": 1 },
   },
   {
     type: "Hammer",

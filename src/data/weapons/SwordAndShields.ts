@@ -389,7 +389,7 @@ export const SwordAndShields: MeleeWeapon[] = [
     slots: [3, 2, 1],
     sharpness: [90, 40, 90, 40, 30, 60, 0],
     handicraft: [50, 0, 0, 0],
-    skills: { "WhiteFlame Torrent": 1 },
+    skills: { "Whiteflame Torrent": 1 },
   },
   {
     type: "Sword and Shield",
