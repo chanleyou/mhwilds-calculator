@@ -13,8 +13,11 @@ import {
   isBowgunElementAmmo,
 } from "@/types";
 
-export const sum = (...args: (number | undefined)[]) => {
-  return args.reduce<number>((sum, a) => (a ? sum + a : sum), 0);
+export const sum = (...args: (number | undefined | false)[]) => {
+  return args.reduce<number>(
+    (sum, a) => (a !== undefined && a !== false ? sum + a : sum),
+    0,
+  );
 };
 
 export const mul = (...args: (number | undefined | false)[]) => {
@@ -41,7 +44,7 @@ export const dmg = (n: number) => {
 export const calculate = (
   base: number,
   multipliers: (number | undefined | false)[] = [],
-  bonuses: number[] = [],
+  bonuses: (number | undefined | false)[] = [],
 ): number => {
   return round(base * mul(...multipliers) + sum(...bonuses));
 };
@@ -73,6 +76,14 @@ export const calculateAffinity = ({
   target: Target;
   rawType: RawType;
 }) => {
+  const bonuses: (number | undefined)[] = [];
+
+  Object.values(buffs).forEach((b) => {
+    if (buffs.Frenzy) bonuses.push(b?.frenzy?.affinity);
+    if (buffs.Wet) bonuses.push(b?.wet?.affinity);
+    if (buffs.Bubbleblight) bonuses.push(b?.bubbleblight?.affinity);
+  });
+
   const n = sum(
     affinity,
     ...Object.values(buffs).map((b) =>
@@ -82,6 +93,7 @@ export const calculateAffinity = ({
         target.wound ? getAffinity(b.wound) : 0,
       ),
     ),
+    ...bonuses,
   );
 
   return n > 0 ? Math.min(n, 100) : Math.max(n, -100);
@@ -101,8 +113,15 @@ export const calculateAttack = (
   base: number,
   buffs: Record<string, Buff | undefined>,
   multipliers: (number | undefined | false)[] = [],
-  bonuses: number[] = [],
+  bonuses: (number | undefined | false)[] = [],
 ) => {
+  if (buffs.Frenzy) {
+    Object.values(buffs).forEach((b) => {
+      multipliers.push(b?.frenzy?.attackMul);
+      bonuses.push(b?.frenzy?.attack);
+    });
+  }
+
   return calculate(
     base,
     [...Object.values(buffs).map(getAttackMul), ...multipliers],
@@ -119,14 +138,21 @@ export const calculateElement = (
   saElementPhial?: boolean,
 ) => {
   if (!base) return 0;
-  let cap = Math.max(base + 350, base * 1.9);
-  if (saElementPhial) cap += base * 0.45;
 
   buffs = produce(buffs, (d) => {
     Object.entries(d).forEach(([k, v]) => {
       if (!v || (v.elementType && v.elementType !== type)) delete d[k];
     });
   });
+
+  if (buffs.Frenzy) {
+    Object.values(buffs).forEach((b) => {
+      multipliers.push(b?.frenzy?.elementMul);
+    });
+  }
+
+  let cap = Math.max(base + 350, base * 1.9);
+  if (saElementPhial) cap += base * 0.45;
 
   return Math.min(
     cap,

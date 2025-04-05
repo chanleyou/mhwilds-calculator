@@ -121,14 +121,6 @@ export const WeaponBuffs: Record<string, BuffGroup> = {
       { name: "Red", attackMul: 1.1 },
     ],
   },
-  SwitchAxePhial: {
-    name: "Phial Type",
-    weapons: ["Switch Axe"],
-    levels: [
-      { name: "Power Phial", saPhial: "Power" },
-      { name: "Element Phial", saPhial: "Element" },
-    ],
-  },
   SwitchAxePowerAxe: {
     name: "Power Axe",
     weapons: ["Switch Axe"],
@@ -141,14 +133,19 @@ export const Buffs: Record<string, BuffGroup> = {
     name: "Powercharm",
     levels: [{ name: "Powercharm", attack: 6 }],
   },
-  Frenzy: {
-    name: "Overcame Frenzy",
-    levels: [{ name: "Overcame Frenzy", affinity: 15 }],
-  },
   DemonPowder: {
     name: "Demon Powder",
     levels: [{ name: "Demon Powder", attack: 10 }],
   },
+  Frenzy: {
+    name: "Frenzy",
+    levels: [{ name: "Overcame Frenzy", affinity: 15 }],
+  },
+};
+
+export const SliderBuffs: Record<string, BuffGroup> = {
+  Wet: { name: "Wet", levels: [{ name: "Wet" }] },
+  Bubbleblight: { name: "Bubbleblight", levels: [{ name: "Bubbleblight" }] },
 };
 
 export const FieldBuffs: Record<string, BuffGroup> = {
@@ -207,6 +204,7 @@ export const HuntingHornBuffs: Record<string, BuffGroup> = {
 // TODO: make TypeScript complain if two buffs share a key
 export const CombinedBuffs: Record<string, BuffGroup> = {
   ...Buffs,
+  ...SliderBuffs,
   ...WeaponBuffs,
   ...FieldBuffs,
   ...HuntingHornBuffs,

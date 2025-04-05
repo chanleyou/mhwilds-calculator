@@ -68,6 +68,7 @@ export const UnsupportedWeaponSkills: Record<SkillName, Skill> = {
   ["Slugger"]: skill(3),
   ["Speed Sharpening"]: skill(2),
   ["Stamina Thief"]: skill(3),
+  ["Whiteflame Torrent"]: skill(1),
 };
 
 export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
@@ -418,6 +419,25 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
         statusType: "Sleep",
         status: 60,
         statusMul: 1.2,
+      },
+    },
+  },
+  "Slicked Blade": {
+    levels: {
+      1: {
+        name: "Slicked Blade 1",
+        wet: { affinity: 3 },
+        bubbleblight: { affinity: 7 },
+      },
+      2: {
+        name: "Slicked Blade 2",
+        wet: { affinity: 6 },
+        bubbleblight: { affinity: 14 },
+      },
+      3: {
+        name: "Slicked Blade 3",
+        wet: { affinity: 9 },
+        bubbleblight: { affinity: 21 },
       },
     },
   },
@@ -831,6 +851,7 @@ export const UnsupportedGroupSkills: Record<SkillName, GroupSkill> = {
   ["Guardian's Protection"]: { levels: { 3: { name: "Ward of Wyveria" } } },
   ["Guardian's Pulse"]: { levels: { 3: { name: "Wylk Burst" } } },
   ["Imparted Wisdom"]: { levels: { 3: { name: "Forager's Luck" } } },
+  ["Lord's Soul"]: { levels: { 3: { name: "Guts (Tenacity)" } } },
   ["Neopteron Alert"]: { levels: { 3: { name: "Honey Hunter" } } },
   ["Neopteron Camouflage"]: { levels: { 3: { name: "Fleetfoot" } } },
   ["Scale Layering"]: { levels: { 3: { name: "Adrenaline" } } },
@@ -883,6 +904,9 @@ export const UnsupportedSeriesSkills: Record<SkillName, SeriesSkill> = {
   ["Guardian Arkveld's Vitality"]: {
     levels: { 2: { name: "Decimator I" }, 4: { name: "Decimator II" } },
   },
+  "Mizutsune's Prowess": {
+    levels: { 2: { name: "Bubbly Dance I" }, 4: { name: "Bubbly Dance II" } },
+  },
   ["Nu Udra's Mutiny"]: {
     levels: {
       2: { name: "Bad Blood I" },
@@ -891,6 +915,12 @@ export const UnsupportedSeriesSkills: Record<SkillName, SeriesSkill> = {
   },
   ["Rathalos's Flare"]: {
     levels: { 2: { name: "Scorcher I" }, 4: { name: "Scorcher II" } },
+  },
+  "Zoh Shia's Pulse": {
+    levels: {
+      2: { name: "Super Recovery I" },
+      4: { name: "Super Recovery II" },
+    },
   },
 };
 

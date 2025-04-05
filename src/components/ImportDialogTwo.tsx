@@ -191,9 +191,6 @@ export const ImportDialogTwo = () => {
           setDecorations(d.weaponSlots, w, setWeaponDecoration, "Weapon");
         }
 
-        // fix Frenzy import
-        d.buffs.Frenzy = 1;
-
         emptyBuffs();
 
         Object.entries(d.buffs).forEach(([key, value]) => {

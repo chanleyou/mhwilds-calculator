@@ -3,7 +3,6 @@ import { create } from "zustand";
 import {
   ArtianElementUpgrade,
   ArtianTypeToGunlanceShellType,
-  Buffs,
   CombinedBuffs,
   Sharpnesses,
 } from "@/data";
@@ -79,8 +78,7 @@ const initialBuilder: InitialBuilder = {
   w: SwordAndShields[0],
   artian: { element: "No Element", infusions: [], upgrades: [] },
   otherBuffs: {
-    Powercharm: Buffs.Powercharm.levels[0],
-    Frenzy: Buffs.Frenzy.levels[0],
+    Powercharm: CombinedBuffs.Powercharm.levels[0],
   },
   helm: undefined,
   body: undefined,
@@ -108,9 +106,7 @@ const initialBuilder: InitialBuilder = {
   disabled: {},
   flags: {},
   manualSkills: {},
-  uptime: {
-    Frenzy: 0,
-  },
+  uptime: {},
   manualSharpness: undefined,
 };
 
@@ -537,17 +533,7 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const buffsWithFrenzy =
-    uptime.Frenzy > 0
-      ? produce(buffs, (d) => {
-          Object.entries(d).forEach(([k, v]) => {
-            if (!v.frenzy) return;
-            d["Frenzy" + k] = v.frenzy;
-          });
-        })
-      : buffs;
-
-  const uiAttack = calculateAttack(weapon.attack, buffsWithFrenzy);
+  const uiAttack = calculateAttack(weapon.attack, buffs);
   const uiElement = weapon.element
     ? calculateElement(weapon.element.value, weapon.element.type, buffs)
     : 0;
@@ -579,15 +565,6 @@ export const useComputed = () => {
           Object.keys(d).forEach((k) => {
             if (uptime[k] !== undefined && !skills.includes(k)) delete d[k];
           });
-
-          // Frenzy
-          const frenzy = d.Frenzy !== undefined;
-          if (frenzy) {
-            Object.entries(d).forEach(([k, v]) => {
-              if (!v.frenzy) return;
-              d["Frenzy" + k] = v.frenzy;
-            });
-          }
         }),
         weight,
       });

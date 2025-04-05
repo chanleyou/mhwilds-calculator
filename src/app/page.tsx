@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {
   AttacksCard,
   BuffsCard,
+  Card,
   EquipmentCard,
   ExportDialogTwo,
   ImportDialogTwo,
@@ -16,10 +17,11 @@ import {
   StatsCard,
   // Tab,
 } from "@/components";
-import { useBuild } from "@/store/builder";
+import { useBuild, useComputed } from "@/store/builder";
 
 export default function Builder() {
   const { reset } = useBuild();
+  const { buffs } = useComputed();
 
   const [hasReset, setHasReset] = useState(false);
 
@@ -37,8 +39,8 @@ export default function Builder() {
         <Link href="/calc" className="font-bold underline">
           here
         </Link>
-        . Damage numbers are averaged when uptime sliders are in use. TU1
-        updates are still in progress.
+        {`. Damage numbers are averaged when uptime sliders are in use. TU1
+        updates are in. Wet/Bubbleblight uptime can be set in the Buffs section. I don't know what Lord's Soul does.`}
       </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
@@ -59,16 +61,9 @@ export default function Builder() {
           <SkillPointCard />
           {/* <Card>
             <h1>Debug</h1>
-            <h1>Total Weight: {totalWeight}</h1>
             <textarea
               className="font-mono text-xs"
-              value={JSON.stringify(weights, undefined, 2)}
-              rows={60}
-              readOnly
-            />
-            <textarea
-              className="font-mono text-xs"
-              value={JSON.stringify(head, undefined, 2)}
+              value={JSON.stringify(buffs, undefined, 2)}
               rows={60}
               readOnly
             />

@@ -1,12 +1,19 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Buffs, FieldBuffs, HuntingHornBuffs, WeaponBuffs } from "@/data";
+import {
+  Buffs,
+  CombinedBuffs,
+  FieldBuffs,
+  HuntingHornBuffs,
+  SliderBuffs,
+  WeaponBuffs,
+} from "@/data";
 import { useBuild, useComputed } from "@/store/builder";
 import { Button, Card, Checkbox, Notice, SkillSelect, Slider } from ".";
 
 export const BuffsCard = () => {
   const { otherBuffs, setOtherBuff, uptime, setUptime } = useBuild();
-  const { weapon: w, buffs } = useComputed();
+  const { weapon: w, buffs, skillPoints } = useComputed();
 
   const [hideBuffs, setHideBuffs] = useState(false);
 
@@ -26,6 +33,12 @@ export const BuffsCard = () => {
     if (!hideBuffs) return true;
     return Object.keys(otherBuffs).some((k) => WeaponBuffs[k]);
   }, [hideBuffs, otherBuffs, w.type]);
+
+  const showUptimeSection = useMemo(() => {
+    if (skillPoints["Slicked Blade"] > 0) return true;
+    return false;
+    // return Object.keys(SliderBuffs).some((k) => uptime[k] && uptime[k] > 0);
+  }, [skillPoints]);
 
   const showItemsSection = useMemo(() => {
     if (!hideBuffs) return true;
@@ -81,50 +94,87 @@ export const BuffsCard = () => {
       </div>
       {(!hideBuffs || uptime.Frenzy > 0) && (
         <div className="flex flex-col">
-          <label className="text-sm">Frenzy Uptime</label>
+          <label className="text-sm">Frenzy</label>
           <div className="flex items-center justify-between gap-2">
             <Slider
               defaultValue={[uptime["Frenzy"] ?? 0]}
               max={100}
               step={1}
-              onValueChange={(v) => setUptime("Frenzy", v[0])}
+              onValueChange={(v) => {
+                if (v[0] > 0) {
+                  setOtherBuff("Frenzy", CombinedBuffs.Frenzy.levels[0]);
+                } else {
+                  setOtherBuff("Frenzy", undefined);
+                }
+                setUptime("Frenzy", v[0]);
+              }}
             />
             <div className="text-sm">{uptime["Frenzy"] ?? 100}%</div>
           </div>
         </div>
       )}
+      {showUptimeSection && (
+        <>
+          <div className="grid grid-cols-2 gap-4">
+            {Object.entries(SliderBuffs).map(([k, s]) => {
+              return (
+                // <NumberInputTwo
+                //   key={k}
+                //   label={s.name}
+                //   value={uptime[k] ?? 0}
+                //   onChangeValue={(v) => setUptime(k, v)}
+                //   min={0}
+                //   max={100}
+                //   step={10}
+                // />
+                <div key={k} className="flex flex-col">
+                  <label className="text-sm">{s.name}</label>
+                  <div className="flex items-center justify-between gap-2">
+                    <Slider
+                      value={[uptime[k] ?? 0]}
+                      max={100}
+                      step={1}
+                      onValueChange={(v) => {
+                        if (v[0] > 0) {
+                          setOtherBuff(k, CombinedBuffs[k].levels[0]);
+                        } else {
+                          setOtherBuff(k, undefined);
+                        }
+                        setUptime(k, v[0]);
+                      }}
+                    />
+                    <div className="text-sm">{uptime[k] ?? 0}%</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
       {showWeaponSection && (
         <>
           <h2>{w.type}</h2>
           <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-            {w.type === "Bow" && (
-              <SkillSelect
-                skill={WeaponBuffs.BowCoating}
-                value={otherBuffs["BowCoating"]}
-                placeholder={"Coating"}
-                disabledOptions={WeaponBuffs.BowCoating.levels.filter((l) => {
-                  if (!w.coatings) return false;
-                  return !w.coatings.some((c) => c === l.name);
-                })}
-                onChangeValue={(buff) => setOtherBuff("BowCoating", buff)}
-              />
-            )}
-            {Object.entries(WeaponBuffs)
-              .filter(([k]) => {
-                return k !== "SwitchAxePhial" && k !== "BowCoating"; // TODO: remove all this
-              })
-              .map(([k, s]) => {
-                if (!s.weapons?.includes(w.type)) return undefined;
-                return (
-                  <SkillSelect
-                    key={k}
-                    skill={s}
-                    value={otherBuffs[k]}
-                    placeholder={s.name}
-                    onChangeValue={(buff) => setOtherBuff(k, buff)}
-                  />
-                );
-              })}
+            {Object.entries(WeaponBuffs).map(([k, s]) => {
+              if (!s.weapons?.includes(w.type)) return undefined;
+              return (
+                <SkillSelect
+                  key={k}
+                  skill={s}
+                  value={otherBuffs[k]}
+                  placeholder={s.name}
+                  onChangeValue={(buff) => setOtherBuff(k, buff)}
+                  disabledOptions={
+                    k === "BowCoating"
+                      ? WeaponBuffs.BowCoating.levels.filter((l) => {
+                          if (!w.coatings) return false;
+                          return !w.coatings.some((c) => c === l.name);
+                        })
+                      : undefined
+                  }
+                />
+              );
+            })}
             {w.type === "Hunting Horn" &&
               Object.entries(HuntingHornBuffs).map(([k, b]) => {
                 if (hideBuffs && !otherBuffs[k]) return undefined;

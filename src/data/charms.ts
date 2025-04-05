@@ -37,6 +37,11 @@ export const Charms: Charm[] = [
     skills: { Constitution: 4 },
   },
   {
+    id: "00000007",
+    name: "Fitness Charm V",
+    skills: { Constitution: 5 },
+  },
+  {
     id: "00000008",
     name: "Sheathe Charm I",
     skills: { "Quick Sheathe": 1 },
@@ -212,6 +217,11 @@ export const Charms: Charm[] = [
     skills: { Earplugs: 1 },
   },
   {
+    id: "00000032",
+    name: "Earplugs Charm II",
+    skills: { Earplugs: 2 },
+  },
+  {
     id: "00000033",
     name: "Windproof Charm I",
     skills: { Windproof: 1 },
@@ -255,6 +265,11 @@ export const Charms: Charm[] = [
     id: "0000003B",
     name: "Evasion Charm III",
     skills: { "Evade Window": 3 },
+  },
+  {
+    id: "0000003C",
+    name: "Evasion Charm IV",
+    skills: { "Evade Window": 4 },
   },
   {
     id: "0000003D",
@@ -775,6 +790,11 @@ export const Charms: Charm[] = [
     id: "000000B1",
     name: "Convert Charm I",
     skills: { "Convert Element": 1 },
+  },
+  {
+    id: "000000B2",
+    name: "Convert Charm II",
+    skills: { "Convert Element": 2 },
   },
   {
     id: "000000B3",

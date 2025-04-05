@@ -246,4 +246,26 @@ export const Bows: Bow[] = [
     skills: {},
     artian: { element: 230, status: 0 }, // Blast is 80
   },
+  {
+    type: "Bow",
+    name: "Blazing Samira",
+    rarity: 8,
+    attack: 220,
+    affinity: 5,
+    coatings: ["Power", "Poison"],
+    element: { type: "Dragon", value: 140 },
+    slots: [3, 2, 1],
+    skills: { "Whiteflame Torrent": 1 },
+  },
+  {
+    type: "Bow",
+    name: "Heaven's Manna",
+    rarity: 8,
+    attack: 210,
+    affinity: 15,
+    coatings: ["Pierce", "Exhaust"],
+    element: { type: "Water", value: 190 },
+    slots: [3, 2, 1],
+    skills: { "Slicked Blade": 3, "Critical Element": 1 },
+  },
 ];

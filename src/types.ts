@@ -208,6 +208,8 @@ export type Buff = BuffValues & {
   frenzy?: BuffValues;
   weakness?: BuffValues;
   wound?: BuffValues;
+  wet?: BuffValues;
+  bubbleblight?: BuffValues;
   cbShieldElement?: boolean;
   saPhial?: "Power" | "Element";
   powerAxe?: boolean;
