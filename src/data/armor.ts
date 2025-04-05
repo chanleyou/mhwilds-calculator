@@ -4633,7 +4633,7 @@ export const Armors: Armor[] = [
   },
   {
     id: 1110,
-    name: "Mizutsune Greaves α",
+    name: "Mizutsune Greaves β",
     type: "Legs",
     slots: [3, 0, 0],
     skills: { Burst: 2 },
