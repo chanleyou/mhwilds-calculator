@@ -88,15 +88,13 @@ export const useCombo = create<Store>((set) => ({
 
 export const useAddAttack = () => {
   const store = useCombo();
-  const { calcHit, calcCrit, calcAverage } = useComputed();
+  const { calculateAtk } = useComputed();
 
   const addAttack = (attack: Attack) => {
     if (store.mode === "Dynamic") {
       store.addDynamic(attack);
     } else {
-      const hit = calcHit(attack);
-      const crit = calcCrit(attack);
-      const avg = calcAverage(attack);
+      const { hit, crit, avg } = calculateAtk(attack);
       store.addSnapshot({ ...attack, hit, crit, avg });
     }
   };
@@ -112,12 +110,12 @@ export const useTotalHits = (): number => {
 };
 
 export const useTotalDamage = () => {
-  const { calcAverage } = useComputed();
+  const { calculateAtk } = useComputed();
   const { mode, dynamic, snapshot } = useCombo();
   return round(
     mode === "Dynamic"
       ? dynamic.reduce((acc, { count, ...a }) => {
-          return acc + calcAverage(a) * count;
+          return acc + calculateAtk(a).avg * count;
         }, 0)
       : snapshot.reduce((acc, a) => acc + a.avg * a.count, 0),
     2,

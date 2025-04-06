@@ -12,7 +12,7 @@ const funnel = Funnel_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MH: Damage Calculator & Build Planner",
+  title: "MH: Wilds Damage Calculator & Build Planner",
   description:
     "A damage calculator and build planner for Monster Hunter: Wilds.",
 };
