@@ -2852,7 +2852,7 @@ export const Monsters: Record<string, Part> = {
       Ice: 15,
       Dragon: 30,
     },
-    "Claw (Breakable)": {
+    "Claw (Broken)": {
       wound: false,
       Slash: 28,
       Blunt: 28,
@@ -4669,7 +4669,7 @@ export const Monsters: Record<string, Part> = {
     },
   },
   ["Zoh Shia"]: {
-    "Head (Crystalised)": {
+    "Head (Crystalized)": {
       wound: false,
       Slash: 40,
       Blunt: 45,
@@ -4702,7 +4702,7 @@ export const Monsters: Record<string, Part> = {
       Ice: 10,
       Dragon: 30,
     },
-    "Wingarm (Crystalised)": {
+    "Wingarm (Crystalized)": {
       wound: false,
       Slash: 40,
       Blunt: 40,

@@ -136,6 +136,7 @@ export type Builder = InitialBuilder & {
   setTargetValue: (key: keyof Target, value: Target[keyof Target]) => void;
   setManualSkills: (s: SkillName, v?: number) => void;
   setUptime: (s: SkillName, v: number) => void;
+  setUptimes: (s: Record<SkillName, number>) => void;
   setManualSharpness: (s?: Sharpness) => void;
 };
 
@@ -281,6 +282,7 @@ export const useBuild = create<Builder>((set, get) => ({
       }),
     );
   },
+  setUptimes: (uptime) => set({ uptime }),
   setManualSharpness: (s) => set({ manualSharpness: s }),
 }));
 
@@ -601,7 +603,7 @@ export const useComputed = () => {
     2,
   );
 
-  const calculateAtk = (atk: Attack, targetOverride?: Partial<Target>) => {
+  const calcAtk = (atk: Attack, targetOverride?: Partial<Target>) => {
     const sums = weights.reduce(
       (acc, weight) => {
         if (weight.weight === 0) return acc;
@@ -637,17 +639,14 @@ export const useComputed = () => {
         );
 
         const avg = calculateAverage(hit, crit, affinity);
+
         return {
           hit: acc.hit + (hit * weight.weight) / totalWeight,
           crit: acc.crit + (crit * weight.weight) / totalWeight,
           avg: acc.avg + (avg * weight.weight) / totalWeight,
         };
       },
-      {
-        hit: 0,
-        crit: 0,
-        avg: 0,
-      },
+      { hit: 0, crit: 0, avg: 0 },
     );
 
     return {
@@ -662,13 +661,13 @@ export const useComputed = () => {
   const baseEleCritMulti =
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
-  const { avg: effectiveRaw } = calculateAtk({
+  const { avg: effectiveRaw } = calcAtk({
     name: "EFR",
     mv: 100,
     eleMul: 0,
     ignoreHzv: true,
   });
-  const { avg: effectiveEle } = calculateAtk(
+  const { avg: effectiveEle } = calcAtk(
     { name: "EFE", mv: 0 },
     {
       Fire: 100,
@@ -691,7 +690,7 @@ export const useComputed = () => {
     uiAffinity,
     critMulti: baseCritMulti,
     eleCritMulti: baseEleCritMulti,
-    calculateAtk,
+    calculateAtk: calcAtk,
     effectiveRaw,
     effectiveEle,
     head,

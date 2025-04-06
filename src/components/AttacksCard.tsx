@@ -10,7 +10,6 @@ import {
   Card,
   Checkbox,
   ComboDialog,
-  Notice,
   NumberDisplay,
   NumberInputTwo,
 } from ".";

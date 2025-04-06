@@ -54,6 +54,10 @@ export const ArmorPickerDialog = ({
     [setValue],
   );
 
+  const rowCn = cn(
+    "border-content-alt flex flex-row justify-between gap-3 border-b p-2 last:border-0",
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -95,32 +99,49 @@ export const ArmorPickerDialog = ({
             placeholder={"Search..."}
             autoFocus
           />
-          <div className="grid gap-1 overflow-y-auto pr-2 md:grid-cols-2">
-            {filteredOptions.map((a) => (
+          <div className="grid gap-1 overflow-y-auto pr-2 text-sm md:grid-cols-2">
+            {filteredOptions.map((o) => (
               <div
-                className="border-divider bg-content hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
-                key={a.id}
+                className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
+                key={o.name}
                 onClick={() => {
-                  setValue(a);
+                  setValue(o);
                   setOpen(false);
                 }}
               >
-                <div>
-                  <p className="">{a.name}</p>
-                  {Object.entries(a.skills).map(([k, v]) => (
-                    <p className="text-tertiary text-sm" key={k + v}>
-                      {k} {v}
-                    </p>
-                  ))}
-                  {a.seriesSkill && (
-                    <p className="text-tertiary text-sm">{a.seriesSkill} 1</p>
-                  )}
-                  {a.groupSkill && (
-                    <p className="text-tertiary text-sm">{a.groupSkill} 1</p>
-                  )}
-                  <p className="text-tertiary text-sm">
-                    {a.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
-                  </p>
+                <div className={rowCn}>
+                  <div className="text-tertiary flex-1">Name</div>
+                  <div className="flex-3">{o.name}</div>
+                </div>
+                <div className={rowCn}>
+                  <div className="text-tertiary flex-1">Skills</div>
+                  <div className="flex-3">
+                    {Object.entries(o.skills).map(([k, v]) => (
+                      <p className="text-sm" key={k + v}>
+                        {k} {v}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                {o.seriesSkill && (
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Series</div>
+                    <div className="flex-3">{o.seriesSkill}</div>
+                  </div>
+                )}
+                {o.groupSkill && (
+                  <div className={rowCn}>
+                    <div className="text-tertiary flex-1">Group</div>
+                    <div className="flex-3">{o.groupSkill}</div>
+                  </div>
+                )}
+                <div className="border-content-alt flex flex-row justify-center gap-4 border-b p-2 last:border-0">
+                  <div className="text-tertiary flex-1">Slots</div>
+                  <div className="flex-3">
+                    {o.slots.some((n) => n > 0)
+                      ? o.slots.filter((s) => s > 0).join("-")
+                      : "-"}
+                  </div>
                 </div>
               </div>
             ))}

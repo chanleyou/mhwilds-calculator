@@ -204,7 +204,7 @@ export const WeaponPickerDialog = () => {
                 <div className="border-content-alt flex flex-row justify-center gap-4 border-b p-2 last:border-0">
                   <div className="text-tertiary flex-1">Slots</div>
                   <div className="flex-3">
-                    {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                    {o.slots.filter((s) => s > 0).join("-")}
                   </div>
                 </div>
                 {isMeleeWeapon(o) && (
@@ -305,7 +305,7 @@ export const WeaponPickerDialog = () => {
                       ))}
                     </TableCell>
                     <TableCell>
-                      {o.slots.filter((s) => s > 0).map((s) => `[${s}]`)}
+                      {o.slots.filter((s) => s > 0).join("-")}
                     </TableCell>
                   </TableRow>
                 ))}

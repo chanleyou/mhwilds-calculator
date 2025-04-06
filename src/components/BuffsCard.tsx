@@ -97,7 +97,7 @@ export const BuffsCard = () => {
           <label className="text-sm">Frenzy</label>
           <div className="flex items-center justify-between gap-2">
             <Slider
-              defaultValue={[uptime["Frenzy"] ?? 0]}
+              value={[uptime["Frenzy"] ?? 0]}
               max={100}
               step={1}
               onValueChange={(v) => {

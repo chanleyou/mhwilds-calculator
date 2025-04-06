@@ -10,7 +10,7 @@ import { Card } from "./Card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Notice } from "./Notice";
 
-export const ExportDialogTwo = () => {
+export const ExportDialog = () => {
   const {
     w: weapon,
     artian,
@@ -27,6 +27,7 @@ export const ExportDialogTwo = () => {
     waistSlots,
     legsSlots,
     otherBuffs,
+    uptime,
   } = useBuild();
 
   const [open, setOpen] = useState(false);
@@ -71,6 +72,7 @@ export const ExportDialogTwo = () => {
             },
             {} as Record<string, number>,
           ),
+          uptime,
         },
         null,
         2,
@@ -91,6 +93,7 @@ export const ExportDialogTwo = () => {
       waistSlots,
       legsSlots,
       otherBuffs,
+      uptime,
     ],
   );
 

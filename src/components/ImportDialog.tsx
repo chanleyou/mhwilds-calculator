@@ -11,13 +11,13 @@ import Weapons from "@/data/weapons";
 import { useBuild } from "@/store/builder";
 import text from "@/text";
 import { Armor, Decoration, Weapon } from "@/types";
-import { importSchemaTwo } from "@/zod";
+import { importSchema } from "@/zod";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Notice } from "./Notice";
 
-export const ImportDialogTwo = () => {
+export const ImportDialog = () => {
   const {
     setW: setW,
     setHelm,
@@ -38,6 +38,7 @@ export const ImportDialogTwo = () => {
     setWeaponDecoration,
     setOtherBuff,
     emptyBuffs,
+    setUptimes,
   } = useBuild();
 
   const [open, setOpen] = useState(false);
@@ -71,7 +72,7 @@ export const ImportDialogTwo = () => {
     setWarnings([]);
 
     try {
-      const result = importSchemaTwo.safeParse(JSON.parse(data));
+      const result = importSchema.safeParse(JSON.parse(data));
       if (!result.success) throw result.error;
 
       reset();
@@ -199,6 +200,8 @@ export const ImportDialogTwo = () => {
           else setWarnings((w) => [...w, `Buff ${key} ${value} not found.`]);
         });
       }
+
+      if (d.uptime) setUptimes(d.uptime);
 
       setSuccess(true);
     } catch (e: unknown) {

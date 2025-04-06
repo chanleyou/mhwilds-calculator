@@ -8,8 +8,8 @@ import {
   BuffsCard,
   Card,
   EquipmentCard,
-  ExportDialogTwo,
-  ImportDialogTwo,
+  ExportDialog,
+  ImportDialog,
   ManualDialog,
   Notice,
   // Notice,
@@ -45,8 +45,8 @@ export default function Builder() {
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
           <ManualDialog />
-          <ImportDialogTwo />
-          <ExportDialogTwo />
+          <ImportDialog />
+          <ExportDialog />
         </div>
       </div>
       <div className="flex flex-col gap-2 lg:flex-row">
