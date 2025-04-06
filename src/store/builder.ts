@@ -601,14 +601,60 @@ export const useComputed = () => {
     2,
   );
 
-  const calcHit = (atk: Attack) => {
-    const avg = weights.reduce((acc, weight) => {
-      if (weight.weight === 0) return acc;
-      const hit = calculateHit(weapon, weight.buffs, atk, target);
-      return acc + (hit * weight.weight) / totalWeight;
-    }, 0);
+  const calculateAtk = (atk: Attack, targetOverride?: Partial<Target>) => {
+    const sums = weights.reduce(
+      (acc, weight) => {
+        if (weight.weight === 0) return acc;
 
-    return dmg(avg);
+        const hit = calculateHit(weapon, weight.buffs, atk, {
+          ...target,
+          ...targetOverride,
+        });
+
+        const affinity = atk.cantCrit
+          ? 0
+          : calculateAffinity({
+              affinity: weapon.affinity,
+              buffs: weight.buffs,
+              target,
+              rawType: atk.rawType ?? "Slash",
+            });
+
+        const critMulti =
+          affinity >= 0
+            ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25)
+            : 0.75;
+        const eleCritMulti =
+          affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
+
+        const crit = calculateCrit(
+          weapon,
+          weight.buffs,
+          atk,
+          { ...target, ...targetOverride },
+          critMulti,
+          eleCritMulti,
+        );
+
+        const avg = calculateAverage(hit, crit, affinity);
+        return {
+          hit: acc.hit + (hit * weight.weight) / totalWeight,
+          crit: acc.crit + (crit * weight.weight) / totalWeight,
+          avg: acc.avg + (avg * weight.weight) / totalWeight,
+        };
+      },
+      {
+        hit: 0,
+        crit: 0,
+        avg: 0,
+      },
+    );
+
+    return {
+      hit: dmg(sums.hit),
+      crit: dmg(sums.crit),
+      avg: round(sums.avg, 2),
+    };
   };
 
   const baseCritMulti =
@@ -616,75 +662,13 @@ export const useComputed = () => {
   const baseEleCritMulti =
     uiAffinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
-  const calcCrit = (atk: Attack) => {
-    const avg = weights.reduce((acc, weight) => {
-      if (weight.weight === 0) return acc;
-
-      const affinity = calculateAffinity({
-        affinity: weapon.affinity,
-        buffs: weight.buffs,
-        target,
-        rawType: atk.rawType ?? "Slash",
-      });
-
-      const critMulti =
-        affinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
-      const eleCritMulti =
-        affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
-
-      const crit = calculateCrit(
-        weapon,
-        weight.buffs,
-        atk,
-        target,
-        critMulti,
-        eleCritMulti,
-      );
-      return acc + (crit * weight.weight) / totalWeight;
-    }, 0);
-
-    return dmg(avg);
-  };
-
-  const calcAverage = (atk: Attack, targetOverride?: Partial<Target>) => {
-    const averages = weights.reduce((acc, weight) => {
-      const hit = calculateHit(weapon, weight.buffs, atk, {
-        ...target,
-        ...targetOverride,
-      });
-      const affinity = calculateAffinity({
-        affinity: weapon.affinity,
-        buffs: weight.buffs,
-        target,
-        rawType: atk.rawType ?? "Slash",
-      });
-      const critMulti =
-        affinity >= 0 ? (buffs["Critical Boost"]?.criticalBoost ?? 1.25) : 0.75;
-      const eleCritMulti =
-        affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
-
-      const crit = calculateCrit(
-        weapon,
-        weight.buffs,
-        atk,
-        { ...target, ...targetOverride },
-        critMulti,
-        eleCritMulti,
-      );
-      const avg = calculateAverage(hit, crit, affinity);
-      return acc + (avg * weight.weight) / totalWeight;
-    }, 0);
-
-    return round(averages, 2);
-  };
-
-  const effectiveRaw = calcAverage({
+  const { avg: effectiveRaw } = calculateAtk({
     name: "EFR",
     mv: 100,
     eleMul: 0,
     ignoreHzv: true,
   });
-  const effectiveEle = calcAverage(
+  const { avg: effectiveEle } = calculateAtk(
     { name: "EFE", mv: 0 },
     {
       Fire: 100,
@@ -707,9 +691,7 @@ export const useComputed = () => {
     uiAffinity,
     critMulti: baseCritMulti,
     eleCritMulti: baseEleCritMulti,
-    calcHit,
-    calcCrit,
-    calcAverage,
+    calculateAtk,
     effectiveRaw,
     effectiveEle,
     head,

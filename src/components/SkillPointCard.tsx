@@ -43,7 +43,10 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                     <p className="text-secondary text-xs">{k}</p>
                     {level && (
                       <p
-                        className={cn("text-sm", disabled[k] && "line-through")}
+                        className={cn(
+                          "text-sm",
+                          disabled[k] || (uptime[k] === 0 && "line-through"),
+                        )}
                       >
                         {level.name}
                       </p>
@@ -189,7 +192,10 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                     <p className="text-secondary text-xs">{k}</p>
                     {v >= 3 && level && (
                       <p
-                        className={cn("text-sm", disabled[k] && "line-through")}
+                        className={cn(
+                          "text-sm",
+                          disabled[k] || (uptime[k] === 0 && "line-through"),
+                        )}
                       >
                         {level.name}
                       </p>

@@ -115,12 +115,15 @@ export const calculateAttack = (
   multipliers: (number | undefined | false)[] = [],
   bonuses: (number | undefined | false)[] = [],
 ) => {
-  if (buffs.Frenzy) {
-    Object.values(buffs).forEach((b) => {
+  Object.values(buffs).forEach((b) => {
+    if (buffs.Frenzy) {
       multipliers.push(b?.frenzy?.attackMul);
       bonuses.push(b?.frenzy?.attack);
-    });
-  }
+    }
+    if (buffs.Burst) {
+      bonuses.push(b?.burst?.attack);
+    }
+  });
 
   return calculate(
     base,

@@ -16,7 +16,7 @@ export function AttacksTable({
   hideHits?: boolean;
   canHide?: boolean;
 }) {
-  const { weapon: w, calcHit, buffs, calcCrit, calcAverage } = useComputed();
+  const { weapon: w, buffs, calculateAtk } = useComputed();
 
   const weaponAttacks: Attack[] = useMemo(() => {
     if (custom) return custom;
@@ -92,9 +92,7 @@ export function AttacksTable({
       </thead>
       <tbody>
         {attacks.map((a, i) => {
-          const hit = calcHit(a);
-          const crit = calcCrit(a);
-          const avg = calcAverage(a);
+          const { hit, crit, avg } = calculateAtk(a);
           return (
             <TableRow
               key={a.name}

@@ -5,7 +5,7 @@ import { Table, TableCell, TableHeadRow, TableRow } from "./Table";
 
 export const ComboTable = ({ disabled }: { disabled?: boolean }) => {
   const { mode, dynamic, snapshot, removeDynamic, removeSnapshot } = useCombo();
-  const { calcHit, calcCrit, calcAverage } = useComputed();
+  const { calculateAtk } = useComputed();
 
   return (
     <Table>
@@ -26,9 +26,7 @@ export const ComboTable = ({ disabled }: { disabled?: boolean }) => {
       <tbody>
         {mode === "Dynamic" &&
           dynamic.map(({ count, ...a }, i) => {
-            const hit = calcHit(a);
-            const crit = calcCrit(a);
-            const avg = calcAverage(a);
+            const { hit, crit, avg } = calculateAtk(a);
             return (
               <TableRow
                 key={`${a.name}-${i}`}

@@ -943,10 +943,9 @@ export const SeriesSkills: Record<SkillName, SeriesSkill> = {
     },
   },
   ["Ebony Odogaron's Power"]: {
-    uptime: true,
     levels: {
-      2: { name: "Burst Boost I", attack: 3 },
-      4: { name: "Burst Boost II", attack: 10 },
+      2: { name: "Burst Boost I", burst: { attack: 3 } },
+      4: { name: "Burst Boost II", burst: { attack: 10 } },
     },
   },
   ["Gore Magala's Tyranny"]: {
