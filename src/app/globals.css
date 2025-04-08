@@ -1,11 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-inter: "Inter", "Inter Fallback";
-  --font-funnel: "Funnel Sans", "Inter", "Funnel Sans Fallback";
-  --font-noto-sans-mono: "Noto Sans Mono", "Noto Sans Mono Fallback";
+  --font-funnel: "Funnel Sans", "Funnel Sans Fallback";
   --font-sans: var(--font-funnel), sans-serif;
-  --font-mono: var(--font-noto-sans-mono), monospace;
 
   --color-background: var(--color-black);
   --color-content: var(--color-zinc-900);

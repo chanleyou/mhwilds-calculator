@@ -91,7 +91,7 @@ export const DecorationPickerDialog = ({
           <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
             {filteredOptions.map((c) => (
               <div
-                className="border-divider hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
+                className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
                 key={c.id}
                 onClick={() => {
                   setValue(c);

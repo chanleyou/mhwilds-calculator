@@ -89,7 +89,7 @@ export const ArtianDialog = () => {
       </DialogTrigger>
       <DialogContent>
         <Card className="h-dvh w-[100vw] sm:h-auto sm:w-xl sm:max-w-[95vw]">
-          <div className="flex items-start justify-between overflow-auto p-2">
+          <div className="flex items-start justify-between overflow-y-auto p-2">
             <DialogTitle asChild>
               <h1>Artian Weapon</h1>
             </DialogTitle>

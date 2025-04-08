@@ -24,7 +24,7 @@ export const HuntingHorns: HuntingHorn[] = [
   },
   {
     type: "Hunting Horn",
-    name: "G. Rathalos Tree Feroce",
+    name: "G. Rathalos Feroce",
     rarity: 8,
     attack: 200,
     affinity: 15,

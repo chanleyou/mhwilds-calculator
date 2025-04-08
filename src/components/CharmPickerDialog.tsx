@@ -65,7 +65,7 @@ export const CharmPickerDialog = ({
         </Picker>
       </DialogTrigger>
       <DialogContent>
-        <Card className="h-dvh w-[100vw] sm:h-[85dvh] sm:w-7xl sm:max-w-[95vw]">
+        <Card className="h-dvh w-[100vw] sm:h-[85dvh] sm:w-4xl sm:max-w-[95vw]">
           <div className="flex items-start justify-between p-2">
             <DialogTitle asChild>
               <h1>Select Charm</h1>
@@ -83,7 +83,7 @@ export const CharmPickerDialog = ({
           <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
             {filteredOptions.map((c) => (
               <div
-                className="border-divider bg-content hover:bg-content-alt flex cursor-pointer flex-col rounded border p-2"
+                className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
                 key={c.id}
                 onClick={() => {
                   setValue(c);

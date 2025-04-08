@@ -201,7 +201,7 @@ export const WeaponPickerDialog = () => {
                     ))}
                   </div>
                 </div>
-                <div className="border-content-alt flex flex-row justify-center gap-4 border-b p-2 last:border-0">
+                <div className={rowCn}>
                   <div className="text-tertiary flex-1">Slots</div>
                   <div className="flex-3">
                     {o.slots.filter((s) => s > 0).join("-")}
