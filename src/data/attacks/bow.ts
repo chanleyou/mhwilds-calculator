@@ -214,7 +214,17 @@ export const BowAttacks = [
     rawType: "Shot",
   },
   {
-    name: "Pierce Quick Shot / Power Shot Lv1",
+    name: "Pierce Quick Shot",
+    mv: 3,
+    eleMul: 0.1,
+    hits: 3,
+    rawMul: 1.1,
+    ignoreCoating: true,
+    spreadPowerShot: true,
+    rawType: "Shot",
+  },
+  {
+    name: "Pierce Power Shot Lv1",
     mv: 3,
     eleMul: 0.1,
     hits: 3,
