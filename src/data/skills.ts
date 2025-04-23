@@ -846,8 +846,10 @@ export const ArmorSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
 
 export const UnsupportedGroupSkills: Record<SkillName, GroupSkill> = {
   ["Alluring Pelt"]: { levels: { 3: { name: "Diversion" } } },
+  "Festival Spirit": { levels: { 3: { name: "Carving Master" } } },
   ["Flexible Leathercraft"]: { levels: { 3: { name: "Hunter Gatherer" } } },
   ["Fortifying Pelt"]: { levels: { 3: { name: "Fortify" } } },
+  ["Glory's Favor"]: { levels: { 3: { name: "Luck" } } },
   ["Guardian's Protection"]: { levels: { 3: { name: "Ward of Wyveria" } } },
   ["Guardian's Pulse"]: { levels: { 3: { name: "Wylk Burst" } } },
   ["Imparted Wisdom"]: { levels: { 3: { name: "Forager's Luck" } } },
@@ -881,6 +883,12 @@ export const UnsupportedSeriesSkills: Record<SkillName, SeriesSkill> = {
     levels: {
       2: { name: "Hasten Recovery I" },
       4: { name: "Hasten Recovery II" },
+    },
+  },
+  "Blossomdance Prayer": {
+    levels: {
+      2: { name: "Blossomdance Boon I" },
+      4: { name: "Blossomdance Boon II" },
     },
   },
   ["Gravios's Protection"]: {
