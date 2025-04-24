@@ -4667,18 +4667,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: "skt_h_a",
-    name: "Sakuratide Headgear α",
-    type: "Helm",
-    slots: [0, 0, 0],
-    skills: {
-      Foray: 2,
-      Adaptability: 1,
-    },
-    seriesSkill: "Blossomdance Prayer",
-    groupSkill: "Festival Spirit",
-  },
-  {
     id: "skt_b_a",
     name: "Sakuratide Robe α",
     type: "Body",
