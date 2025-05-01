@@ -107,6 +107,11 @@ export const Charms: Charm[] = [
     skills: { "Latent Power": 2 },
   },
   {
+    id: "00000019",
+    name: "Power Charm III",
+    skills: { "Latent Power": 3 },
+  },
+  {
     id: "0000001A",
     name: "Mighty Charm I",
     skills: { "Maximum Might": 1 },
@@ -150,6 +155,11 @@ export const Charms: Charm[] = [
     id: "00000023",
     name: "Defense Charm IV",
     skills: { "Defense Boost": 4 },
+  },
+  {
+    id: "00000024",
+    name: "Defense Charm V",
+    skills: { "Defense Boost": 5 },
   },
   {
     id: "00000025",
