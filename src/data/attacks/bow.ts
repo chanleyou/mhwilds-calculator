@@ -289,7 +289,7 @@ export const BowAttacks = [
   {
     name: "Pierce Power Volley Lv1",
     mv: 4,
-    eleMul: 0.1,
+    eleMul: 0.15,
     hits: 4,
     rawMul: 1.1,
     charge: true,
@@ -300,7 +300,7 @@ export const BowAttacks = [
   {
     name: "Pierce Power Volley Lv2",
     mv: 5,
-    eleMul: 0.15,
+    eleMul: 0.2,
     hits: 5,
     rawMul: 1.1,
     charge: true,
@@ -311,7 +311,7 @@ export const BowAttacks = [
   {
     name: "Pierce Power Volley Lv3",
     mv: 6,
-    eleMul: 0.2,
+    eleMul: 0.25,
     hits: 6,
     rawMul: 1.1,
     charge: true,
