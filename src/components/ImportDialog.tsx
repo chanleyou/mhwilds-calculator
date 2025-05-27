@@ -1,6 +1,6 @@
 "use client";
 
-import { DownloadIcon, XIcon } from "lucide-react";
+import { DownloadIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ZodError } from "zod";
 import { CombinedBuffs } from "@/data";
@@ -12,10 +12,9 @@ import { useBuild } from "@/store/builder";
 import text from "@/text";
 import { Armor, Decoration, Weapon } from "@/types";
 import { importSchema } from "@/zod";
-import { Button } from "./Button";
-import { Card } from "./Card";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Notice } from "./Notice";
+import { Button } from "./ui/Button";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/Dialog";
 
 export const ImportDialog = () => {
   const {
@@ -236,6 +235,7 @@ export const ImportDialog = () => {
     setLegsDecoration,
     emptyBuffs,
     setOtherBuff,
+    setUptimes,
   ]);
 
   useEffect(() => {
@@ -250,31 +250,21 @@ export const ImportDialog = () => {
           Import
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <Card className="max-h-dvh w-[100vw] sm:w-4xl sm:max-w-[95vw]">
-          <DialogTitle asChild>
-            <div className="flex items-start justify-between gap-2">
-              <h1>Import</h1>
-              <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-                <XIcon className="size-4" />
-              </Button>
-            </div>
-          </DialogTitle>
-          <Notice>{text.EXPORT_NOTICE}</Notice>
-          <textarea
-            className="bg-content-alt rounded p-2 font-mono text-xs"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-            rows={20}
-            placeholder="Paste your build here..."
-          />
-          <div className="flex justify-end gap-2">
-            {message && <Notice variant={variant}>{message}</Notice>}
-            <Button onClick={process}>
-              <DownloadIcon className="size-4" /> Import
-            </Button>
-          </div>
-        </Card>
+      <DialogContent title="Import" className="sm:h-fit" setOpen={setOpen}>
+        <Notice>{text.EXPORT_NOTICE}</Notice>
+        <textarea
+          className="bg-content-alt rounded p-2 font-mono text-xs"
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+          rows={20}
+          placeholder="Paste your build here..."
+        />
+        <div className="flex justify-end gap-2">
+          {message && <Notice variant={variant}>{message}</Notice>}
+          <Button onClick={process}>
+            <DownloadIcon className="size-4" /> Import
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );

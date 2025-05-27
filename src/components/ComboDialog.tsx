@@ -8,19 +8,9 @@ import {
   useTotalHits,
 } from "@/store/combo";
 import { ComboModeOptions } from "@/types";
-import {
-  AttacksTable,
-  Button,
-  Card,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-  Notice,
-  NumberDisplay,
-  Select,
-} from ".";
+import { AttacksTable, Button, Notice, NumberDisplay, Select } from ".";
 import { ComboTable } from "./ComboTable";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/Dialog";
 
 export const ComboDialog = () => {
   const { w } = useBuild();
@@ -50,64 +40,54 @@ export const ComboDialog = () => {
           Combo Builder
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <Card className="h-dvh w-[100vw] sm:max-h-[85dvh] sm:w-3xl sm:max-w-[95vw]">
-          <div className="flex items-start justify-between">
-            <DialogTitle asChild>
-              <h1>Combo Builder</h1>
-            </DialogTitle>
-            <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-              <XIcon className="size-5" />
-            </Button>
-          </div>
-          <Select
-            label="Combo Mode"
-            value={mode}
-            options={[...ComboModeOptions]}
-            onChangeValue={setComboMode}
-            description={description}
-          />
-          <div>
-            <NumberDisplay label="Total Average">{totalDamage}</NumberDisplay>
-            <NumberDisplay label="Total Hits">{totalHits}</NumberDisplay>
-          </div>
-          <div className="flex justify-end gap-2">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => setShowCombo(!showCombo)}
-            >
-              <ListIcon className="size-4" />
-              {showCombo ? "Show Attacks" : "Show Combo"}
-            </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              className="text-secondary"
-              onClick={reset}
-            >
-              <TimerResetIcon className="size-4" />
-              Reset
-            </Button>
-          </div>
-          {showNotice && (
-            <Notice>
-              <div className="flex justify-between gap-2">
-                Click on an attack to add/remove it from your combo.
-                <Button
-                  variant="text"
-                  size="icon"
-                  onClick={() => setShowNotice(false)}
-                >
-                  <XIcon className="size-4" />
-                </Button>
-              </div>
-            </Notice>
-          )}
-          <div className="overflow-y-auto pr-2">
-            {showCombo ? <ComboTable /> : <AttacksTable onClick={addAttack} />}
-          </div>
-        </Card>
+      <DialogContent setOpen={setOpen} title="Combo Builder">
+        <Select
+          label="Combo Mode"
+          value={mode}
+          options={[...ComboModeOptions]}
+          onChangeValue={setComboMode}
+          description={description}
+        />
+        <div>
+          <NumberDisplay label="Total Average">{totalDamage}</NumberDisplay>
+          <NumberDisplay label="Total Hits">{totalHits}</NumberDisplay>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowCombo(!showCombo)}
+          >
+            <ListIcon className="size-4" />
+            {showCombo ? "Show Attacks" : "Show Combo"}
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            className="text-secondary"
+            onClick={reset}
+          >
+            <TimerResetIcon className="size-4" />
+            Reset
+          </Button>
+        </div>
+        {showNotice && (
+          <Notice>
+            <div className="flex justify-between gap-2">
+              Click on an attack to add/remove it from your combo.
+              <Button
+                variant="text"
+                size="icon"
+                onClick={() => setShowNotice(false)}
+              >
+                <XIcon className="size-4" />
+              </Button>
+            </div>
+          </Notice>
+        )}
+        <div className="overflow-y-auto pr-2">
+          {showCombo ? <ComboTable /> : <AttacksTable onClick={addAttack} />}
+        </div>
       </DialogContent>
     </Dialog>
   );

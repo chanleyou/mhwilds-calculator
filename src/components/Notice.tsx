@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/utils";
-import { Button } from "./Button";
+import { Button } from "./ui/Button";
 
 const notice = cva({
   base: "flex items-center gap-2 rounded border p-2 text-sm",

@@ -2,8 +2,8 @@ import { XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Charms } from "@/data/charms";
 import { Charm } from "@/types";
-import { Button, Card, Picker, TextInput } from ".";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
+import { Button, Picker, TextInput } from ".";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/Dialog";
 
 export const CharmPickerDialog = ({
   value,
@@ -64,44 +64,34 @@ export const CharmPickerDialog = ({
           )}
         </Picker>
       </DialogTrigger>
-      <DialogContent>
-        <Card className="h-dvh w-[100vw] sm:h-[85dvh] sm:w-4xl sm:max-w-[95vw]">
-          <div className="flex items-start justify-between p-2">
-            <DialogTitle asChild>
-              <h1>Select Charm</h1>
-            </DialogTitle>
-            <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-              <XIcon className="h-5 w-5" />
-            </Button>
-          </div>
-          <TextInput
-            value={filter}
-            onChangeValue={setFilter}
-            placeholder={"Search..."}
-            autoFocus
-          />
-          <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
-            {filteredOptions.map((c) => (
-              <div
-                className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
-                key={c.id}
-                onClick={() => {
-                  setValue(c);
-                  setOpen(false);
-                }}
-              >
-                <div>
-                  <p className="text-sm">{c.name}</p>
-                  {Object.entries(c.skills).map(([k, v]) => (
-                    <p className="text-tertiary text-sm" key={k + v}>
-                      {k} {v}
-                    </p>
-                  ))}
-                </div>
+      <DialogContent title="Select Charm" setOpen={setOpen}>
+        <TextInput
+          value={filter}
+          onChangeValue={setFilter}
+          placeholder={"Search..."}
+          autoFocus
+        />
+        <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
+          {filteredOptions.map((c) => (
+            <div
+              className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
+              key={c.id}
+              onClick={() => {
+                setValue(c);
+                setOpen(false);
+              }}
+            >
+              <div>
+                <p className="text-sm">{c.name}</p>
+                {Object.entries(c.skills).map(([k, v]) => (
+                  <p className="text-tertiary text-sm" key={k + v}>
+                    {k} {v}
+                  </p>
+                ))}
               </div>
-            ))}
-          </div>
-        </Card>
+            </div>
+          ))}
+        </div>
       </DialogContent>
     </Dialog>
   );

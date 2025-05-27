@@ -1,14 +1,13 @@
 "use client";
 
-import { CopyIcon, XIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { CombinedBuffs } from "@/data";
 import { useBuild } from "@/store/builder";
 import text from "@/text";
-import { Button } from "./Button";
-import { Card } from "./Card";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./Dialog";
 import { Notice } from "./Notice";
+import { Button } from "./ui/Button";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/Dialog";
 
 export const ExportDialog = () => {
   const {
@@ -115,30 +114,20 @@ export const ExportDialog = () => {
           Export
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <Card className="max-h-dvh w-[100vw] sm:w-4xl sm:max-w-[95vw]">
-          <DialogTitle asChild>
-            <div className="flex items-start justify-between gap-2">
-              <h1>Export</h1>
-              <Button variant="text" size="icon" onClick={() => setOpen(false)}>
-                <XIcon className="h-5 w-5" />
-              </Button>
-            </div>
-          </DialogTitle>
-          <Notice>{text.EXPORT_NOTICE}</Notice>
-          <textarea
-            className="bg-content-alt rounded p-2 font-mono text-xs"
-            value={data}
-            rows={20}
-            readOnly
-          />
-          <div className="flex justify-end gap-2">
-            {copied && <Notice variant="success">Copied to clipboard.</Notice>}
-            <Button onClick={copy}>
-              <CopyIcon className="size-4" /> Copy
-            </Button>
-          </div>
-        </Card>
+      <DialogContent title="Export" setOpen={setOpen} className="sm:h-fit">
+        <Notice>{text.EXPORT_NOTICE}</Notice>
+        <textarea
+          className="bg-content-alt rounded p-2 font-mono text-xs"
+          value={data}
+          rows={20}
+          readOnly
+        />
+        <div className="flex justify-end gap-2">
+          {copied && <Notice variant="success">Copied to clipboard.</Notice>}
+          <Button onClick={copy}>
+            <CopyIcon className="size-4" /> Copy
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -8,12 +8,7 @@ export function Card({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "bg-content flex flex-col gap-2 rounded-lg p-4 shadow",
-        className,
-      )}
-    >
+    <div className={cn("bg-content flex flex-col gap-2 p-4", className)}>
       {children}
     </div>
   );
