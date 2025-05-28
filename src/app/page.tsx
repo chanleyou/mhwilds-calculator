@@ -41,7 +41,7 @@ export default function Builder() {
           <ImportDialog />
           <ExportDialog />
           <Button className="bg-accent-alt group" asChild>
-            <Link href="/">
+            <Link href="/calc">
               <CalculatorIcon className="size-4" />
               <span className="hidden group-hover:inline-block">
                 Calculator
