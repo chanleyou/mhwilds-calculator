@@ -368,10 +368,10 @@ export const Gunlances: Gunlance[] = [
     attack: 190,
     affinity: 5,
     slots: [3, 3, 3],
-    artian: { element: 270, status: 150 },
+    artian: { element: 400, status: 150 },
     sharpness: [80, 40, 60, 80, 70, 20, 0],
     handicraft: [50, 0, 0, 0],
-    shelling: { type: "Normal", level: 2 },
+    shelling: { type: "Normal", level: 3 },
     skills: {},
   },
   {

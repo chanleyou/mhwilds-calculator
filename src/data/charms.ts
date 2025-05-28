@@ -122,6 +122,11 @@ export const Charms: Charm[] = [
     skills: { "Maximum Might": 2 },
   },
   {
+    id: "0000001C",
+    name: "Mighty Charm III",
+    skills: { "Maximum Might": 3 },
+  },
+  {
     id: "0000001D",
     name: "Surge Charm I",
     skills: { "Stamina Surge": 1 },

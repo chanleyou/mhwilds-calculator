@@ -10,16 +10,16 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 ## Updates
 
-### Ver. 1.011.00.00
+### Ver. 1.011
 
 Still in progress...
 
-- [ ] - Equipment, charms and skills
-- [ ] - Hammer MVs
-- [ ] - Hunting Horn MVs
-- [ ] - Gunlance MVs
-- [ ] - Light Bowgun MVs
-- [ ] - Heavy Bowgun MVs
+- [ ] Equipment, charms and skills
+- [x] Hammer MVs
+- [x] Hunting Horn MVs
+- [ ] Gunlance MVs
+- [ ] Light Bowgun MVs
+- [ ] Heavy Bowgun MVs
 
 ### Title Update 1
 

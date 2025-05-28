@@ -1,5 +1,6 @@
 import { Attack } from "@/types";
 
+// TODO: Focus Strike
 export const HuntingHornAttacks = [
   { name: "Forward Smash", mv: 32, rawType: "Blunt" },
   { name: "Left Swing", mv: 33, rawType: "Blunt" },
@@ -11,14 +12,16 @@ export const HuntingHornAttacks = [
   { name: "Overhead Smash 2", mv: 42, rawType: "Blunt" },
   { name: "Overhead Smash Follow-up Attack", mv: 65, rawType: "Blunt" },
   { name: "Hilt Stab", mv: 10 },
-  { name: "Perform", mv: 29, rawType: "Blunt" },
+  { name: "Neutral / Forward Perform", mv: 35, rawType: "Blunt" },
+  { name: "Side Perform", mv: 45, rawType: "Blunt" },
+  { name: "Back Perform", mv: 60, rawType: "Blunt" },
   { name: "Performance Beat I", mv: 29, rawType: "Blunt" },
   { name: "Performance Beat I (Power)", mv: 35, rawType: "Blunt" },
   { name: "Performance Beat II", mv: 31, rawType: "Blunt" },
   { name: "Performance Beat II (Power)", mv: 45, rawType: "Blunt" },
   { name: "Encore 1", mv: 20, rawType: "Blunt" },
-  { name: "Encore 2", mv: 35, rawType: "Blunt" },
-  { name: "Encore 2 (Power)", mv: 50, rawType: "Blunt" },
+  { name: "Encore 2", mv: 60, rawType: "Blunt" },
+  { name: "Encore 2 (Power)", mv: 75, rawType: "Blunt" },
   { name: "Offset Melody", mv: 75, melody: true, rawType: "Blunt" },
   { name: "Resounding Melody 1", mv: 20, melody: true, rawType: "Blunt" },
   { name: "Resounding Melody 2", mv: 22, melody: true, rawType: "Blunt" },
@@ -49,7 +52,7 @@ export const HuntingHornAttacks = [
   {
     name: "Echo Bubble",
     rawType: "Blunt",
-    mv: 30,
+    mv: 45,
     eleMul: 0.3,
     ignoreHzv: true,
     cantCrit: true,

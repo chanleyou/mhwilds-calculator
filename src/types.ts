@@ -48,8 +48,11 @@ export type WeaponSharpness = [
 
 export type Handicraft = [number, number, number, number];
 
+export const ShellingTypes = ["Normal", "Long", "Wide"] as const;
+export type ShellingType = (typeof ShellingTypes)[number];
+
 export type Shelling = {
-  type: "Normal" | "Wide" | "Long";
+  type: ShellingType;
   level: number;
 };
 

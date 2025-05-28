@@ -39,7 +39,7 @@ export default function Builder() {
         <Link href="/calc" className="font-bold underline">
           here
         </Link>
-        {`. Ver. 1.011.00.00 changes are in progress.`}
+        {`. Ver. 1.011 changes are in progress.`}
       </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
