@@ -16,7 +16,7 @@ const notice = cva({
       info: "text-info",
       success: "text-success",
       error: "text-error",
-      warning: "text-warning",
+      warning: "text-accent",
     },
   },
   defaultVariants: {

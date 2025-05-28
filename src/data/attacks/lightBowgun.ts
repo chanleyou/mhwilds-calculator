@@ -1,640 +1,112 @@
-import { Attack } from "@/types";
+import { produce } from "immer";
+import { round } from "@/model";
+import { AmmoType, Attack } from "@/types";
+import { Ammo } from "./ammo";
 
-// vs HBG Ammo
-// NORMAL_MUL = 0.65
-// PIERCE_MUL = 0.8
-// SPREAD_MUL = 0.7
-// STICKY_MUL = 0.5
-// ELEMENT_MUL = 0.65
-// DRAGON_MUL = 0.7
-// SLICE_MUL = 0.8
-// CHASER_NORMAL_MUL = 1.3
-// CHASER_PIERCE_MUL = 1.2
-// CHASER_SPREAD_MUL = 0.85
-// CHASER_STICKY_MUL = 1
-// CHASER_ELEMENT_MUL = 0.75
-// CHASER_DRAGON_MUL = 1.1
-// CHASER_SLICE_MUL = 1
-// RF_NORMAL_MUL = 0.5
-// RF_PIERCE_MUL = 0.65
-// RF_SPREAD_MUL = 0.55
-// RF_STICKY_MUL = 0.35
-// RF_ELEMENT_MUL = 0.55
-// RF_DRAGON_MUL = 0.65
-// RF_SLICE_MUL = 0.55
-// RFC_NORMAL_MUL = 1.5
-// RFC_PIERCE_MUL = 1.95
-// RFC_SPREAD_MUL = 0.935
-// RFC_STICKY_MUL = 0.87
-// RFC_ELEMENT_MUL = 0.935
+const ELE_MV_MUL = 0.68;
+
+const MV_MUL: Record<AmmoType, number> = {
+  Normal: 0.65,
+  Pierce: 0.8,
+  Spread: 0.7,
+  Sticky: 0.5,
+  Flaming: ELE_MV_MUL,
+  Water: ELE_MV_MUL,
+  Freeze: ELE_MV_MUL,
+  Thunder: ELE_MV_MUL,
+  Dragon: 0.7,
+  Slicing: 0.8,
+  // no LBG
+  Wyvern: 0,
+  Cluster: 0,
+};
+
+const C_ELE_MV_MUL = 0.75;
+
+const C_MV_MUL: Record<AmmoType, number> = {
+  Normal: 1.3,
+  Pierce: 1.2,
+  Spread: 0.85,
+  Sticky: 1,
+  Flaming: C_ELE_MV_MUL,
+  Water: C_ELE_MV_MUL,
+  Freeze: C_ELE_MV_MUL,
+  Thunder: C_ELE_MV_MUL,
+  Dragon: 1.1, // 1.2 for Element
+  Slicing: 1,
+  // no LBG
+  Wyvern: 0,
+  Cluster: 0,
+};
+
+const RF_ELE_MV_MUL = 0.58;
+
+const RF_MV_MUL: Record<AmmoType, number> = {
+  Normal: 0.5,
+  Pierce: 0.65,
+  Spread: 0.55,
+  Sticky: 35,
+  Flaming: RF_ELE_MV_MUL,
+  Water: RF_ELE_MV_MUL,
+  Freeze: RF_ELE_MV_MUL,
+  Thunder: RF_ELE_MV_MUL,
+  Dragon: 0.65,
+  Slicing: 0.55,
+  // no LBG
+  Wyvern: 0,
+  Cluster: 0,
+};
+
+const RF_C_ELE_MV_MUL = 0.986;
+
+const RF_C_MV_MUL: Record<AmmoType, number> = {
+  Normal: 1.5,
+  Pierce: 1.95,
+  Spread: 0.935,
+  Sticky: 0.87,
+  Flaming: RF_C_ELE_MV_MUL,
+  Water: RF_C_ELE_MV_MUL,
+  Freeze: RF_C_ELE_MV_MUL,
+  Thunder: RF_C_ELE_MV_MUL,
+  Dragon: 1.5, // 1.4 for Element
+  Slicing: 1,
+  // no LBG
+  Wyvern: 0,
+  Cluster: 0,
+};
+
+const AmmoLBG = produce(Ammo, (d) => void (d.Normal[3].mv = 30.6));
 
 export const LightBowgunAttacks = [
-  {
-    name: "Normal Lv1",
-    mv: 9.75,
-    hits: 3,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 1 },
-  },
-  {
-    name: "Normal Lv2",
-    mv: 13.65,
-    hits: 3,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 2 },
-  },
-  {
-    name: "Normal Lv3",
-    mv: 18.525,
-    hits: 3,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 3 },
-  },
-  {
-    name: "Chaser Normal Lv1",
-    mv: 19.5,
-    normalShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 1 },
-  },
-  {
-    name: "Chaser Normal Lv2",
-    mv: 27.3,
-    normalShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 2 },
-  },
-  {
-    name: "Chaser Normal Lv3",
-    mv: 37.05,
-    normalShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 3 },
-  },
-  {
-    name: "Pierce Lv1",
-    mv: 8.8,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 1 },
-  },
-  {
-    name: "Pierce Lv2",
-    mv: 9.6,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 2 },
-  },
-  {
-    name: "Pierce Lv3",
-    mv: 9.6,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 3 },
-  },
-  {
-    name: "Chaser Pierce Lv1",
-    mv: 13.2,
-    piercingShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 1 },
-  },
-  {
-    name: "Chaser Pierce Lv2",
-    mv: 14.4,
-    piercingShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 2 },
-  },
-  {
-    name: "Chaser Pierce Lv3",
-    mv: 14.4,
-    piercingShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 3 },
-  },
-  {
-    name: "Spread Lv1",
-    mv: 7.7,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 1 },
-  },
-  {
-    name: "Spread Lv2",
-    mv: 8.855,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 2 },
-  },
-  {
-    name: "Spread Lv3",
-    mv: 10.01,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 3 },
-  },
-  {
-    name: "Chaser Spread Lv1",
-    mv: 9.35,
-    spreadPowerShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 1 },
-  },
-  {
-    name: "Chaser Spread Lv2",
-    mv: 10.7525,
-    spreadPowerShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 2 },
-  },
-  {
-    name: "Chaser Spread Lv3",
-    mv: 12.155,
-    spreadPowerShot: true,
-    hits: 2,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 3 },
-  },
-  {
-    name: "Sticky Lv1",
-    mv: 12.5,
-    fixedEle: 5,
-    elementType: "Fire",
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 1 },
-  },
-  {
-    name: "Sticky Lv2",
-    mv: 16,
-    fixedEle: 5,
-    elementType: "Fire",
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 2 },
-  },
-  {
-    name: "Chaser Sticky Lv1",
-    mv: 25,
-    fixedEle: 5,
-    elementType: "Fire",
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 1 },
-  },
-  {
-    name: "Chaser Sticky Lv2",
-    mv: 32,
-    fixedEle: 5,
-    elementType: "Fire",
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 2 },
-  },
-  // {
-  //   name: "Sticky Lv3",
-  //   mv: 20,
-  //   fixedEle: 5,
-  // elementType: "Fire",
-  //   ignoreHzv: true,
-  //   cantCrit: true,
-  //   artilleryAmmo: true,
-  // },
-  {
-    name: "Flaming Lv1",
-    mv: 5.2,
-    rawEle: 13,
-    elementType: "Fire",
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 1 },
-  },
-  {
-    name: "Flaming Lv2",
-    mv: 6.5,
-    rawEle: 16.25,
-    elementType: "Fire",
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 2 },
-  },
-  {
-    name: "Thunder Lv1",
-    mv: 5.2,
-    rawEle: 13,
-    elementType: "Thunder",
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 1 },
-  },
-  {
-    name: "Thunder Lv2",
-    mv: 6.5,
-    rawEle: 16.25,
-    elementType: "Thunder",
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 2 },
-  },
-  {
-    name: "Water Lv1",
-    mv: 5.2,
-    rawEle: 13,
-    elementType: "Water",
-    rawType: "Shot",
-    ammo: { type: "Water", level: 1 },
-  },
-  {
-    name: "Water Lv2",
-    mv: 6.5,
-    rawEle: 16.25,
-    elementType: "Water",
-    rawType: "Shot",
-    ammo: { type: "Water", level: 2 },
-  },
-  {
-    name: "Freeze Lv1",
-    mv: 5.2,
-    rawEle: 13,
-    elementType: "Ice",
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 1 },
-  },
-  {
-    name: "Freeze Lv2",
-    mv: 6.5,
-    rawEle: 16.25,
-    elementType: "Ice",
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 2 },
-  },
-  {
-    name: "Dragon Lv1",
-    mv: 14,
-    rawEle: 30.8,
-    elementType: "Dragon",
-    rawType: "Shot",
-    ammo: { type: "Dragon", level: 1 },
-  },
-  {
-    name: "Rapid Fire Normal Lv1",
-    mv: 7.5,
-    normalShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-  },
-  {
-    name: "Rapid Fire Normal Lv2",
-    mv: 10.5,
-    normalShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 2 },
-  },
-  {
-    name: "Rapid Fire Normal Lv3",
-    mv: 14.25,
-    normalShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 3 },
-  },
-  {
-    name: "Rapid Fire Normal Lv1 Chaser",
-    mv: 22.5,
-    rapidFire: true,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 1 },
-  },
-  {
-    name: "Rapid Fire Normal Lv2 Chaser",
-    mv: 31.5,
-    rapidFire: true,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 2 },
-  },
-  {
-    name: "Rapid Fire Normal Lv3 Chaser",
-    mv: 42.75,
-    rapidFire: true,
-    normalShot: true,
-    rawType: "Shot",
-    ammo: { type: "Normal", level: 3 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv1",
-    mv: 7.15,
-    piercingShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 1 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv2",
-    mv: 7.8,
-    piercingShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 2 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv3",
-    mv: 7.8,
-    piercingShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 3 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv1 Chaser",
-    mv: 21.45,
-    rapidFire: true,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 1 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv2 Chaser",
-    mv: 23.4,
-    rapidFire: true,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 2 },
-  },
-  {
-    name: "Rapid Fire Pierce Lv3 Chaser",
-    mv: 23.4,
-    rapidFire: true,
-    piercingShot: true,
-    rawType: "Shot",
-    ammo: { type: "Pierce", level: 3 },
-  },
-  {
-    name: "Rapid Fire Spread Lv1",
-    mv: 6.05,
-    spreadPowerShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 1 },
-  },
-  {
-    name: "Rapid Fire Spread Lv2",
-    mv: 6.9575,
-    spreadPowerShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 2 },
-  },
-  {
-    name: "Rapid Fire Spread Lv3",
-    mv: 7.865,
-    spreadPowerShot: true,
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 3 },
-  },
-  {
-    name: "Rapid Fire Spread Lv1 Chaser",
-    mv: 10.285,
-    rapidFire: true,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 1 },
-  },
-  {
-    name: "Rapid Fire Spread Lv2 Chaser",
-    mv: 11.82775,
-    rapidFire: true,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 2 },
-  },
-  {
-    name: "Rapid Fire Spread Lv3 Chaser",
-    mv: 13.3705,
-    rapidFire: true,
-    spreadPowerShot: true,
-    rawType: "Shot",
-    ammo: { type: "Spread", level: 3 },
-  },
-  {
-    name: "Rapid Fire Sticky Lv1",
-    mv: 8.75,
-    fixedEle: 5,
-    elementType: "Fire",
-    rapidFire: true,
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 1 },
-  },
-  {
-    name: "Rapid Fire Sticky Lv2",
-    mv: 11.2,
-    fixedEle: 5,
-    elementType: "Fire",
-    rapidFire: true,
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 2 },
-  },
-  {
-    name: "Rapid Fire Sticky Lv1 Chaser",
-    mv: 21.875,
-    fixedEle: 5,
-    elementType: "Fire",
-    rapidFire: true,
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 1 },
-  },
-  {
-    name: "Rapid Fire Sticky Lv2 Chaser",
-    mv: 27.84,
-    fixedEle: 5,
-    elementType: "Fire",
-    rapidFire: true,
-    ignoreHzv: true,
-    cantCrit: true,
-    artilleryAmmo: true,
-    ammo: { type: "Sticky", level: 2 },
-  },
-  {
-    name: "Rapid Fire Flaming Lv1",
-    mv: 4.4,
-    rawEle: 11,
-    elementType: "Fire",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 1 },
-  },
-  {
-    name: "Rapid Fire Flaming Lv2",
-    mv: 5.5,
-    rawEle: 13.75,
-    elementType: "Fire",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 2 },
-  },
-  {
-    name: "Rapid Fire Flaming Lv1 Chaser",
-    mv: 7.48,
-    rawEle: 18.7,
-    elementType: "Fire",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 1 },
-  },
-  {
-    name: "Rapid Fire Flaming Lv2 Chaser",
-    mv: 9.35,
-    rawEle: 23.375,
-    elementType: "Fire",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Flaming", level: 2 },
-  },
-  {
-    name: "Rapid Fire Thunder Lv1",
-    mv: 4.4,
-    rawEle: 11,
-    elementType: "Thunder",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 1 },
-  },
-  {
-    name: "Rapid Fire Thunder Lv2",
-    mv: 5.5,
-    rawEle: 13.75,
-    elementType: "Thunder",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 2 },
-  },
-  {
-    name: "Rapid Fire Thunder Lv1 Chaser",
-    mv: 7.48,
-    rawEle: 18.7,
-    elementType: "Thunder",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 1 },
-  },
-  {
-    name: "Rapid Fire Thunder Lv2 Chaser",
-    mv: 9.35,
-    rawEle: 23.375,
-    elementType: "Thunder",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Thunder", level: 2 },
-  },
-  {
-    name: "Rapid Fire Water Lv1",
-    mv: 4.4,
-    rawEle: 11,
-    elementType: "Water",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Water", level: 1 },
-  },
-  {
-    name: "Rapid Fire Water Lv2",
-    mv: 5.5,
-    rawEle: 13.75,
-    elementType: "Water",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Water", level: 2 },
-  },
-  {
-    name: "Rapid Fire Water Lv1 Chaser",
-    mv: 7.48,
-    rawEle: 18.7,
-    elementType: "Water",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Water", level: 1 },
-  },
-  {
-    name: "Rapid Fire Water Lv2 Chaser",
-    mv: 9.35,
-    rawEle: 23.375,
-    elementType: "Water",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Water", level: 2 },
-  },
-  {
-    name: "Rapid Fire Freeze Lv1",
-    mv: 4.4,
-    rawEle: 11,
-    elementType: "Ice",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 1 },
-  },
-  {
-    name: "Rapid Fire Freeze Lv2",
-    mv: 5.5,
-    rawEle: 13.75,
-    elementType: "Ice",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 2 },
-  },
-  {
-    name: "Rapid Fire Freeze Lv1 Chaser",
-    mv: 7.48,
-    rawEle: 18.7,
-    elementType: "Ice",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 1 },
-  },
-  {
-    name: "Rapid Fire Freeze Lv2 Chaser",
-    mv: 9.35,
-    rawEle: 23.375,
-    elementType: "Ice",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Freeze", level: 2 },
-  },
-  {
-    name: "Rapid Fire Dragon Lv1",
-    mv: 13,
-    rawEle: 28.6,
-    elementType: "Dragon",
-    rapidFire: true,
-    rawType: "Shot",
-    ammo: { type: "Dragon", level: 1 },
-  },
-  // {
-  //   name: "Rapid Fire Dragon Lv1 Chaser",
-  //   mv: 16.25,
-  //   rawEle: 36.5,
-  //   elementType: "Dragon",
-  //   rapidFire: true,
-  //   rawType: "Shot",
-  //   ammo: { type: "Dragon", level: 1 },
-  // },
+  ...Object.values(AmmoLBG)
+    .flatMap((m) => Object.values(m))
+    .filter((a) => a.ammo?.type !== "Cluster" && a.ammo?.type !== "Wyvern")
+    .map((a) => [
+      produce(a, (d) => {
+        d.mv = round(d.mv * MV_MUL[d.ammo.type], 5);
+        if (d.rawEle) d.rawEle = round(d.rawEle * MV_MUL[d.ammo.type], 5);
+      }),
+      produce(a, (d) => {
+        d.name = `${d.name} Chaser`;
+        d.mv = round(d.mv * C_MV_MUL[d.ammo.type], 5);
+        if (d.rawEle) {
+          if (d.elementType === "Dragon") d.rawEle = round(d.rawEle * 1.2, 5);
+          else d.rawEle = round(d.rawEle * C_MV_MUL[d.ammo.type], 5);
+        }
+      }),
+      produce(a, (d) => {
+        d.name = `Rapid ${d.name}`;
+        d.mv = round(d.mv * RF_MV_MUL[d.ammo.type], 5);
+        if (d.rawEle) d.rawEle = round(d.rawEle * RF_MV_MUL[d.ammo.type], 5);
+      }),
+      produce(a, (d) => {
+        d.name = `Rapid ${d.name} Chaser`;
+        d.mv = round(d.mv * RF_C_MV_MUL[d.ammo.type], 5);
+        if (d.rawEle) {
+          if (d.elementType === "Dragon") d.rawEle = round(d.rawEle * 1.4, 5);
+          else d.rawEle = round(d.rawEle * RF_C_MV_MUL[d.ammo.type], 5);
+        }
+      }),
+    ])
+    .flat(),
 ] satisfies Attack[];

@@ -315,7 +315,27 @@ export interface IAttack {
   };
   melody?: boolean;
   morph?: boolean;
+  flags?: Partial<Record<AttackFlag, boolean>>; // TODO
 }
+
+// TODO: replace booleans with attack flags
+export type AttackFlag =
+  | "Airborne" // TODO
+  | "Charge Master"
+  | "Normal Shots"
+  | "Piercing Shots"
+  | "Spread/Power Shots"
+  | "Special Ammo Boost"
+  | "Artillery"
+  | "Rapid Fire"
+  | "Rapid Morph";
+
+export type BowgunAttack = IAttack & {
+  ammo: {
+    type: AmmoType;
+    level: number;
+  };
+};
 
 export type BowgunElementAmmo = IAttack & {
   rawEle: number;

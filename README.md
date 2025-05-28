@@ -12,14 +12,12 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 ### Ver. 1.011
 
-Still in progress...
-
-- [ ] Equipment, charms and skills
-- [x] Hammer MVs
-- [x] Hunting Horn MVs
-- [ ] Gunlance MVs
-- [ ] Light Bowgun MVs
-- [ ] Heavy Bowgun MVs
+- [x] Hammer
+- [x] Hunting Horn
+- [x] Gunlance
+- [x] Light Bowgun
+- [x] Heavy Bowgun
+- [ ] Akuma
 
 ### Title Update 1
 
@@ -29,11 +27,11 @@ Done. Sliders for Wet and Bubbleblight will appear in the Buff section if your w
 
 ### Rounding
 
-The in-game engine has some rounding issues (probably due to low-precision floating point math). Basically, numbers that should end exactly on 0.05 are sometimes rounded down to 0 instead of up to 0.1 (as they should be). This bug tends to happen when percentage multipliers are applied.
+The in-game engine has some rounding issues (probably due to low-precision floating point math). Basically, numbers are sometimes rounded down to 0.1 lower than what they should be. This bug tends to happen when percentage multipliers are applied.
 
 The game always floors Attack and Element in the menu screen for display, so 250 Attack might actually be 249.999 internally (due to the above bug) and then floored to 249. However, the 0.999 is still preserved internally for damage calculations, where rounding happens only at the very final step.
 
-Non-zero damage less than 1 is always rounded up to 1 (even 0.1). This happens separately for Raw and Element damage.
+Non-zero damage less than 1 is always rounded up to 1 (even 0.01). This happens separately for Raw and Element damage.
 
 If you find a damage calculation off by more than 0.1 from in-game values, please let me know.
 

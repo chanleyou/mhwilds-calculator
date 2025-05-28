@@ -245,9 +245,9 @@ export const ImportDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" className="text-accent-alt" size="sm">
+        <Button variant="secondary" className="text-accent-alt group">
           <DownloadIcon className="size-4" />
-          Import
+          <span className="hidden group-hover:inline-block">Import</span>
         </Button>
       </DialogTrigger>
       <DialogContent title="Import" className="sm:h-fit" setOpen={setOpen}>

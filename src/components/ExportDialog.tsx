@@ -109,9 +109,9 @@ export const ExportDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="bg-accent-alt">
+        <Button className="bg-accent-alt group h-9.5">
           <CopyIcon className="size-4" />
-          Export
+          <span className="hidden group-hover:inline-block">Export</span>
         </Button>
       </DialogTrigger>
       <DialogContent title="Export" setOpen={setOpen} className="sm:h-fit">

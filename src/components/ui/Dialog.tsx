@@ -16,13 +16,11 @@ export const DialogTitle = DialogPrimitive.Title;
 type DialogContentProps = DialogPrimitive.DialogContentProps & {
   ref?: React.Ref<HTMLDivElement>;
   title?: string;
-  width?: "4xl" | "7xl";
   setOpen?: (n: boolean) => void;
 };
 
 export const DialogContent = ({
   className,
-  width = "4xl",
   title,
   setOpen,
   children,
@@ -34,7 +32,6 @@ export const DialogContent = ({
         <Card
           className={cn(
             "h-dvh w-[100vw] sm:h-[85dvh] sm:w-4xl sm:max-w-[95vw]",
-            `sm:w-${width}`,
             className,
           )}
         >

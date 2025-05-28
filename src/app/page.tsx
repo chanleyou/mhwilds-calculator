@@ -1,16 +1,17 @@
 "use client";
 
 // import { useState } from "react";
+import { CalculatorIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   AttacksCard,
   BuffsCard,
+  Button,
   Card,
   EquipmentCard,
   ExportDialog,
   ImportDialog,
-  Notice,
   OverridesDialog,
   // Notice,
   SkillPointCard,
@@ -34,18 +35,19 @@ export default function Builder() {
 
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">
-      <Notice closable>
-        The manual damage calculator can be found{" "}
-        <Link href="/calc" className="font-bold underline">
-          here
-        </Link>
-        {`. Ver. 1.011 changes are in progress.`}
-      </Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-3 justify-end gap-2">
           <OverridesDialog />
           <ImportDialog />
           <ExportDialog />
+          <Button className="bg-accent-alt group" asChild>
+            <Link href="/">
+              <CalculatorIcon className="size-4" />
+              <span className="hidden group-hover:inline-block">
+                Calculator
+              </span>
+            </Link>
+          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-2 lg:flex-row">

@@ -79,7 +79,11 @@ export const WeaponPickerDialog = () => {
       <DialogTrigger asChild>
         <Picker>{a.name}</Picker>
       </DialogTrigger>
-      <DialogContent title="Select Weapon" setOpen={setOpen} width="7xl">
+      <DialogContent
+        title="Select Weapon"
+        setOpen={setOpen}
+        className="sm:w-7xl"
+      >
         <Select
           options={[...WeaponTypes]}
           value={type}

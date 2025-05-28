@@ -30,8 +30,13 @@ export const OverridesDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={length > 0 ? "primary" : "secondary"}>
-          <WrenchIcon className="size-4" size="sm"></WrenchIcon>Overrides
+        <Button
+          variant={length > 0 ? "primary" : "secondary"}
+          className="group"
+          size="sm"
+        >
+          <WrenchIcon className="size-4"></WrenchIcon>
+          <span className="hidden group-hover:inline-block">Overrides</span>
           {length > 0 && <span>({length})</span>}
         </Button>
       </DialogTrigger>

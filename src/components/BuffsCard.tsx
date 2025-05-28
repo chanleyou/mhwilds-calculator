@@ -18,10 +18,7 @@ export const BuffsCard = () => {
   const [hideBuffs, setHideBuffs] = useState(false);
 
   const showBuffsNotice = useMemo(() => {
-    if (
-      (!!buffs.Antivirus || !!buffs["Black Eclipse II"]) &&
-      uptime.Frenzy === 0
-    ) {
+    if ((!!buffs.Antivirus || !!buffs["Black Eclipse II"]) && !uptime.Frenzy) {
       return true;
     }
     return false;

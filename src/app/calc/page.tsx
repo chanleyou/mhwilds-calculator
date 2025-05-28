@@ -1,7 +1,7 @@
 "use client";
 
 // import { useState } from "react";
-import { LinkIcon } from "lucide-react";
+import { WrenchIcon } from "lucide-react";
 import Link from "next/link";
 import {
   AttacksCard,
@@ -19,12 +19,11 @@ import {
 export default function Calculator() {
   return (
     <div className="max-w-9xl mx-auto flex flex-col gap-2">
-      <Notice closable>{`Ver. 1.011 changes are in progress.`}</Notice>
       <div className="flex items-end justify-between gap-2">
         <div className="flex flex-1 justify-end gap-2">
           <Button variant="secondary" className="text-accent-alt" asChild>
             <Link href="/">
-              <LinkIcon className="size-4" />
+              <WrenchIcon className="size-4" />
               Build Planner
             </Link>
           </Button>

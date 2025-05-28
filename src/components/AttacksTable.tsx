@@ -123,6 +123,7 @@ export function AttacksTable({
                           {a.eleMul !== undefined && (
                             <p>Element: {a.eleMul * 100}%</p>
                           )}
+                          {a.rawEle && <p>Element: {a.rawEle}%</p>}
                           {a.elementType && <p>{a.elementType}</p>}
                         </>
                       )}
