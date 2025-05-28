@@ -45,7 +45,7 @@ const RF_MV_MUL: Record<AmmoType, number> = {
   Normal: 0.5,
   Pierce: 0.65,
   Spread: 0.55,
-  Sticky: 35,
+  Sticky: 0.35,
   Flaming: RF_ELE_MV_MUL,
   Water: RF_ELE_MV_MUL,
   Freeze: RF_ELE_MV_MUL,
