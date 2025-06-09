@@ -853,6 +853,7 @@ export const UnsupportedGroupSkills: Record<SkillName, GroupSkill> = {
   ["Guardian's Protection"]: { levels: { 3: { name: "Ward of Wyveria" } } },
   ["Guardian's Pulse"]: { levels: { 3: { name: "Wylk Burst" } } },
   ["Imparted Wisdom"]: { levels: { 3: { name: "Forager's Luck" } } },
+  ["Master of the Fist"]: { levels: { 3: { name: "Satsui no Hado" } } },
   ["Neopteron Alert"]: { levels: { 3: { name: "Honey Hunter" } } },
   ["Neopteron Camouflage"]: { levels: { 3: { name: "Fleetfoot" } } },
   ["Scale Layering"]: { levels: { 3: { name: "Adrenaline" } } },
