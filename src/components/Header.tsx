@@ -5,7 +5,7 @@ export function Header() {
   return (
     <header>
       <div className="bg-neutral-400 p-1 text-center text-sm text-black">
-        Ver. 1.011 changes are in (but not fully tested). Akuma still WIP.
+        Title Update 2 changes in progress.
       </div>
       <div className="bg-content flex items-center justify-between gap-2 p-3">
         <h1>MH: Wilds Damage Calculator</h1>

@@ -320,15 +320,21 @@ export interface IAttack {
 
 // TODO: replace booleans with attack flags
 export type AttackFlag =
-  | "Airborne" // TODO
+  | "Airborne"
   | "Charge Master"
   | "Normal Shots"
   | "Piercing Shots"
   | "Spread/Power Shots"
   | "Special Ammo Boost"
-  | "Artillery"
-  | "Rapid Fire"
-  | "Rapid Morph";
+  | "Shelling"
+  | "Sticky Ammo"
+  | "Rapid Fire Up"
+  | "Rapid Morph"
+  | "Axe Mode"
+  | "Sword Mode"
+  | "Charge Master"
+  | "Ignore Coating"
+  | "No Extract";
 
 export type BowgunAttack = IAttack & {
   ammo: {
