@@ -6,29 +6,19 @@ const ELE_2_MV = 10;
 const ELE_1_RAW_ELE = 20;
 const ELE_2_RAW_ELE = 25;
 
+const normal = (level: number, mv: number): BowgunAttack => ({
+  name: `Normal Lv${level}`,
+  mv,
+  normalShot: true,
+  rawType: "Shot",
+  ammo: { type: "Normal", level },
+});
+
 export const Ammo: Record<AmmoType, Record<number, BowgunAttack>> = {
   Normal: {
-    1: {
-      name: "Normal Lv1",
-      mv: 17,
-      normalShot: true,
-      rawType: "Shot",
-      ammo: { type: "Normal", level: 1 },
-    },
-    2: {
-      name: "Normal Lv2",
-      mv: 23.8,
-      normalShot: true,
-      rawType: "Shot",
-      ammo: { type: "Normal", level: 2 },
-    },
-    3: {
-      name: "Normal Lv3",
-      mv: 32.3,
-      normalShot: true,
-      rawType: "Shot",
-      ammo: { type: "Normal", level: 3 },
-    },
+    1: normal(1, 17),
+    2: normal(2, 23.8),
+    3: normal(3, 32.3),
   },
   Pierce: {
     1: {

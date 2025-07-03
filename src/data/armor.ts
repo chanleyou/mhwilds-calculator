@@ -2,7 +2,6 @@ import { Armor } from "@/types";
 
 export const Armors: Armor[] = [
   {
-    id: 132,
     name: "Hope Mask α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -11,7 +10,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 133,
     name: "Hope Mail α",
     type: "Body",
     slots: [1, 1, 0],
@@ -20,7 +18,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 134,
     name: "Hope Vambraces α",
     type: "Arms",
     slots: [1, 1, 0],
@@ -29,7 +26,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 135,
     name: "Hope Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -39,7 +35,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 136,
     name: "Hope Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -48,7 +43,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 137,
     name: "Leather Headgear α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -57,7 +51,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 138,
     name: "Leather Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -67,7 +60,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 139,
     name: "Leather Gloves α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -77,7 +69,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 140,
     name: "Leather Belt α",
     type: "Waist",
     slots: [1, 1, 0],
@@ -86,7 +77,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 141,
     name: "Leather Pants α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -96,7 +86,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 142,
     name: "Chainmail Headgear α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -105,7 +94,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 143,
     name: "Chainmail Armor α",
     type: "Body",
     slots: [1, 0, 0],
@@ -115,7 +103,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 144,
     name: "Chainmail Gloves α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -125,7 +112,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 145,
     name: "Chainmail Belt α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -135,7 +121,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 146,
     name: "Chainmail Pants α",
     type: "Legs",
     slots: [1, 1, 0],
@@ -144,7 +129,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 157,
     name: "Bulaqchi Specs α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -155,7 +139,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 158,
     name: "Bulaqchi Specs β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -165,7 +148,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 159,
     name: "Talioth Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -176,7 +158,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 160,
     name: "Talioth Vambraces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -186,7 +167,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 161,
     name: "Piragill Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -197,7 +177,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 162,
     name: "Piragill Greaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -207,7 +186,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 163,
     name: "Vespoid Helm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -218,7 +196,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 164,
     name: "Vespoid Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -229,7 +206,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 165,
     name: "Vespoid Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -240,7 +216,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 166,
     name: "Vespoid Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -251,7 +226,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 167,
     name: "Vespoid Greaves α",
     type: "Legs",
     slots: [1, 1, 0],
@@ -262,7 +236,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 168,
     name: "Vespoid Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -272,7 +245,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 169,
     name: "Vespoid Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -282,7 +254,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 170,
     name: "Vespoid Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -292,7 +263,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 171,
     name: "Vespoid Coil β",
     type: "Waist",
     slots: [1, 1, 1],
@@ -302,7 +272,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 172,
     name: "Vespoid Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -312,7 +281,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 173,
     name: "Kranodath Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -323,7 +291,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 174,
     name: "Kranodath Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -333,7 +300,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 175,
     name: "Comaqchi Accessory α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -344,7 +310,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 176,
     name: "Comaqchi Accessory β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -354,7 +319,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 177,
     name: "Kut-Ku Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -365,7 +329,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 178,
     name: "Kut-Ku Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -376,7 +339,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 179,
     name: "Kut-Ku Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -387,7 +349,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 180,
     name: "Kut-Ku Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -398,7 +359,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 181,
     name: "Kut-Ku Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -409,7 +369,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 182,
     name: "Kut-Ku Helm β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -419,7 +378,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 183,
     name: "Kut-Ku Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -429,7 +387,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 184,
     name: "Kut-Ku Vambraces β",
     type: "Arms",
     slots: [2, 1, 1],
@@ -439,7 +396,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 185,
     name: "Kut-Ku Coil β",
     type: "Waist",
     slots: [1, 0, 0],
@@ -450,7 +406,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 186,
     name: "Kut-Ku Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -461,7 +416,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 187,
     name: "Chatacabra Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -472,7 +426,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 188,
     name: "Chatacabra Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -483,7 +436,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 189,
     name: "Chatacabra Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -494,7 +446,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 190,
     name: "Chatacabra Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -505,7 +456,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 191,
     name: "Chatacabra Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -516,7 +466,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 192,
     name: "Chatacabra Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -526,7 +475,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 193,
     name: "Chatacabra Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -536,7 +484,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 194,
     name: "Chatacabra Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -546,7 +493,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 195,
     name: "Chatacabra Coil β",
     type: "Waist",
     slots: [1, 1, 0],
@@ -556,7 +502,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 196,
     name: "Chatacabra Greaves β",
     type: "Legs",
     slots: [1, 0, 0],
@@ -566,7 +511,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 197,
     name: "Gypceros Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -577,7 +521,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 198,
     name: "Gypceros Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -588,7 +531,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 199,
     name: "Gypceros Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -599,7 +541,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 200,
     name: "Gypceros Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -610,7 +551,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 201,
     name: "Gypceros Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -621,7 +561,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 202,
     name: "Gypceros Helm β",
     type: "Helm",
     slots: [1, 1, 0],
@@ -631,7 +570,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 203,
     name: "Gypceros Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -641,7 +579,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 204,
     name: "Gypceros Vambraces β",
     type: "Arms",
     slots: [1, 0, 0],
@@ -651,7 +588,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 205,
     name: "Gypceros Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -661,7 +597,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 206,
     name: "Gypceros Greaves β",
     type: "Legs",
     slots: [1, 0, 0],
@@ -672,7 +607,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 147,
     name: "Bone Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -682,7 +616,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 148,
     name: "Bone Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -692,7 +625,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 149,
     name: "Bone Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -702,7 +634,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 150,
     name: "Bone Coil α",
     type: "Waist",
     slots: [1, 1, 0],
@@ -711,7 +642,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 151,
     name: "Bone Greaves α",
     type: "Legs",
     slots: [1, 1, 0],
@@ -720,7 +650,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 152,
     name: "Alloy Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -729,7 +658,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 153,
     name: "Alloy Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -738,7 +666,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 154,
     name: "Alloy Vambraces α",
     type: "Arms",
     slots: [1, 1, 0],
@@ -747,7 +674,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 155,
     name: "Alloy Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -757,7 +683,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 156,
     name: "Alloy Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -767,7 +692,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 207,
     name: "Quematrice Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -778,7 +702,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 208,
     name: "Quematrice Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -789,7 +712,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 209,
     name: "Quematrice Braces α",
     type: "Arms",
     slots: [1, 1, 0],
@@ -800,7 +722,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 210,
     name: "Quematrice Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -811,7 +732,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 211,
     name: "Quematrice Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -822,7 +742,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 212,
     name: "Quematrice Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -832,7 +751,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 213,
     name: "Quematrice Mail β",
     type: "Body",
     slots: [1, 0, 0],
@@ -842,7 +760,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 214,
     name: "Quematrice Braces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -852,7 +769,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 215,
     name: "Quematrice Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -862,7 +778,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 216,
     name: "Quematrice Greaves β",
     type: "Legs",
     slots: [1, 1, 1],
@@ -872,7 +787,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 217,
     name: "Barina Headgear α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -883,7 +797,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 218,
     name: "Barina Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -894,7 +807,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 219,
     name: "Barina Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -905,7 +817,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 220,
     name: "Barina Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -915,7 +826,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 221,
     name: "Barina Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -926,7 +836,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 222,
     name: "Barina Headgear β",
     type: "Helm",
     slots: [1, 0, 0],
@@ -936,7 +845,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 223,
     name: "Barina Mail β",
     type: "Body",
     slots: [1, 0, 0],
@@ -947,7 +855,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 224,
     name: "Barina Vambraces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -957,7 +864,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 225,
     name: "Barina Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -967,7 +873,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 226,
     name: "Barina Greaves β",
     type: "Legs",
     slots: [1, 1, 1],
@@ -977,7 +882,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 227,
     name: "Rompopolo Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -987,7 +891,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 228,
     name: "Rompopolo Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -998,7 +901,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 229,
     name: "Rompopolo Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -1009,7 +911,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 230,
     name: "Rompopolo Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -1020,7 +921,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 231,
     name: "Rompopolo Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -1031,7 +931,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 232,
     name: "Rompopolo Helm β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -1041,7 +940,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 233,
     name: "Rompopolo Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -1051,7 +949,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 234,
     name: "Rompopolo Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1061,7 +958,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 235,
     name: "Rompopolo Coil β",
     type: "Waist",
     slots: [1, 0, 0],
@@ -1071,7 +967,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 236,
     name: "Rompopolo Greaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -1081,7 +976,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 237,
     name: "Conga Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -1092,7 +986,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 238,
     name: "Conga Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -1103,7 +996,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 239,
     name: "Conga Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -1114,7 +1006,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 240,
     name: "Conga Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -1125,7 +1016,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 241,
     name: "Conga Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -1136,7 +1026,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 242,
     name: "Conga Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1146,7 +1035,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 243,
     name: "Conga Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -1156,7 +1044,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 244,
     name: "Conga Vambraces β",
     type: "Arms",
     slots: [1, 0, 0],
@@ -1166,7 +1053,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 245,
     name: "Conga Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -1176,7 +1062,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 246,
     name: "Conga Greaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -1186,7 +1071,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 247,
     name: "Balahara Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -1197,7 +1081,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 248,
     name: "Balahara Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -1208,7 +1091,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 249,
     name: "Balahara Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -1219,7 +1101,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 250,
     name: "Balahara Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -1230,7 +1111,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 251,
     name: "Balahara Greaves α",
     type: "Legs",
     slots: [1, 1, 0],
@@ -1241,7 +1121,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 252,
     name: "Balahara Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1251,7 +1130,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 253,
     name: "Balahara Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -1261,7 +1139,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 254,
     name: "Balahara Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1271,7 +1148,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 255,
     name: "Balahara Coil β",
     type: "Waist",
     slots: [1, 1, 0],
@@ -1281,7 +1157,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 256,
     name: "Balahara Greaves β",
     type: "Legs",
     slots: [1, 1, 1],
@@ -1291,7 +1166,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 257,
     name: "Rathian Helm α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1302,7 +1176,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 258,
     name: "Rathian Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -1312,7 +1185,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 259,
     name: "Rathian Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -1323,7 +1195,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 260,
     name: "Rathian Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -1334,7 +1205,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 261,
     name: "Rathian Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -1345,7 +1215,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 262,
     name: "Rathian Helm β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -1355,7 +1224,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 263,
     name: "Rathian Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -1365,7 +1233,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 264,
     name: "Rathian Vambraces β",
     type: "Arms",
     slots: [1, 0, 0],
@@ -1376,7 +1243,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 265,
     name: "Rathian Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -1386,7 +1252,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 266,
     name: "Rathian Greaves β",
     type: "Legs",
     slots: [1, 0, 0],
@@ -1397,7 +1262,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 267,
     name: "Nerscylla Helm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -1408,7 +1272,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 268,
     name: "Nerscylla Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -1419,7 +1282,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 269,
     name: "Nerscylla Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -1430,7 +1292,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 270,
     name: "Nerscylla Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -1441,7 +1302,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 271,
     name: "Nerscylla Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -1452,7 +1312,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 272,
     name: "Nerscylla Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1462,7 +1321,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 273,
     name: "Nerscylla Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -1472,7 +1330,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 274,
     name: "Nerscylla Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1482,7 +1339,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 275,
     name: "Nerscylla Coil β",
     type: "Waist",
     slots: [1, 1, 0],
@@ -1492,7 +1348,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 276,
     name: "Nerscylla Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -1502,7 +1357,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 277,
     name: "Doshaguma Helm α",
     type: "Helm",
     slots: [2, 1, 0],
@@ -1514,7 +1368,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 278,
     name: "Doshaguma Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -1526,7 +1379,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 279,
     name: "Doshaguma Braces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1538,7 +1390,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 280,
     name: "Doshaguma Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -1549,7 +1400,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 281,
     name: "Doshaguma Greaves α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -1561,7 +1411,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 282,
     name: "Doshaguma Helm β",
     type: "Helm",
     slots: [2, 1, 1],
@@ -1573,7 +1422,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 283,
     name: "Doshaguma Mail β",
     type: "Body",
     slots: [1, 1, 1],
@@ -1584,7 +1432,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 284,
     name: "Doshaguma Braces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -1596,7 +1443,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 285,
     name: "Doshaguma Coil β",
     type: "Waist",
     slots: [2, 2, 0],
@@ -1607,7 +1453,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 286,
     name: "Doshaguma Greaves β",
     type: "Legs",
     slots: [2, 1, 1],
@@ -1619,7 +1464,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 287,
     name: "Hirabami Headdress α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -1630,7 +1474,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 288,
     name: "Hirabami Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -1641,7 +1484,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 289,
     name: "Hirabami Vambraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -1652,7 +1494,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 290,
     name: "Hirabami Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -1662,7 +1503,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 291,
     name: "Hirabami Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -1673,7 +1513,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 292,
     name: "Hirabami Headdress β",
     type: "Helm",
     slots: [1, 1, 0],
@@ -1683,7 +1522,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 293,
     name: "Hirabami Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -1694,7 +1532,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 294,
     name: "Hirabami Vambraces β",
     type: "Arms",
     slots: [1, 1, 0],
@@ -1704,7 +1541,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 295,
     name: "Hirabami Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -1714,7 +1550,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 296,
     name: "Hirabami Greaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -1724,7 +1559,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 297,
     name: "G. Fulgur Helm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -1736,7 +1570,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 298,
     name: "G. Fulgur Mail α",
     type: "Body",
     slots: [2, 0, 0],
@@ -1748,7 +1581,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 299,
     name: "G. Fulgur Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -1760,7 +1592,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 300,
     name: "G. Fulgur Coil α",
     type: "Waist",
     slots: [1, 1, 0],
@@ -1772,7 +1603,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 301,
     name: "G. Fulgur Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -1784,7 +1614,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 302,
     name: "G. Fulgur Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1795,7 +1624,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 303,
     name: "G. Fulgur Mail β",
     type: "Body",
     slots: [2, 1, 1],
@@ -1806,7 +1634,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 304,
     name: "G. Fulgur Vambraces β",
     type: "Arms",
     slots: [2, 2, 0],
@@ -1817,7 +1644,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 305,
     name: "G. Fulgur Coil β",
     type: "Waist",
     slots: [2, 2, 0],
@@ -1828,7 +1654,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 306,
     name: "G. Fulgur Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -1840,7 +1665,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 307,
     name: "Ingot Helm α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -1850,7 +1674,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 308,
     name: "Ingot Mail α",
     type: "Body",
     slots: [1, 1, 0],
@@ -1860,7 +1683,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 309,
     name: "Ingot Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1870,7 +1692,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 310,
     name: "Ingot Coil α",
     type: "Waist",
     slots: [1, 1, 1],
@@ -1880,7 +1701,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 311,
     name: "Ingot Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -1890,7 +1710,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 312,
     name: "G. Seikret Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -1901,7 +1720,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 313,
     name: "G. Seikret Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -1912,7 +1730,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 314,
     name: "Ajarakan Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -1923,7 +1740,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 315,
     name: "Ajarakan Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -1934,7 +1750,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 316,
     name: "Ajarakan Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -1945,7 +1760,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 317,
     name: "Ajarakan Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -1956,7 +1770,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 318,
     name: "Ajarakan Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -1967,7 +1780,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 319,
     name: "Ajarakan Helm β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -1978,7 +1790,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 320,
     name: "Ajarakan Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -1988,7 +1799,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 321,
     name: "Ajarakan Vambraces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -1999,7 +1809,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 322,
     name: "Ajarakan Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2010,7 +1819,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 323,
     name: "Ajarakan Greaves β",
     type: "Legs",
     slots: [1, 1, 0],
@@ -2020,7 +1828,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 324,
     name: "Blango Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -2032,7 +1839,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 325,
     name: "Blango Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -2044,7 +1850,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 326,
     name: "Blango Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -2056,7 +1861,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 327,
     name: "Blango Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -2068,7 +1872,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 328,
     name: "Blango Greaves α",
     type: "Legs",
     slots: [1, 1, 0],
@@ -2080,7 +1883,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 329,
     name: "Blango Helm β",
     type: "Helm",
     slots: [2, 1, 1],
@@ -2091,7 +1893,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 330,
     name: "Blango Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -2102,7 +1903,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 331,
     name: "Blango Vambraces β",
     type: "Arms",
     slots: [2, 2, 0],
@@ -2113,7 +1913,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 332,
     name: "Blango Coil β",
     type: "Waist",
     slots: [1, 1, 0],
@@ -2124,7 +1923,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 333,
     name: "Blango Greaves β",
     type: "Legs",
     slots: [2, 2, 0],
@@ -2135,7 +1933,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 334,
     name: "G. Doshaguma Helm α",
     type: "Helm",
     slots: [2, 1, 0],
@@ -2147,7 +1944,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 335,
     name: "G. Doshaguma Mail α",
     type: "Body",
     slots: [2, 1, 0],
@@ -2159,7 +1955,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 336,
     name: "G. Doshaguma Braces α",
     type: "Arms",
     slots: [1, 1, 1],
@@ -2171,7 +1966,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 337,
     name: "G. Doshaguma Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2183,7 +1977,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 338,
     name: "G. Doshaguma Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -2195,7 +1988,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 339,
     name: "G. Doshaguma Helm β",
     type: "Helm",
     slots: [2, 2, 1],
@@ -2206,7 +1998,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 340,
     name: "G. Doshaguma Mail β",
     type: "Body",
     slots: [2, 2, 0],
@@ -2217,7 +2008,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 341,
     name: "G. Doshaguma Braces β",
     type: "Arms",
     slots: [2, 2, 1],
@@ -2228,7 +2018,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 342,
     name: "G. Doshaguma Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -2239,7 +2028,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 343,
     name: "G. Doshaguma Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -2251,7 +2039,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 344,
     name: "G. Rathalos Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -2263,7 +2050,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 345,
     name: "G. Rathalos Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -2275,7 +2061,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 346,
     name: "G. Rathalos Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -2288,7 +2073,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 347,
     name: "G. Rathalos Coil α",
     type: "Waist",
     slots: [1, 1, 0],
@@ -2300,7 +2084,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 348,
     name: "G. Rathalos Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -2312,7 +2095,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 349,
     name: "G. Rathalos Helm β",
     type: "Helm",
     slots: [2, 2, 0],
@@ -2323,7 +2105,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 350,
     name: "G. Rathalos Mail β",
     type: "Body",
     slots: [2, 0, 0],
@@ -2335,7 +2116,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 351,
     name: "G. Rathalos Vambraces β",
     type: "Arms",
     slots: [2, 1, 1],
@@ -2346,7 +2126,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 352,
     name: "G. Rathalos Coil β",
     type: "Waist",
     slots: [2, 2, 1],
@@ -2357,7 +2136,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 353,
     name: "G. Rathalos Greaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -2369,7 +2147,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 354,
     name: "Gravios Helm α",
     type: "Helm",
     slots: [2, 1, 0],
@@ -2381,7 +2158,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 355,
     name: "Gravios Mail α",
     type: "Body",
     slots: [2, 1, 0],
@@ -2393,7 +2169,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 356,
     name: "Gravios Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -2405,7 +2180,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 357,
     name: "Gravios Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2417,7 +2191,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 358,
     name: "Gravios Greaves α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -2429,7 +2202,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 359,
     name: "Gravios Helm β",
     type: "Helm",
     slots: [2, 2, 0],
@@ -2440,7 +2212,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 360,
     name: "Gravios Mail β",
     type: "Body",
     slots: [2, 2, 0],
@@ -2452,7 +2223,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 361,
     name: "Gravios Vambraces β",
     type: "Arms",
     slots: [2, 0, 0],
@@ -2463,7 +2233,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 362,
     name: "Gravios Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -2475,7 +2244,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 363,
     name: "Gravios Greaves β",
     type: "Legs",
     slots: [2, 2, 0],
@@ -2487,7 +2255,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 364,
     name: "G. Ebony Helm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -2499,7 +2266,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 365,
     name: "G. Ebony Mail α",
     type: "Body",
     slots: [2, 0, 0],
@@ -2511,7 +2277,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 366,
     name: "G. Ebony Braces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -2523,7 +2288,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 367,
     name: "G. Ebony Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2535,7 +2299,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 368,
     name: "G. Ebony Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -2547,7 +2310,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 369,
     name: "G. Ebony Helm β",
     type: "Helm",
     slots: [2, 0, 0],
@@ -2558,7 +2320,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 370,
     name: "G. Ebony Mail β",
     type: "Body",
     slots: [2, 2, 0],
@@ -2569,7 +2330,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 371,
     name: "G. Ebony Braces β",
     type: "Arms",
     slots: [2, 1, 0],
@@ -2581,7 +2341,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 372,
     name: "G. Ebony Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -2592,7 +2351,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 373,
     name: "G. Ebony Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -2604,7 +2362,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 374,
     name: "Rathalos Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -2616,7 +2373,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 375,
     name: "Rathalos Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -2628,7 +2384,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 376,
     name: "Rathalos Vambraces α",
     type: "Arms",
     slots: [1, 1, 0],
@@ -2640,7 +2395,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 377,
     name: "Rathalos Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -2652,7 +2406,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 378,
     name: "Rathalos Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -2664,7 +2417,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 379,
     name: "Rathalos Helm β",
     type: "Helm",
     slots: [2, 2, 0],
@@ -2676,7 +2428,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 380,
     name: "Rathalos Mail β",
     type: "Body",
     slots: [1, 1, 0],
@@ -2687,7 +2438,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 381,
     name: "Rathalos Vambraces β",
     type: "Arms",
     slots: [2, 1, 1],
@@ -2698,7 +2448,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 382,
     name: "Rathalos Coil β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2709,7 +2458,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 383,
     name: "Rathalos Greaves β",
     type: "Legs",
     slots: [2, 2, 1],
@@ -2720,7 +2468,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 384,
     name: "Xu Wu Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -2732,7 +2479,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 385,
     name: "Xu Wu Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -2744,7 +2490,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 386,
     name: "Xu Wu Vambraces α",
     type: "Arms",
     slots: [2, 1, 0],
@@ -2755,7 +2500,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 387,
     name: "Xu Wu Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -2767,7 +2511,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 388,
     name: "Xu Wu Greaves α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -2779,7 +2522,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 389,
     name: "Xu Wu Helm β",
     type: "Helm",
     slots: [2, 1, 0],
@@ -2790,7 +2532,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 390,
     name: "Xu Wu Mail β",
     type: "Body",
     slots: [1, 1, 0],
@@ -2801,7 +2542,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 391,
     name: "Xu Wu Vambraces β",
     type: "Arms",
     slots: [2, 2, 1],
@@ -2812,7 +2552,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 392,
     name: "Xu Wu Coil β",
     type: "Waist",
     slots: [2, 1, 1],
@@ -2824,7 +2563,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 393,
     name: "Xu Wu Greaves β",
     type: "Legs",
     slots: [2, 2, 1],
@@ -2835,7 +2573,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 394,
     name: "Dober Helm α",
     type: "Helm",
     slots: [3, 0, 0],
@@ -2845,7 +2582,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 395,
     name: "Dober Mail α",
     type: "Body",
     slots: [3, 2, 0],
@@ -2855,7 +2591,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 396,
     name: "Dober Vambraces α",
     type: "Arms",
     slots: [3, 0, 0],
@@ -2865,7 +2600,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 397,
     name: "Dober Coil α",
     type: "Waist",
     slots: [3, 1, 0],
@@ -2875,7 +2609,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 398,
     name: "Dober Greaves α",
     type: "Legs",
     slots: [2, 2, 0],
@@ -2885,7 +2618,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 399,
     name: "Damascus Helm α",
     type: "Helm",
     slots: [3, 1, 0],
@@ -2895,7 +2627,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 400,
     name: "Damascus Mail α",
     type: "Body",
     slots: [2, 2, 0],
@@ -2905,7 +2636,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 401,
     name: "Damascus Vambraces α",
     type: "Arms",
     slots: [3, 1, 0],
@@ -2915,7 +2645,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 402,
     name: "Damascus Coil α",
     type: "Waist",
     slots: [3, 2, 0],
@@ -2925,7 +2654,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 403,
     name: "Damascus Greaves α",
     type: "Legs",
     slots: [3, 0, 0],
@@ -2935,7 +2663,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 404,
     name: "Dahaad Shardhelm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -2947,7 +2674,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 405,
     name: "Dahaad Shardmail α",
     type: "Body",
     slots: [3, 1, 0],
@@ -2959,7 +2685,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 406,
     name: "Dahaad Shardbraces α",
     type: "Arms",
     slots: [0, 0, 0],
@@ -2971,7 +2696,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 407,
     name: "Dahaad Shardcoil α",
     type: "Waist",
     slots: [1, 1, 0],
@@ -2983,7 +2707,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 408,
     name: "Dahaad Shardgreaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -2995,7 +2718,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 409,
     name: "Dahaad Shardhelm β",
     type: "Helm",
     slots: [2, 2, 0],
@@ -3006,7 +2728,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 410,
     name: "Dahaad Shardmail β",
     type: "Body",
     slots: [3, 2, 0],
@@ -3018,7 +2739,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 411,
     name: "Dahaad Shardbraces β",
     type: "Arms",
     slots: [3, 0, 0],
@@ -3030,7 +2750,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 412,
     name: "Dahaad Shardcoil β",
     type: "Waist",
     slots: [1, 1, 1],
@@ -3042,7 +2761,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 413,
     name: "Dahaad Shardgreaves β",
     type: "Legs",
     slots: [2, 0, 0],
@@ -3053,7 +2771,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 414,
     name: "Rey Sandhelm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -3065,7 +2782,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 415,
     name: "Rey Sandmail α",
     type: "Body",
     slots: [1, 1, 0],
@@ -3077,7 +2793,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 416,
     name: "Rey Sandbraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -3089,7 +2804,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 417,
     name: "Rey Sandcoil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -3101,7 +2815,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 418,
     name: "Rey Sandgreaves α",
     type: "Legs",
     slots: [3, 0, 0],
@@ -3113,7 +2826,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 419,
     name: "Rey Sandhelm β",
     type: "Helm",
     slots: [3, 0, 0],
@@ -3125,7 +2837,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 420,
     name: "Rey Sandmail β",
     type: "Body",
     slots: [2, 1, 1],
@@ -3137,7 +2848,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 421,
     name: "Rey Sandbraces β",
     type: "Arms",
     slots: [3, 0, 0],
@@ -3148,7 +2858,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 422,
     name: "Rey Sandcoil β",
     type: "Waist",
     slots: [3, 1, 0],
@@ -3160,7 +2869,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 423,
     name: "Rey Sandgreaves β",
     type: "Legs",
     slots: [3, 1, 1],
@@ -3171,7 +2879,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 424,
     name: "Duna Wildhelm α",
     type: "Helm",
     slots: [2, 1, 0],
@@ -3183,7 +2890,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 425,
     name: "Duna Wildmail α",
     type: "Body",
     slots: [3, 0, 0],
@@ -3195,7 +2901,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 426,
     name: "Duna Wildbraces α",
     type: "Arms",
     slots: [2, 1, 0],
@@ -3207,7 +2912,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 427,
     name: "Duna Wildcoil α",
     type: "Waist",
     slots: [2, 1, 0],
@@ -3219,7 +2923,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 428,
     name: "Duna Wildgreaves α",
     type: "Legs",
     slots: [3, 0, 0],
@@ -3231,7 +2934,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 429,
     name: "Duna Wildhelm β",
     type: "Helm",
     slots: [3, 2, 0],
@@ -3243,7 +2945,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 430,
     name: "Duna Wildmail β",
     type: "Body",
     slots: [3, 1, 0],
@@ -3254,7 +2955,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 431,
     name: "Duna Wildbraces β",
     type: "Arms",
     slots: [3, 1, 1],
@@ -3266,7 +2966,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 432,
     name: "Duna Wildcoil β",
     type: "Waist",
     slots: [3, 1, 0],
@@ -3277,7 +2976,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 433,
     name: "Duna Wildgreaves β",
     type: "Legs",
     slots: [3, 1, 1],
@@ -3288,7 +2986,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 434,
     name: "Udra Mirehelm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -3300,7 +2997,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 435,
     name: "Udra Miremail α",
     type: "Body",
     slots: [1, 1, 0],
@@ -3312,7 +3008,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 436,
     name: "Udra Mirebraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -3324,7 +3019,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 437,
     name: "Udra Mirecoil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -3336,7 +3030,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 438,
     name: "Udra Miregreaves α",
     type: "Legs",
     slots: [3, 0, 0],
@@ -3348,7 +3041,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 439,
     name: "Udra Mirehelm β",
     type: "Helm",
     slots: [2, 2, 0],
@@ -3360,7 +3052,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 440,
     name: "Udra Miremail β",
     type: "Body",
     slots: [3, 1, 1],
@@ -3371,7 +3062,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 441,
     name: "Udra Mirebraces β",
     type: "Arms",
     slots: [3, 1, 0],
@@ -3383,7 +3073,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 442,
     name: "Udra Mirecoil β",
     type: "Waist",
     slots: [3, 0, 0],
@@ -3394,7 +3083,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 443,
     name: "Udra Miregreaves β",
     type: "Legs",
     slots: [3, 1, 0],
@@ -3406,7 +3094,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 444,
     name: "Gore Helm α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3418,7 +3105,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 445,
     name: "Gore Mail α",
     type: "Body",
     slots: [3, 0, 0],
@@ -3430,7 +3116,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 446,
     name: "Gore Vambraces α",
     type: "Arms",
     slots: [2, 1, 0],
@@ -3442,7 +3127,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 447,
     name: "Gore Coil α",
     type: "Waist",
     slots: [3, 1, 0],
@@ -3454,7 +3138,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 448,
     name: "Gore Greaves α",
     type: "Legs",
     slots: [3, 1, 0],
@@ -3466,7 +3149,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 449,
     name: "Gore Helm β",
     type: "Helm",
     slots: [3, 1, 0],
@@ -3478,7 +3160,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 450,
     name: "Gore Mail β",
     type: "Body",
     slots: [3, 1, 0],
@@ -3489,7 +3170,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 451,
     name: "Gore Vambraces β",
     type: "Arms",
     slots: [2, 2, 0],
@@ -3501,7 +3181,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 452,
     name: "Gore Coil β",
     type: "Waist",
     slots: [3, 2, 0],
@@ -3512,7 +3191,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 453,
     name: "Gore Greaves β",
     type: "Legs",
     slots: [3, 1, 1],
@@ -3524,7 +3202,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 454,
     name: "Arkvulcan Helm α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -3536,7 +3213,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 455,
     name: "Arkvulcan Mail α",
     type: "Body",
     slots: [2, 0, 0],
@@ -3548,7 +3224,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 456,
     name: "Arkvulcan Vambraces α",
     type: "Arms",
     slots: [2, 2, 0],
@@ -3560,7 +3235,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 457,
     name: "Arkvulcan Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -3572,7 +3246,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 458,
     name: "Arkvulcan Greaves α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -3584,7 +3257,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 459,
     name: "Arkvulcan Helm β",
     type: "Helm",
     slots: [3, 2, 1],
@@ -3595,7 +3267,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 460,
     name: "Arkvulcan Mail β",
     type: "Body",
     slots: [3, 2, 0],
@@ -3606,7 +3277,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 461,
     name: "Arkvulcan Vambraces β",
     type: "Arms",
     slots: [2, 2, 1],
@@ -3617,7 +3287,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 462,
     name: "Arkvulcan Coil β",
     type: "Waist",
     slots: [1, 1, 0],
@@ -3629,7 +3298,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 463,
     name: "Arkvulcan Greaves β",
     type: "Legs",
     slots: [3, 1, 0],
@@ -3641,7 +3309,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 464,
     name: "G. Arkveld Helm α",
     type: "Helm",
     slots: [1, 1, 0],
@@ -3653,7 +3320,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 465,
     name: "G. Arkveld Mail α",
     type: "Body",
     slots: [0, 0, 0],
@@ -3665,7 +3331,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 466,
     name: "G. Arkveld Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -3677,7 +3342,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 467,
     name: "G. Arkveld Coil α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -3689,7 +3353,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 468,
     name: "G. Arkveld Greaves α",
     type: "Legs",
     slots: [0, 0, 0],
@@ -3701,7 +3364,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 469,
     name: "G. Arkveld Helm β",
     type: "Helm",
     slots: [3, 1, 0],
@@ -3713,7 +3375,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 470,
     name: "G. Arkveld Mail β",
     type: "Body",
     slots: [3, 0, 0],
@@ -3725,7 +3386,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 471,
     name: "G. Arkveld Vambraces β",
     type: "Arms",
     slots: [1, 1, 1],
@@ -3736,7 +3396,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 472,
     name: "G. Arkveld Coil β",
     type: "Waist",
     slots: [2, 1, 0],
@@ -3747,7 +3406,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 473,
     name: "G. Arkveld Greaves β",
     type: "Legs",
     slots: [2, 1, 0],
@@ -3759,7 +3417,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 474,
     name: "Kunafa Headgear α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3770,7 +3427,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 475,
     name: "Kunafa Cloak α",
     type: "Body",
     slots: [2, 0, 0],
@@ -3781,7 +3437,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 476,
     name: "Kunafa Sash α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -3792,7 +3447,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 477,
     name: "Kunafa Chaps α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -3803,7 +3457,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 478,
     name: "Azuz Headdress α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3813,7 +3466,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 479,
     name: "Azuz Apron α",
     type: "Body",
     slots: [1, 1, 0],
@@ -3823,7 +3475,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 480,
     name: "Azuz Pants α",
     type: "Legs",
     slots: [2, 1, 1],
@@ -3833,7 +3484,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 481,
     name: "Suja Sash α",
     type: "Waist",
     slots: [2, 1, 1],
@@ -3843,7 +3493,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 482,
     name: "Sild Hood α",
     type: "Helm",
     slots: [2, 1, 1],
@@ -3853,7 +3502,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 483,
     name: "Sild Coat α",
     type: "Body",
     slots: [2, 0, 0],
@@ -3863,7 +3511,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 484,
     name: "Death Stench Brain α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3874,7 +3521,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 485,
     name: "Death Stench Muscle α",
     type: "Body",
     slots: [2, 0, 0],
@@ -3885,7 +3531,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 486,
     name: "Death Stench Grip α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -3896,7 +3541,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 487,
     name: "Death Stench Bowels α",
     type: "Waist",
     slots: [2, 1, 0],
@@ -3907,7 +3551,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 488,
     name: "Death Stench Heel α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -3918,7 +3561,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 489,
     name: "Butterfly Vertex α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3930,7 +3572,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 490,
     name: "Butterfly Thorax α",
     type: "Body",
     slots: [2, 0, 0],
@@ -3942,7 +3583,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 491,
     name: "Butterfly Brachia α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -3954,7 +3594,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 492,
     name: "Butterfly Elytra α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -3966,7 +3605,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 493,
     name: "Butterfly Crura α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -3978,7 +3616,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 494,
     name: "King Beetle Vertex α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -3990,7 +3627,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 495,
     name: "King Beetle Thorax α",
     type: "Body",
     slots: [2, 0, 0],
@@ -4002,7 +3638,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 496,
     name: "King Beetle Brachia α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4014,7 +3649,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 497,
     name: "King Beetle Elytra α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4026,7 +3660,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 498,
     name: "King Beetle Crura α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4038,7 +3671,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 499,
     name: "High Metal Helm α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -4049,7 +3681,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 500,
     name: "High Metal Mail α",
     type: "Body",
     slots: [2, 0, 0],
@@ -4060,7 +3691,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 501,
     name: "High Metal Braces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4071,7 +3701,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 502,
     name: "High Metal Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4082,7 +3711,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 503,
     name: "High Metal Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4093,7 +3721,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 504,
     name: "Battle Helm α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -4103,7 +3730,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 505,
     name: "Battle Mail α",
     type: "Body",
     slots: [2, 0, 0],
@@ -4114,7 +3740,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 506,
     name: "Battle Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4124,7 +3749,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 507,
     name: "Battle Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4135,7 +3759,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 508,
     name: "Battle Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4146,7 +3769,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 509,
     name: "Melahoa Hat α",
     type: "Helm",
     slots: [2, 0, 0],
@@ -4157,7 +3779,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 510,
     name: "Melahoa Jacket α",
     type: "Body",
     slots: [2, 0, 0],
@@ -4167,7 +3788,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 511,
     name: "Melahoa Branch α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4178,7 +3798,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 512,
     name: "Melahoa Folia α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4189,7 +3808,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 513,
     name: "Melahoa Roots α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4199,7 +3817,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 519,
     name: "Artian Helm α",
     type: "Helm",
     slots: [2, 1, 0],
@@ -4210,7 +3827,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 520,
     name: "Artian Mail α",
     type: "Body",
     slots: [2, 1, 1],
@@ -4221,7 +3837,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 521,
     name: "Artian Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4232,7 +3847,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 522,
     name: "Artian Coil α",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4243,7 +3857,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 523,
     name: "Artian Greaves α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4254,7 +3867,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 524,
     name: "Gajau Boots α",
     type: "Legs",
     slots: [1, 1, 1],
@@ -4265,7 +3877,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 526,
     name: "Commission Helm α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -4275,7 +3886,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 527,
     name: "Commission Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -4285,7 +3895,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 528,
     name: "Commission Vambraces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -4295,7 +3904,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 529,
     name: "Commission Coil α",
     type: "Waist",
     slots: [1, 0, 0],
@@ -4305,7 +3913,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 530,
     name: "Commission Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -4315,7 +3922,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 531,
     name: "Mimiphyta α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -4326,7 +3932,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 514,
     name: "Guild Ace Earrings α",
     type: "Helm",
     slots: [3, 0, 0],
@@ -4337,7 +3942,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 515,
     name: "Guild Ace Mail α",
     type: "Body",
     slots: [3, 0, 0],
@@ -4348,7 +3952,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 516,
     name: "Guild Ace Vambraces α",
     type: "Arms",
     slots: [3, 0, 0],
@@ -4359,7 +3962,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 517,
     name: "Guild Ace Coil α",
     type: "Waist",
     slots: [3, 0, 0],
@@ -4370,7 +3972,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 518,
     name: "Guild Ace Boots α",
     type: "Legs",
     slots: [3, 0, 0],
@@ -4381,7 +3982,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 38,
     name: "Gajau Boots",
     type: "Legs",
     slots: [0, 0, 0],
@@ -4391,7 +3991,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 525,
     name: "Dragonking Eyepatch α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -4400,7 +3999,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 532,
     name: "Expedition Headgear α",
     type: "Helm",
     slots: [1, 0, 0],
@@ -4410,7 +4008,6 @@ export const Armors: Armor[] = [
     },
   },
   {
-    id: 1001,
     name: "Numinous Crown α",
     type: "Helm",
     slots: [3, 2, 0],
@@ -4422,7 +4019,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Pulse",
   },
   {
-    id: 1002,
     name: "Numinous Shroud α",
     type: "Body",
     slots: [1, 0, 0],
@@ -4434,7 +4030,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Pulse",
   },
   {
-    id: 1003,
     name: "Numinous Vambraces α",
     type: "Arms",
     slots: [2, 0, 0],
@@ -4446,7 +4041,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Pulse",
   },
   {
-    id: 1004,
     name: "Numinous Overlay α",
     type: "Waist",
     slots: [0, 0, 0],
@@ -4458,7 +4052,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Pulse",
   },
   {
-    id: 1005,
     name: "Numinous Greaves α",
     type: "Legs",
     slots: [2, 1, 0],
@@ -4471,7 +4064,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Pulse",
   },
   {
-    id: 1006,
     name: "Numinous Crown β",
     type: "Helm",
     slots: [3, 2, 1],
@@ -4483,7 +4075,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Protection",
   },
   {
-    id: 1007,
     name: "Numinous Shroud β",
     type: "Body",
     slots: [3, 0, 0],
@@ -4492,7 +4083,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Protection",
   },
   {
-    id: 1008,
     name: "Numinous Vambraces β",
     type: "Arms",
     slots: [3, 1, 0],
@@ -4503,7 +4093,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Protection",
   },
   {
-    id: 1009,
     name: "Numinous Overlay β",
     type: "Waist",
     slots: [2, 0, 0],
@@ -4515,7 +4104,6 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Protection",
   },
   {
-    id: 1010,
     name: "Numinous Greaves β",
     type: "Legs",
     slots: [3, 2, 0],
@@ -4528,21 +4116,18 @@ export const Armors: Armor[] = [
     groupSkill: "Guardian's Protection",
   },
   {
-    id: "goe_a",
     name: "Gourmand's Earring α",
     type: "Helm",
     slots: [1, 0, 0],
     skills: { "Speed Eating": 2, "Free Meal": 2 },
   },
   {
-    id: "eod_a",
     name: "Earrings of Dedication α",
     type: "Helm",
     slots: [2, 0, 0],
     skills: { "Wide-Range": 4 },
   },
   {
-    id: 1101,
     name: "Mizutsune Helm α",
     type: "Helm",
     slots: [3, 0, 0],
@@ -4554,7 +4139,6 @@ export const Armors: Armor[] = [
     groupSkill: "Fortifying Pelt",
   },
   {
-    id: 1102,
     name: "Mizutsune Mail α",
     type: "Body",
     slots: [1, 0, 0],
@@ -4566,7 +4150,6 @@ export const Armors: Armor[] = [
     groupSkill: "Fortifying Pelt",
   },
   {
-    id: 1103,
     name: "Mizutsune Braces α",
     type: "Arms",
     slots: [1, 0, 0],
@@ -4578,7 +4161,6 @@ export const Armors: Armor[] = [
     groupSkill: "Fortifying Pelt",
   },
   {
-    id: 1104,
     name: "Mizutsune Coil α",
     type: "Waist",
     slots: [2, 1, 0],
@@ -4590,7 +4172,6 @@ export const Armors: Armor[] = [
     groupSkill: "Fortifying Pelt",
   },
   {
-    id: 1105,
     name: "Mizutsune Greaves α",
     type: "Legs",
     slots: [1, 0, 0],
@@ -4602,7 +4183,6 @@ export const Armors: Armor[] = [
     groupSkill: "Fortifying Pelt",
   },
   {
-    id: 1106,
     name: "Mizutsune Helm β",
     type: "Helm",
     slots: [3, 2, 0],
@@ -4613,7 +4193,6 @@ export const Armors: Armor[] = [
     groupSkill: "Alluring Pelt",
   },
   {
-    id: 1107,
     name: "Mizutsune Mail β",
     type: "Body",
     slots: [2, 2, 0],
@@ -4625,7 +4204,6 @@ export const Armors: Armor[] = [
     groupSkill: "Alluring Pelt",
   },
   {
-    id: 1108,
     name: "Mizutsune Braces β",
     type: "Arms",
     slots: [3, 0, 0],
@@ -4637,7 +4215,6 @@ export const Armors: Armor[] = [
     groupSkill: "Alluring Pelt",
   },
   {
-    id: 1109,
     name: "Mizutsune Coil β",
     type: "Waist",
     slots: [3, 2, 1],
@@ -4646,7 +4223,6 @@ export const Armors: Armor[] = [
     groupSkill: "Alluring Pelt",
   },
   {
-    id: 1110,
     name: "Mizutsune Greaves β",
     type: "Legs",
     slots: [3, 0, 0],
@@ -4655,7 +4231,6 @@ export const Armors: Armor[] = [
     groupSkill: "Alluring Pelt",
   },
   {
-    id: "skt_h_a",
     name: "Sakuratide Headgear α",
     type: "Helm",
     slots: [0, 0, 0],
@@ -4667,7 +4242,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: "skt_b_a",
     name: "Sakuratide Robe α",
     type: "Body",
     slots: [2, 0, 0],
@@ -4679,7 +4253,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: "skt_a_a",
     name: "Sakuratide Bracers α",
     type: "Arms",
     slots: [2, 1, 0],
@@ -4691,7 +4264,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: "skt_w_a",
     name: "Sakuratide Obi α",
     type: "Waist",
     slots: [2, 1, 0],
@@ -4703,7 +4275,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: "skt_l_a",
     name: "Sakuratide Hakama α",
     type: "Legs",
     slots: [2, 0, 0],
@@ -4715,7 +4286,6 @@ export const Armors: Armor[] = [
     groupSkill: "Festival Spirit",
   },
   {
-    id: 1201,
     name: "Rey Sandhelm γ",
     type: "Helm",
     slots: [3, 0, 0],
@@ -4728,7 +4298,6 @@ export const Armors: Armor[] = [
     groupSkill: "Lord's Soul",
   },
   {
-    id: 1202,
     name: "Rey Sandmail γ",
     type: "Body",
     slots: [1, 0, 0],
@@ -4737,7 +4306,6 @@ export const Armors: Armor[] = [
     groupSkill: "Lord's Soul",
   },
   {
-    id: 1203,
     name: "Rey Sandbraces γ",
     type: "Arms",
     slots: [3, 3, 0],
@@ -4746,7 +4314,6 @@ export const Armors: Armor[] = [
     groupSkill: "Lord's Soul",
   },
   {
-    id: 1204,
     name: "Rey Sandcoil γ",
     type: "Waist",
     slots: [0, 0, 0],
@@ -4755,7 +4322,6 @@ export const Armors: Armor[] = [
     groupSkill: "Lord's Soul",
   },
   {
-    id: 1205,
     name: "Rey Sandgreaves γ",
     type: "Legs",
     slots: [3, 0, 0],
@@ -4764,42 +4330,36 @@ export const Armors: Armor[] = [
     groupSkill: "Lord's Soul",
   },
   {
-    id: "stsp_a",
     name: "Strategist Spectacles α",
     type: "Helm",
     slots: [2, 1, 1],
     skills: { Geologist: 3 },
   },
   {
-    id: "sqg_a",
     name: "Square Glasses α",
     type: "Helm",
     slots: [1, 1, 0],
     skills: { Botanist: 4, Outdoorsman: 1 },
   },
   {
-    id: "sep_a",
     name: "Sealed Eyepatch α",
     type: "Helm",
     slots: [3, 3, 0],
     skills: { "Fire Resistance": 2 },
   },
   {
-    id: "shsh_a",
     name: "Shadow Shades α",
     type: "Helm",
     slots: [3, 0, 0],
     skills: { "Stun Resistance": 3, Blindsider: 1 },
   },
   {
-    id: "rogl_a",
     name: "Round Glasses α",
     type: "Helm",
     slots: [1, 1, 0],
     skills: { "Blight Resistance": 3 },
   },
   {
-    id: "akuma_h",
     name: "Demon Prayer Beads α",
     type: "Helm",
     slots: [2, 2, 1],
@@ -4807,7 +4367,6 @@ export const Armors: Armor[] = [
     groupSkill: "Master of the Fist",
   },
   {
-    id: "akuma_b",
     name: "Demon Garb α",
     type: "Body",
     slots: [3, 1, 0],
@@ -4815,7 +4374,6 @@ export const Armors: Armor[] = [
     groupSkill: "Master of the Fist",
   },
   {
-    id: "akuma_a",
     name: "Demon Arm Wraps α",
     type: "Arms",
     slots: [2, 2, 1],
@@ -4823,7 +4381,6 @@ export const Armors: Armor[] = [
     groupSkill: "Master of the Fist",
   },
   {
-    id: "akuma_w",
     name: "Demon Belt α",
     type: "Waist",
     slots: [3, 1, 0],
@@ -4831,11 +4388,288 @@ export const Armors: Armor[] = [
     groupSkill: "Master of the Fist",
   },
   {
-    id: "akuma_l",
     name: "Demon Pants α",
     type: "Legs",
     slots: [2, 2, 1],
     skills: { Partbreaker: 1 },
     groupSkill: "Master of the Fist",
+  },
+  {
+    name: "Lagiacrus Helm α",
+    type: "Helm",
+    slots: [2, 1, 0],
+    skills: {
+      "Maximum Might": 2,
+      "Latent Power": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Flexible Leathercraft",
+  },
+  {
+    name: "Lagiacrus Mail α",
+    type: "Body",
+    slots: [2, 1, 0],
+    skills: {
+      "Thunder Resistance": 2,
+      "Weakness Exploit": 1,
+      "Stamina Surge": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Flexible Leathercraft",
+  },
+  {
+    name: "Lagiacrus Braces α",
+    type: "Arms",
+    slots: [2, 0, 0],
+    skills: {
+      "Stamina Surge": 2,
+      "Weakness Exploit": 1,
+      "Aquatic/Oilsilt Mobility": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Flexible Leathercraft",
+  },
+  {
+    name: "Lagiacrus Coil α",
+    type: "Waist",
+    slots: [2, 1, 1],
+    skills: {
+      "Weakness Exploit": 1,
+      "Maximum Might": 1,
+      "Aquatic/Oilsilt Mobility": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Flexible Leathercraft",
+  },
+  {
+    name: "Lagiacrus Greaves α",
+    type: "Legs",
+    slots: [0, 0, 0],
+    skills: {
+      "Weakness Exploit": 2,
+      "Latent Power": 1,
+      "Thunder Resistance": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Flexible Leathercraft",
+  },
+  {
+    name: "Lagiacrus Helm β",
+    type: "Helm",
+    slots: [3, 2, 1],
+    skills: {
+      "Maximum Might": 2,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Buttery Leathercraft",
+  },
+  {
+    name: "Lagiacrus Mail β",
+    type: "Body",
+    slots: [2, 2, 1],
+    skills: {
+      "Weakness Exploit": 1,
+      "Stamina Surge": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Buttery Leathercraft",
+  },
+  {
+    name: "Lagiacrus Braces β",
+    type: "Arms",
+    slots: [3, 0, 0],
+    skills: {
+      "Stamina Surge": 2,
+      "Weakness Exploit": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Buttery Leathercraft",
+  },
+  {
+    name: "Lagiacrus Coil β",
+    type: "Waist",
+    slots: [2, 2, 1],
+    skills: {
+      "Weakness Exploit": 1,
+      "Maximum Might": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Buttery Leathercraft",
+  },
+  {
+    name: "Lagiacrus Greaves β",
+    type: "Legs",
+    slots: [1, 0, 0],
+    skills: {
+      "Weakness Exploit": 2,
+      "Latent Power": 1,
+    },
+    seriesSkill: "Leviathan's Fury",
+    groupSkill: "Buttery Leathercraft",
+  },
+  {
+    name: "Regios Helm α",
+    type: "Helm",
+    slots: [3, 0, 0],
+    skills: {
+      "Adrenaline Rush": 1,
+      Counterstrike: 1,
+      "Bleeding Resistance": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scaling Prowess",
+  },
+  {
+    name: "Regios Mail α",
+    type: "Body",
+    slots: [1, 0, 0],
+    skills: {
+      "Evade Window": 2,
+      Agitator: 1,
+      Counterstrike: 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scaling Prowess",
+  },
+  {
+    name: "Regios Vambraces α",
+    type: "Arms",
+    slots: [2, 0, 0],
+    skills: {
+      "Adrenaline Rush": 2,
+      "Evade Extender": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scaling Prowess",
+  },
+  {
+    name: "Regios Coil α",
+    type: "Waist",
+    slots: [2, 0, 0],
+    skills: {
+      "Evade Window": 2,
+      Agitator: 1,
+      "Bleeding Resistance": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scaling Prowess",
+  },
+  {
+    name: "Regios Greaves α",
+    type: "Legs",
+    slots: [0, 0, 0],
+    skills: {
+      "Adrenaline Rush": 2,
+      Agitator: 1,
+      "Bleeding Resistance": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scaling Prowess",
+  },
+  {
+    name: "Regios Helm β",
+    type: "Helm",
+    slots: [3, 1, 1],
+    skills: {
+      "Adrenaline Rush": 1,
+      "Bleeding Resistance": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scale Layering",
+  },
+  {
+    name: "Regios Mail β",
+    type: "Body",
+    slots: [2, 1, 0],
+    skills: {
+      "Evade Window": 2,
+      Agitator: 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scale Layering",
+  },
+  {
+    name: "Regios Vambraces β",
+    type: "Arms",
+    slots: [3, 1, 0],
+    skills: {
+      "Adrenaline Rush": 2,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scale Layering",
+  },
+  {
+    name: "Regios Coil β",
+    type: "Waist",
+    slots: [3, 1, 1],
+    skills: {
+      Agitator: 1,
+      "Evade Window": 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scale Layering",
+  },
+  {
+    name: "Regios Greaves β",
+    type: "Legs",
+    slots: [1, 0, 0],
+    skills: {
+      "Adrenaline Rush": 2,
+      Agitator: 1,
+    },
+    seriesSkill: "Seregios's Tenacity",
+    groupSkill: "Scale Layering",
+  },
+  {
+    name: "Hawkheart Jacket α",
+    type: "Body",
+    slots: [1, 0, 0],
+    skills: {
+      "Quick Sheathe": 2,
+      Constitution: 4,
+    },
+  },
+  {
+    name: "Duna Wildhelm γ",
+    type: "Helm",
+    slots: [2, 2, 0],
+    skills: {
+      "Peak Performance": 2,
+      Earplugs: 1,
+    },
+    seriesSkill: "Uth Duna's Cover",
+    groupSkill: "Lord's Soul",
+  },
+  {
+    name: "Duna Wildmail γ",
+    type: "Body",
+    slots: [0, 0, 0],
+    skills: { "Peak Performance": 3, Earplugs: 2 },
+    seriesSkill: "Uth Duna's Cover",
+    groupSkill: "Lord's Soul",
+  },
+  {
+    name: "Duna Wildbraces γ",
+    type: "Arms",
+    slots: [2, 0, 0],
+    skills: { "Tool Specialist": 3, Agitator: 1 },
+    seriesSkill: "Uth Duna's Cover",
+    groupSkill: "Lord's Soul",
+  },
+  {
+    name: "Duna Wildcoil γ",
+    type: "Waist",
+    slots: [3, 3, 0],
+    skills: { "Tool Specialist": 2 },
+    seriesSkill: "Uth Duna's Cover",
+    groupSkill: "Lord's Soul",
+  },
+  {
+    name: "Duna Wildgreaves γ",
+    type: "Legs",
+    slots: [3, 1, 1],
+    skills: { "Quick Sheathe": 3, Agitator: 1 },
+    seriesSkill: "Uth Duna's Cover",
+    groupSkill: "Lord's Soul",
   },
 ];

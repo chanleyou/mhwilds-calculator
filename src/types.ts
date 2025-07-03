@@ -403,7 +403,6 @@ export interface Equip {
 }
 
 export type Armor = Equip & {
-  id: number | string;
   type: ArmorType;
   slots: [SlotLevel, SlotLevel, SlotLevel];
   groupSkill?: SkillName;

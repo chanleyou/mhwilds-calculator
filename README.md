@@ -10,6 +10,21 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 ## Updates
 
+## Title Update 2
+
+In progress...
+
+- [ ] Long Sword
+- [ ] Sword and Shield
+- [ ] Dual Blades
+- [ ] Light Hammer
+- [ ] Hunting Horn
+- [ ] Lance
+- [ ] Switch Axe
+- [ ] Charge Blade
+- [ ] Seregios
+- [ ] Lagiacrus
+
 ### Ver. 1.011
 
 - [x] Hammer

@@ -148,7 +148,7 @@ export const ArmorPickerDialog = ({
             <tbody>
               {filteredOptions.map((a) => (
                 <TableRow
-                  key={a.id}
+                  key={a.name}
                   className={cn(a.name === value?.name && "bg-content-alt")}
                   onClick={() => {
                     setValue(a);
