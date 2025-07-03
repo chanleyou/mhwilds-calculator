@@ -75,14 +75,14 @@ export const HitzoneDialog = () => {
             <thead>
               <TableHeadRow>
                 <TableCell className={cellCn}>Name</TableCell>
-                <TableCell className={cellCn}>Slash</TableCell>
-                <TableCell className={cellCn}>Blunt</TableCell>
-                <TableCell className={cellCn}>Shot</TableCell>
-                <TableCell className={cellCn}>Fire</TableCell>
-                <TableCell className={cellCn}>Water</TableCell>
-                <TableCell className={cellCn}>Thunder</TableCell>
-                <TableCell className={cellCn}>Ice</TableCell>
-                <TableCell className={cellCn}>Dragon</TableCell>
+                <TableCell className={cellCn}>🔪</TableCell>
+                <TableCell className={cellCn}>🔨</TableCell>
+                <TableCell className={cellCn}>🏹</TableCell>
+                <TableCell className={cellCn}>🔥</TableCell>
+                <TableCell className={cellCn}>🌊</TableCell>
+                <TableCell className={cellCn}>⚡</TableCell>
+                <TableCell className={cellCn}>🧊</TableCell>
+                <TableCell className={cellCn}>🐲</TableCell>
               </TableHeadRow>
             </thead>
             <tbody>

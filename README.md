@@ -14,6 +14,9 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 In progress...
 
+- [x] Weapons
+- [x] Armor
+- [x] Hitzones
 - [ ] Long Sword
 - [ ] Sword and Shield
 - [ ] Dual Blades
@@ -22,8 +25,7 @@ In progress...
 - [ ] Lance
 - [ ] Switch Axe
 - [ ] Charge Blade
-- [ ] Seregios
-- [ ] Lagiacrus
+- [ ] Convert Thunder Resistance
 
 ### Ver. 1.011
 
