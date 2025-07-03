@@ -10,21 +10,13 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 ## Updates
 
-## Title Update 2
-
-In progress...
+### Title Update 2
 
 - [x] Weapons
 - [x] Armor
 - [x] Hitzones
-- [ ] Long Sword
-- [ ] Sword and Shield
-- [ ] Dual Blades
-- [ ] Light Hammer
-- [ ] Hunting Horn
-- [ ] Lance
-- [ ] Switch Axe
-- [ ] Charge Blade
+- [x] Motion Value Changes
+  - [ ] Testing
 - [ ] Convert Thunder Resistance
 
 ### Ver. 1.011

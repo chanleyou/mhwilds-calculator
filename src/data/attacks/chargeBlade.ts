@@ -7,11 +7,11 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Sword: Weak Slash",
-    mv: 12,
+    mv: 15,
   },
   {
     name: "Sword: Return Stroke",
-    mv: 15,
+    mv: 18,
   },
   {
     name: "Sword: Roundslash",
@@ -23,7 +23,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Sword: Charged Rising Slash",
-    mv: 13,
+    mv: 15,
   },
   {
     name: "Sword: Charged Double Slash 1",
@@ -37,7 +37,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Sword: Shield Thrust 1",
-    mv: 12,
+    mv: 15,
   },
   {
     name: "Sword: Shield Thrust 2",
@@ -49,7 +49,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Sword: Condensed Elemental Slash Impact Phial",
-    mv: 23,
+    mv: 25,
     eleMul: 0,
     cantCrit: true,
     ignoreSharpness: true,
@@ -98,12 +98,12 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Axe: Elemental Discharge I",
-    mv: 53,
+    mv: 51,
     cbAxe: true,
   },
   {
     name: "Axe: Elemental Discharge II 1",
-    mv: 35,
+    mv: 25,
     cbAxe: true,
   },
   {
@@ -113,27 +113,27 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Axe: Amped Elemental Discharge",
-    mv: 65,
+    mv: 68,
     cbAxe: true,
   },
   {
     name: "Axe: Amped Elemental Discharge Follow-up",
-    mv: 72,
+    mv: 78,
     cbAxe: true,
   },
   {
     name: "Axe: Super Amped Elemental Discharge 1",
-    mv: 12,
+    mv: 16,
     cbAxe: true,
   },
   {
     name: "Axe: Super Amped Elemental Discharge 2",
-    mv: 77,
+    mv: 78,
     cbAxe: true,
   },
   {
     name: "Axe: Super Amped Elemental Discharge 3",
-    mv: 36,
+    mv: 45,
     cbAxe: true,
   },
   {
@@ -143,7 +143,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Power Axe Tick",
-    mv: 14,
+    mv: 10,
     eleMul: 0.2,
     cbAxe: true,
   },
@@ -159,7 +159,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Impact Phial (ED)",
-    mv: 10,
+    mv: 12,
     eleMul: 0,
     cantCrit: true,
     ignoreSharpness: true,
@@ -179,16 +179,6 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Impact Phial (AED)",
-    mv: 12,
-    eleMul: 0,
-    cantCrit: true,
-    ignoreSharpness: true,
-    ignoreHzv: true,
-    cbPhial: true,
-    artilleryAmmo: true,
-  },
-  {
-    name: "Overcharged Impact Phial (AED)",
     mv: 16,
     eleMul: 0,
     cantCrit: true,
@@ -198,8 +188,18 @@ export const ChargeBladeAttacks: Attack[] = [
     artilleryAmmo: true,
   },
   {
+    name: "Overcharged Impact Phial (AED)",
+    mv: 20,
+    eleMul: 0,
+    cantCrit: true,
+    ignoreSharpness: true,
+    ignoreHzv: true,
+    cbPhial: true,
+    artilleryAmmo: true,
+  },
+  {
     name: "Impact Phial (SAED)",
-    mv: 23,
+    mv: 28,
     eleMul: 0,
     cantCrit: true,
     ignoreSharpness: true,
@@ -209,7 +209,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Overcharged Impact Phial (SAED)",
-    mv: 28,
+    mv: 30,
     eleMul: 0,
     cantCrit: true,
     ignoreSharpness: true,
