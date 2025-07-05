@@ -14,6 +14,7 @@ The calculator is currently in maintenance mode, aka I've stopped actively worki
 
 - [x] Weapons
 - [x] Armor
+- [x] Charms
 - [x] Hitzones
 - [x] Motion Value Changes
   - [ ] Testing
