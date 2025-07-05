@@ -75,7 +75,7 @@ export const CharmPickerDialog = ({
           {filteredOptions.map((c) => (
             <div
               className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
-              key={c.id}
+              key={c.name}
               onClick={() => {
                 setValue(c);
                 setOpen(false);

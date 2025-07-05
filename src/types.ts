@@ -415,9 +415,7 @@ export type Decoration = Equip & {
   type: "Weapon" | "Equipment";
 };
 
-export type Charm = Equip & {
-  id: string | number;
-};
+export type Charm = Equip & {};
 
 export type Slots = [Decoration?, Decoration?, Decoration?];
 
