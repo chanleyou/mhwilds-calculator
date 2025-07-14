@@ -51,6 +51,10 @@ Airborne is currently only supported for Insect Glaive attacks (and a few others
 
 A lot of random attacks are affected by Airborne in Wilds and if anyone has the data for this it'd be a great help.
 
+## Switch Axe Element Phial Explosions
+
+Switch Axe Unbridled Slash and Full Release Slash Element Phial Explosions still scale weirdly with bonus Element (which is a bug that has existed since release, separate from the Element Phial buffs the weapon received in TU2). If anyone has more data on this please let me know.
+
 ### Mind's Eye
 
 The innate Mind's Eye damage bonus from Charge Blade Sword Boost and Switch Axe Sword Mode on hitzones < 45 isn't supported yet (the actual skill itself works).
