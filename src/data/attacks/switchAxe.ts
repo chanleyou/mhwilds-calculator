@@ -13,9 +13,15 @@ export const SwitchAxeAttacks = [
   { name: "Axe: Follow-up Heavy Slam 2", mv: 90, saType: "Axe" },
   { name: "Axe: Follow-up Morph Slash", mv: 123, saType: "Sword", morph: true },
   {
-    name: "Axe: Follow-up Morph Slash Phial Explosion",
+    name: "Axe: Follow-up Morph Slash Explosion (Power Phial)",
     mv: 120,
     eleMul: 0.35,
+    saType: "Sword",
+  },
+  {
+    name: "Axe: Follow-up Morph Slash Explosion (Element Phial)",
+    mv: 120,
+    eleMul: 0.8,
     saType: "Sword",
   },
   // {
@@ -66,9 +72,14 @@ export const SwitchAxeAttacks = [
   { name: "Sword: Morph Double Slash 1", mv: 30, saType: "Axe", morph: true },
   { name: "Sword: Morph Double Slash 2", mv: 50, saType: "Axe", morph: true },
   {
-    name: "Sword: Amped State Phial Explosion",
+    name: "Sword: Amped State Phial (Power Phial)",
     mv: 12,
     eleMul: 0.35,
+    saType: "Sword",
+  },
+  {
+    name: "Sword: Amped State Phial (Element Phial)",
+    mv: 12,
     saType: "Sword",
   },
   // {
@@ -79,9 +90,15 @@ export const SwitchAxeAttacks = [
   // },
   { name: "Unbridled Slash", mv: 70, saType: "Sword" },
   {
-    name: "Unbridled Slash Phial Explosion",
+    name: "Unbridled Slash Explosion (Power Phial)",
     mv: 17,
     eleMul: 0.35,
+    saType: "Sword",
+  },
+  {
+    name: "Unbridled Slash Explosion (Element Phial)",
+    mv: 17,
+    eleMul: 0.8,
     saType: "Sword",
   },
   // {
@@ -94,30 +111,30 @@ export const SwitchAxeAttacks = [
   { name: "Full Release Slash 1", mv: 50, saType: "Sword" },
   { name: "Full Release Slash 2", mv: 82, saType: "Sword" },
   {
-    name: "Full Release Slash Phial Explosion 1",
+    name: "Full Release Slash Explosion 1 (Power Phial)",
     mv: 20,
     eleMul: 0.35,
     saType: "Sword",
     hits: 3,
   },
   {
-    name: "Full Release Slash Phial Explosion 2",
+    name: "Full Release Slash Explosion 1 (Element Phial)",
+    mv: 20,
+    eleMul: 0.8,
+    saType: "Sword",
+    hits: 3,
+  },
+  {
+    name: "Full Release Slash Explosion 2 (Power Phial)",
     mv: 35,
     eleMul: 0.35,
     saType: "Sword",
     hits: 5,
   },
   {
-    name: "Full Release Slash Element Phial Explosion 1",
-    mv: 20,
-    eleMul: 0.45,
-    saType: "Sword",
-    hits: 3,
-  },
-  {
-    name: "Full Release Slash Element Phial Explosion 2",
+    name: "Full Release Slash Explosion 2 (Element Phial)",
     mv: 35,
-    eleMul: 0.45,
+    eleMul: 0.8,
     saType: "Sword",
     hits: 5,
   },
