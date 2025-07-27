@@ -36,7 +36,7 @@ export const DialogContent = ({
           )}
         >
           {(title || setOpen) && (
-            <div className="flex items-start justify-between gap-2">
+            <div className="mb-2 flex items-start justify-between gap-2">
               <DialogTitle asChild>
                 <h1>{title}</h1>
               </DialogTitle>

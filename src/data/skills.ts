@@ -55,6 +55,7 @@ export const UnsupportedWeaponSkills: Record<SkillName, Skill> = {
   "Critical Status": skill(3),
   "Convert Thunder Resistance": skill(1),
   "Exhaust Functionality": skill(1),
+  "Evading Reload": skill(1),
   Focus: skill(3),
   Guard: skill(3),
   "Guard Up": skill(3),
@@ -188,6 +189,12 @@ export const WeaponSkills: Record<SkillName, Skill | SkillWeaponGroup> = {
         },
       },
     ],
+  },
+  "Crackling Cornpopper": {
+    toggle: true,
+    levels: {
+      1: { name: "Crackling Cornpopper 1", cornpopperMul: 1.35 },
+    },
   },
   ["Critical Boost"]: {
     levels: {

@@ -234,6 +234,10 @@ export const calculateRawHit = (
   if (atk.shelling) {
     multipliers.push(buffs.Artillery?.artilleryShellAttackMul);
   }
+  if (atk.shelling?.type && !atk.name.includes("Wyvern Fire")) {
+    multipliers.push(buffs["Crackling Cornpopper"]?.cornpopperMul);
+  }
+
   if (atk.artilleryAmmo) {
     multipliers.push(buffs.Artillery?.artilleryAmmoAttackMul);
   }

@@ -234,6 +234,7 @@ export type Buff = BuffValues & {
   morphAttackMul?: number;
   sharpnesses?: Sharpness[];
   bludgeonerAttackMul?: number;
+  cornpopperMul?: number;
 };
 
 export type BuffGroup = {

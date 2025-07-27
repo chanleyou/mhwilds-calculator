@@ -425,4 +425,16 @@ export const Gunlances: Gunlance[] = [
     skills: { "Offensive Guard": 2, "Convert Thunder Resistance": 1 },
     shelling: { type: "Long", level: 3 },
   },
+  {
+    type: "Gunlance",
+    name: "Mighty Cornpopper",
+    rarity: 8,
+    attack: 190,
+    affinity: 0,
+    slots: [3, 2, 0],
+    sharpness: [80, 60, 80, 80, 50, 0, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: { "Crackling Cornpopper": 1 },
+    shelling: { type: "Wide", level: 4 },
+  },
 ];

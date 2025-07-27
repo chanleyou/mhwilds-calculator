@@ -34,6 +34,12 @@ const Shelling = {
       wyvernFire: { mv: 47, fixedEle: 26 },
       wyrmstake: { mv: 28, fixedEle: 23 },
     },
+    4: {
+      // PLACEHOLDER, NOT IN-GAME YET
+      shell: { mv: 10, fixedEle: 9 },
+      wyvernFire: { mv: 52, fixedEle: 29 },
+      wyrmstake: { mv: 31, fixedEle: 25 },
+    },
   },
   Long: {
     1: {
@@ -50,6 +56,11 @@ const Shelling = {
       shell: { mv: 12, fixedEle: 16 },
       wyvernFire: { mv: 47, fixedEle: 26 },
       wyrmstake: { mv: 42, fixedEle: 23 },
+    },
+    4: {
+      shell: { mv: 13, fixedEle: 17 },
+      wyvernFire: { mv: 52, fixedEle: 29 },
+      wyrmstake: { mv: 49, fixedEle: 25 },
     },
   },
   Wide: {
@@ -68,6 +79,11 @@ const Shelling = {
       wyvernFire: { mv: 55, fixedEle: 29 },
       wyrmstake: { mv: 27, fixedEle: 23 },
     },
+    4: {
+      shell: { mv: 23, fixedEle: 12 },
+      wyvernFire: { mv: 60, fixedEle: 32 },
+      wyrmstake: { mv: 30, fixedEle: 25 },
+    },
   },
 } as const;
 
@@ -78,10 +94,12 @@ const s = {
   cantCrit: true,
 } as const;
 
+type ShellLevel = 1 | 2 | 3 | 4;
+
 const shell = (
   name: string,
   type: ShellingType,
-  level: 1 | 2 | 3,
+  level: ShellLevel,
   mvMul = 1,
 ) => ({
   ...s,
@@ -91,28 +109,28 @@ const shell = (
   shelling: { type, level },
 });
 
-const wyvernFire = (type: ShellingType, level: 1 | 2 | 3) => ({
+const wyvernFire = (type: ShellingType, level: ShellLevel) => ({
   ...s,
   ...Shelling[type][level].wyvernFire,
   name: `${type} Lv${level} Wyvern Fire 1`,
   shelling: { type, level },
 });
 
-const wyvernFireTwo = (type: ShellingType, level: 1 | 2 | 3) => ({
+const wyvernFireTwo = (type: ShellingType, level: ShellLevel) => ({
   ...wyvernFire(type, level),
   name: `${type} Lv${level} Wyvern Fire 2`,
   hits: 4,
   eleHzvCap: 5,
 });
 
-const wse = (type: ShellingType, level: 1 | 2 | 3) => ({
+const wse = (type: ShellingType, level: ShellLevel) => ({
   ...s,
   ...Shelling[type][level].wyrmstake,
   name: `${type} Lv${level} Wyrmstake Explosion`,
   shelling: { type, level },
 });
 
-const mswe = (type: ShellingType, level: 1 | 2 | 3) => ({
+const mswe = (type: ShellingType, level: ShellLevel) => ({
   ...s,
   mv: round(Shelling[type][level].wyrmstake.mv * MULTI_WSE_MUL, 4),
   fixedEle: round(Shelling[type][level].wyrmstake.fixedEle * MULTI_WSE_MUL, 4),
@@ -166,9 +184,16 @@ export const GunlanceAttacks: Attack[] = [
     ignoreSharpness: true,
     shelling: { level: 3 },
   },
+  {
+    name: "Wyrmstake Lv4 Ticks",
+    mv: 8,
+    eleMul: 0.5,
+    ignoreSharpness: true,
+    shelling: { level: 4 },
+  },
   ...ShellingTypes.flatMap((type) => {
-    return ([1, 2, 3] as const).flatMap((level) => [
-      shell("Shell", type, level),
+    return ([1, 2, 3, 4] as const).flatMap((level) => [
+      shell("Shell", type, level, 1),
       shell("Charged Shell", type, level, CHARGED_SHELL_MUL),
       shell("Full Burst Shell", type, level, FB_MUL[type]),
       shell("Wyrmstake Full Burst Shell", type, level, WSFB_MUL[type]),
