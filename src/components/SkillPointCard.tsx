@@ -45,7 +45,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                       <p
                         className={cn(
                           "text-sm",
-                          disabled[k] || (uptime[k] === 0 && "line-through"),
+                          (disabled[k] || uptime[k] === 0) && "line-through",
                         )}
                       >
                         {level.name}
@@ -66,6 +66,12 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                     })}
                   </div>
                 </div>
+                {skill.toggle && (
+                  <Checkbox
+                    value={!disabled[k]}
+                    onChangeValue={() => setDisabled(k, !disabled[k])}
+                  />
+                )}
               </div>
               {skill.uptime && (
                 <div className="flex items-center justify-between gap-2">
@@ -103,7 +109,7 @@ export const SkillPointCard = ({ className }: { className?: string }) => {
                       <p
                         className={cn(
                           "text-sm",
-                          disabled[k] || (uptime[k] === 0 && "line-through"),
+                          (disabled[k] || uptime[k] === 0) && "line-through",
                         )}
                       >
                         {k} {Math.min(v, entries.length)}{" "}

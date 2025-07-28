@@ -259,6 +259,7 @@ export type GroupSkill = {
 };
 
 export type SeriesSkill = {
+  toggle?: boolean;
   uptime?: boolean;
   description?: string;
   levels: { [2]: Buff; [4]: Buff };

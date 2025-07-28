@@ -896,12 +896,6 @@ export const UnsupportedSeriesSkills: Record<SkillName, SeriesSkill> = {
       4: { name: "Hasten Recovery II" },
     },
   },
-  "Blossomdance Prayer": {
-    levels: {
-      2: { name: "Blossomdance Boon I" },
-      4: { name: "Blossomdance Boon II" },
-    },
-  },
   ["Gravios's Protection"]: {
     levels: {
       2: { name: "Flawless Armor I" },
@@ -954,6 +948,13 @@ export const SeriesSkills: Record<SkillName, SeriesSkill> = {
       4: { name: "War Cry II", attack: 20 },
     },
   },
+  "Blossomdance Prayer": {
+    toggle: true,
+    levels: {
+      2: { name: "Blossomdance Boon I" },
+      4: { name: "Blossomdance Boon II", attackMul: 1.09 },
+    },
+  },
   ["Doshaguma's Might"]: {
     uptime: true,
     levels: {
@@ -965,6 +966,13 @@ export const SeriesSkills: Record<SkillName, SeriesSkill> = {
     levels: {
       2: { name: "Burst Boost I", burst: { attack: 3 } },
       4: { name: "Burst Boost II", burst: { attack: 10 } },
+    },
+  },
+  "Flamefete Prayer": {
+    toggle: true,
+    levels: {
+      2: { name: "Flamefete Boon I" },
+      4: { name: "Flamefete Boon II", attackMul: 1.09 },
     },
   },
   ["Gore Magala's Tyranny"]: {
