@@ -454,9 +454,9 @@ export const HeavyBowguns: Bowgun[] = [
   },
   {
     type: "Heavy Bowgun",
-    name: "Rebel Stopper",
+    name: "Insurrection Cannon",
     rarity: 8,
-    attack: 210,
+    attack: 200,
     affinity: 20,
     ammo: {
       Normal: { levels: [3] },

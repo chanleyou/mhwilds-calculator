@@ -456,9 +456,9 @@ export const LightBowguns: Bowgun[] = [
   },
   {
     type: "Light Bowgun",
-    name: "Insurrection Cannon",
+    name: "Rebel Stopper",
     rarity: 8,
-    attack: 200,
+    attack: 210,
     affinity: 20,
     ammo: {
       Normal: { levels: [3], rapidFire: true },
