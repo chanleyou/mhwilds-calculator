@@ -33,6 +33,7 @@ import {
   Attack,
   type Buff,
   type Charm,
+  CustomCharm,
   type Decoration,
   Flag,
   Sharpness,
@@ -67,11 +68,13 @@ export type InitialBuilder = {
   armsSlots: Slots;
   waistSlots: Slots;
   legsSlots: Slots;
+  charmSlots: Slots;
   disabled: Record<SkillName, boolean>;
   flags: Partial<Record<Flag, boolean>>;
   manualSkills: Record<SkillName, number>;
   uptime: Record<SkillName, number>;
   manualSharpness?: Sharpness;
+  charmSkills: CustomCharm;
 };
 
 const initialBuilder: InitialBuilder = {
@@ -103,11 +106,13 @@ const initialBuilder: InitialBuilder = {
   armsSlots: [],
   waistSlots: [],
   legsSlots: [],
+  charmSlots: [],
   disabled: {},
   flags: {},
   manualSkills: {},
   uptime: {},
   manualSharpness: undefined,
+  charmSkills: [],
 };
 
 export type Builder = InitialBuilder & {
@@ -123,12 +128,13 @@ export type Builder = InitialBuilder & {
   setBody: (body?: Armor) => void;
   setLegs: (legs?: Armor) => void;
   setCharm: (charm?: Charm) => void;
-  setWeaponDecoration: (i: number, d?: Decoration) => void;
-  setHelmDecoration: (i: number, d?: Decoration) => void;
-  setBodyDecoration: (i: number, d?: Decoration) => void;
-  setArmsDecoration: (i: number, d?: Decoration) => void;
-  setWaistDecoration: (i: number, d?: Decoration) => void;
-  setLegsDecoration: (i: number, d?: Decoration) => void;
+  setWeaponDecoration: (i: number) => (d?: Decoration) => void;
+  setHelmDecoration: (i: number) => (d?: Decoration) => void;
+  setBodyDecoration: (i: number) => (d?: Decoration) => void;
+  setArmsDecoration: (i: number) => (d?: Decoration) => void;
+  setWaistDecoration: (i: number) => (d?: Decoration) => void;
+  setLegsDecoration: (i: number) => (d?: Decoration) => void;
+  setCharmDecoration: (i: number) => (d?: Decoration) => void;
   setDisabled: (s: SkillName, a: boolean) => void;
   setFlag: (f: Flag, a: boolean) => void;
   emptyBuffs: () => void;
@@ -138,153 +144,153 @@ export type Builder = InitialBuilder & {
   setUptime: (s: SkillName, v: number) => void;
   setUptimes: (s: Record<SkillName, number>) => void;
   setManualSharpness: (s?: Sharpness) => void;
+  setCharmSkill: (i: number) => (v?: [SkillName, number]) => void;
 };
 
-export const useBuild = create<Builder>((set, get) => ({
-  ...initialBuilder,
-  reset: () => {
-    set({ ...initialBuilder });
-  },
-  setW: (w: Weapon) => {
-    set({
-      w: w,
-      weaponSlots: [],
-      artian: initialBuilder.artian,
-      otherBuffs: produce(get().otherBuffs, (d) => {
-        Object.keys(d).forEach((k) => {
-          if (
-            CombinedBuffs[k]?.weapons &&
-            !CombinedBuffs[k]?.weapons.includes(w.type)
-          )
-            delete d[k];
-        });
-      }),
-    });
-  },
-  setArtianType: (type: ArtianType) => {
-    set(
-      produce<InitialBuilder>((d) => {
-        d.artian.element = type;
-        if (type !== "No Element" && type !== undefined) return;
-        d.artian.upgrades.forEach((u, i) => {
-          if (u === "Element") {
-            d.artian.upgrades[i] = undefined;
-          }
-        });
-      }),
-    );
-  },
-  setArtianInfusion: (i: number, v?: ArtianInfusion) => {
-    set(produce((d) => void (d.artian.infusions[i] = v)));
-  },
-  setArtianUpgrade: (i: number, v?: ArtianUpgrade) => {
-    set(produce((d) => void (d.artian.upgrades[i] = v)));
-  },
-  setOtherBuff: (id, buff?) => {
-    set(
-      produce((d) => {
-        if (buff) d.otherBuffs[id] = buff;
-        else delete d.otherBuffs[id];
-      }),
-    );
-  },
-  setTarget: (target: Target) => set({ target }),
-  setTargetValue: (key, value) =>
-    set(produce((d) => void (d.target[key] = value))),
-  setHelm: (helm?) => set({ helm, helmSlots: [] }),
-  setWaist: (waist?) => set({ waist, waistSlots: [] }),
-  setArms: (arms?) => set({ arms, armsSlots: [] }),
-  setBody: (body?) => set({ body, bodySlots: [] }),
-  setLegs: (legs?) => set({ legs, legsSlots: [] }),
-  setCharm: (charm?: Charm) => set({ charm }),
-  setWeaponDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+export const useBuild = create<Builder>((set, get) => {
+  // Fixed prod helper to work as intended
+  const prod = (fn: (d: InitialBuilder) => void) => set(produce(fn));
+
+  return {
+    ...initialBuilder,
+    reset: () => {
+      set({ ...initialBuilder });
+    },
+    setW: (w: Weapon) => {
+      set({
+        w: w,
+        weaponSlots: [],
+        artian: initialBuilder.artian,
+        otherBuffs: produce(get().otherBuffs, (d) => {
+          Object.keys(d).forEach((k) => {
+            if (
+              CombinedBuffs[k]?.weapons &&
+              !CombinedBuffs[k]?.weapons.includes(w.type)
+            )
+              delete d[k];
+          });
+        }),
+      });
+    },
+    setArtianType: (type: ArtianType) => {
+      set(
+        produce<InitialBuilder>((d) => {
+          d.artian.element = type;
+          if (type !== "No Element" && type !== undefined) return;
+          d.artian.upgrades.forEach((u, i) => {
+            if (u === "Element") {
+              d.artian.upgrades[i] = undefined;
+            }
+          });
+        }),
+      );
+    },
+    setArtianInfusion: (i: number, v?: ArtianInfusion) => {
+      prod((d) => void (d.artian.infusions[i] = v));
+    },
+    setArtianUpgrade: (i: number, v?: ArtianUpgrade) => {
+      prod((d) => void (d.artian.upgrades[i] = v));
+    },
+    setOtherBuff: (id, buff?) => {
+      set(
+        produce((d) => {
+          if (buff) d.otherBuffs[id] = buff;
+          else delete d.otherBuffs[id];
+        }),
+      );
+    },
+    setTarget: (target: Target) => set({ target }),
+    setTargetValue: (key, value) =>
+      set(produce((d) => void (d.target[key] = value))),
+    setHelm: (helm?) => set({ helm, helmSlots: [] }),
+    setWaist: (waist?) => set({ waist, waistSlots: [] }),
+    setArms: (arms?) => set({ arms, armsSlots: [] }),
+    setBody: (body?) => set({ body, bodySlots: [] }),
+    setLegs: (legs?) => set({ legs, legsSlots: [] }),
+    setCharm: () => {},
+    // setCharm: (charm?: Charm) => set({ charm }),
+    setWeaponDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (dc && d.w.slots[i] < dc.level) return;
         d.weaponSlots[i] = dc;
-      }),
-    );
-  },
-  setHelmDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+      });
+    },
+    setHelmDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (!d.helm) return;
         if (dc && d.helm.slots[i] < dc.level) return;
         d.helmSlots[i] = dc;
-      }),
-    );
-  },
-  setBodyDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+      });
+    },
+    setBodyDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (!d.body) return;
         if (dc && d.body.slots[i] < dc.level) return;
         d.bodySlots[i] = dc;
-      }),
-    );
-  },
-  setArmsDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+      });
+    },
+    setArmsDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (!d.arms) return;
         if (dc && d.arms.slots[i] < dc.level) return;
         d.armsSlots[i] = dc;
-      }),
-    );
-  },
-  setWaistDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+      });
+    },
+    setWaistDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (!d.waist) return;
         if (dc && d.waist.slots[i] < dc.level) return;
         d.waistSlots[i] = dc;
-      }),
-    );
-  },
-  setLegsDecoration: (i: number, dc?: Decoration) => {
-    set(
-      produce<InitialBuilder>((d) => {
+      });
+    },
+    setLegsDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
         if (!d.legs) return;
         if (dc && d.legs.slots[i] < dc.level) return;
         d.legsSlots[i] = dc;
-      }),
-    );
-  },
-  setDisabled: (s, a) => {
-    set(
-      produce((d) => {
+      });
+    },
+    setCharmDecoration: (i: number) => (dc?: Decoration) => {
+      prod((d) => {
+        // if (!d.charm) return;
+        // if (dc && d.charm.slots[i] < dc.level) return;
+        d.charmSlots[i] = dc;
+      });
+    },
+    setDisabled: (s, a) => {
+      prod((d) => {
         if (a) d.disabled[s] = a;
         else delete d.disabled[s];
-      }),
-    );
-  },
-  setFlag: (f, a) => {
-    set(
-      produce((d) => {
+      });
+    },
+    setFlag: (f, a) => {
+      prod((d) => {
         if (a) d.flags[f] = a;
         else delete d.flags[f];
-      }),
-    );
-  },
-  emptyBuffs: () => set({ otherBuffs: {} }),
-  setManualSkills: (s, v) => {
-    set(
-      produce<Builder>((d) => {
+      });
+    },
+    emptyBuffs: () => set({ otherBuffs: {} }),
+    setManualSkills: (s, v) => {
+      prod((d) => {
         if (v) d.manualSkills[s] = v;
         else delete d.manualSkills[s];
-      }),
-    );
-  },
-  setUptime: (s, v) => {
-    set(
-      produce<Builder>((d) => {
+      });
+    },
+    setUptime: (s, v) => {
+      prod((d) => {
         d.uptime[s] = v;
-      }),
-    );
-  },
-  setUptimes: (uptime) => set({ uptime }),
-  setManualSharpness: (s) => set({ manualSharpness: s }),
-}));
+      });
+    },
+    setUptimes: (uptime) => set({ uptime }),
+    setManualSharpness: (s) => set({ manualSharpness: s }),
+    setCharmSkill: (i) => (v) => {
+      prod((d) => {
+        if (v) d.charmSkills[i] = v;
+        else delete d.charmSkills[i];
+      });
+    },
+  };
+});
 
 export const useComputed = () => {
   const {
@@ -296,19 +302,20 @@ export const useComputed = () => {
     arms,
     waist,
     legs,
-    charm,
     weaponSlots,
     helmSlots,
     bodySlots,
     armsSlots,
     waistSlots,
     legsSlots,
+    charmSlots,
     disabled,
     flags,
     target,
     manualSkills,
     uptime,
     manualSharpness,
+    charmSkills,
   } = useBuild();
 
   const equipment = [helm, body, arms, waist, legs].filter(
@@ -322,12 +329,19 @@ export const useComputed = () => {
     armsSlots,
     waistSlots,
     legsSlots,
+    charmSlots,
   ]
     .flat()
     .filter((n): n is Decoration => !!n);
 
+  const transformedCharms = charmSkills
+    .filter((n) => !!n)
+    .map(([s, l]) => {
+      return { skills: { [s]: l } };
+    });
+
   const skillPoints = {
-    ...[w, ...equipment, ...decorations, charm].reduce<
+    ...[w, ...equipment, ...decorations, ...transformedCharms].reduce<
       Record<SkillName, number>
     >((acc, i) => {
       if (!i) return acc;

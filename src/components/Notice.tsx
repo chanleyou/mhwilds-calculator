@@ -10,7 +10,7 @@ import { cn } from "@/utils";
 import { Button } from "./ui/Button";
 
 const notice = cva({
-  base: "flex items-center gap-2 rounded border p-2 text-sm",
+  base: "flex items-center gap-2 border p-2 text-sm",
   variants: {
     variant: {
       info: "text-info",

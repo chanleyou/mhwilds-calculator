@@ -253,7 +253,7 @@ export const ImportDialog = () => {
       <DialogContent title="Import" className="sm:h-fit" setOpen={setOpen}>
         <Notice>{text.EXPORT_NOTICE}</Notice>
         <textarea
-          className="bg-content-alt rounded p-2 font-mono text-xs"
+          className="bg-content-alt p-2 font-mono text-sm"
           value={data}
           onChange={(e) => setData(e.target.value)}
           rows={20}

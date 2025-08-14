@@ -29,7 +29,7 @@ export function Select<T>({
     <InputContainer label={label} description={description}>
       <div className="relative">
         <select
-          className="border-divider bg-content text-primary hover:border-primary focus:border-primary disabled:hover:bg-content disabled:text-placeholder w-full rounded-sm border px-2 py-1.5 font-sans text-sm sm:py-1"
+          className="border-divider bg-content text-primary hover:border-primary focus:border-primary disabled:hover:bg-content disabled:text-placeholder w-full border px-2 py-1.5 font-sans text-sm sm:py-1"
           value={value ? labelFn(value) : ""}
           onChange={(e) => {
             const { value } = e.target;

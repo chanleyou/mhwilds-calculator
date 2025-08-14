@@ -74,7 +74,7 @@ export const CharmPickerDialog = ({
         <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
           {filteredOptions.map((c) => (
             <div
-              className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
+              className="border-divider hover:border-primary cursor-pointer gap-1 border p-3"
               key={c.name}
               onClick={() => {
                 setValue(c);

@@ -36,7 +36,7 @@ export function NumberInput({
     >
       <div className="relative flex items-center">
         <input
-          className="border-divider text-primary focus:border-primary hover:border-primary disabled:text-placeholder w-full rounded-sm border px-2 py-1.5 text-sm focus:outline-none disabled:pointer-events-none sm:py-1"
+          className="border-divider text-primary focus:border-primary hover:border-primary disabled:text-placeholder w-full border px-2 py-1.5 text-sm focus:outline-none disabled:pointer-events-none sm:py-1"
           type="number"
           onChange={(e) => onChangeValue?.(Number(e.target.value))}
           value={value}
@@ -98,7 +98,7 @@ export function NumberInputTwo({
     <InputContainer className={className} description={description}>
       <div className="group text-secondary hover:text-primary focus-within:text-primary relative flex items-center">
         <input
-          className="border-divider text-primary group-hover:border-primary focus:border-primary disabled:hover:bg-content group disabled:text-placeholder bg-content w-full rounded-xs border p-2 text-sm focus:outline-none"
+          className="border-divider text-primary group-hover:border-primary focus:border-primary disabled:hover:bg-content group disabled:text-placeholder bg-content w-full border p-2 text-sm focus:outline-none"
           type="number"
           onChange={(e) => onChangeValue?.(Number(e.target.value))}
           value={value}

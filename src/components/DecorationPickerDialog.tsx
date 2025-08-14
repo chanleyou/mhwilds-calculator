@@ -12,7 +12,7 @@ export const DecorationPickerDialog = ({
   type = "Equipment",
   setValue,
 }: {
-  type?: "Weapon" | "Equipment";
+  type?: "Weapon" | "Equipment" | "Both";
   level: SlotLevel;
   value?: Decoration;
   setValue: (value?: Decoration) => void;
@@ -22,7 +22,7 @@ export const DecorationPickerDialog = ({
 
   const filteredOptions = useMemo(() => {
     return Decorations.filter((a) => {
-      if (a.type !== type) return false;
+      if (type !== "Both" && a.type !== type) return false;
       if (a.level > level) return false;
       if (filter) {
         const { name, skills } = a;
@@ -83,7 +83,7 @@ export const DecorationPickerDialog = ({
         <div className="grid gap-1 overflow-y-auto pr-2 sm:grid-cols-2">
           {filteredOptions.map((c) => (
             <div
-              className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
+              className="border-divider hover:border-primary cursor-pointer gap-1 border p-3"
               key={c.id}
               onClick={() => {
                 setValue(c);

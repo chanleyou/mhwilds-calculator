@@ -1,4 +1,4 @@
-import { CheckCircleIcon, SettingsIcon } from "lucide-react";
+import { CircleCheckIcon, SettingsIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useBuild } from "@/store/builder";
 import {
@@ -131,7 +131,7 @@ export const ArtianDialog = () => {
         </div>
         <div className="flex justify-end">
           <Button variant="primary" size="sm" onClick={() => setOpen(false)}>
-            <CheckCircleIcon className="size-4" />
+            <CircleCheckIcon className="size-4" />
             Done
           </Button>
         </div>

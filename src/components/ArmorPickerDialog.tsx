@@ -92,7 +92,7 @@ export const ArmorPickerDialog = ({
         <div className="grid gap-1 overflow-y-auto pr-2 text-sm md:grid-cols-2">
           {filteredOptions.map((o) => (
             <div
-              className="border-divider hover:border-primary cursor-pointer gap-1 rounded border p-3"
+              className="border-divider hover:border-primary cursor-pointer gap-1 border p-3"
               key={o.name}
               onClick={() => {
                 setValue(o);

@@ -8,7 +8,6 @@ import {
   AttacksCard,
   BuffsCard,
   Button,
-  Card,
   EquipmentCard,
   ExportDialog,
   ImportDialog,
@@ -18,11 +17,10 @@ import {
   StatsCard,
   // Tab,
 } from "@/components";
-import { useBuild, useComputed } from "@/store/builder";
+import { useBuild } from "@/store/builder";
 
 export default function Builder() {
-  const { reset, uptime } = useBuild();
-  const { buffs } = useComputed();
+  const { reset } = useBuild();
 
   const [hasReset, setHasReset] = useState(false);
 
@@ -64,7 +62,7 @@ export default function Builder() {
             <h1>Debug</h1>
             <textarea
               className="font-mono text-xs"
-              value={JSON.stringify({ buffs, uptime }, undefined, 2)}
+              value={JSON.stringify({ customCharmSkills }, undefined, 2)}
               rows={30}
               readOnly
             />

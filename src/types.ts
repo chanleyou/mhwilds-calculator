@@ -419,6 +419,8 @@ export type Decoration = Equip & {
 
 export type Charm = Equip & {};
 
+export type CustomCharm = [SkillName, number][];
+
 export type Slots = [Decoration?, Decoration?, Decoration?];
 
 export const ComboModeOptions = ["Dynamic", "Snapshot"] as const;

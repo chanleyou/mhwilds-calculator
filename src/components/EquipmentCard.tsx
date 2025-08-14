@@ -2,7 +2,7 @@ import {
   ArmorPickerDialog,
   ArtianDialog,
   Card,
-  CharmPickerDialog,
+  CharmSkillSelect,
   DecorationPickerDialog,
   WeaponPickerDialog,
 } from "@/components";
@@ -18,7 +18,6 @@ export const EquipmentCard = () => {
     arms,
     waist,
     legs,
-    charm,
     helmSlots,
     bodySlots,
     armsSlots,
@@ -29,13 +28,17 @@ export const EquipmentCard = () => {
     setArms,
     setWaist,
     setLegs,
-    setCharm,
     setHelmDecoration,
     setBodyDecoration,
     setArmsDecoration,
     setWaistDecoration,
     setLegsDecoration,
+    charmSlots,
+    setCharmDecoration,
+    charmSkills,
+    setCharmSkill,
   } = useBuild();
+
   return (
     <Card>
       <h1>Equipment</h1>
@@ -53,7 +56,7 @@ export const EquipmentCard = () => {
               type="Weapon"
               value={weaponSlots[i]}
               level={w.slots[i] ?? 0}
-              setValue={(v) => setWeaponDecoration(i, v)}
+              setValue={setWeaponDecoration(i)}
             />
           );
         })}
@@ -84,7 +87,7 @@ export const EquipmentCard = () => {
               key={i}
               value={helmSlots[i]}
               level={helm?.slots[i] ?? 0}
-              setValue={(v) => setHelmDecoration(i, v)}
+              setValue={setHelmDecoration(i)}
             />
           );
         })}
@@ -98,7 +101,7 @@ export const EquipmentCard = () => {
               key={i}
               value={bodySlots[i]}
               level={body?.slots[i] ?? 0}
-              setValue={(v) => setBodyDecoration(i, v)}
+              setValue={setBodyDecoration(i)}
             />
           );
         })}
@@ -111,7 +114,7 @@ export const EquipmentCard = () => {
               key={i}
               value={armsSlots[i]}
               level={arms?.slots[i] ?? 0}
-              setValue={(v) => setArmsDecoration(i, v)}
+              setValue={setArmsDecoration(i)}
             />
           );
         })}
@@ -124,7 +127,7 @@ export const EquipmentCard = () => {
               key={i}
               value={waistSlots[i]}
               level={waist?.slots[i] ?? 0}
-              setValue={(v) => setWaistDecoration(i, v)}
+              setValue={setWaistDecoration(i)}
             />
           );
         })}
@@ -137,14 +140,34 @@ export const EquipmentCard = () => {
               key={i}
               value={legsSlots[i]}
               level={legs?.slots[i] ?? 0}
-              setValue={(v) => setLegsDecoration(i, v)}
+              setValue={setLegsDecoration(i)}
             />
           );
         })}
       </div>
       <div></div>
       <p className="text-sm">Charm</p>
-      <CharmPickerDialog value={charm} setValue={setCharm} />
+      {[0, 1].map((i) => (
+        <CharmSkillSelect
+          key={i}
+          placeholder="Skill"
+          value={charmSkills[i]}
+          onChangeValue={setCharmSkill(i)}
+        />
+      ))}
+      <div className="grid gap-2 sm:grid-cols-3">
+        {[0, 1, 2].map((i) => {
+          return (
+            <DecorationPickerDialog
+              type={i === 0 ? "Both" : "Equipment"}
+              key={i}
+              value={charmSlots[i]}
+              level={i === 0 ? 3 : 1}
+              setValue={setCharmDecoration(i)}
+            />
+          );
+        })}
+      </div>
     </Card>
   );
 };

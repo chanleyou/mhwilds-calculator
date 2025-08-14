@@ -98,7 +98,7 @@ export const WeaponPickerDialog = () => {
         <div className="flex flex-col gap-1 overflow-y-auto pr-2 text-sm sm:hidden">
           {filteredOptions.map((o) => (
             <div
-              className="border-divider gap-1 rounded border p-3"
+              className="border-divider gap-1 border p-3"
               key={o.name}
               onClick={() => {
                 setW(o);

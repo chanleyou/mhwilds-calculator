@@ -117,7 +117,7 @@ export const ExportDialog = () => {
       <DialogContent title="Export" setOpen={setOpen} className="sm:h-fit">
         <Notice>{text.EXPORT_NOTICE}</Notice>
         <textarea
-          className="bg-content-alt rounded p-2 font-mono text-xs"
+          className="bg-content-alt p-2 font-mono text-sm"
           value={data}
           rows={20}
           readOnly
