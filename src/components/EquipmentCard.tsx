@@ -147,7 +147,7 @@ export const EquipmentCard = () => {
       </div>
       <div></div>
       <p className="text-sm">Charm</p>
-      {[0, 1].map((i) => (
+      {[0, 1, 2].map((i) => (
         <CharmSkillSelect
           key={i}
           placeholder="Skill"
