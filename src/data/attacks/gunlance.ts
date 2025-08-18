@@ -123,6 +123,14 @@ const wyvernFireTwo = (type: ShellingType, level: ShellLevel) => ({
   eleHzvCap: 5,
 });
 
+const wst = (type: ShellingType, level: ShellLevel) => ({
+  name: `${type} Lv${level} Wyrmstake Ticks`,
+  mv: (type === "Long" ? 5 : 4) + level,
+  eleMul: 0.5,
+  ignoreSharpness: true,
+  shelling: { level, type },
+});
+
 const wse = (type: ShellingType, level: ShellLevel) => ({
   ...s,
   ...Shelling[type][level].wyrmstake,
@@ -140,7 +148,7 @@ const mswe = (type: ShellingType, level: ShellLevel) => ({
 
 export const GunlanceAttacks: Attack[] = [
   { name: "Lateral Thrust I / II", mv: 24, eleMul: 2 },
-  { name: "Lunging Upthrust", mv: 30 },
+  { name: "Lunging Upthrust", mv: 38, eleMul: 1.2 },
   { name: "Rising Slash", mv: 38, eleMul: 1.2 },
   { name: "Guard Thrust", mv: 18, eleMul: 2 },
   { name: "Overhead Smash", mv: 57, eleMul: 2 },
@@ -163,36 +171,9 @@ export const GunlanceAttacks: Attack[] = [
     eleMul: 0.5,
     shelling: { level: 0 },
   },
-  {
-    name: "Wyrmstake Lv1 Ticks",
-    mv: 5,
-    eleMul: 0.5,
-    ignoreSharpness: true,
-    shelling: { level: 1 },
-  },
-  {
-    name: "Wyrmstake Lv2 Ticks",
-    mv: 6,
-    eleMul: 0.5,
-    ignoreSharpness: true,
-    shelling: { level: 2 },
-  },
-  {
-    name: "Wyrmstake Lv3 Ticks",
-    mv: 7,
-    eleMul: 0.5,
-    ignoreSharpness: true,
-    shelling: { level: 3 },
-  },
-  {
-    name: "Wyrmstake Lv4 Ticks",
-    mv: 8,
-    eleMul: 0.5,
-    ignoreSharpness: true,
-    shelling: { level: 4 },
-  },
   ...ShellingTypes.flatMap((type) => {
     return ([1, 2, 3, 4] as const).flatMap((level) => [
+      wst(type, level),
       shell("Shell", type, level, 1),
       shell("Charged Shell", type, level, CHARGED_SHELL_MUL),
       shell("Full Burst Shell", type, level, FB_MUL[type]),
