@@ -98,4 +98,12 @@ export const DualBladesAttacks = [
   { name: "Screw Slicer 4", mv: 15, hits: 2 },
   { name: "Focus Strike: Turning Tide", mv: 10 },
   { name: "Focus Strike: Turning Tide Follow-Up", mv: 27 },
+  { name: "Turning Tidedrill 1", mv: 12, eleMul: 0.6 },
+  { name: "Turning Tidedrill 2", mv: 9, eleMul: 0.6, hits: 2 },
+  { name: "Turning Tidedrill 3", mv: 12, eleMul: 0.6 },
+  { name: "Turning Tidedrill 4", mv: 9, eleMul: 0.6 },
+  { name: "Turning Tidedrill 5", mv: 12, eleMul: 0.6, hits: 2 },
+  { name: "Turning Tidedrill 6", mv: 9, eleMul: 0.6 },
+  { name: "Turning Tidedrill 7", mv: 18, eleMul: 0.7 },
+  { name: "Turning Tidedrill 8", mv: 24, eleMul: 0.7 },
 ] satisfies Attack[];

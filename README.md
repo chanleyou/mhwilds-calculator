@@ -10,7 +10,7 @@ This project is currently in maintenance mode, aka I've stopped actively working
 
 ### Todos
 
-- [ ] Ver. 1.021 MV Changes
+- [x] Ver. 1.021 MV Changes
 - [ ] Convert Thunder Resistance
 - [ ] Akuma
 

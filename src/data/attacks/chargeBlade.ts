@@ -1,52 +1,17 @@
 import type { Attack } from "@/types";
 
 export const ChargeBladeAttacks: Attack[] = [
-  {
-    name: "Sword: Forward Slash",
-    mv: 18,
-  },
-  {
-    name: "Sword: Weak Slash",
-    mv: 15,
-  },
-  {
-    name: "Sword: Return Stroke",
-    mv: 18,
-  },
-  {
-    name: "Sword: Roundslash",
-    mv: 30,
-  },
-  {
-    name: "Sword: Fade Slash",
-    mv: 24,
-  },
-  {
-    name: "Sword: Charged Rising Slash",
-    mv: 15,
-  },
-  {
-    name: "Sword: Charged Double Slash 1",
-    mv: 25,
-    charge: true,
-  },
-  {
-    name: "Sword: Charged Double Slash 2",
-    mv: 16,
-    charge: true,
-  },
-  {
-    name: "Sword: Shield Thrust 1",
-    mv: 15,
-  },
-  {
-    name: "Sword: Shield Thrust 2",
-    mv: 6,
-  },
-  {
-    name: "Sword: Condensed Elemental Slash",
-    mv: 48,
-  },
+  { name: "Sword: Forward Slash", mv: 18 },
+  { name: "Sword: Weak Slash", mv: 15 },
+  { name: "Sword: Return Stroke", mv: 18 },
+  { name: "Sword: Roundslash", mv: 30 },
+  { name: "Sword: Fade Slash", mv: 24 },
+  { name: "Sword: Charged Rising Slash", mv: 15 },
+  { name: "Sword: Charged Double Slash 1", mv: 25, charge: true },
+  { name: "Sword: Charged Double Slash 2", mv: 16, charge: true },
+  { name: "Sword: Shield Thrust 1", mv: 15 },
+  { name: "Sword: Shield Thrust 2", mv: 6 },
+  { name: "Sword: Condensed Elemental Slash", mv: 48 },
   {
     name: "Sword: Condensed Elemental Slash Impact Phial",
     mv: 25,
@@ -98,12 +63,12 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Axe: Elemental Discharge I",
-    mv: 51,
+    mv: 53,
     cbAxe: true,
   },
   {
     name: "Axe: Elemental Discharge II 1",
-    mv: 25,
+    mv: 35,
     cbAxe: true,
   },
   {
@@ -143,7 +108,7 @@ export const ChargeBladeAttacks: Attack[] = [
   },
   {
     name: "Power Axe Tick",
-    mv: 10,
+    mv: 12,
     eleMul: 0.2,
     cbAxe: true,
   },

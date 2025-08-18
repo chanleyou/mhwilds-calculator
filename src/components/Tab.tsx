@@ -13,18 +13,19 @@ export function Tab<T>({
   setValue: (option: T) => void;
 }) {
   return (
-    <div>
+    <div className="border-divider flex border-b">
       {options.map((o) => (
         <Button
           // variant="text"
           size="sm"
           onClick={() => setValue(o)}
+          variant="secondary"
           key={labelFn(o)}
           className={cn(
-            "border-accent w-fit flex-1 overflow-visible rounded-none px-4 text-sm first:rounded-l last:rounded-r",
+            "flex-1",
             value === o
-              ? "bg-accent text-background"
-              : "bg-background text-accent/60",
+              ? "text-accent border-0 border-b-2 border-solid font-semibold"
+              : "text-primary border-none",
           )}
         >
           {labelFn(o)}

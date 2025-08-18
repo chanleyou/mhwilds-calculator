@@ -1,4 +1,3 @@
-import { ListIcon } from "lucide-react";
 import { useState } from "react";
 import { useBuild } from "@/store/builder";
 import { useCombo, useTotalDamage, useTotalHits } from "@/store/combo";
@@ -6,17 +5,20 @@ import { Target } from "@/types";
 import { cn } from "@/utils";
 import {
   AttacksTable,
-  Button,
   Card,
   Checkbox,
   ComboDialog,
   NumberDisplay,
   NumberInputTwo,
+  Tab,
 } from ".";
 import { ComboTable } from "./ComboTable";
 import { HitzoneDialog } from "./HitzoneDialog";
 
 type Props = Partial<React.ComponentProps<typeof Card>>;
+
+const TabOptions = ["Attacks", "Combo"] as const;
+type TabOption = (typeof TabOptions)[number];
 
 export const AttacksCard = ({ ...props }: Props) => {
   const { target, setTargetValue: setTarget } = useBuild();
@@ -25,7 +27,7 @@ export const AttacksCard = ({ ...props }: Props) => {
   const totalHits = useTotalHits();
   const totalDamage = useTotalDamage();
 
-  const [showCombo, setShowCombo] = useState(false);
+  const [tab, setTab] = useState<TabOption>("Attacks");
 
   return (
     <Card {...props}>
@@ -51,19 +53,11 @@ export const AttacksCard = ({ ...props }: Props) => {
       </div>
       <div className="flex items-start justify-end gap-2">
         <HitzoneDialog />
-        <Button
-          variant="secondary"
-          size="sm"
-          className="text-secondary"
-          onClick={() => setShowCombo(!showCombo)}
-        >
-          <ListIcon className="size-4" />
-          {showCombo ? "Attacks" : "Combo"}
-        </Button>
         <ComboDialog />
       </div>
+      <Tab options={[...TabOptions]} value={tab} setValue={setTab} />
       <div className="overflow-auto">
-        <div className={cn(!showCombo && "hidden")}>
+        <div className={cn(tab === "Attacks" && "hidden")}>
           <div className="mt-2">
             <NumberDisplay label="Combo Mode">{mode}</NumberDisplay>
             <NumberDisplay label="Total Average">{totalDamage}</NumberDisplay>
@@ -71,7 +65,7 @@ export const AttacksCard = ({ ...props }: Props) => {
           </div>
           <ComboTable disabled />
         </div>
-        <div className={cn(showCombo && "hidden")}>
+        <div className={cn(tab === "Combo" && "hidden")}>
           <AttacksTable />
         </div>
       </div>

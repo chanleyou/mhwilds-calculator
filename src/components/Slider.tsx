@@ -2,6 +2,7 @@
 
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SkillName } from "@/types";
 import { cn } from "@/utils";
 import { TooltipContent } from ".";
@@ -10,6 +11,7 @@ type SliderProps = SliderPrimitive.SliderProps & {
   skill?: SkillName;
   ref?: React.Ref<HTMLDivElement>;
   tooltip?: string;
+  debounceMs?: number;
 };
 
 export const Slider = ({
@@ -17,9 +19,32 @@ export const Slider = ({
   ref,
   value,
   tooltip,
-  // onValueChange,
+  onValueChange,
+  debounceMs = 100,
   ...props
 }: SliderProps) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+
+  const debouncedOnValueChange = useCallback(
+    (newValue: number[]) => {
+      setDebouncedValue(newValue);
+
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+      timeoutRef.current = setTimeout(
+        () => onValueChange?.(newValue),
+        debounceMs,
+      );
+    },
+    [onValueChange, debounceMs],
+  );
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
+
   return (
     <Tooltip>
       <SliderPrimitive.Root
@@ -28,7 +53,8 @@ export const Slider = ({
           "relative flex w-full touch-none items-center select-none",
           className,
         )}
-        value={value}
+        value={debouncedValue}
+        onValueChange={debouncedOnValueChange}
         {...props}
       >
         <SliderPrimitive.Track className="bg-divider relative h-1 w-full grow overflow-hidden rounded-full">

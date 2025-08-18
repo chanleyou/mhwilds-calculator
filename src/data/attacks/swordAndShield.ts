@@ -45,7 +45,7 @@ export const SwordAndShieldAttacks = [
   { name: "Charged Chop 2", mv: 28, eleMul: 1.2, charge: true },
   { name: "Charged Chop 3", mv: 14, eleMul: 0.3, charge: true },
   { name: "Power Charged Chop 3", mv: 28, eleMul: 1.25, charge: true },
-  { name: "Counter Slash", mv: 50, eleMul: 1.5 },
+  { name: "Counter Slash", mv: 55, eleMul: 1.5 },
   { name: "Recovering Slash", mv: 18 },
   { name: "Focus Strike: Vital Stab", mv: 15 },
   { name: "Focus Strike: Vital Stab (Opening Wound)", mv: 19, eleMul: 0.3 },
