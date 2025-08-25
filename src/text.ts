@@ -3,7 +3,7 @@ const ExportNotice = `Saved builds might lose functionality between updates. Sav
 
 const test = {
   HEADER:
-    "Ver. 1.021 datamined motion values are in. Check GitHub README.md for updates.",
+    "Updated with Ver. 1.021 datamined motion values. Check GitHub README.md for other updates.",
   EXPORT_NOTICE: ExportNotice,
 };
 

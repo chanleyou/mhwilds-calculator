@@ -417,7 +417,7 @@ export const Gunlances: Gunlance[] = [
     name: "Exlagia Gunlance",
     rarity: 8,
     attack: 220,
-    element: { type: "Thunder", value: 400 },
+    element: { type: "Thunder", value: 450 },
     affinity: 0,
     slots: [3, 2, 1],
     sharpness: [60, 40, 30, 80, 70, 70, 0],
