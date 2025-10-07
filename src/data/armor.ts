@@ -4770,7 +4770,7 @@ export const Armors: Armor[] = [
     name: "Bale Gauntlets α",
     type: "Arms",
     slots: [3, 0, 0],
-    skills: { "Maximum Might": 1, Resentment: 1 },
+    skills: { Resentment: 1, "Latent Power": 1, "Maximum Might": 1 },
     seriesSkill: "Soul of the Dark Knight",
   },
   {
