@@ -1,5 +1,5 @@
 // maybe i18n here I guess
-const ExportNotice = `Saved builds might lose functionality between updates. Combos and new charms aren't supported yet.`;
+const ExportNotice = `Saved builds might lose functionality between updates.`;
 
 const text = {
   HEADER:

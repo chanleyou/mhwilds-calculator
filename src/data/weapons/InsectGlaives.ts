@@ -399,6 +399,18 @@ export const InsectGlaives: MeleeWeapon[] = [
   },
   {
     type: "Insect Glaive",
+    name: "Gogmazios Insect Glaive",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    slots: [3, 3, 3],
+    gogmazios: { element: 280, status: 80 },
+    sharpness: [80, 40, 60, 80, 70, 20, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: {},
+  },
+  {
+    type: "Insect Glaive",
     name: "Blazing Katir",
     rarity: 8,
     attack: 220,

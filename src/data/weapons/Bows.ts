@@ -248,6 +248,17 @@ export const Bows: Bow[] = [
   },
   {
     type: "Bow",
+    name: "Gogmazios Bow",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    coatings: ["Close-range"],
+    slots: [3, 3, 3],
+    skills: {},
+    gogmazios: { element: 230, status: 0 }, // Blast is 80
+  },
+  {
+    type: "Bow",
     name: "Blazing Samira",
     rarity: 8,
     attack: 220,

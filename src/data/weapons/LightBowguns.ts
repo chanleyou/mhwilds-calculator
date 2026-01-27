@@ -423,6 +423,21 @@ export const LightBowguns: Bowgun[] = [
   },
   {
     type: "Light Bowgun",
+    name: "Gogmazios Light Bowgun",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    ammo: {
+      Normal: { levels: [2, 3], rapidFire: true },
+      Pierce: { levels: [2, 3] },
+      Spread: { levels: [2, 3] },
+    },
+    gogmazios: { element: 0, status: 0 },
+    slots: [3, 3, 3],
+    skills: {},
+  },
+  {
+    type: "Light Bowgun",
     name: "Blazing Kaiah",
     rarity: 8,
     attack: 220,

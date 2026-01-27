@@ -392,6 +392,18 @@ export const GreatSwords: MeleeWeapon[] = [
   },
   {
     type: "Great Sword",
+    name: "Gogmazios Great Sword",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    slots: [3, 3, 3],
+    gogmazios: { element: 480, status: 300 },
+    sharpness: [80, 40, 60, 80, 70, 20, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: {},
+  },
+  {
+    type: "Great Sword",
     name: "Blazing Veiah",
     rarity: 8,
     attack: 220,

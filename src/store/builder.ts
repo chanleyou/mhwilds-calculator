@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { produce } from "immer";
 import { create } from "zustand";
 import {
@@ -36,6 +37,9 @@ import {
   CustomCharm,
   type Decoration,
   Flag,
+  Gogmazios,
+  GogmaziosFocus,
+  GogmaziosReinforcement,
   Sharpness,
   type SkillName,
   type Slots,
@@ -54,6 +58,7 @@ import { SwordAndShields } from "../data/weapons/SwordAndShields";
 export type InitialBuilder = {
   w: Weapon;
   artian: Artian;
+  gogmazios: Gogmazios;
   otherBuffs: Record<string, Buff>;
   target: Target;
   helm?: Armor;
@@ -80,6 +85,7 @@ export type InitialBuilder = {
 const initialBuilder: InitialBuilder = {
   w: SwordAndShields[0],
   artian: { element: "No Element", infusions: [], upgrades: [] },
+  gogmazios: { focus: "Attack", element: "No Element", infusions: [], reinforcements: [], groupSkills: [] },
   otherBuffs: {
     Powercharm: CombinedBuffs.Powercharm.levels[0],
   },
@@ -121,6 +127,11 @@ export type Builder = InitialBuilder & {
   setArtianType: (type: ArtianType) => void;
   setArtianInfusion: (i: number, v?: ArtianInfusion) => void;
   setArtianUpgrade: (i: number, v?: ArtianUpgrade) => void;
+  setGogmaziosFocus: (focus: GogmaziosFocus) => void;
+  setGogmaziosType: (type: ArtianType) => void;
+  setGogmaziosInfusion: (i: number, v?: ArtianInfusion) => void;
+  setGogmaziosReinforcement: (i: number, v?: GogmaziosReinforcement) => void;
+  setGogmaziosGroupSkill: (i: number, v?: SkillName) => void;
   setOtherBuff: (id: string, buff?: Buff) => void;
   setHelm: (helm?: Armor) => void;
   setWaist: (waist?: Armor) => void;
@@ -161,6 +172,7 @@ export const useBuild = create<Builder>((set, get) => {
         w: w,
         weaponSlots: [],
         artian: initialBuilder.artian,
+        gogmazios: initialBuilder.gogmazios,
         otherBuffs: produce(get().otherBuffs, (d) => {
           Object.keys(d).forEach((k) => {
             if (
@@ -190,6 +202,31 @@ export const useBuild = create<Builder>((set, get) => {
     },
     setArtianUpgrade: (i: number, v?: ArtianUpgrade) => {
       prod((d) => void (d.artian.upgrades[i] = v));
+    },
+    setGogmaziosFocus: (focus: GogmaziosFocus) => {
+      prod((d) => void (d.gogmazios.focus = focus));
+    },
+    setGogmaziosType: (type: ArtianType) => {
+      set(
+        produce<InitialBuilder>((d) => {
+          d.gogmazios.element = type;
+          if (type !== "No Element" && type !== undefined) return;
+          d.gogmazios.reinforcements.forEach((u, i) => {
+            if (u?.type === "Element") {
+              d.gogmazios.reinforcements[i] = undefined;
+            }
+          });
+        }),
+      );
+    },
+    setGogmaziosInfusion: (i: number, v?: ArtianInfusion) => {
+      prod((d) => void (d.gogmazios.infusions[i] = v));
+    },
+    setGogmaziosReinforcement: (i: number, v?: GogmaziosReinforcement) => {
+      prod((d) => void (d.gogmazios.reinforcements[i] = v));
+    },
+    setGogmaziosGroupSkill: (i: number, v?: SkillName) => {
+      prod((d) => void (d.gogmazios.groupSkills[i] = v));
     },
     setOtherBuff: (id, buff?) => {
       set(
@@ -296,6 +333,7 @@ export const useComputed = () => {
   const {
     w,
     artian,
+    gogmazios,
     otherBuffs,
     helm,
     body,
@@ -318,7 +356,8 @@ export const useComputed = () => {
     charmSkills,
   } = useBuild();
 
-  const equipment = [helm, body, arms, waist, legs].filter(
+  return useMemo(() => {
+    const equipment = [helm, body, arms, waist, legs].filter(
     (n): n is Armor => !!n,
   );
 
@@ -354,17 +393,28 @@ export const useComputed = () => {
     ...manualSkills,
   };
 
+  // Add Gogmazios group skills to the initial accumulator
+  const gogmaziosGroupSkillsAcc = gogmazios.groupSkills.reduce<Record<SkillName, number>>((acc, skill) => {
+    if (skill) {
+      // Each Gogmazios group skill counts as 1 piece (imitating one armor piece)
+      acc[skill] = 1;
+    }
+    return acc;
+  }, {});
+
+  // Start equipment reduction from gogmaziosGroupSkillsAcc so values accumulate
   const groupPoints = {
     ...equipment.reduce<Record<SkillName, number>>((acc, i) => {
       const { groupSkill, seriesSkills } = i;
       if (groupSkill) {
         acc[groupSkill] = acc[groupSkill] ? acc[groupSkill] + 1 : 1;
       }
+      // Handle series skills
       for (const ss of seriesSkills ?? []) {
         acc[ss] = acc[ss] ? acc[ss] + 1 : 1;
       }
       return acc;
-    }, {}),
+    }, gogmaziosGroupSkillsAcc),
     ...manualSkills,
   };
 
@@ -536,6 +586,158 @@ export const useComputed = () => {
     });
   });
 
+  // Gogmazios (applies on top of artian if gogmazios weapon)
+  const finalWeapon = produce(weapon, (d) => {
+    if (!d.gogmazios) return;
+
+    // Apply focus bonuses
+    if (gogmazios.focus === "Attack") {
+      d.attack += 10;
+      d.affinity -= 15;
+    } else if (gogmazios.focus === "Affinity") {
+      d.affinity += 10;
+      d.attack -= 10;
+      if (d.element) d.element.value -= 20;
+      if (d.status) d.status.value -= 20;
+      if (d.sharpness) {
+        d.sharpness[Sharpnesses.indexOf("White")] = Math.max(0, d.sharpness[Sharpnesses.indexOf("White")] - 10);
+      }
+    } else if (gogmazios.focus === "Element") {
+      if (d.element) d.element.value += 50;
+      if (d.status) d.status.value += 50;
+      d.affinity -= 5;
+    }
+
+    // Handle element/status setup (similar to artian)
+    if (isGunlance(d) && gogmazios.element) {
+      d.shelling.type = ArtianTypeToGunlanceShellType[gogmazios.element];
+    }
+
+    if (d.coatings) {
+      d.coatings = [];
+      if (
+        gogmazios.element === "Thunder" ||
+        gogmazios.element === "Dragon" ||
+        gogmazios.element === "Blast"
+      ) {
+        d.coatings.push("Power");
+      } else if (
+        gogmazios.element === "Ice" ||
+        gogmazios.element === "Paralysis" ||
+        gogmazios.element === "Poison"
+      ) {
+        d.coatings.push("Pierce");
+      } else if (
+        gogmazios.element === "No Element" ||
+        gogmazios.element === "Water" ||
+        gogmazios.element === "Fire" ||
+        gogmazios.element === "Sleep"
+      ) {
+        d.coatings.push("Close-range");
+      }
+
+      if (isStatusType(gogmazios.element)) d.coatings.push(gogmazios.element);
+    }
+
+    if (isWeaponBowgun(d)) {
+      const rapidFire = d.type === "Light Bowgun" ? true : undefined;
+      if (gogmazios.element === "Dragon") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Dragon = { levels: [1], rapidFire };
+      } else if (gogmazios.element === "Blast") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+        d.ammo.Sticky = { levels: [1] };
+      } else if (gogmazios.element === "Fire") {
+        d.ammo.Flaming = { levels: [1, 2], rapidFire };
+      } else if (gogmazios.element === "Ice" || gogmazios.element === "Sleep") {
+        d.ammo.Freeze = { levels: [1, 2], rapidFire };
+      } else if (
+        gogmazios.element === "Thunder" ||
+        gogmazios.element === "Paralysis"
+      ) {
+        d.ammo.Thunder = { levels: [1, 2], rapidFire };
+      } else if (gogmazios.element === "Water" || gogmazios.element === "Poison") {
+        d.ammo.Water = { levels: [1, 2], rapidFire };
+      }
+    }
+
+    if (isElementType(gogmazios.element)) {
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Elem Attack Boost",
+          "Blight Negated",
+          "Sonic Waves",
+          "Restore Sharpness",
+          `Echo Wave (${gogmazios.element})`,
+          "Resounding Melody",
+        ];
+      }
+      if (d.type === "Switch Axe" || d.type === "Charge Blade") {
+        d.phial = "Element";
+      }
+      if (!isWeaponBowgun(d)) {
+        d.element = { type: gogmazios.element, value: d.gogmazios.element };
+      }
+    } else if (isStatusType(gogmazios.element)) {
+      delete d.element;
+      if (d.type === "Hunting Horn") {
+        d.songs = [
+          "Status Attack Up",
+          "Divine Protection",
+          "All Ailments Negated",
+          `Echo Wave (${gogmazios.element})`,
+          "Offset Melody",
+        ];
+      }
+      if (d.type === "Switch Axe") d.phial = "Power";
+      if (gogmazios.element === "Blast" && d.type === "Bow") {
+        d.status = { type: gogmazios.element, value: 80 };
+      } else {
+        d.status = { type: gogmazios.element, value: d.gogmazios.status };
+      }
+    }
+
+    // Apply infusions (same as artian)
+    gogmazios.infusions.forEach((i) => {
+      if (i === "Attack") d.attack += 5;
+      if (i === "Affinity") d.affinity += 5;
+    });
+
+    // Apply reinforcements with levels
+    gogmazios.reinforcements.forEach((r) => {
+      if (!r) return;
+
+      if (r.type === "Attack") {
+        if (r.level === "II") d.attack += 6;
+        else if (r.level === "III") d.attack += 9;
+        else if (r.level === "EX") d.attack += 12;
+      }
+
+      if (r.type === "Affinity") {
+        if (r.level === "II") d.affinity += 6;
+        else if (r.level === "III") d.affinity += 8;
+        else if (r.level === "EX") d.affinity += 10;
+      }
+
+      if (r.type === "Element") {
+        const bonus = r.level === "II" ? 60 : r.level === "EX" ? 90 : 0;
+        if (d.element) d.element.value += bonus;
+        if (d.status) d.status.value += bonus;
+      }
+
+      if (r.type === "Sharpness" && d.sharpness) {
+        const bonus = r.level === "II" ? 30 : r.level === "EX" ? 50 : 0;
+        d.sharpness[Sharpnesses.indexOf("White")] += bonus;
+      }
+
+      if (r.type === "Ammo" && isWeaponBowgun(d)) {
+        // Ammo upgrades would need specific handling based on ammo types
+        // For now, we'll skip the detailed implementation
+        // const bonus = r.level === "II" ? 1 : r.level === "EX" ? 2 : 0;
+      }
+    });
+  });
+
   // Tetrad Shot
   const tetradBuff = buffs["Tetrad Shot"]?.tetrad;
 
@@ -549,12 +751,12 @@ export const useComputed = () => {
     if (flags.TetradAttack) buffs["Tetrad Attack"] = tetradAttackBuff;
   }
 
-  const uiAttack = calculateAttack(weapon.attack, buffs);
-  const uiElement = weapon.element
-    ? calculateElement(weapon.element.value, weapon.element.type, buffs)
+  const uiAttack = calculateAttack(finalWeapon.attack, buffs);
+  const uiElement = finalWeapon.element
+    ? calculateElement(finalWeapon.element.value, finalWeapon.element.type, buffs)
     : 0;
-  const uiStatus = weapon.status
-    ? calculateStatus(weapon.status.value, weapon.status.type, buffs)
+  const uiStatus = finalWeapon.status
+    ? calculateStatus(finalWeapon.status.value, finalWeapon.status.type, buffs)
     : 0;
 
   // Uptime B-Tree
@@ -626,10 +828,10 @@ export const useComputed = () => {
     weights.reduce((acc, weight) => {
       if (weight.weight === 0) return acc;
       const affinity = calculateAffinity({
-        affinity: weapon.affinity,
+        affinity: finalWeapon.affinity,
         buffs: weight.buffs,
         target,
-        rawType: Attacks[weapon.type][0].rawType ?? "Slash",
+        rawType: Attacks[finalWeapon.type][0].rawType ?? "Slash",
       });
 
       return acc + (affinity * weight.weight) / totalWeight;
@@ -642,7 +844,7 @@ export const useComputed = () => {
       (acc, weight) => {
         if (weight.weight === 0) return acc;
 
-        const hit = calculateHit(weapon, weight.buffs, atk, {
+        const hit = calculateHit(finalWeapon, weight.buffs, atk, {
           ...target,
           ...targetOverride,
         });
@@ -650,7 +852,7 @@ export const useComputed = () => {
         const affinity = atk.cantCrit
           ? 0
           : calculateAffinity({
-              affinity: weapon.affinity,
+              affinity: finalWeapon.affinity,
               buffs: weight.buffs,
               target,
               rawType: atk.rawType ?? "Slash",
@@ -664,7 +866,7 @@ export const useComputed = () => {
           affinity >= 0 ? (buffs["Critical Element"]?.criticalElement ?? 1) : 1;
 
         const crit = calculateCrit(
-          weapon,
+          finalWeapon,
           weight.buffs,
           atk,
           { ...target, ...targetOverride },
@@ -712,23 +914,48 @@ export const useComputed = () => {
     },
   );
 
-  // TODO: separate these into slices
-  return {
-    weapon,
-    skillPoints,
-    groupPoints,
-    buffs,
-    uiAttack,
-    uiElement,
-    uiStatus,
-    uiAffinity,
-    critMulti: baseCritMulti,
-    eleCritMulti: baseEleCritMulti,
-    calculateAtk: calcAtk,
-    effectiveRaw,
-    effectiveEle,
-    head,
-    weights,
-    totalWeight,
-  };
+    // TODO: separate these into slices
+    return {
+      weapon: finalWeapon,
+      skillPoints,
+      groupPoints,
+      buffs,
+      uiAttack,
+      uiElement,
+      uiStatus,
+      uiAffinity,
+      critMulti: baseCritMulti,
+      eleCritMulti: baseEleCritMulti,
+      calculateAtk: calcAtk,
+      effectiveRaw,
+      effectiveEle,
+      head,
+      weights,
+      totalWeight,
+    };
+  }, [
+    w,
+    artian,
+    gogmazios,
+    otherBuffs,
+    helm,
+    body,
+    arms,
+    waist,
+    legs,
+    weaponSlots,
+    helmSlots,
+    bodySlots,
+    armsSlots,
+    waistSlots,
+    legsSlots,
+    charmSlots,
+    disabled,
+    flags,
+    target,
+    manualSkills,
+    uptime,
+    manualSharpness,
+    charmSkills,
+  ]);
 };

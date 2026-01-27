@@ -420,6 +420,21 @@ export const HeavyBowguns: Bowgun[] = [
   },
   {
     type: "Heavy Bowgun",
+    name: "Gogmazios Heavy Bowgun",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    ammo: {
+      Normal: { levels: [2, 3] },
+      Pierce: { levels: [2, 3] },
+      Spread: { levels: [2, 3] },
+    },
+    slots: [3, 3, 3],
+    gogmazios: { element: 0, status: 0 },
+    skills: {},
+  },
+  {
+    type: "Heavy Bowgun",
     name: "Blazing Mitran",
     rarity: 8,
     attack: 220,

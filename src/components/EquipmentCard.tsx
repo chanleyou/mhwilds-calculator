@@ -6,6 +6,7 @@ import {
   DecorationPickerDialog,
   WeaponPickerDialog,
 } from "@/components";
+import { GogmaziosDialog } from "./GogmaziosDialog";
 import { useBuild } from "@/store/builder";
 
 export const EquipmentCard = () => {
@@ -46,6 +47,7 @@ export const EquipmentCard = () => {
       <div className="flex gap-2">
         <WeaponPickerDialog />
         {w.artian && <ArtianDialog />}
+        {w.gogmazios && <GogmaziosDialog />}
       </div>
       <div className="grid gap-2 sm:grid-cols-3">
         {[0, 1, 2].map((i) => {

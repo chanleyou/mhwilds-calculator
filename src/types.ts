@@ -103,6 +103,7 @@ export interface IWeapon extends Equip {
   handicraft?: Handicraft;
   slots: [SlotLevel, SlotLevel, SlotLevel];
   artian?: { element: number; status: number }; // if 3 matching
+  gogmazios?: { element: number; status: number }; // Gogmazios weapons
   phial?: SwitchAxePhialType | ChargeBladePhialType;
   shelling?: Shelling;
   ammo?: BowgunAmmoLevels;
@@ -483,6 +484,32 @@ export type Artian = {
     ArtianUpgrade?,
     ArtianUpgrade?,
   ];
+};
+
+// Gogmazios weapon types
+export const GogmaziosFocusOptions = ["Attack", "Affinity", "Element"] as const;
+export type GogmaziosFocus = (typeof GogmaziosFocusOptions)[number];
+
+export const GogmaziosReinforcementLevels = ["II", "III", "EX"] as const;
+export type GogmaziosReinforcementLevel = (typeof GogmaziosReinforcementLevels)[number];
+
+export type GogmaziosReinforcement = {
+  type: ArtianUpgrade;
+  level: GogmaziosReinforcementLevel;
+};
+
+export type Gogmazios = {
+  focus: GogmaziosFocus;
+  element: ArtianType;
+  infusions: [ArtianInfusion?, ArtianInfusion?, ArtianInfusion?];
+  reinforcements: [
+    GogmaziosReinforcement?,
+    GogmaziosReinforcement?,
+    GogmaziosReinforcement?,
+    GogmaziosReinforcement?,
+    GogmaziosReinforcement?,
+  ];
+  groupSkills: [SkillName?, SkillName?];
 };
 
 export type Target = { wound: boolean } & Hitzone;

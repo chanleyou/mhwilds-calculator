@@ -6,6 +6,8 @@ export * from "./ui/Card";
 export * from "./CharmPickerDialog";
 export * from "./Checkbox";
 export * from "./ComboDialog";
+export * from "./ComboExportDialog";
+export * from "./ComboImportDialog";
 export * from "./DecorationPickerDialog";
 export * from "./ui/Dialog";
 export * from "./ExportDialog";

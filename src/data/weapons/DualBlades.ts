@@ -384,6 +384,18 @@ export const DualBlades: MeleeWeapon[] = [
   },
   {
     type: "Dual Blades",
+    name: "Gogmazios Dual Blades",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    slots: [3, 3, 3],
+    gogmazios: { element: 270, status: 70 },
+    sharpness: [80, 40, 60, 80, 70, 20, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: {},
+  },
+  {
+    type: "Dual Blades",
     name: "Blazing Liel",
     rarity: 8,
     attack: 220,

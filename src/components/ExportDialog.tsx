@@ -4,6 +4,7 @@ import { SaveIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CombinedBuffs } from "@/data";
 import { useBuild } from "@/store/builder";
+import { useCombo } from "@/store/combo";
 import text from "@/text";
 import { Notice } from "./Notice";
 import { Button } from "./ui/Button";
@@ -15,6 +16,7 @@ export const ExportDialog = () => {
   const {
     w: weapon,
     artian,
+    gogmazios,
     helm,
     body,
     arms,
@@ -27,41 +29,61 @@ export const ExportDialog = () => {
     armsSlots,
     waistSlots,
     legsSlots,
+    charmSlots,
+    charmSkills,
     otherBuffs,
     uptime,
+    target,
   } = useBuild();
+
+  const { mode: comboMode, dynamic, snapshot } = useCombo();
 
   const [open, setOpen] = useState(false);
 
   const data = useMemo(
-    () =>
-      JSON.stringify(
+    () => {
+      // Helper to filter out null/undefined from arrays
+      const filterArray = <T,>(arr: (T | null | undefined)[]): T[] | undefined => {
+        const filtered = arr.filter((item): item is T => item != null);
+        return filtered.length > 0 ? filtered : undefined;
+      };
+
+      return JSON.stringify(
         {
           weapon: {
             name: weapon.name,
             type: weapon.type,
           },
-          artian: weapon.artian ? artian : undefined,
+          artian: weapon.artian
+            ? {
+                element: artian.element,
+                infusions: filterArray(artian.infusions),
+                upgrades: filterArray(artian.upgrades),
+              }
+            : undefined,
+          gogmazios: weapon.gogmazios
+            ? {
+                focus: gogmazios.focus,
+                element: gogmazios.element,
+                infusions: filterArray(gogmazios.infusions),
+                reinforcements: filterArray(gogmazios.reinforcements),
+                groupSkills: filterArray(gogmazios.groupSkills),
+              }
+            : undefined,
           helm: helm?.name,
           body: body?.name,
           arms: arms?.name,
           waist: waist?.name,
           legs: legs?.name,
           charm: charm?.name,
-          weaponSlots:
-            weaponSlots.length > 0
-              ? weaponSlots.map((s) => s?.name)
-              : undefined,
-          helmSlots:
-            helmSlots.length > 0 ? helmSlots.map((s) => s?.name) : undefined,
-          bodySlots:
-            bodySlots.length > 0 ? bodySlots.map((s) => s?.name) : undefined,
-          armsSlots:
-            armsSlots.length > 0 ? armsSlots.map((s) => s?.name) : undefined,
-          waistSlots:
-            waistSlots.length > 0 ? waistSlots.map((s) => s?.name) : undefined,
-          legsSlots:
-            legsSlots.length > 0 ? legsSlots.map((s) => s?.name) : undefined,
+          weaponSlots: filterArray(weaponSlots.map((s) => s?.name)),
+          helmSlots: filterArray(helmSlots.map((s) => s?.name)),
+          bodySlots: filterArray(bodySlots.map((s) => s?.name)),
+          armsSlots: filterArray(armsSlots.map((s) => s?.name)),
+          waistSlots: filterArray(waistSlots.map((s) => s?.name)),
+          legsSlots: filterArray(legsSlots.map((s) => s?.name)),
+          charmSlots: filterArray(charmSlots.map((s) => s?.name)),
+          charmSkills: filterArray(charmSkills),
           buffs: Object.entries(otherBuffs).reduce(
             (a, [k, v]) => {
               const buff = CombinedBuffs[k];
@@ -73,13 +95,30 @@ export const ExportDialog = () => {
             {} as Record<string, number>,
           ),
           uptime,
+          target,
+          combo:
+            dynamic.length > 0 || snapshot.length > 0
+              ? {
+                  mode: comboMode,
+                  attacks:
+                    comboMode === "Dynamic"
+                      ? dynamic.flatMap((a) =>
+                          Array(a.count).fill(a.name),
+                        )
+                      : snapshot.flatMap((a) =>
+                          Array(a.count).fill(a.name),
+                        ),
+                }
+              : undefined,
         },
         null,
         2,
-      ),
+      );
+    },
     [
       weapon,
       artian,
+      gogmazios,
       helm,
       body,
       arms,
@@ -92,8 +131,14 @@ export const ExportDialog = () => {
       armsSlots,
       waistSlots,
       legsSlots,
+      charmSlots,
+      charmSkills,
       otherBuffs,
       uptime,
+      target,
+      comboMode,
+      dynamic,
+      snapshot,
     ],
   );
 

@@ -73,6 +73,14 @@ export function AttacksTable({
 
     return weaponAttacks;
   }, [weaponAttacks, buffs]);
+
+  const attacksWithDamage = useMemo(() => {
+    return attacks.map((a) => ({
+      attack: a,
+      ...calculateAtk(a),
+    }));
+  }, [attacks, calculateAtk]);
+
   return (
     <Table>
       <thead>
@@ -91,8 +99,7 @@ export function AttacksTable({
         </TableHeadRow>
       </thead>
       <tbody>
-        {attacks.map((a, i) => {
-          const { hit, crit, avg } = calculateAtk(a);
+        {attacksWithDamage.map(({ attack: a, hit, crit, avg }, i) => {
           return (
             <TableRow
               key={a.name}

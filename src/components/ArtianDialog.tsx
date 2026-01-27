@@ -1,7 +1,8 @@
 import { CircleCheckIcon, SettingsIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useBuild } from "@/store/builder";
 import {
+  Artian,
   ArtianInfusion,
   ArtianInfusionOptions,
   ArtianTypeOptions,
@@ -26,9 +27,19 @@ export const ArtianDialog = () => {
   } = useBuild();
   const [open, setOpen] = useState(false);
 
+  // Local state for editing
+  const [localArtian, setLocalArtian] = useState<Artian>(artian);
+
+  // Initialize local state when dialog opens
+  useEffect(() => {
+    if (open) {
+      setLocalArtian(artian);
+    }
+  }, [open, artian]);
+
   const combined = useMemo(
-    () => [...artian.infusions, ...artian.upgrades],
-    [artian],
+    () => [...localArtian.infusions, ...localArtian.upgrades],
+    [localArtian],
   );
 
   const noAmmo = useMemo(() => {
@@ -52,16 +63,16 @@ export const ArtianDialog = () => {
     if (isBowgun(weapon.type)) return true;
     if (
       weapon.type === "Bow" &&
-      ["Sleep", "Poison", "Paralysis"].some((t) => t === artian.element)
+      ["Sleep", "Poison", "Paralysis"].some((t) => t === localArtian.element)
     )
       return true;
 
-    if (![...ElementTypes, ...StatusTypes].some((t) => t === artian.element)) {
+    if (![...ElementTypes, ...StatusTypes].some((t) => t === localArtian.element)) {
       return true;
     }
     if (combined.filter((o) => o === "Element").length >= 4) return true;
     return false;
-  }, [weapon.type, artian.element, combined]);
+  }, [weapon.type, localArtian.element, combined]);
 
   const disabledArtianInfusionOptions = useMemo(() => {
     const disabled: ArtianInfusion[] = [];
@@ -77,6 +88,13 @@ export const ArtianDialog = () => {
     if (noElement) disabled.push("Element");
     return disabled;
   }, [noAmmo, noSharpness, noAffinity, noElement]);
+
+  const handleSave = () => {
+    setArtianType(localArtian.element);
+    localArtian.infusions.forEach((u, i) => setArtianInfusion(i, u));
+    localArtian.upgrades.forEach((u, i) => setArtianUpgrade(i, u));
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -94,23 +112,27 @@ export const ArtianDialog = () => {
         <div className="flex flex-col gap-4">
           <Select
             label="Element"
-            value={artian.element}
+            value={localArtian.element}
             placeholder="Type"
             labelFn={(v) => v ?? ""}
             options={[...ArtianTypeOptions]}
-            onChangeValue={(v) => setArtianType(v)}
+            onChangeValue={(v) => setLocalArtian({ ...localArtian, element: v })}
           />
           <div className="flex flex-col gap-2">
             <label className="text-xs">Infusion</label>
             {[0, 1, 2].map((i) => (
               <Select
                 key={i}
-                value={artian.infusions[i]}
+                value={localArtian.infusions[i]}
                 placeholder={`Infusion ${i + 1}`}
                 options={[undefined, ...ArtianInfusionOptions]}
                 disabledOptions={disabledArtianInfusionOptions}
                 labelFn={(v) => v ?? ""}
-                onChangeValue={(v) => setArtianInfusion(i, v)}
+                onChangeValue={(v) => {
+                  const newInfusions = [...localArtian.infusions] as [ArtianInfusion?, ArtianInfusion?, ArtianInfusion?];
+                  newInfusions[i] = v;
+                  setLocalArtian({ ...localArtian, infusions: newInfusions });
+                }}
               />
             ))}
           </div>
@@ -119,18 +141,22 @@ export const ArtianDialog = () => {
             {[0, 1, 2, 3, 4].map((i) => (
               <Select
                 key={i}
-                value={artian.upgrades[i]}
+                value={localArtian.upgrades[i]}
                 placeholder={`Reinforcement ${i + 1}`}
                 options={[undefined, ...ArtianUpgradeOptions]}
                 disabledOptions={disabledArtianUpgradeOptions}
                 labelFn={(v) => v ?? ""}
-                onChangeValue={(v) => setArtianUpgrade(i, v)}
+                onChangeValue={(v) => {
+                  const newUpgrades = [...localArtian.upgrades] as [ArtianUpgrade?, ArtianUpgrade?, ArtianUpgrade?, ArtianUpgrade?, ArtianUpgrade?];
+                  newUpgrades[i] = v;
+                  setLocalArtian({ ...localArtian, upgrades: newUpgrades });
+                }}
               />
             ))}
           </div>
         </div>
         <div className="flex justify-end">
-          <Button variant="primary" size="sm" onClick={() => setOpen(false)}>
+          <Button variant="primary" size="sm" onClick={handleSave}>
             <CircleCheckIcon className="size-4" />
             Done
           </Button>

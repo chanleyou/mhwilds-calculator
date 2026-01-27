@@ -360,6 +360,18 @@ export const Hammers: MeleeWeapon[] = [
   },
   {
     type: "Hammer",
+    name: "Gogmazios Hammer",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    slots: [3, 3, 3],
+    gogmazios: { element: 350, status: 150 },
+    sharpness: [80, 40, 60, 80, 70, 20, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: {},
+  },
+  {
+    type: "Hammer",
     name: "Blazing Uria",
     rarity: 8,
     attack: 220,

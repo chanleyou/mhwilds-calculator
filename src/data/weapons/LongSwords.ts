@@ -338,6 +338,18 @@ export const LongSwords: MeleeWeapon[] = [
   },
   {
     type: "Long Sword",
+    name: "Gogmazios Long Sword",
+    rarity: 8,
+    attack: 190,
+    affinity: 5,
+    slots: [3, 3, 3],
+    gogmazios: { element: 300, status: 100 },
+    sharpness: [80, 40, 60, 80, 70, 20, 0],
+    handicraft: [50, 0, 0, 0],
+    skills: {},
+  },
+  {
+    type: "Long Sword",
     name: "Blazing Rafel",
     rarity: 8,
     attack: 220,
