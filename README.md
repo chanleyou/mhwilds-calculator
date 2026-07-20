@@ -43,6 +43,12 @@ Switch Axe Unbridled Slash and Full Release Slash Element Phial Explosions still
 
 The damage bonus from Charge Blade Sword Boost and Switch Axe Sword Mode on hitzones < 45 isn't supported yet (the actual Mind's Eye skill itself works).
 
+
+
+## Related Resources
+
+- [MH Wilds Guides](https://mhwildsguides.xyz/) — Monster Hunter Wilds weapon tier lists, monster guides, armor builds, and skill combos.
+
 ## License
 
 This project is licensed under the MIT License - see [LICENSE.md](LICENSE.md) for details.
